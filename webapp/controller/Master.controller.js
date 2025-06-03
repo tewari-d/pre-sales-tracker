@@ -5,6 +5,9 @@ sap.ui.define([
 
     return Controller.extend("com.nagarro.www.presalestracker.controller.Master", {
         onInit() {
+        },
+        onSelectionChange(oEvent) {
+            sap.m.MessageToast.show("Bello");
         }
     });
 });

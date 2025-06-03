@@ -1,6 +1,95 @@
-<mvc:View controllerName="com.nagarro.www.presalestracker.controller.Master"
+<mvc:View
+    controllerName="com.nagarro.www.presalestracker.controller.Master"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+        titleAlignment="Center"
+    >
+        <content>
+            <f:FlexibleColumnLayout
+                id="FlexibleColumnID"
+                backgroundDesign="Transparent"
+                initialBeginColumnPage="FirstPage"
+                layout="ThreeColumnsBeginExpandedEndHidden"
+            >
+                <f:beginColumnPages>
+                    <Page id="_IDGenPage">
+                        <content>
+                            <smartFilterBar:SmartFilterBar
+                                id="presalesDBsmartFilterBar"
+                                entitySet="ZCDS_PS_MASTER"
+                                persistencyKey="_presalesfiori_dashboard_filters"
+                            >
+                                <!-- layout data used to make the table growing but the filter bar fixed -->
+                                <smartFilterBar:layoutData>
+                                    <FlexItemData
+                                        id="_IDGenFlexItemData"
+                                        shrinkFactor="0"
+                                    />
+                                </smartFilterBar:layoutData>
+                            </smartFilterBar:SmartFilterBar>
+                            <smartTable:SmartTable
+                                id="presalesDBSmartTable"
+                                entitySet="ZCDS_PS_MASTER"
+                                smartFilterId="presalesDBsmartFilterBar"
+                                tableType="Table"
+                                width="auto"
+                                enableExport="true"
+                                beforeExport="onBeforeExport"
+                                useVariantManagement="true"
+                                useTablePersonalisation="true"
+                                header="Parameters"
+                                showRowCount="true"
+                                persistencyKey="_presalesfiori_dashboard_table"
+                                enableAutoBinding="true"
+                                beforeRebindTable="onbeforeRebindTable"
+                            >
+                                <!-- layout data used to make the table growing but the filter bar fixed -->
+                                <smartTable:layoutData>
+                                    <FlexItemData
+                                        id="_IDGenFlexItemData1"
+                                        growFactor="1"
+                                        baseSize="0%"
+                                    />
+                                </smartTable:layoutData>
+                                <smartTable:customToolbar>
+                                    <OverflowToolbar
+                                        id="_IDGenOverflowToolbar1"
+                                        design="Transparent"
+                                    >
+                                        <ToolbarSpacer
+                                            id="_IDGenToolbarSpacer"
+                                        />
+                                        <Button
+                                            id="_IDGenOverflowToolbarButton"
+                                            tooltip="Create New"
+                                            text="Create"
+                                            press="onCreate"
+                                        />
+                                    </OverflowToolbar>
+                                </smartTable:customToolbar>
+                                <Table
+                                    mode="SingleSelectMaster"
+                                    id="innerUi5Table"
+                                    selectionChange="onSelectionChange"
+                                    growing="false"
+                                >
+                                </Table>
+                            </smartTable:SmartTable>
+                        </content>
+                    </Page>
+                </f:beginColumnPages>
+                <f:midColumnPages />
+            </f:FlexibleColumnLayout>
+        </content>
     </Page>
 </mvc:View>
