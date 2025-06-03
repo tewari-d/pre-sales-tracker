@@ -5,6 +5,22 @@ sap.ui.define([
 
     return Controller.extend("com.nagarro.www.presalestracker.controller.Detail", {
         onInit() {
+            this.oRouter = this.getOwnerComponent().getRouter();
+            this.oModel = this.getOwnerComponent().getModel();
+
+            this.oRouter.getRoute("Detail").attachPatternMatched(this._onOppMatched, this);
+        },
+        toggleAreaPriority(oEvent) {
+            debugger;
+        },
+        _onOppMatched: function (oEvent) {
+            debugger;
+            this._id = oEvent.getParameter("arguments").id || this._id || "0";
+            this.getView().bindElement({
+                path: "/ZCDS_PS_MASTER('" + this._id + "')",
+                model: "",
+                events: { dataReceived: () => { debugger; }, change: () => { debugger; } }
+            });
         }
     });
 });

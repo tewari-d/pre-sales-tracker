@@ -21,7 +21,7 @@
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
                     <m:Title
-                        text="Deepak"
+                        text="Details"
                         wrapping="true"
                         class="sapUiSmallMarginEnd"
                     />
@@ -85,61 +85,12 @@
                         type="Transparent"
                     />
                     <m:Button
-                        text="Copy"
-                        type="Transparent"
-                    />
-                    <m:Button
-                        text="Toggle Footer"
-                        type="Transparent"
-                        press="onToggleFooter"
-                    />
-                    <m:Button
                         icon="sap-icon://action"
                         type="Transparent"
                     />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
-
-        <headerContent>
-            <m:FlexBox
-                wrap="Wrap"
-                fitContainer="true"
-                alignItems="Stretch"
-            >
-                <m:Avatar
-                    src="../../../../../../../{products>ProductPicUrl}"
-                    displaySize="L"
-                    displayShape="Square"
-                    class="sapUiTinyMarginEnd"
-                />
-                <m:VBox
-                    justifyContent="Center"
-                    class="sapUiSmallMarginEnd"
-                >
-                    <m:Label text="Main Category" />
-                    <m:Text text="{products>MainCategory}" />
-                </m:VBox>
-                <m:VBox
-                    justifyContent="Center"
-                    class="sapUiSmallMarginEnd"
-                >
-                    <m:Label text="Subcategory" />
-                    <m:Text text="{products>Category}" />
-                </m:VBox>
-                <m:VBox
-                    justifyContent="Center"
-                    class="sapUiSmallMarginEnd"
-                >
-                    <m:Label text="Price" />
-                    <m:ObjectNumber
-                        number="{products>CurrencyCode} {products>Price}"
-                        emphasized="false"
-                    />
-                </m:VBox>
-            </m:FlexBox>
-        </headerContent>
-
         <sections>
             <ObjectPageSection title="General Information">
                 <subSections>
@@ -157,11 +108,11 @@
                                 columnsM="1"
                             >
                                 <form:content>
-                                    <m:Label text="Product ID" />
-                                    <m:Text text="{products>ProductId}" />
-                                    <m:Label text="Description" />
+                                    <m:Label text="Customer" />
+                                    <m:Text text="{Master>Geography}" />
+                                    <m:Label text="Line Of Business" />
                                     <m:Text text="{products>Description}" />
-                                    <m:Label text="Supplier" />
+                                    <m:Label text="Status" />
                                     <m:Text text="{products>SupplierName}" />
                                 </form:content>
                             </form:SimpleForm>
@@ -170,7 +121,7 @@
                 </subSections>
             </ObjectPageSection>
 
-            <ObjectPageSection title="Suppliers">
+            <ObjectPageSection title="Partners">
                 <subSections>
                     <ObjectPageSubSection>
                         <blocks>
@@ -178,7 +129,7 @@
                                 id="suppliersTable"
                                 mode="SingleSelectMaster"
                                 itemPress="handleItemPress"
-                                items="{path : 'products>/ProductCollectionStats/Filters/1/values'}"
+                                items="{path : 'partners>'}"
                             >
                                 <m:columns>
                                     <m:Column />
@@ -187,7 +138,7 @@
                                     <m:ColumnListItem type="Navigation">
                                         <m:cells>
                                             <m:ObjectIdentifier
-                                                text="{products>text}"
+                                                text="{partners>PartnerName}"
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>
