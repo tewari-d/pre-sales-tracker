@@ -26,28 +26,6 @@
                         class="sapUiSmallMarginEnd"
                     />
                 </expandedHeading>
-
-                <snappedHeading>
-                    <m:FlexBox
-                        wrap="Wrap"
-                        fitContainer="true"
-                        alignItems="Center"
-                    >
-                        <m:FlexBox
-                            wrap="NoWrap"
-                            fitContainer="true"
-                            alignItems="Center"
-                            class="sapUiTinyMarginEnd"
-                        >
-                            <m:Title
-                                text="Tewari"
-                                wrapping="true"
-                                class="sapUiTinyMarginEnd"
-                            />
-                        </m:FlexBox>
-                    </m:FlexBox>
-                </snappedHeading>
-
                 <navigationActions>
                     <m:OverflowToolbarButton
                         type="Transparent"
@@ -75,10 +53,10 @@
                 </navigationActions>
 
                 <actions>
-                    <m:Button
-                        text="Edit"
-                        type="Emphasized"
-                        press="toggleAreaPriority"
+                    <m:Switch
+                        state="true"
+                        customTextOn="Edit"
+                        customTextOff="Display"
                     />
                     <m:Button
                         text="Delete"
@@ -109,27 +87,54 @@
                             >
                                 <form:content>
                                     <m:Label text="Customer" />
-                                    <m:Text text="{Master>Geography}" />
+                                    <m:Text text="{Geography}" />
                                     <m:Label text="Line Of Business" />
-                                    <m:Text text="{products>Description}" />
+                                    <m:Text text="{LineOfBusiness}" />
                                     <m:Label text="Status" />
-                                    <m:Text text="{products>SupplierName}" />
+                                    <m:Text text="{Status}" />
                                 </form:content>
                             </form:SimpleForm>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-
+            <ObjectPageSection title="Remarks">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:Table
+                                id="idRemarksTable"
+                                mode="SingleSelectMaster"
+                                itemPress="handleItemPress"
+                                items="{path : 'toRemarks'}"
+                            >
+                                <m:columns>
+                                    <m:Column />
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem type="Navigation">
+                                        <m:cells>
+                                            <m:Input
+                                                value="{RmText}"
+                                                editable="true"
+                                            />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
             <ObjectPageSection title="Partners">
                 <subSections>
                     <ObjectPageSubSection>
                         <blocks>
                             <m:Table
-                                id="suppliersTable"
+                                id="idPartnersTable"
                                 mode="SingleSelectMaster"
                                 itemPress="handleItemPress"
-                                items="{path : 'partners>'}"
+                                items="{path : 'toParters'}"
                             >
                                 <m:columns>
                                     <m:Column />
@@ -138,7 +143,7 @@
                                     <m:ColumnListItem type="Navigation">
                                         <m:cells>
                                             <m:ObjectIdentifier
-                                                text="{partners>PartnerName}"
+                                                text="{PartnerName}"
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>

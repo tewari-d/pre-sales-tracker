@@ -14,12 +14,9 @@ sap.ui.define([
             debugger;
         },
         _onOppMatched: function (oEvent) {
-            debugger;
             this._id = oEvent.getParameter("arguments").id || this._id || "0";
             this.getView().bindElement({
-                path: "/ZCDS_PS_MASTER('" + this._id + "')",
-                model: "",
-                events: { dataReceived: () => { debugger; }, change: () => { debugger; } }
+                path: "/ZCDS_PS_MASTER('" + this._id + "')"
             });
         }
     });
