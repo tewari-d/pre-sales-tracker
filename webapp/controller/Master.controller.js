@@ -7,7 +7,7 @@ sap.ui.define([
         onInit() {
         },
         onSelectionChange(oEvent) {
-            sap.m.MessageToast.show("Bello");
+            sap.m.MessageToast.show("Hello");
         }
     });
 });
