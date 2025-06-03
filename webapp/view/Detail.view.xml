@@ -1,91 +1,62 @@
-<mvc:View
-    displayBlock="true"
-    controllerName="com.nagarro.www.presalestracker.controller.Detail"
-    height="100%"
+<mvc:View displayBlock="true" controllerName="com.nagarro.www.presalestracker.controller.Detail" height="100%"
     xmlns="sap.uxap"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:m="sap.m"
     xmlns:f="sap.f"
-    xmlns:form="sap.ui.layout.form"
->
-    <ObjectPageLayout
-        id="ObjectPageLayout"
-        showTitleInHeaderContent="true"
-        alwaysShowContentHeader="false"
-        preserveHeaderStateOnScroll="false"
-        headerContentPinnable="true"
-        isChildPage="true"
-        upperCaseAnchorBar="false"
-    >
+    xmlns:l="sap.ui.layout"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:core="sap.ui.core"
+    xmlns:smartField="sap.ui.comp.smartfield" core:require="{DateType: 'sap/ui/model/type/Date'}"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:form="sap.ui.layout.form">
+    <ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="true" headerContentPinnable="true" isChildPage="true" toggleHeaderOnTitleClick="false" upperCaseAnchorBar="false">
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Title
-                        text="Details"
-                        wrapping="true"
-                        class="sapUiSmallMarginEnd"
-                    />
+                    <m:Title text="{CustomerName}" wrapping="true" class="sapUiSmallMarginEnd" />
+                    <!-- <ObjectPageHeader id="idObjectPageHeader" objectSubtitle="{detail>/ID}" objectTitle="{CustomerName}" /> -->
                 </expandedHeading>
                 <navigationActions>
-                    <m:OverflowToolbarButton
-                        type="Transparent"
-                        icon="sap-icon://full-screen"
-                        press="handleFullScreen"
-                        id="enterFullScreenBtn"
-                        tooltip="Enter Full Screen Mode"
-                        visible="true"
-                    />
-                    <m:OverflowToolbarButton
-                        type="Transparent"
-                        icon="sap-icon://exit-full-screen"
-                        press="handleExitFullScreen"
-                        id="exitFullScreenBtn"
-                        tooltip="Exit Full Screen Mode"
-                        visible="true"
-                    />
-                    <m:OverflowToolbarButton
-                        type="Transparent"
-                        icon="sap-icon://decline"
-                        press="handleClose"
-                        tooltip="Close middle column"
-                        visible="true"
-                    />
+                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="onOverflowToolbarButtonFullScreenPress" id="idEnterFullScreenOverflowToolbarButton" tooltip="Enter Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="onOverflowToolbarButtonExitFullScreenPress" id="idExitFullScreenOverflowToolbarButton" tooltip="Exit Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                    <m:OverflowToolbarButton id="idCloseOverflowToolbarButton" type="Transparent" icon="sap-icon://decline" press="onOverflowToolbarButtonClosePress" tooltip="Close middle column" visible="{= ${comp>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
                 </navigationActions>
 
                 <actions>
-                    <m:Switch
-                        state="true"
-                        customTextOn="Edit"
-                        customTextOff="Display"
-                    />
-                    <m:Button
-                        text="Delete"
-                        type="Transparent"
-                    />
-                    <m:Button
-                        icon="sap-icon://action"
-                        type="Transparent"
-                    />
+                    <m:Switch state="true" customTextOn="Edit" customTextOff="Display" />
+                    <m:Button text="Delete" type="Transparent" />
+
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
+        <headerContent>
+            <m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+                <!-- <m:Avatar src="../../../../../../../{products>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd">
+                </m:Avatar> -->
+                <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <m:Label text="Received Date"/>
+                    <m:Text text="{path: 'ReceivedDate', type:'sap.ui.model.type.Date', formatOptions: { style:'medium' } }"/>
+                </m:VBox>
+                <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <m:Label text="Status"/>
+                    <m:Text text="{Status}"/>
+                </m:VBox>
+                <m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <m:Label text="Documents URL"/>
+                    <m:Link text="Click here for Opportunity Documents" href="{DocUrl}"/>
+                </m:VBox>
+            </m:FlexBox>
+        </headerContent>
         <sections>
             <ObjectPageSection title="General Information">
                 <subSections>
                     <ObjectPageSubSection>
                         <blocks>
-                            <form:SimpleForm
-                                maxContainerCols="2"
-                                editable="false"
-                                layout="ResponsiveGridLayout"
-                                labelSpanL="12"
-                                labelSpanM="12"
-                                emptySpanL="0"
-                                emptySpanM="0"
-                                columnsL="1"
-                                columnsM="1"
-                            >
+
+                            <!-- <form:SimpleForm maxContainerCols="2" editable="false" layout="ColumnLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
                                 <form:content>
+                                    <m:Label text="Opportunity Description" />
+                                    <m:ExpandableText class="sapUiTinyMarginBottom sapUiTinyMarginTop" text="{OppDesc}" />
                                     <m:Label text="Customer" />
                                     <m:Text text="{Geography}" />
                                     <m:Label text="Line Of Business" />
@@ -93,7 +64,72 @@
                                     <m:Label text="Status" />
                                     <m:Text text="{Status}" />
                                 </form:content>
-                            </form:SimpleForm>
+                            </form:SimpleForm> -->
+                            <smartForm:SmartForm id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="OnOff" app:defaultDropDownDisplayBehaviour="idAndDescription" editTogglable="false" title="{Name}" validationMode="Async" editToggled="handleEditToggled">
+                                <smartForm:layout>
+                                    <smartForm:ColumnLayout columnsM="2" columnsL="3" columnsXL="3"/>
+                                </smartForm:layout>
+                                <smartForm:Group title="Customer Details">
+                                    <!-- <smartForm:GroupElement label="Opportunity Description">
+                                        <smartField:SmartField value="{OppDesc}" editable="false" />
+                                    </smartForm:GroupElement> -->
+                                    <smartForm:GroupElement label="Geography">
+                                        <smartField:SmartField value="{Geography}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Line Of Business">
+                                        <smartField:SmartField value="{LineOfBusiness}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="	SAP Area of Solution / Requirement">
+                                        <smartField:SmartField value="{SolutionArea}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Country">
+                                        <smartField:SmartField value="{Country}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Deal Type">
+                                        <smartField:SmartField value="{DealType}" editable="false" />
+                                    </smartForm:GroupElement>
+                                </smartForm:Group>
+                                <smartForm:Group title="Opportunity Details">
+                                    <smartForm:GroupElement label="Opportunity Description">
+                                        <smartField:SmartField value="{OppDesc}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Opportunity Type">
+                                        <smartField:SmartField value="{OppType}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Received Date">
+                                        <smartField:SmartField value="{ReceivedDate}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Submission Date">
+                                        <smartField:SmartField value="{SubmissionDate}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Opp. Size TCV">
+                                        <smartField:SmartField value="{OppTcv}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Commercial Model">
+                                        <smartField:SmartField value="{CommModel}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Win / Loss Date">
+                                        <smartField:SmartField value="{CloseDate}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Probability (%)">
+                                        <smartField:SmartField value="{Probability}" editable="false" />
+                                    </smartForm:GroupElement>
+                                </smartForm:Group>
+                                <smartForm:Group title="Administrative Details">
+                                    <smartForm:GroupElement label="Created By">
+                                        <smartField:SmartField value="{CreatedBy}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Created On">
+                                        <smartField:SmartField value="{CreatedOn}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Last Changed By">
+                                        <smartField:SmartField value="{UpdatedBy}" editable="false" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement label="Last Changed On">
+                                        <smartField:SmartField value="{UpdatedOn}" editable="false" />
+                                    </smartForm:GroupElement>
+                                </smartForm:Group>
+                            </smartForm:SmartForm>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
@@ -102,26 +138,26 @@
                 <subSections>
                     <ObjectPageSubSection>
                         <blocks>
-                            <m:Table
-                                id="idRemarksTable"
-                                mode="SingleSelectMaster"
-                                itemPress="handleItemPress"
-                                items="{path : 'toRemarks'}"
-                            >
+                            <!-- <m:Table id="idRemarksTable" mode="SingleSelectMaster" itemPress="handleItemPress" items="{path : 'toRemarks'}">
                                 <m:columns>
                                     <m:Column />
                                 </m:columns>
                                 <m:items>
                                     <m:ColumnListItem type="Navigation">
                                         <m:cells>
-                                            <m:Input
-                                                value="{RmText}"
-                                                editable="true"
-                                            />
+                                            <m:Input value="{RmText}" editable="true" />
                                         </m:cells>
                                     </m:ColumnListItem>
                                 </m:items>
-                            </m:Table>
+                            </m:Table> -->
+                            <l:VerticalLayout class="sapUiContentPadding" width="100%">
+                                <l:content>
+                                    <m:List items="{path : 'toRemarks'}">
+                                        <m:FeedListItem senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}">
+                                        </m:FeedListItem>
+                                    </m:List>
+                                </l:content>
+                            </l:VerticalLayout>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
@@ -130,21 +166,14 @@
                 <subSections>
                     <ObjectPageSubSection>
                         <blocks>
-                            <m:Table
-                                id="idPartnersTable"
-                                mode="SingleSelectMaster"
-                                itemPress="handleItemPress"
-                                items="{path : 'toParters'}"
-                            >
+                            <m:Table id="idPartnersTable" mode="SingleSelectMaster" itemPress="handleItemPress" items="{path : 'toParters'}">
                                 <m:columns>
                                     <m:Column />
                                 </m:columns>
                                 <m:items>
                                     <m:ColumnListItem type="Navigation">
                                         <m:cells>
-                                            <m:ObjectIdentifier
-                                                text="{PartnerName}"
-                                            />
+                                            <m:ObjectIdentifier text="{PartnerName}" />
                                         </m:cells>
                                     </m:ColumnListItem>
                                 </m:items>
