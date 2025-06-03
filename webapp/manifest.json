@@ -98,19 +98,9 @@
         "viewPath": "com.nagarro.www.presalestracker.view"
       },
       "routes": [
-        {
-          "name": "RouteMaster",
-          "pattern": ":?query:",
-          "target": [
-            "TargetMaster"
-          ]
-        }
+        
       ],
       "targets": {
-        "TargetMaster": {
-          "id": "Master",
-          "name": "Master"
-        }
       }
     },
     "rootView": {

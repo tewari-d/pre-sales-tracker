@@ -5,6 +5,9 @@ sap.ui.define([
 
   return BaseController.extend("com.nagarro.www.presalestracker.controller.App", {
       onInit() {
+      },
+      onFCLStateCHange(oEvent){
+
       }
   });
 });
