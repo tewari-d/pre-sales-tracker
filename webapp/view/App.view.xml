@@ -1,11 +1,8 @@
-<mvc:View controllerName="com.nagarro.www.presalestracker.controller.App"
-    displayBlock="true"
-    xmlns="sap.f"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:m="sap.m">
-    <FlexibleColumnLayout id="idfcl" backgroundDesign="Solid" stateChange="onFCLStateCHange">
-		<beginColumnPages>
-			<mvc:XMLView id="beginView" viewName="com.nagarro.www.presalestracker.view.Master"/>
-		</beginColumnPages>
-	</FlexibleColumnLayout>
+<mvc:View controllerName="com.nagarro.www.presalestracker.controller.App" displayBlock="true"
+  xmlns="sap.f"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:m="sap.m" height="100%">
+  <m:Page id="_IDGenPage" showHeader="false">
+    <FlexibleColumnLayout id="idfcl" backgroundDesign="Solid" layout="{comp>/layout}" stateChange="onStateChanged" />
+  </m:Page>
 </mvc:View>

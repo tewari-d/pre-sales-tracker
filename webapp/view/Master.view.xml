@@ -1,27 +1,18 @@
-<mvc:View
-    controllerName="com.nagarro.www.presalestracker.controller.Master"
-    xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
+<mvc:View controllerName="com.nagarro.www.presalestracker.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
->
-    <f:DynamicPage
-        id="dynamicPageId"
-        toggleHeaderOnTitleClick="false"
-    >
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
                 <f:heading>
-                    <Title
-                        id="_IDGenTitle"
-                        text="Opportunities"
-                    />
+                    <Title id="_IDGenTitle" text="Opportunities" />
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -29,64 +20,24 @@
         <!-- DynamicPage Content -->
         <f:content>
             <layout:VerticalLayout id="_IDGenVerticalLayout">
-                <smartFilterBar:SmartFilterBar
-                    id="presalesDBsmartFilterBar"
-                    entitySet="ZCDS_PS_MASTER"
-                    persistencyKey="_presalesfiori_dashboard_filters"
-                >
+                <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="ZCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters">
                     <!-- layout data used to make the table growing but the filter bar fixed -->
                     <smartFilterBar:layoutData>
-                        <FlexItemData
-                            id="_IDGenFlexItemData"
-                            shrinkFactor="0"
-                        />
+                        <FlexItemData id="_IDGenFlexItemData" shrinkFactor="0" />
                     </smartFilterBar:layoutData>
                 </smartFilterBar:SmartFilterBar>
-                <smartTable:SmartTable
-                    id="presalesDBSmartTable"
-                    entitySet="ZCDS_PS_MASTER"
-                    smartFilterId="presalesDBsmartFilterBar"
-                    tableType="Table"
-                    width="auto"
-                    enableExport="true"
-                    beforeExport="onBeforeExport"
-                    useVariantManagement="true"
-                    useTablePersonalisation="true"
-                    header="Parameters"
-                    showRowCount="true"
-                    persistencyKey="_presalesfiori_dashboard_table"
-                    enableAutoBinding="true"
-                    beforeRebindTable="onbeforeRebindTable"
-                >
+                <smartTable:SmartTable id="presalesDBSmartTable" entitySet="ZCDS_PS_MASTER" smartFilterId="presalesDBsmartFilterBar" tableType="Table" width="auto" enableExport="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Parameters" showRowCount="true" persistencyKey="_presalesfiori_dashboard_table" enableAutoBinding="true" beforeRebindTable="onbeforeRebindTable" requestAtLeastFields="Id">
                     <!-- layout data used to make the table growing but the filter bar fixed -->
                     <smartTable:layoutData>
-                        <FlexItemData
-                            id="_IDGenFlexItemData1"
-                            growFactor="1"
-                            baseSize="0%"
-                        />
+                        <FlexItemData id="_IDGenFlexItemData1" growFactor="1" baseSize="0%" />
                     </smartTable:layoutData>
                     <smartTable:customToolbar>
-                        <OverflowToolbar
-                            id="_IDGenOverflowToolbar1"
-                            design="Transparent"
-                        >
+                        <OverflowToolbar id="_IDGenOverflowToolbar1" design="Transparent">
                             <ToolbarSpacer id="_IDGenToolbarSpacer" />
-                            <Button
-                                id="_IDGenOverflowToolbarButton"
-                                tooltip="Create New"
-                                text="Create"
-                                press="onCreate"
-                            />
+                            <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Create" press="onCreate" />
                         </OverflowToolbar>
                     </smartTable:customToolbar>
-                    <Table
-                        mode="SingleSelectMaster"
-                        id="innerUi5Table"
-                        selectionChange="onSelectionChange"
-                        itemPress="onItemPress"
-                        growing="false"
-                    />
+                    <Table mode="SingleSelectMaster" id="innerUi5Table" selectionChange="onSelectionChange" itemPress="onItemPress" growing="false" />
                 </smartTable:SmartTable>
             </layout:VerticalLayout>
         </f:content>
@@ -95,16 +46,8 @@
         <f:footer>
             <OverflowToolbar id="_IDGenOverflowToolbar">
                 <ToolbarSpacer id="_IDGenToolbarSpacer1" />
-                <Button
-                    id="_IDGenButton"
-                    type="Accept"
-                    text="Accept"
-                />
-                <Button
-                    id="_IDGenButton1"
-                    type="Reject"
-                    text="Reject"
-                />
+                <Button id="_IDGenButton" type="Accept" text="Accept" />
+                <Button id="_IDGenButton1" type="Reject" text="Reject" />
             </OverflowToolbar>
         </f:footer>
     </f:DynamicPage>

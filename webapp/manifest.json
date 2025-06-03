@@ -89,25 +89,52 @@
       "config": {
         "routerClass": "sap.m.routing.Router",
         "controlAggregation": "pages",
-        "controlId": "app",
+        "controlId": "idfcl",
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
         "path": "com.nagarro.www.presalestracker.view",
-        "async": true,
-        "viewPath": "com.nagarro.www.presalestracker.view"
+        "async": true
       },
       "routes": [
-        
+        {
+          "pattern": ":layout:",
+          "name": "Master",
+          "target": [
+            "TargetMasterPage",
+            "TargetDetailPage"
+          ]
+        },
+        {
+          "pattern": "Detail/{id}/{layout}",
+          "name": "Detail",
+          "target": [
+            "TargetMasterPage",
+            "TargetDetailPage"
+          ]
+        }
       ],
       "targets": {
+        "TargetMasterPage": {
+          "id": "Master",
+          "name": "Master",
+          "controlAggregation": "beginColumnPages"
+        },
+        "TargetDetailPage": {
+          "id": "Detail",
+          "name": "Detail",
+          "controlAggregation": "midColumnPages"
+        }
       }
     },
     "rootView": {
       "viewName": "com.nagarro.www.presalestracker.view.App",
       "type": "XML",
-      "id": "App",
+      "id": "idfcl",
       "async": true
+    },
+    "config": {
+      "fullWidth": true
     }
   }
 }
