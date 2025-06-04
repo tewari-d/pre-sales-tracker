@@ -426,7 +426,7 @@
                             <m:Table
                                 id="partnerTable"
                                 items="{path: 'toParters'}"
-                                visible="{= ${viewEditableModel>/showTable} }"
+                                visible="true"
                                 inset="false"
                                 fixedLayout="false"
                                 headerText="Partners"
