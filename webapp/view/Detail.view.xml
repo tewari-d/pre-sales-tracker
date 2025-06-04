@@ -6,6 +6,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:m="sap.m"
     xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form"
 >
     <ObjectPageLayout
@@ -18,9 +19,9 @@
         upperCaseAnchorBar="false"
     >
         <headerTitle>
-            <ObjectPageDynamicHeaderTitle>
+            <ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle">
                 <expandedHeading>
-                    <m:Title
+                    <m:Title id="_IDGenTitle1"
                         text="Details"
                         wrapping="true"
                         class="sapUiSmallMarginEnd"
@@ -43,7 +44,7 @@
                         tooltip="Exit Full Screen Mode"
                         visible="true"
                     />
-                    <m:OverflowToolbarButton
+                    <m:OverflowToolbarButton id="_IDGenOverflowToolbarButton1"
                         type="Transparent"
                         icon="sap-icon://decline"
                         press="handleClose"
@@ -53,16 +54,21 @@
                 </navigationActions>
 
                 <actions>
-                    <m:Switch
-                        state="true"
+                    <m:Switch id="_IDGenSwitch"
+                        state="{viewEditableModel>/editMode}"
                         customTextOn="Edit"
                         customTextOff="Display"
                     />
-                    <m:Button
+                    <m:CheckBox id="_IDGenCheckBox"
+                        selected="{viewEditableModel>/showTable}"
+                        text="Show Table View"
+                        select="onToggleRemarksView"
+                    />
+                    <m:Button id="_IDGenButton2"
                         text="Delete"
                         type="Transparent"
                     />
-                    <m:Button
+                    <m:Button id="_IDGenButton3"
                         icon="sap-icon://action"
                         type="Transparent"
                     />
@@ -70,11 +76,11 @@
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
         <sections>
-            <ObjectPageSection title="General Information">
+            <ObjectPageSection id="_IDGenObjectPageSection" title="General Information">
                 <subSections>
-                    <ObjectPageSubSection>
+                    <ObjectPageSubSection id="_IDGenObjectPageSubSection">
                         <blocks>
-                            <form:SimpleForm
+                            <form:SimpleForm id="_IDGenSimpleForm"
                                 maxContainerCols="2"
                                 editable="false"
                                 layout="ResponsiveGridLayout"
@@ -86,49 +92,70 @@
                                 columnsM="1"
                             >
                                 <form:content>
-                                    <m:Label text="Customer" />
-                                    <m:Text text="{Geography}" />
-                                    <m:Label text="Line Of Business" />
-                                    <m:Text text="{LineOfBusiness}" />
-                                    <m:Label text="Status" />
-                                    <m:Text text="{Status}" />
+                                    <m:Label id="_IDGenLabel" text="Customer" />
+                                    <m:Text id="_IDGenText1" text="{Geography}" />
+                                    <m:Label id="_IDGenLabel1" text="Line Of Business" />
+                                    <m:Text id="_IDGenText2" text="{LineOfBusiness}" />
+                                    <m:Label id="_IDGenLabel2" text="Status" />
+                                    <m:Text id="_IDGenText3" text="{Status}" />
                                 </form:content>
                             </form:SimpleForm>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection title="Remarks">
+            <ObjectPageSection id="_IDGenObjectPageSection1" title="Remarks">
                 <subSections>
-                    <ObjectPageSubSection>
+                    <ObjectPageSubSection id="_IDGenObjectPageSubSection1">
                         <blocks>
-                            <m:Table
-                                id="idRemarksTable"
-                                mode="SingleSelectMaster"
-                                itemPress="handleItemPress"
-                                items="{path : 'toRemarks'}"
+                            <m:VBox id="_IDGenVBox"
+                                width="100%"
+                                renderType="Bare"
                             >
-                                <m:columns>
-                                    <m:Column />
-                                </m:columns>
-                                <m:items>
-                                    <m:ColumnListItem type="Navigation">
-                                        <m:cells>
-                                            <m:Input
-                                                value="{RmText}"
-                                                editable="true"
-                                            />
-                                        </m:cells>
-                                    </m:ColumnListItem>
-                                </m:items>
-                            </m:Table>
+                                <m:TextArea
+                                    id="idNewRemark"
+                                    rows="1"
+                                    width="100%"
+                                    placeholder="Add new remark here..."
+                                    visible="{viewEditableModel>/editMode}"
+                                    liveChange="onNewRemarkLiveChange"
+                                />
+                                <m:ToolbarSeparator id="_IDGenToolbarSeparator" visible="{viewEditableModel>/editMode}"/>
+                                <m:TextArea
+                                    id="idRemarksTextArea"
+                                    rows="5"
+                                    visible="{= !${viewEditableModel>/showTable} }"
+                                    width="100%"
+                                    editable="false"
+                                    value="{viewEditableModel>/remarksText}"
+                                />
+                                <m:Table
+                                    visible="{viewEditableModel>/showTable}"
+                                    id="idRemarksTable"
+                                    mode="SingleSelectMaster"
+                                    itemPress="handleItemPress"
+                                    items="{path : 'toRemarks'}"
+                                >
+                                    <m:columns>
+                                        <m:Column id="_IDGenColumn" />
+                                    </m:columns>
+                                    <m:items>
+                                        <m:ColumnListItem id="_IDGenColumnListItem" type="Navigation">
+                                            <m:cells>
+                                                <m:Text id="_IDGenText4" text="{RmText}" tooltip="{CreatedBy}, {CreatedOn}"/>
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                                <!-- Existing Remarks display (TextArea or Table) -->
+                            </m:VBox>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection title="Partners">
+            <ObjectPageSection id="_IDGenObjectPageSection2" title="Partners">
                 <subSections>
-                    <ObjectPageSubSection>
+                    <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
                             <m:Table
                                 id="idPartnersTable"
@@ -137,12 +164,12 @@
                                 items="{path : 'toParters'}"
                             >
                                 <m:columns>
-                                    <m:Column />
+                                    <m:Column id="_IDGenColumn1" />
                                 </m:columns>
                                 <m:items>
-                                    <m:ColumnListItem type="Navigation">
+                                    <m:ColumnListItem id="_IDGenColumnListItem1" type="Navigation">
                                         <m:cells>
-                                            <m:ObjectIdentifier
+                                            <m:ObjectIdentifier id="_IDGenObjectIdentifier"
                                                 text="{PartnerName}"
                                             />
                                         </m:cells>
