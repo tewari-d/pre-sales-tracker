@@ -29,22 +29,20 @@ sap.ui.define([
             });
             this.getView().setModel(oEditModel, "viewEditableModel");
         },
-        toggleAreaPriority(oEvent) {
-            debugger;
+        onUpdateNewRemarks(oEvent) {
+            sap.m.MessageToast.show("Remarks will be updated");
         },
         _onOppMatched: function (oEvent) {
             this._id = oEvent.getParameter("arguments").id || this._id || "0";
             this.getView().bindElement({
                 path: "/ZCDS_PS_MASTER('" + this._id + "')"
             });
-            debugger;
+
             var oView = this.getView();
             var oModel = oView.getModel();
             var oContext = oView.getElementBinding(); 
             var sPath = oContext.getPath() + "/toRemarks";
 
-            // Date and time formatter
-    var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
 
             // Read remarks data
             oModel.read(sPath, {
@@ -98,7 +96,6 @@ sap.ui.define([
 		handleClose: function () {
 			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
 			this.oRouter.navTo("list", {layout: sNextLayout});
-		}
-        
+		} 
     });
 });

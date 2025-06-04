@@ -8,7 +8,6 @@ sap.ui.define([
             this.oRouter = this.getOwnerComponent().getRouter();
         },
         onSelectionChange(oEvent) {
-            sap.m.MessageToast.show("Hello");
             let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
                 opportunity = oEvent.getSource().getSelectedContexts()[0].getObject().Id;
 
