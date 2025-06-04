@@ -173,57 +173,41 @@
                                     id="_IDGenGroup"
                                     title="Customer Details"
                                 >
-                                    <!-- <smartForm:GroupElement label="Opportunity Description">
-                                        <smartField:SmartField value="{OppDesc}" editable="false" />
-                                    </smartForm:GroupElement> -->
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement"
-                                        label="Geography"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField"
+                                    <smartForm:GroupElement id="_IDGenGroupElement17">
+                                        <smartField:SmartField id="_IDGenSmartField"
                                             value="{Geography}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement1"
-                                        label="Line Of Business"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField1"
                                             value="{LineOfBusiness}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement2"
-                                        label="	SAP Area of Solution / Requirement"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField2"
                                             value="{SolutionArea}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement3"
-                                        label="Country"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField3"
                                             value="{Country}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement4"
-                                        label="Deal Type"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField4"
                                             value="{DealType}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
@@ -233,82 +217,66 @@
                                 >
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement5"
-                                        label="Opportunity Description"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField5"
                                             value="{OppDesc}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement6"
-                                        label="Opportunity Type"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField6"
                                             value="{OppType}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement7"
-                                        label="Received Date"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField7"
                                             value="{ReceivedDate}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement8"
-                                        label="Submission Date"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField8"
                                             value="{SubmissionDate}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement9"
-                                        label="Opp. Size TCV"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField9"
                                             value="{OppTcv}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement10"
-                                        label="Commercial Model"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField10"
                                             value="{CommModel}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement11"
-                                        label="Win / Loss Date"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField11"
                                             value="{CloseDate}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement12"
-                                        label="Probability (%)"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField12"
                                             value="{Probability}"
-                                            editable="false"
                                         />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
@@ -318,7 +286,6 @@
                                 >
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement13"
-                                        label="Created By"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField13"
@@ -328,7 +295,6 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement14"
-                                        label="Created On"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField14"
@@ -338,7 +304,6 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement15"
-                                        label="Last Changed By"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField15"
@@ -348,7 +313,6 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement16"
-                                        label="Last Changed On"
                                     >
                                         <smartField:SmartField
                                             id="_IDGenSmartField16"

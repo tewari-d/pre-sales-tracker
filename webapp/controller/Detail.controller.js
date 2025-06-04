@@ -96,6 +96,9 @@ sap.ui.define([
 		handleClose: function () {
 			var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
 			this.oRouter.navTo("list", {layout: sNextLayout});
-		} 
+		},
+        handleEditToggled: function (oEvent) {
+			// just dummy function to activate input validation in SmartForm.
+		}
     });
 });

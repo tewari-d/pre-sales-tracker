@@ -70,7 +70,8 @@
                 <Property Name="Geography" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Geography" sap:value-list="fixed-values"/>
                 <Property Name="LineOfBusiness" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Line of Business" sap:heading="" sap:value-list="fixed-values"/>
                 <Property Name="SolutionArea" Type="Edm.String" sap:label="SAP Area of Solution / Requirement" sap:quickinfo="Solution Area"/>
-                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country/Region Key" sap:value-list="standard"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="Country_Text" sap:label="Country/Region Key" sap:value-list="standard"/>
+                <Property Name="Country_Text" Type="Edm.String" MaxLength="50" sap:label="Country/Region Name" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="DealType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Deal Type" sap:value-list="fixed-values"/>
                 <Property Name="OppType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Oppr. Type" sap:quickinfo="Opportunity Type" sap:value-list="fixed-values"/>
                 <Property Name="ReceivedDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Received Date"/>
@@ -156,7 +157,7 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="Geography"/>
-                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
@@ -174,7 +175,7 @@
                                     <PropertyValue Property="ValueListProperty" String="Version"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="ZDO_PS_GEOGRAPHY"/>
@@ -197,7 +198,7 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="LineOfBusiness"/>
-                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
@@ -215,7 +216,7 @@
                                     <PropertyValue Property="ValueListProperty" String="Version"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="ZDO_PS_LOB"/>
@@ -271,7 +272,7 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="DealType"/>
-                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
@@ -289,7 +290,7 @@
                                     <PropertyValue Property="ValueListProperty" String="Version"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="ZDO_PS_DEAL_TYPE"/>
@@ -312,7 +313,7 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="OppType"/>
-                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
@@ -330,7 +331,7 @@
                                     <PropertyValue Property="ValueListProperty" String="Version"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="ZDO_PS_OPP_TYPE"/>
@@ -353,7 +354,7 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="Status"/>
-                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
@@ -371,7 +372,7 @@
                                     <PropertyValue Property="ValueListProperty" String="Version"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="ZDO_PS_OPP_STAT"/>
@@ -394,7 +395,7 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="CommModel"/>
-                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
@@ -412,7 +413,7 @@
                                     <PropertyValue Property="ValueListProperty" String="Version"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="ZDO_PS_COMM_MDL"/>
