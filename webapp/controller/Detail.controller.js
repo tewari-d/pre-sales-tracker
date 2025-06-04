@@ -83,6 +83,7 @@ sap.ui.define([
 
             this.oDataModel = oModel;
             this.oDataModel.setDefaultBindingMode('TwoWay');
+            this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
         },
         _onModelChange: function () {
             var oViewModel = this.getView().getModel("viewEditableModel");
@@ -169,6 +170,11 @@ sap.ui.define([
                 // No changes, just switch off
                 oViewModel.setProperty("/editMode", false);
             }
+        },
+        onSave: function () {
+            debugger;
+            var aChanges = this.oDataModel.getPendingChanges();
+            this.oDataModel.submitChanges();
         }
 
     });
