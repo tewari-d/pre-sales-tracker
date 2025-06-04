@@ -25,6 +25,7 @@ sap.ui.define([
             var oEditModel = new sap.ui.model.json.JSONModel({
                 editMode: false,
                 remarksText: "",
+                partnersText: "",
                 showTable: false
             });
             this.getView().setModel(oEditModel, "viewEditableModel");
@@ -59,6 +60,23 @@ sap.ui.define([
                     console.error("Failed to load remarks", err);
                 }
             });
+
+            sPath = oContext.getPath() + "/toParters";
+            // Read partners data
+            oModel.read(sPath, {
+                success: function (oData) {
+                    var aLines = oData.results.map(function (oItem) {
+                        return oItem.PartnerName;
+                    });
+                    var sCombinedText = aLines.join(", ");
+
+                    // Update the TextArea via viewModel
+                    oView.getModel("viewEditableModel").setProperty("/partnersText", sCombinedText);
+                },
+                error: function (err) {
+                    console.error("Failed to load partners", err);
+                }
+            })
         },
         onOverflowToolbarButtonFullScreenPress: function () {
             this.bFocusFullScreenButton = true;

@@ -156,9 +156,9 @@
                                 id="smartFormColumn"
                                 app:defaultCheckBoxDisplayBehaviour="OnOff"
                                 app:defaultDropDownDisplayBehaviour="idAndDescription"
-                                editTogglable="true"
                                 title="{Name}"
                                 validationMode="Async"
+                                editable="{viewEditableModel>/editMode}"
                                 editToggled="handleEditToggled"
                             >
                                 <smartForm:layout>
@@ -173,8 +173,11 @@
                                     id="_IDGenGroup"
                                     title="Customer Details"
                                 >
-                                    <smartForm:GroupElement id="_IDGenGroupElement17">
-                                        <smartField:SmartField id="_IDGenSmartField"
+                                    <smartForm:GroupElement
+                                        id="_IDGenGroupElement17"
+                                    >
+                                        <smartField:SmartField
+                                            id="_IDGenSmartField"
                                             value="{Geography}"
                                         />
                                     </smartForm:GroupElement>
@@ -347,19 +350,6 @@
                                         editable="false"
                                         value="{viewEditableModel>/remarksText}"
                                     />
-                                    <m:TextArea
-                                        id="idNewRemarksTextArea"
-                                        rows="2"
-                                        visible="true"
-                                        width="100%"
-                                        editable="true"
-                                        placeholder="Enter new remarks here..."
-                                    />
-                                    <m:Button
-                                        id="_IDGenButton4"
-                                        text="Update Remarks"
-                                        press="onUpdateNewRemarks"
-                                    />
                                     <m:List
                                         id="_IDGenList1"
                                         items="{path : 'toRemarks'}"
@@ -374,6 +364,19 @@
                                             text="{RmText}"
                                         />
                                     </m:List>
+                                    <m:TextArea
+                                        id="idNewRemarksTextArea"
+                                        rows="2"
+                                        visible="true"
+                                        width="100%"
+                                        editable="true"
+                                        placeholder="Enter new remarks here..."
+                                    />
+                                    <m:Button
+                                        id="_IDGenButton4"
+                                        text="Update Remarks"
+                                        press="onUpdateNewRemarks"
+                                    />
                                 </l:content>
                             </l:VerticalLayout>
                         </blocks>
@@ -387,65 +390,93 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
-                            <m:Table
-                                id="partnerTable"
-                                items="{path: 'toParters'}"
-                                visible="true"
-                                inset="false"
-                                fixedLayout="false"
-                                headerText="Partners"
-                                xmlns:m="sap.m"
+                            <l:VerticalLayout
+                                id="_IDGenVerticalLayout2"
+                                width="100%"
                             >
-                                <m:columns>
-                                    <m:Column id="_IDGenColumn1">
-                                        <m:Text
-                                            id="_IDGenText2"
-                                            text="Partner Name"
-                                        />
-                                    </m:Column>
-                                    <m:Column id="_IDGenColumn2">
-                                        <m:Text
-                                            id="_IDGenText3"
-                                            text="Function"
-                                        />
-                                    </m:Column>
-                                    <m:Column id="_IDGenColumn3">
-                                        <m:Text
-                                            id="_IDGenText4"
-                                            text="Created By"
-                                        />
-                                    </m:Column>
-                                    <m:Column id="_IDGenColumn4">
-                                        <m:Text
-                                            id="_IDGenText5"
-                                            text="Created On"
-                                        />
-                                    </m:Column>
-                                </m:columns>
+                                <m:TextArea
+                                    id="idPartnersTextArea"
+                                    rows="1"
+                                    visible="{= !${viewEditableModel>/showTable} }"
+                                    width="100%"
+                                    editable="false"
+                                    value="{viewEditableModel>/partnersText}"
+                                />
+                                <m:Table
+                                    id="partnerTable"
+                                    items="{path: 'toParters'}"
+                                    visible="{= ${viewEditableModel>/showTable} }"
+                                    inset="false"
+                                    fixedLayout="false"
+                                    headerText="Partners"
+                                    xmlns:m="sap.m"
+                                >
+                                    <m:columns>
+                                        <m:Column id="_IDGenColumn1">
+                                            <m:Text
+                                                id="_IDGenText2"
+                                                text="Partner Name"
+                                            />
+                                        </m:Column>
+                                        <m:Column id="_IDGenColumn2">
+                                            <m:Text
+                                                id="_IDGenText3"
+                                                text="Function"
+                                            />
+                                        </m:Column>
+                                        <m:Column id="_IDGenColumn3">
+                                            <m:Text
+                                                id="_IDGenText4"
+                                                text="Created By"
+                                            />
+                                        </m:Column>
+                                        <m:Column id="_IDGenColumn4">
+                                            <m:Text
+                                                id="_IDGenText5"
+                                                text="Created On"
+                                            />
+                                        </m:Column>
+                                    </m:columns>
 
-                                <m:items>
-                                    <m:ColumnListItem id="_IDGenColumnListItem">
-                                        <m:cells>
-                                            <m:Text
-                                                id="_IDGenText6"
-                                                text="{PartnerName}"
-                                            />
-                                            <m:Text
-                                                id="_IDGenText7"
-                                                text="{PartnerFunction}"
-                                            />
-                                            <m:Text
-                                                id="_IDGenText8"
-                                                text="{CreatedBy}"
-                                            />
-                                            <m:Text
-                                                id="_IDGenText9"
-                                                text="{path: 'CreatedOn', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"
-                                            />
-                                        </m:cells>
-                                    </m:ColumnListItem>
-                                </m:items>
-                            </m:Table>
+                                    <m:items>
+                                        <m:ColumnListItem
+                                            id="_IDGenColumnListItem"
+                                        >
+                                            <m:cells>
+                                                <m:Text
+                                                    id="_IDGenText6"
+                                                    text="{PartnerName}"
+                                                />
+                                                <m:Text
+                                                    id="_IDGenText7"
+                                                    text="{PartnerFunction}"
+                                                />
+                                                <m:Text
+                                                    id="_IDGenText8"
+                                                    text="{CreatedBy}"
+                                                />
+                                                <m:Text
+                                                    id="_IDGenText9"
+                                                    text="{path: 'CreatedOn', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"
+                                                />
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                                <m:TextArea
+                                    id="idNewPartnerTextArea"
+                                    rows="2"
+                                    visible="true"
+                                    width="100%"
+                                    editable="true"
+                                    placeholder="Enter new partner here..."
+                                />
+                                <m:Button
+                                    id="_IDGenButton5"
+                                    text="Update Partner"
+                                    press="onUpdateNewRemarks"
+                                />
+                            </l:VerticalLayout>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
