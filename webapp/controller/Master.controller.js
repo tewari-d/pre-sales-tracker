@@ -25,8 +25,8 @@ sap.ui.define([
             const oFilterData = {
                 Status: {
                     items: [
-                        { key: "CLSD", text: "CLSD" },
-                        { key: "NEW", text: "NEW" }
+                        { key: "WIP", text: "WIP" },
+                        { key: "SUBMITTED", text: "SUBMITTED" }
                     ]
                 }
             };
@@ -42,9 +42,8 @@ sap.ui.define([
             const oModel = this.getOwnerComponent().getModel();
 
             const aStatuses = [
-                { key: "NEW", label: "New", id: "segNEW" },
                 { key: "WIP", label: "In Progress", id: "segWIP" },
-                { key: "HOLD", label: "On Hold", id: "segHOLD" }
+                { key: "SUBMITTED", label: "Submitted", id: "segSUBMITTED" }
             ];
 
             aStatuses.forEach(oStatus => {
