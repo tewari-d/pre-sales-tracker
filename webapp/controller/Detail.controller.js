@@ -93,12 +93,12 @@ sap.ui.define([
         onOverflowToolbarButtonFullScreenPress: function () {
             this.bFocusFullScreenButton = true;
             let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
-            this.oRouter.navTo("Detail", { layout: sNextLayout, id: this._service });
+            this.oRouter.navTo("Detail", { layout: sNextLayout, id: this._id });
         },
         onOverflowToolbarButtonExitFullScreenPress: function () {
             this.bFocusFullScreenButton = true;
             let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/exitFullScreen");
-            this.oRouter.navTo("Detail", { layout: sNextLayout, id: this._service });
+            this.oRouter.navTo("Detail", { layout: sNextLayout, id: this._id });
         },
         onOverflowToolbarButtonClosePress: function () {
             let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
@@ -112,20 +112,6 @@ sap.ui.define([
         onNewRemarkLiveChange: function (oEvent) {
             var sNewText = oEvent.getParameter("value");
             this.getView().getModel("viewEditableModel").setProperty("/newRemarkText", sNewText);
-        },
-        handleFullScreen: function () {
-            this.bFocusFullScreenButton = true;
-            var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/fullScreen");
-            this.oRouter.navTo("detail", { layout: sNextLayout, product: this._product });
-        },
-        handleExitFullScreen: function () {
-            this.bFocusFullScreenButton = true;
-            var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/exitFullScreen");
-            this.oRouter.navTo("detail", { layout: sNextLayout, product: this._product });
-        },
-        handleClose: function () {
-            var sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
-            this.oRouter.navTo("list", { layout: sNextLayout });
         },
         onFieldGroupChange: function () {
             this.oDataModel.checkUpdate(true);

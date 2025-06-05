@@ -18,11 +18,28 @@
         </f:title>
         <f:header>
             <f:DynamicPageHeader id="idGenDynamicPageHeader">
-                <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="ZCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters">
+                <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="ZCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters" useDateRangeType="false">
                     <!-- layout data used to make the table growing but the filter bar fixed -->
                     <smartFilterBar:layoutData>
                         <FlexItemData id="_IDGenFlexItemData" shrinkFactor="0" />
                     </smartFilterBar:layoutData>
+                    <smartFilterBar:controlConfiguration>
+                        <smartFilterBar:ControlConfiguration key="ReceivedDate" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                        <smartFilterBar:ControlConfiguration key="SubmissionDate" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                        <smartFilterBar:ControlConfiguration key="CloseDate" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                        <smartFilterBar:ControlConfiguration key="CreatedOn" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                        <smartFilterBar:ControlConfiguration key="UpdatedOn" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                    </smartFilterBar:controlConfiguration>
                 </smartFilterBar:SmartFilterBar>
             </f:DynamicPageHeader>
         </f:header>
