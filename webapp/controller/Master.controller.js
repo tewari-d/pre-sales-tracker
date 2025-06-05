@@ -6,18 +6,15 @@ sap.ui.define([
     return Controller.extend("com.nagarro.www.presalestracker.controller.Master", {
         onInit() {
             this.oRouter = this.getOwnerComponent().getRouter();
-
-            var oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
+            const oSmartTable = this.byId("presalesDBSmartTable");
+            const oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
 
             if (oSmartFilterBar) {
                 // Wait for metadata to be loaded
                 oSmartFilterBar.attachInitialized(this._setDefaultFilters, this);
             }
-            // oModel.metadataLoaded().then(function () {
-            this._updateSegmentedCounts();
-            // }.bind(this)).catch(function () {
-            //     console.error("Metadata failed to load");
-            // });
+
+            oSmartTable.attachBeforeRebindTable(this._updateSegmentedCounts, this);
         },
         _setDefaultFilters: function () {
             var oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
@@ -39,7 +36,9 @@ sap.ui.define([
             this.oRouter.navTo("Detail", { layout: oNextUIState.layout, id: opportunity });
         },
         _updateSegmentedCounts: function () {
+            const oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
             const oModel = this.getOwnerComponent().getModel();
+            const aBaseFilters = oSmartFilterBar.getFilters(); // All current filters
 
             const aStatuses = [
                 { key: "WIP", label: "In Progress", id: "segWIP" },
@@ -47,15 +46,14 @@ sap.ui.define([
             ];
 
             aStatuses.forEach(oStatus => {
-                oModel.read("/ZCDS_PS_MASTER", {
-                    urlParameters: {
-                        "$filter": `Status eq '${oStatus.key}'`,
-                        "$inlinecount": "allpages",
-                        "$top": "0"
-                    },
-                    success: function (oData) {
-                        const count = oData?.__count ?? "0";
-                        this.byId(oStatus.id)?.setText(`${oStatus.label} (${count})`);
+                // Clone base filters and add status-specific filter
+                const aFilters = aBaseFilters.slice(); // copy filters
+                aFilters.push(new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, oStatus.key));
+
+                oModel.read("/ZCDS_PS_MASTER/$count", {
+                    filters: aFilters,
+                    success: function (iCount) {
+                        this.byId(oStatus.id)?.setText(`${oStatus.label} (${iCount})`);
                     }.bind(this),
                     error: function () {
                         this.byId(oStatus.id)?.setText(`${oStatus.label} (0)`);
@@ -63,6 +61,7 @@ sap.ui.define([
                 });
             });
         },
+
 
         onStatusSegmentChange: function (oEvent) {
             const sKey = oEvent.getParameter("item").getKey();
