@@ -78,12 +78,6 @@
                         customTextOff="Display"
                         change="onStateChange"
                     />
-                    <m:CheckBox
-                        id="_IDGenCheckBox"
-                        selected="{viewEditableModel>/showTable}"
-                        text="Show Table View"
-                        select="onToggleRemarksView"
-                    />
                     <m:Button
                         id="_IDGenButton2"
                         text="Delete"
@@ -167,6 +161,7 @@
                                 validationMode="Async"
                                 editable="{viewEditableModel>/editMode}"
                                 editToggled="handleEditToggled"
+                                editTogglable="true"
                             >
                                 <smartForm:layout>
                                     <smartForm:ColumnLayout
@@ -180,6 +175,15 @@
                                     id="_IDGenGroup"
                                     title="Customer Details"
                                 >
+                                    <smartForm:GroupElement
+                                        id="_IDGenGroupElement19"
+                                    >
+                                        <smartField:SmartField
+                                            id="_IDGenSmartField19"
+                                            value="{CustomerName}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement17"
                                     >
@@ -230,6 +234,16 @@
                                     id="_IDGenGroup1"
                                     title="Opportunity Details"
                                 >
+                                
+                                    <smartForm:GroupElement
+                                        id="_IDGenGroupElement20"
+                                    >
+                                        <smartField:SmartField
+                                            id="_IDGenSmartField20"
+                                            value="{Status}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement5"
                                     >
@@ -362,18 +376,9 @@
                                 width="100%"
                             >
                                 <l:content>
-                                    <m:TextArea
-                                        id="idRemarksTextArea"
-                                        rows="5"
-                                        visible="{= !${viewEditableModel>/showTable} }"
-                                        width="100%"
-                                        editable="false"
-                                        value="{viewEditableModel>/remarksText}"
-                                    />
                                     <m:List
                                         id="_IDGenList1"
                                         items="{path : 'toRemarks'}"
-                                        visible="{= ${viewEditableModel>/showTable} }"
                                     >
                                         <m:FeedListItem
                                             id="_IDGenFeedListItem"
@@ -414,18 +419,9 @@
                                 id="_IDGenVerticalLayout2"
                                 width="100%"
                             >
-                                <m:TextArea
-                                    id="idPartnersTextArea"
-                                    rows="1"
-                                    visible="{= !${viewEditableModel>/showTable} }"
-                                    width="100%"
-                                    editable="false"
-                                    value="{viewEditableModel>/partnersText}"
-                                />
                                 <m:Table
                                     id="partnerTable"
                                     items="{path: 'toParters'}"
-                                    visible="{= ${viewEditableModel>/showTable} }"
                                     inset="false"
                                     fixedLayout="false"
                                     headerText="Partners"

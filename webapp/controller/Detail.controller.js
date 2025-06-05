@@ -24,9 +24,6 @@ sap.ui.define([
 
             var oEditModel = new sap.ui.model.json.JSONModel({
                 editMode: false,
-                remarksText: "",
-                partnersText: "",
-                showTable: false,
                 showSave: false
             });
             this.getView().setModel(oEditModel, "viewEditableModel");
@@ -43,44 +40,6 @@ sap.ui.define([
 
             var oView = this.getView();
             var oModel = oView.getModel();
-
-            var oContext = oView.getElementBinding();
-            var sPath = oContext.getPath() + "/toRemarks";
-
-            // Read remarks data
-            oModel.read(sPath, {
-                success: function (oData) {
-                    var aLines = oData.results.map(function (oItem) {
-                        return oItem.RmText;
-                    });
-                    var sCombinedText = aLines.join("\n");
-
-                    // Update the TextArea via viewModel
-                    oView.getModel("viewEditableModel").setProperty("/remarksText", sCombinedText);
-                },
-                error: function (err) {
-                    console.error("Failed to load remarks", err);
-                }
-            });
-
-            sPath = oContext.getPath() + "/toParters";
-            // Read partners data
-            oModel.read(sPath, {
-                success: function (oData) {
-                    var aLines = oData.results.map(function (oItem) {
-                        return oItem.PartnerName;
-                    });
-                    var sCombinedText = aLines.join(", ");
-
-                    // Update the TextArea via viewModel
-                    oView.getModel("viewEditableModel").setProperty("/partnersText", sCombinedText);
-                },
-                error: function (err) {
-                    console.error("Failed to load partners", err);
-                }
-            });
-
-
             this.oDataModel = oModel;
             this.oDataModel.setDefaultBindingMode('TwoWay');
             this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
@@ -104,10 +63,6 @@ sap.ui.define([
             let sNextLayout = this.oModel.getProperty("/actionButtonsInfo/midColumn/closeColumn");
             this.oRouter.navTo("Master", { layout: sNextLayout });
 
-        },
-        onToggleRemarksView: function (oEvent) {
-            var bShowTable = oEvent.getParameter("selected");
-            this.getView().getModel("viewEditableModel").setProperty("/showTable", bShowTable);
         },
         onNewRemarkLiveChange: function (oEvent) {
             var sNewText = oEvent.getParameter("value");
