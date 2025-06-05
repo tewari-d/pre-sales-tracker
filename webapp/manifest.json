@@ -28,18 +28,10 @@
                 "type": "OData",
                 "settings": {
                     "annotations": [
-                        "ZOD_PS_TRACKER_ANNO_MDL",
-                        "annotation0"
+                        "ZOD_PS_TRACKER_ANNO_MDL"
                     ],
                     "localUri": "localService/mainService/metadata.xml",
                     "odataVersion": "2.0"
-                }
-            },
-            "annotation0": {
-                "type": "ODataAnnotation",
-                "uri": "annotations/annotation0.xml",
-                "settings": {
-                    "localUri": "annotations/annotation0.xml"
                 }
             }
         }

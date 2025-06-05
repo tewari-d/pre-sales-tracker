@@ -65,18 +65,19 @@
                 </navigationActions>
 
                 <actions>
-                    <m:Button id="_IDGenButton"
+                    <m:Button
+                        id="_IDGenButton"
                         text="Save"
                         type="Emphasized"
                         press=".onSave"
                         visible="{viewEditableModel>/showSave}"
                     />
-                    <m:Switch
-                        id="_IDGenSwitch"
-                        state="{viewEditableModel>/editMode}"
-                        customTextOn="Edit"
-                        customTextOff="Display"
-                        change="onStateChange"
+                    <m:Button
+                        id="editModeButton"
+                        icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }"
+                        tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }"
+                        type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }"
+                        press="onEditModeToggle"
                     />
                     <m:Button
                         id="_IDGenButton2"
@@ -153,7 +154,8 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection">
                         <blocks>
-                            <smartForm:SmartForm validateFieldGroup="onFieldGroupChange"
+                            <smartForm:SmartForm
+                                validateFieldGroup="onFieldGroupChange"
                                 id="smartFormColumn"
                                 app:defaultCheckBoxDisplayBehaviour="OnOff"
                                 app:defaultDropDownDisplayBehaviour="idAndDescription"
@@ -161,7 +163,6 @@
                                 validationMode="Async"
                                 editable="{viewEditableModel>/editMode}"
                                 editToggled="handleEditToggled"
-                                editTogglable="true"
                             >
                                 <smartForm:layout>
                                     <smartForm:ColumnLayout
@@ -234,7 +235,6 @@
                                     id="_IDGenGroup1"
                                     title="Opportunity Details"
                                 >
-                                
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement20"
                                     >
