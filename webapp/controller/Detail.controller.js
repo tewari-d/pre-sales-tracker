@@ -176,7 +176,94 @@ sap.ui.define([
             debugger;
             var aChanges = this.oDataModel.getPendingChanges();
             this.oDataModel.submitChanges();
-        }
+        },
+        onCreatePartner: function(oEvent) {
+            debugger;
+            var oView = this.getView();
+        
+            if (!this._oPartnerDialog) {
+                this._oPartnerDialog = new sap.m.Dialog({
+                    title: "Create Partner",
+                    content: [
+                        new sap.m.Label({ text: "Name", labelFor: "partnerNameInput" }),
+                        new sap.m.Input("partnerNameInput", {
+                            width: "100%"
+                        }),
+        
+                        new sap.m.Label({ text: "Partner Function", labelFor: "partnerFunctionSmartField" }),
+                        new sap.ui.comp.smartfield.SmartField("partnerFunctionSmartField", {
+                            value: {
+                                entitySet: 'zcds_ps_partner',
+                                path: "PartnerFunction",
+                                type: "sap.ui.model.type.String"
+                            },
+                            width: "100%"
+                        }),
+        
+                        new sap.m.Label({ text: "Email", labelFor: "partnerEmailInput" }),
+                        new sap.m.Input("partnerEmailInput", {
+                            type: "Email",
+                            width: "100%",
+                            placeholder: "example@example.com"
+                        })
+                    ],
+                    beginButton: new sap.m.Button({
+                        text: "Create",
+                        type: "Emphasized",
+                        press: function () {
+                            var sName = sap.ui.getCore().byId("partnerNameInput").getValue();
+                            var sPartnerFunction = sap.ui.getCore().byId("partnerFunctionSmartField").getValue();
+                            var sEmail = sap.ui.getCore().byId("partnerEmailInput").getValue();
+        
+                            // Validate inputs here as needed
+        
+                            // Example: simple non-empty validation
+                            if (!sName) {
+                                sap.m.MessageToast.show("Please enter Name");
+                                return;
+                            }
+        
+                            if (!sPartnerFunction) {
+                                sap.m.MessageToast.show("Please enter Partner Function");
+                                return;
+                            }
+        
+                            // Close dialog before creating (or after successful create)
+                            this._oPartnerDialog.close();
+        
+                            // Implement your partner creation logic here, e.g., OData create
+                            // Example:
+                            /*
+                            var oModel = oView.getModel();
+                            oModel.create("/Partners", {
+                                Name: sName,
+                                PartnerFunction: sPartnerFunction,
+                                Email: sEmail
+                            }, {
+                                success: function() {
+                                    sap.m.MessageToast.show("Partner created successfully");
+                                },
+                                error: function() {
+                                    sap.m.MessageToast.show("Failed to create partner");
+                                }
+                            });
+                            */
+                        }.bind(this)
+                    }),
+                    endButton: new sap.m.Button({
+                        text: "Cancel",
+                        press: function () {
+                            this._oPartnerDialog.close();
+                        }.bind(this)
+                    }),
+                    contentWidth: "400px"
+                });
+        
+                oView.addDependent(this._oPartnerDialog);
+            }
+            
+            this._oPartnerDialog.open();
+        }        
 
     });
 });

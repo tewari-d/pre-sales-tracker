@@ -4,6 +4,7 @@
     height="100%"
     xmlns="sap.uxap"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:m="sap.m"
     xmlns:f="sap.f"
     xmlns:l="sap.ui.layout"
@@ -389,18 +390,11 @@
                                             text="{RmText}"
                                         />
                                     </m:List>
-                                    <m:TextArea
-                                        id="idNewRemarksTextArea"
-                                        rows="2"
-                                        visible="true"
-                                        width="100%"
-                                        editable="true"
+                                    <m:FeedInput
+                                        id="_IDGenFeedInput1"
+                                        post="onUpdateNewRemarks"
                                         placeholder="Enter new remarks here..."
-                                    />
-                                    <m:Button
-                                        id="_IDGenButton4"
-                                        text="Update Remarks"
-                                        press="onUpdateNewRemarks"
+                                        showIcon="false"
                                     />
                                 </l:content>
                             </l:VerticalLayout>
@@ -419,79 +413,40 @@
                                 id="_IDGenVerticalLayout2"
                                 width="100%"
                             >
-                                <m:Table
-                                    id="partnerTable"
-                                    items="{path: 'toParters'}"
-                                    inset="false"
-                                    fixedLayout="false"
-                                    headerText="Partners"
-                                    xmlns:m="sap.m"
+                                <smartTable:SmartTable
+                                    id="_IDGenSmartTable1"
+                                    entitySet="zcds_ps_partner"
+                                    tableBindingPath="toParters"
+                                    header="Partners"
+                                    showRowCount="true"
+                                    tableType="ResponsiveTable"
+                                    enableExport="true"
+                                    beforeExport="onBeforeExport"
+                                    useTablePersonalisation="true"
+                                    enableAutoBinding="true"
+                                    requestAtLeastFields="Id"
                                 >
-                                    <m:columns>
-                                        <m:Column id="_IDGenColumn1">
-                                            <m:Text
-                                                id="_IDGenText2"
-                                                text="Partner Name"
-                                            />
-                                        </m:Column>
-                                        <m:Column id="_IDGenColumn2">
-                                            <m:Text
-                                                id="_IDGenText3"
-                                                text="Function"
-                                            />
-                                        </m:Column>
-                                        <m:Column id="_IDGenColumn3">
-                                            <m:Text
-                                                id="_IDGenText4"
-                                                text="Created By"
-                                            />
-                                        </m:Column>
-                                        <m:Column id="_IDGenColumn4">
-                                            <m:Text
-                                                id="_IDGenText5"
-                                                text="Created On"
-                                            />
-                                        </m:Column>
-                                    </m:columns>
-
-                                    <m:items>
-                                        <m:ColumnListItem
-                                            id="_IDGenColumnListItem"
+                                    <smartTable:customToolbar>
+                                        <m:OverflowToolbar
+                                            id="_IDGenOverflowToolbar"
+                                            design="Transparent"
                                         >
-                                            <m:cells>
-                                                <m:Text
-                                                    id="_IDGenText6"
-                                                    text="{PartnerName}"
-                                                />
-                                                <m:Text
-                                                    id="_IDGenText7"
-                                                    text="{PartnerFunction}"
-                                                />
-                                                <m:Text
-                                                    id="_IDGenText8"
-                                                    text="{CreatedBy}"
-                                                />
-                                                <m:Text
-                                                    id="_IDGenText9"
-                                                    text="{path: 'CreatedOn', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"
-                                                />
-                                            </m:cells>
-                                        </m:ColumnListItem>
-                                    </m:items>
-                                </m:Table>
-                                <m:TextArea
-                                    id="idNewPartnerTextArea"
-                                    rows="2"
-                                    visible="true"
-                                    width="100%"
-                                    editable="true"
-                                    placeholder="Enter new partner here..."
-                                />
-                                <m:Button
-                                    id="_IDGenButton5"
-                                    text="Update Partner"
-                                    press="onUpdateNewRemarks"
-                                />
+                                            <m:ToolbarSpacer
+                                                id="_IDGenToolbarSpacer1"
+                                            />
+                                            <m:Button
+                                                id="_IDGenButton4"
+                                                tooltip="Create New"
+                                                text="Create"
+                                                press="onCreatePartner"
+                                            />
+                                        </m:OverflowToolbar>
+                                    </smartTable:customToolbar>
+                                    <m:Table
+                                        id="_IDGenTable"
+                                        growing="false"
+                                    />
+                                </smartTable:SmartTable>
                             </l:VerticalLayout>
                         </blocks>
                     </ObjectPageSubSection>

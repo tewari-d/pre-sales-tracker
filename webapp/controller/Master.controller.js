@@ -26,7 +26,7 @@ sap.ui.define([
                 Status: {
                     items: [
                         { key: "CLSD", text: "CLSD" },
-                        { key: "NEW", text: "NEW" }
+                        { key: "HOLD", text: "HOLD" }
                     ]
                 }
             };

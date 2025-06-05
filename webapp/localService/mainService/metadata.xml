@@ -83,12 +83,14 @@
                 <Property Name="CloseDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Win / Loss Date"/>
                 <Property Name="Probability" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Probability (%)"/>
                 <Property Name="DocUrl" Type="Edm.String" sap:label="Documents URL"/>
+                <Property Name="PlannedSubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Planned Submission Date" sap:quickinfo="Planned Submission"/>
                 <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="Name of Person Responsible for Creating the Object"/>
                 <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On" sap:quickinfo="Record Creation Date"/>
                 <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Time" sap:quickinfo="Entry time"/>
                 <Property Name="UpdatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:quickinfo="Name of Person Who Changed Object"/>
                 <Property Name="UpdatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Changed On" sap:quickinfo="Last Changed On"/>
                 <Property Name="UpdatedAt" Type="Edm.Time" Precision="0" sap:label="Changed at" sap:quickinfo="Time last change was made"/>
+                <Property Name="Owner" Type="Edm.String" sap:label="Owner" sap:quickinfo="Partner Name"/>
                 <NavigationProperty Name="toParters" Relationship="ZOD_PS_TRACKER_SRV.assoc_0E830E05DCCE1EACD94E6BC859063FD0" FromRole="FromRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0" ToRole="ToRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0"/>
                 <NavigationProperty Name="toRemarks" Relationship="ZOD_PS_TRACKER_SRV.assoc_8F8CAE5B84BE6150829AA49088AB9BBE" FromRole="FromRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE" ToRole="ToRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE"/>
             </EntityType>
@@ -133,7 +135,7 @@
             <EntityContainer Name="ZOD_PS_TRACKER_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="I_CountryText" EntityType="ZOD_PS_TRACKER_SRV.I_CountryTextType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_PS_DOMAIN_VALUES" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_DOMAIN_VALUESType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="ZCDS_PS_MASTER" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_PS_MASTER" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zcds_ps_partner" EntityType="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_PS_REMARKS" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_REMARKSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <AssociationSet Name="assoc_8F8CAE5B84BE6150829AA49088AB9BBE" Association="ZOD_PS_TRACKER_SRV.assoc_8F8CAE5B84BE6150829AA49088AB9BBE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
@@ -445,6 +447,10 @@
                                     <PropertyValue Property="Property" PropertyPath="DocUrl"/>
                                     <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
                                 </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Owner"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -480,6 +486,7 @@
                                 <PropertyPath>OppDesc</PropertyPath>
                                 <PropertyPath>SolutionArea</PropertyPath>
                                 <PropertyPath>DocUrl</PropertyPath>
+                                <PropertyPath>Owner</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>

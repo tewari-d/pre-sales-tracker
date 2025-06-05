@@ -39,32 +39,52 @@
                             <PropertyValue Property="Value" Path="CustomerName"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Geography"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="LineOfBusiness"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="OppType"/>
+                            <PropertyValue Property="Value" Path="Owner"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="Status"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="CloseDate"/>
+                            <PropertyValue Property="Value" Path="OppType"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Probability"/>
+                            <PropertyValue Property="Value" Path="ReceivedDate"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="SubmissionDate"/>
                         </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>CustomerName</PropertyPath>
-                        <PropertyPath>Geography</PropertyPath>
-                        <PropertyPath>LineOfBusiness</PropertyPath>
+                        <PropertyPath>Owner</PropertyPath>
                         <PropertyPath>Status</PropertyPath>
                     </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PartnerFunction"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PartnerName"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PartnerEmail"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.PresentationVariant">
+                    <Record>
+                        <PropertyValue Property="GroupBy">
+                            <Collection>
+                                <PropertyPath>PartnerFunction</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
                 </Annotation>
             </Annotations>
         </Schema>
