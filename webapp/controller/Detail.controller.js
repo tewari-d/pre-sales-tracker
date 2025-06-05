@@ -92,6 +92,7 @@ sap.ui.define([
             this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
         },
         _onModelChange: function () {
+            if(this.getView().getBusy()) this.getView().setBusy(false);
             var oViewModel = this.getView().getModel("viewEditableModel");
             var bHasPendingChanges = this.oDataModel.hasPendingChanges();
             oViewModel.setProperty("/showSave", bHasPendingChanges);
