@@ -1,7 +1,4 @@
-<mvc:View
-    displayBlock="true"
-    controllerName="com.nagarro.www.presalestracker.controller.Detail"
-    height="100%"
+<mvc:View displayBlock="true" controllerName="com.nagarro.www.presalestracker.controller.Detail" height="100%"
     xmlns="sap.uxap"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:smartTable="sap.ui.comp.smarttable"
@@ -10,353 +7,121 @@
     xmlns:l="sap.ui.layout"
     xmlns:smartForm="sap.ui.comp.smartform"
     xmlns:core="sap.ui.core"
-    xmlns:smartField="sap.ui.comp.smartfield"
-    core:require="{DateType: 'sap/ui/model/type/Date'}"
+    xmlns:smartField="sap.ui.comp.smartfield" core:require="{DateType: 'sap/ui/model/type/Date'}"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-    xmlns:form="sap.ui.layout.form"
->
-    <ObjectPageLayout
-        id="ObjectPageLayout"
-        showTitleInHeaderContent="true"
-        alwaysShowContentHeader="false"
-        preserveHeaderStateOnScroll="true"
-        headerContentPinnable="true"
-        isChildPage="true"
-        toggleHeaderOnTitleClick="false"
-        upperCaseAnchorBar="false"
-    >
+    xmlns:form="sap.ui.layout.form">
+    <ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="true" headerContentPinnable="true" isChildPage="true" toggleHeaderOnTitleClick="false" upperCaseAnchorBar="false">
         <headerTitle>
-            <ObjectPageDynamicHeaderTitle
-                id="_IDGenObjectPageDynamicHeaderTitle"
-            >
+            <ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle">
                 <expandedHeading>
-                    <m:Title
-                        id="_IDGenTitle1"
-                        text="{CustomerName}"
-                        wrapping="true"
-                        class="sapUiSmallMarginEnd"
-                    />
+                    <m:Title id="_IDGenTitle1" text="{CustomerName}" wrapping="true" class="sapUiSmallMarginEnd" />
                     <!-- <ObjectPageHeader id="idObjectPageHeader" objectSubtitle="{detail>/ID}" objectTitle="{CustomerName}" /> -->
                 </expandedHeading>
                 <navigationActions>
-                    <m:OverflowToolbarButton
-                        type="Transparent"
-                        icon="sap-icon://full-screen"
-                        press="onOverflowToolbarButtonFullScreenPress"
-                        id="idEnterFullScreenOverflowToolbarButton"
-                        tooltip="Enter Full Screen Mode"
-                        visible="{= ${comp>/actionButtonsInfo/midColumn/fullScreen} !== null }"
-                    />
-                    <m:OverflowToolbarButton
-                        type="Transparent"
-                        icon="sap-icon://exit-full-screen"
-                        press="onOverflowToolbarButtonExitFullScreenPress"
-                        id="idExitFullScreenOverflowToolbarButton"
-                        tooltip="Exit Full Screen Mode"
-                        visible="{= ${comp>/actionButtonsInfo/midColumn/exitFullScreen} !== null }"
-                    />
-                    <m:OverflowToolbarButton
-                        id="idCloseOverflowToolbarButton"
-                        type="Transparent"
-                        icon="sap-icon://decline"
-                        press="onOverflowToolbarButtonClosePress"
-                        tooltip="Close middle column"
-                        visible="{= ${comp>/actionButtonsInfo/midColumn/closeColumn} !== null }"
-                    />
+                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="onOverflowToolbarButtonFullScreenPress" id="idEnterFullScreenOverflowToolbarButton" tooltip="Enter Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                    <m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="onOverflowToolbarButtonExitFullScreenPress" id="idExitFullScreenOverflowToolbarButton" tooltip="Exit Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                    <m:OverflowToolbarButton id="idCloseOverflowToolbarButton" type="Transparent" icon="sap-icon://decline" press="onOverflowToolbarButtonClosePress" tooltip="Close middle column" visible="{= ${comp>/actionButtonsInfo/midColumn/closeColumn} !== null }" />
                 </navigationActions>
 
                 <actions>
-                    <m:Button
-                        id="_IDGenButton"
-                        text="Save"
-                        type="Emphasized"
-                        press=".onSave"
-                        visible="{viewEditableModel>/showSave}"
-                    />
-                    <m:Button
-                        id="editModeButton"
-                        icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }"
-                        tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }"
-                        type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }"
-                        press="onEditModeToggle"
-                    />
-                    <m:Button
-                        id="_IDGenButton2"
-                        text="Delete"
-                        type="Transparent"
-                    />
-                    <m:Button
-                        id="_IDGenButton3"
-                        icon="sap-icon://action"
-                        type="Transparent"
-                    />
+                    <m:Button id="_IDGenButton" text="Save" type="Emphasized" press=".onSave" visible="{viewEditableModel>/showSave}" />
+                    <m:Button id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
+                    <m:Button id="_IDGenButton2" text="Delete" type="Transparent" />
+                    <m:Button id="_IDGenButton3" icon="sap-icon://action" type="Transparent" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
         <headerContent>
-            <m:FlexBox
-                id="_IDGenFlexBox"
-                wrap="Wrap"
-                fitContainer="true"
-                alignItems="Stretch"
-            >
+            <m:FlexBox id="_IDGenFlexBox" wrap="Wrap" fitContainer="true" alignItems="Stretch">
                 <!-- <m:Avatar src="../../../../../../../{products>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd">
                 </m:Avatar> -->
-                <m:VBox
-                    id="_IDGenVBox"
-                    justifyContent="Center"
-                    class="sapUiSmallMarginEnd"
-                >
-                    <m:Label
-                        id="_IDGenLabel"
-                        text="Received Date"
-                    />
-                    <m:Text
-                        id="_IDGenText"
-                        text="{path: 'ReceivedDate', type:'sap.ui.model.type.Date', formatOptions: { style:'medium' } }"
-                    />
+                <m:VBox id="_IDGenVBox" justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <m:Label id="_IDGenLabel" text="Received Date" />
+                    <m:Text id="_IDGenText" text="{path: 'ReceivedDate', type:'sap.ui.model.type.Date', formatOptions: { style:'medium' } }" />
                 </m:VBox>
-                <m:VBox
-                    id="_IDGenVBox1"
-                    justifyContent="Center"
-                    class="sapUiSmallMarginEnd"
-                >
-                    <m:Label
-                        id="_IDGenLabel1"
-                        text="Status"
-                    />
-                    <m:Text
-                        id="_IDGenText1"
-                        text="{Status}"
-                    />
+                <m:VBox id="_IDGenVBox1" justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <m:Label id="_IDGenLabel1" text="Status" />
+                    <m:Text id="_IDGenText1" text="{Status}" />
                 </m:VBox>
-                <m:VBox
-                    id="_IDGenVBox2"
-                    justifyContent="Center"
-                    class="sapUiSmallMarginEnd"
-                >
-                    <m:Label
-                        id="_IDGenLabel2"
-                        text="Documents URL"
-                    />
-                    <m:Link
-                        id="_IDGenLink"
-                        text="Click here for Opportunity Documents"
-                        href="{DocUrl}"
-                    />
+                <m:VBox id="_IDGenVBox2" justifyContent="Center" class="sapUiSmallMarginEnd">
+                    <m:Label id="_IDGenLabel2" text="Documents URL" />
+                    <m:Link id="_IDGenLink" text="Click here for Opportunity Documents" href="{DocUrl}" />
                 </m:VBox>
             </m:FlexBox>
         </headerContent>
         <sections>
-            <ObjectPageSection
-                id="_IDGenObjectPageSection"
-                title="General Information"
-            >
+            <ObjectPageSection id="_IDGenObjectPageSection" title="General Information">
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection">
                         <blocks>
-                            <smartForm:SmartForm
-                                validateFieldGroup="onFieldGroupChange"
-                                id="smartFormColumn"
-                                app:defaultCheckBoxDisplayBehaviour="OnOff"
-                                app:defaultDropDownDisplayBehaviour="idAndDescription"
-                                title="{Name}"
-                                validationMode="Async"
-                                editable="{viewEditableModel>/editMode}"
-                                editToggled="handleEditToggled"
-                            >
+                            <smartForm:SmartForm validateFieldGroup="onFieldGroupChange" id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="OnOff" app:defaultDropDownDisplayBehaviour="idAndDescription" title="{Name}" validationMode="Async" editable="{viewEditableModel>/editMode}" editToggled="handleEditToggled">
                                 <smartForm:layout>
-                                    <smartForm:ColumnLayout
-                                        id="_IDGenColumnLayout"
-                                        columnsM="2"
-                                        columnsL="3"
-                                        columnsXL="3"
-                                    />
+                                    <smartForm:ColumnLayout id="_IDGenColumnLayout" columnsM="2" columnsL="3" columnsXL="3" />
                                 </smartForm:layout>
-                                <smartForm:Group
-                                    id="_IDGenGroup"
-                                    title="Customer Details"
-                                >
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement19"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField19"
-                                            value="{CustomerName}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                <smartForm:Group id="_IDGenGroup" title="Customer Details">
+                                    <smartForm:GroupElement id="_IDGenGroupElement19">
+                                        <smartField:SmartField id="_IDGenSmartField19" value="{CustomerName}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement17"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField"
-                                            value="{Geography}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement17">
+                                        <smartField:SmartField id="_IDGenSmartField" value="{Geography}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement1"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField1"
-                                            value="{LineOfBusiness}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement1">
+                                        <smartField:SmartField id="_IDGenSmartField1" value="{LineOfBusiness}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement2"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField2"
-                                            value="{SolutionArea}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement2">
+                                        <smartField:SmartField id="_IDGenSmartField2" value="{SolutionArea}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement3"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField3"
-                                            value="{Country}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement3">
+                                        <smartField:SmartField id="_IDGenSmartField3" value="{Country}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement4"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField4"
-                                            value="{DealType}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement4">
+                                        <smartField:SmartField id="_IDGenSmartField4" value="{DealType}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
-                                <smartForm:Group
-                                    id="_IDGenGroup1"
-                                    title="Opportunity Details"
-                                >
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement20"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField20"
-                                            value="{Status}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                <smartForm:Group id="_IDGenGroup1" title="Opportunity Details">
+                                    <smartForm:GroupElement id="_IDGenGroupElement20">
+                                        <smartField:SmartField id="_IDGenSmartField20" value="{Status}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement5"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField5"
-                                            value="{OppDesc}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement5">
+                                        <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement6"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField6"
-                                            value="{OppType}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement6">
+                                        <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement7"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField7"
-                                            value="{ReceivedDate}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement7">
+                                        <smartField:SmartField id="_IDGenSmartField7" value="{ReceivedDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement8"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField8"
-                                            value="{SubmissionDate}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement18">
+                                        <smartField:SmartField id="_IDGenSmartField18" value="{PlannedSubmissionDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement9"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField9"
-                                            value="{OppTcv}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement8">
+                                        <smartField:SmartField id="_IDGenSmartField8" value="{SubmissionDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement10"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField10"
-                                            value="{CommModel}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement9">
+                                        <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement11"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField11"
-                                            value="{CloseDate}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement10">
+                                        <smartField:SmartField id="_IDGenSmartField10" value="{CommModel}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement12"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField12"
-                                            value="{Probability}"
-                                            fieldGroupIds="generalInfoFieldGroup"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement11">
+                                        <smartField:SmartField id="_IDGenSmartField11" value="{CloseDate}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement12">
+                                        <smartField:SmartField id="_IDGenSmartField12" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
-                                <smartForm:Group
-                                    id="_IDGenGroup2"
-                                    title="Administrative Details"
-                                >
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement13"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField13"
-                                            value="{CreatedBy}"
-                                            editable="false"
-                                        />
+                                <smartForm:Group id="_IDGenGroup2" title="Administrative Details">
+                                    <smartForm:GroupElement id="_IDGenGroupElement13">
+                                        <smartField:SmartField id="_IDGenSmartField13" value="{CreatedBy}" editable="false" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement14"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField14"
-                                            value="{CreatedOn}"
-                                            editable="false"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement14">
+                                        <smartField:SmartField id="_IDGenSmartField14" value="{CreatedOn}" editable="false" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement15"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField15"
-                                            value="{UpdatedBy}"
-                                            editable="false"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement15">
+                                        <smartField:SmartField id="_IDGenSmartField15" value="{UpdatedBy}" editable="false" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement
-                                        id="_IDGenGroupElement16"
-                                    >
-                                        <smartField:SmartField
-                                            id="_IDGenSmartField16"
-                                            value="{UpdatedOn}"
-                                            editable="false"
-                                        />
+                                    <smartForm:GroupElement id="_IDGenGroupElement16">
+                                        <smartField:SmartField id="_IDGenSmartField16" value="{UpdatedOn}" editable="false" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
                             </smartForm:SmartForm>
@@ -364,31 +129,14 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection
-                id="_IDGenObjectPageSection1"
-                title="Remarks"
-            >
+            <ObjectPageSection id="_IDGenObjectPageSection1" title="Remarks">
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection1">
                         <blocks>
-                            <l:VerticalLayout
-                                id="_IDGenVerticalLayout1"
-                                class="sapUiContentPadding"
-                                width="100%"
-                            >
+                            <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
                                 <l:content>
-                                    <m:List
-                                        id="_IDGenList1"
-                                        items="{path : 'toRemarks'}"
-                                    >
-                                        <m:FeedListItem
-                                            id="_IDGenFeedListItem"
-                                            senderActive="false"
-                                            showIcon="false"
-                                            sender="{CreatedBy}"
-                                            timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }"
-                                            text="{RmText}"
-                                        />
+                                    <m:List id="_IDGenList1" items="{path : 'toRemarks'}">
+                                        <m:FeedListItem id="_IDGenFeedListItem" senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}" />
                                     </m:List>
                                     <m:FeedInput
                                         id="_IDGenFeedInput1"
@@ -402,10 +150,7 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection
-                id="_IDGenObjectPageSection2"
-                title="Partners"
-            >
+            <ObjectPageSection id="_IDGenObjectPageSection2" title="Partners">
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
