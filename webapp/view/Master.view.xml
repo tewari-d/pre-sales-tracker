@@ -35,6 +35,14 @@
                 </smartTable:layoutData>
                 <smartTable:customToolbar>
                     <OverflowToolbar id="_IDGenOverflowToolbar1" design="Transparent">
+                        <SegmentedButton id="statusSegmented" selectionChange="onStatusSegmentChange">
+                            <items>
+                                <SegmentedButtonItem id="segALL" key="ALL" text="All" />
+                                <SegmentedButtonItem id="segNEW" key="NEW" text="New (0)" />
+                                <SegmentedButtonItem id="segWIP" key="WIP" text="In Progress (0)" />
+                                <SegmentedButtonItem id="segHOLD" key="HOLD" text="On Hold (0)" />
+                            </items>
+                        </SegmentedButton>
                         <ToolbarSpacer id="_IDGenToolbarSpacer" />
                         <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Create" press="onCreate" />
                     </OverflowToolbar>
