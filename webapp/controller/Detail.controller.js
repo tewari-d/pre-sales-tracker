@@ -24,9 +24,6 @@ sap.ui.define([
 
             var oEditModel = new sap.ui.model.json.JSONModel({
                 editMode: false,
-                remarksText: "",
-                partnersText: "",
-                showTable: false,
                 showSave: false
             });
             this.getView().setModel(oEditModel, "viewEditableModel");
@@ -35,57 +32,67 @@ sap.ui.define([
         onUpdateNewRemarks(oEvent) {
             sap.m.MessageToast.show("Remarks will be updated");
         },
+        _checkExistingEdits() {
+            var oViewModel = this.getView().getModel("viewEditableModel");
+            var oModel = this.getView().getModel();
+            if (oModel.hasPendingChanges()) {
+                // Ask confirmation
+                sap.m.MessageBox.confirm(
+                    "You have unsaved changes. Are you sure you want to discard them?",
+                    {
+                        title: "Discard Changes?",
+                        actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                        emphasizedAction: sap.m.MessageBox.Action.CANCEL,
+                        onClose: function (sAction) {
+                            if (sAction === sap.m.MessageBox.Action.OK) {
+                                oModel.resetChanges();                           // discard changes
+                                oModel.checkUpdate(true);                        // refresh bindings
+                                oViewModel.setProperty("/editMode", false);     // switch to display
+                                oViewModel.setProperty("/showSave", false);     // hide save
+                                sap.m.MessageToast.show("Changes discarded");
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        }
+                    }
+                );
+            } else {
+                // No changes, just switch off
+                oViewModel.setProperty("/editMode", false);
+                return false;
+            }
+        },
         _onOppMatched: function (oEvent) {
+            var oViewModel = this.getView().getModel("viewEditableModel");
+            var oModel = this.getView().getModel();
+            var oView = this.getView();
+            oModel.resetChanges();                           // discard changes
+            oModel.checkUpdate(true);                        // refresh bindings
+            oViewModel.setProperty("/editMode", false);     // switch to display
+            oViewModel.setProperty("/showSave", false);     // hide save
             this._id = oEvent.getParameter("arguments").id || this._id || "0";
+            oView.setBusy(true); // start busy indicator
             this.getView().bindElement({
-                path: "/ZCDS_PS_MASTER('" + this._id + "')"
+                path: "/ZCDS_PS_MASTER('" + this._id + "')",
+                events: {
+                    dataRequested: function () {
+                        oView.setBusy(true); // start busy indicator
+                    },
+                    dataReceived: function () {
+                        oView.setBusy(false); // stop busy when data is loaded
+                    }
+                }
             });
 
             var oView = this.getView();
             var oModel = oView.getModel();
-
-            var oContext = oView.getElementBinding();
-            var sPath = oContext.getPath() + "/toRemarks";
-
-            // Read remarks data
-            oModel.read(sPath, {
-                success: function (oData) {
-                    var aLines = oData.results.map(function (oItem) {
-                        return oItem.RmText;
-                    });
-                    var sCombinedText = aLines.join("\n");
-
-                    // Update the TextArea via viewModel
-                    oView.getModel("viewEditableModel").setProperty("/remarksText", sCombinedText);
-                },
-                error: function (err) {
-                    console.error("Failed to load remarks", err);
-                }
-            });
-
-            sPath = oContext.getPath() + "/toParters";
-            // Read partners data
-            oModel.read(sPath, {
-                success: function (oData) {
-                    var aLines = oData.results.map(function (oItem) {
-                        return oItem.PartnerName;
-                    });
-                    var sCombinedText = aLines.join(", ");
-
-                    // Update the TextArea via viewModel
-                    oView.getModel("viewEditableModel").setProperty("/partnersText", sCombinedText);
-                },
-                error: function (err) {
-                    console.error("Failed to load partners", err);
-                }
-            });
-
-
             this.oDataModel = oModel;
             this.oDataModel.setDefaultBindingMode('TwoWay');
             this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
         },
         _onModelChange: function () {
+            if(this.getView().getBusy()) this.getView().setBusy(false);
             var oViewModel = this.getView().getModel("viewEditableModel");
             var bHasPendingChanges = this.oDataModel.hasPendingChanges();
             oViewModel.setProperty("/showSave", bHasPendingChanges);
@@ -105,10 +112,6 @@ sap.ui.define([
             this.oRouter.navTo("Master", { layout: sNextLayout });
 
         },
-        onToggleRemarksView: function (oEvent) {
-            var bShowTable = oEvent.getParameter("selected");
-            this.getView().getModel("viewEditableModel").setProperty("/showTable", bShowTable);
-        },
         onNewRemarkLiveChange: function (oEvent) {
             var sNewText = oEvent.getParameter("value");
             this.getView().getModel("viewEditableModel").setProperty("/newRemarkText", sNewText);
@@ -117,10 +120,12 @@ sap.ui.define([
             this.oDataModel.checkUpdate(true);
             this._onModelChange();
         },
-        onStateChange: function (oEvent) {
-            var bNewState = oEvent.getParameter("state"); // true = Edit, false = Display
+        onEditModeToggle: function () {
             var oViewModel = this.getView().getModel("viewEditableModel");
             var oModel = this.getView().getModel();
+
+            var bCurrentState = oViewModel.getProperty("/editMode"); // true = Edit, false = Display
+            var bNewState = !bCurrentState;
 
             // Going to Edit mode: always allow
             if (bNewState) {
@@ -130,9 +135,6 @@ sap.ui.define([
 
             // Going to Display mode: check for unsaved changes
             if (oModel.hasPendingChanges()) {
-                // Reset the switch back to ON temporarily
-                oViewModel.setProperty("/editMode", true);
-
                 // Ask confirmation
                 sap.m.MessageBox.confirm(
                     "You have unsaved changes. Are you sure you want to discard them?",
@@ -142,12 +144,11 @@ sap.ui.define([
                         emphasizedAction: sap.m.MessageBox.Action.CANCEL,
                         onClose: function (sAction) {
                             if (sAction === sap.m.MessageBox.Action.OK) {
-                                // Reset the model, discard changes
-                                oModel.resetChanges();                           // discard all changes
-                                oModel.checkUpdate(true);                        // ensure bindings are refreshed
-                                oViewModel.setProperty("/editMode", false);      // switch to display mode
-                                oViewModel.setProperty("/showSave", false);      // hide save button
-                                MessageToast.show("Changes discarded");
+                                oModel.resetChanges();                           // discard changes
+                                oModel.checkUpdate(true);                        // refresh bindings
+                                oViewModel.setProperty("/editMode", false);     // switch to display
+                                oViewModel.setProperty("/showSave", false);     // hide save
+                                sap.m.MessageToast.show("Changes discarded");
                             }
                         }
                     }

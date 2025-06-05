@@ -65,24 +65,19 @@
                 </navigationActions>
 
                 <actions>
-                    <m:Button id="_IDGenButton"
+                    <m:Button
+                        id="_IDGenButton"
                         text="Save"
                         type="Emphasized"
                         press=".onSave"
                         visible="{viewEditableModel>/showSave}"
                     />
-                    <m:Switch
-                        id="_IDGenSwitch"
-                        state="{viewEditableModel>/editMode}"
-                        customTextOn="Edit"
-                        customTextOff="Display"
-                        change="onStateChange"
-                    />
-                    <m:CheckBox
-                        id="_IDGenCheckBox"
-                        selected="{viewEditableModel>/showTable}"
-                        text="Show Table View"
-                        select="onToggleRemarksView"
+                    <m:Button
+                        id="editModeButton"
+                        icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }"
+                        tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }"
+                        type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }"
+                        press="onEditModeToggle"
                     />
                     <m:Button
                         id="_IDGenButton2"
@@ -159,7 +154,8 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection">
                         <blocks>
-                            <smartForm:SmartForm validateFieldGroup="onFieldGroupChange"
+                            <smartForm:SmartForm
+                                validateFieldGroup="onFieldGroupChange"
                                 id="smartFormColumn"
                                 app:defaultCheckBoxDisplayBehaviour="OnOff"
                                 app:defaultDropDownDisplayBehaviour="idAndDescription"
@@ -180,6 +176,15 @@
                                     id="_IDGenGroup"
                                     title="Customer Details"
                                 >
+                                    <smartForm:GroupElement
+                                        id="_IDGenGroupElement19"
+                                    >
+                                        <smartField:SmartField
+                                            id="_IDGenSmartField19"
+                                            value="{CustomerName}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement17"
                                     >
@@ -230,6 +235,15 @@
                                     id="_IDGenGroup1"
                                     title="Opportunity Details"
                                 >
+                                    <smartForm:GroupElement
+                                        id="_IDGenGroupElement20"
+                                    >
+                                        <smartField:SmartField
+                                            id="_IDGenSmartField20"
+                                            value="{Status}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement5"
                                     >
@@ -362,18 +376,9 @@
                                 width="100%"
                             >
                                 <l:content>
-                                    <m:TextArea
-                                        id="idRemarksTextArea"
-                                        rows="5"
-                                        visible="{= !${viewEditableModel>/showTable} }"
-                                        width="100%"
-                                        editable="false"
-                                        value="{viewEditableModel>/remarksText}"
-                                    />
                                     <m:List
                                         id="_IDGenList1"
                                         items="{path : 'toRemarks'}"
-                                        visible="{= ${viewEditableModel>/showTable} }"
                                     >
                                         <m:FeedListItem
                                             id="_IDGenFeedListItem"
@@ -414,18 +419,9 @@
                                 id="_IDGenVerticalLayout2"
                                 width="100%"
                             >
-                                <m:TextArea
-                                    id="idPartnersTextArea"
-                                    rows="1"
-                                    visible="{= !${viewEditableModel>/showTable} }"
-                                    width="100%"
-                                    editable="false"
-                                    value="{viewEditableModel>/partnersText}"
-                                />
                                 <m:Table
                                     id="partnerTable"
                                     items="{path: 'toParters'}"
-                                    visible="{= ${viewEditableModel>/showTable} }"
                                     inset="false"
                                     fixedLayout="false"
                                     headerText="Partners"

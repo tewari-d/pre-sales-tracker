@@ -7,12 +7,30 @@ sap.ui.define([
         onInit() {
             this.oRouter = this.getOwnerComponent().getRouter();
 
+            var oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
 
+            if (oSmartFilterBar) {
+                // Wait for metadata to be loaded
+                oSmartFilterBar.attachInitialized(this._setDefaultFilters, this);
+            }
             // oModel.metadataLoaded().then(function () {
             this._updateSegmentedCounts();
             // }.bind(this)).catch(function () {
             //     console.error("Metadata failed to load");
             // });
+        },
+        _setDefaultFilters: function () {
+            var oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
+
+            const oFilterData = {
+                Status: {
+                    items: [
+                        { key: "CLSD", text: "CLSD" },
+                        { key: "NEW", text: "NEW" }
+                    ]
+                }
+            };
+            oSmartFilterBar.setFilterData(oFilterData);
         },
         onSelectionChange(oEvent) {
             let oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
