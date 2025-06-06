@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartField="sap.ui.comp.smartfield">
+    <Dialog id="partnerDialog" title="Create Partner" contentWidth="400px" class="sapUiContentPadding">
+        <content>
+            <Label id="_IDGenLabel4" text="Name" labelFor="partnerNameInput" />
+            <smartField:SmartField
+                id="partnerNameFunctionSmartField"
+                width="100%"
+                value="{path: 'PartnerName', type: 'sap.ui.model.type.String'}"
+                entitySet="zcds_ps_partner" />
+            <Label id="_IDGenLabel5" text="Partner Function" labelFor="partnerFunctionSmartField" />    
+            <smartField:SmartField
+                id="partnerFunctionSmartField"
+                width="100%"
+                value="{path: 'PartnerFunction', type: 'sap.ui.model.type.String'}"
+                entitySet="zcds_ps_partner" />
+            <Label id="_IDGenLabel6" text="Email" labelFor="partnerEmailInput" />
+            <smartField:SmartField
+                id="partnerEmailFunctionSmartField"
+                width="100%"
+                value="{path: 'PartnerEmail', type: 'sap.ui.model.type.String'}"
+                entitySet="zcds_ps_partner" placeholder="example@example.com" />
+        </content>
+        <beginButton>
+            <Button id="_IDGenButton1" text="Create" type="Emphasized" press="onCreatePartnerConfirm" />
+        </beginButton>
+        <endButton>
+            <Button id="_IDGenButton5" text="Cancel" press="onCreatePartnerCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/Fragment"
+], (Controller, Fragment) => {
     "use strict";
 
     return Controller.extend("com.nagarro.www.presalestracker.controller.Detail", {
@@ -92,7 +93,7 @@ sap.ui.define([
             this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
         },
         _onModelChange: function () {
-            if(this.getView().getBusy()) this.getView().setBusy(false);
+            if (this.getView().getBusy()) this.getView().setBusy(false);
             var oViewModel = this.getView().getModel("viewEditableModel");
             var bHasPendingChanges = this.oDataModel.hasPendingChanges();
             oViewModel.setProperty("/showSave", bHasPendingChanges);
@@ -163,93 +164,59 @@ sap.ui.define([
             var aChanges = this.oDataModel.getPendingChanges();
             this.oDataModel.submitChanges();
         },
-        onCreatePartner: function(oEvent) {
+        onCreatePartner: function (oEvent) {
             debugger;
             var oView = this.getView();
-        
-            if (!this._oPartnerDialog) {
-                this._oPartnerDialog = new sap.m.Dialog({
-                    title: "Create Partner",
-                    content: [
-                        new sap.m.Label({ text: "Name", labelFor: "partnerNameInput" }),
-                        new sap.m.Input("partnerNameInput", {
-                            width: "100%"
-                        }),
-        
-                        new sap.m.Label({ text: "Partner Function", labelFor: "partnerFunctionSmartField" }),
-                        new sap.ui.comp.smartfield.SmartField("partnerFunctionSmartField", {
-                            value: {
-                                entitySet: 'zcds_ps_partner',
-                                path: "PartnerFunction",
-                                type: "sap.ui.model.type.String"
-                            },
-                            width: "100%"
-                        }),
-        
-                        new sap.m.Label({ text: "Email", labelFor: "partnerEmailInput" }),
-                        new sap.m.Input("partnerEmailInput", {
-                            type: "Email",
-                            width: "100%",
-                            placeholder: "example@example.com"
-                        })
-                    ],
-                    beginButton: new sap.m.Button({
-                        text: "Create",
-                        type: "Emphasized",
-                        press: function () {
-                            var sName = sap.ui.getCore().byId("partnerNameInput").getValue();
-                            var sPartnerFunction = sap.ui.getCore().byId("partnerFunctionSmartField").getValue();
-                            var sEmail = sap.ui.getCore().byId("partnerEmailInput").getValue();
-        
-                            // Validate inputs here as needed
-        
-                            // Example: simple non-empty validation
-                            if (!sName) {
-                                sap.m.MessageToast.show("Please enter Name");
-                                return;
-                            }
-        
-                            if (!sPartnerFunction) {
-                                sap.m.MessageToast.show("Please enter Partner Function");
-                                return;
-                            }
-        
-                            // Close dialog before creating (or after successful create)
-                            this._oPartnerDialog.close();
-        
-                            // Implement your partner creation logic here, e.g., OData create
-                            // Example:
-                            /*
-                            var oModel = oView.getModel();
-                            oModel.create("/Partners", {
-                                Name: sName,
-                                PartnerFunction: sPartnerFunction,
-                                Email: sEmail
-                            }, {
-                                success: function() {
-                                    sap.m.MessageToast.show("Partner created successfully");
-                                },
-                                error: function() {
-                                    sap.m.MessageToast.show("Failed to create partner");
-                                }
-                            });
-                            */
-                        }.bind(this)
-                    }),
-                    endButton: new sap.m.Button({
-                        text: "Cancel",
-                        press: function () {
-                            this._oPartnerDialog.close();
-                        }.bind(this)
-                    }),
-                    contentWidth: "400px"
+
+            if (!this._pPartnerDialog) {
+                this._pPartnerDialog = Fragment.load({
+                    id: oView.getId(),
+                    name: "com.nagarro.www.presalestracker.view.fragments.NewPartnerCreate",
+                    controller: this
+                }).then(function (oDialog) {
+                    oView.addDependent(oDialog);
+                    return oDialog;
                 });
-        
-                oView.addDependent(this._oPartnerDialog);
             }
-            
-            this._oPartnerDialog.open();
-        }        
+
+            this._pPartnerDialog.then(function (oDialog) {
+                oDialog.open();
+            });
+
+        },
+        onCreatePartnerConfirm: function () {
+            var oView = this.getView();
+            var sName = Fragment.byId(oView.getId(), "partnerNameInput").getValue();
+            var sPartnerFunction = Fragment.byId(oView.getId(), "partnerFunctionSmartField").getValue();
+            var sEmail = Fragment.byId(oView.getId(), "partnerEmailInput").getValue();
+
+            if (!sName) {
+                sap.m.MessageToast.show("Please enter Name");
+                return;
+            }
+
+            if (!sPartnerFunction) {
+                sap.m.MessageToast.show("Please enter Partner Function");
+                return;
+            }
+
+            // Basic email format check using regex
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!sEmail || !emailRegex.test(sEmail)) {
+                sap.m.MessageToast.show("Please enter a valid Email address");
+                return;
+            }
+
+            Fragment.byId(oView.getId(), "partnerDialog").close();
+
+            // Call create logic here
+            // this.getView().getModel().create(...)
+        },
+        onCreatePartnerCancel: function () {
+            Fragment.byId(this.getView().getId(), "partnerDialog").close();
+        }
+
 
     });
 });
