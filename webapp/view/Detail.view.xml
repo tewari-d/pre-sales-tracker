@@ -27,14 +27,11 @@
                     <m:Button id="_IDGenButton" text="Save" type="Emphasized" press=".onSave" visible="{viewEditableModel>/showSave}" />
                     <m:Button id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
                     <m:Button id="_IDGenButton2" text="Delete" type="Transparent" />
-                    <m:Button id="_IDGenButton3" icon="sap-icon://action" type="Transparent" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
         <headerContent>
             <m:FlexBox id="_IDGenFlexBox" wrap="Wrap" fitContainer="true" alignItems="Stretch">
-                <!-- <m:Avatar src="../../../../../../../{products>ProductPicUrl}" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd">
-                </m:Avatar> -->
                 <m:VBox id="_IDGenVBox" justifyContent="Center" class="sapUiSmallMarginEnd">
                     <m:Label id="_IDGenLabel" text="Received Date" />
                     <m:Text id="_IDGenText" text="{path: 'ReceivedDate', type:'sap.ui.model.type.Date', formatOptions: { style:'medium' } }" />
@@ -138,12 +135,7 @@
                                     <m:List id="_IDGenList1" items="{path : 'toRemarks'}">
                                         <m:FeedListItem id="_IDGenFeedListItem" senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}" />
                                     </m:List>
-                                    <m:FeedInput
-                                        id="_IDGenFeedInput1"
-                                        post="onUpdateNewRemarks"
-                                        placeholder="Enter new remarks here..."
-                                        showIcon="false"
-                                    />
+                                    <m:FeedInput id="_IDGenFeedInput1" post="onUpdateNewRemarks" placeholder="Enter new remarks here..." showIcon="false" />
                                 </l:content>
                             </l:VerticalLayout>
                         </blocks>
@@ -154,43 +146,15 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
-                            <l:VerticalLayout
-                                id="_IDGenVerticalLayout2"
-                                width="100%"
-                            >
-                                <smartTable:SmartTable
-                                    id="_IDGenSmartTable1"
-                                    entitySet="zcds_ps_partner"
-                                    tableBindingPath="toParters"
-                                    header="Partners"
-                                    showRowCount="true"
-                                    tableType="ResponsiveTable"
-                                    enableExport="true"
-                                    beforeExport="onBeforeExport"
-                                    useTablePersonalisation="true"
-                                    enableAutoBinding="true"
-                                    requestAtLeastFields="Id"
-                                >
+                            <l:VerticalLayout id="_IDGenVerticalLayout2" width="100%">
+                                <smartTable:SmartTable id="_IDGenSmartTable1" entitySet="zcds_ps_partner" tableBindingPath="toParters" header="Partners" showRowCount="true" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useTablePersonalisation="true" enableAutoBinding="true" requestAtLeastFields="Id">
                                     <smartTable:customToolbar>
-                                        <m:OverflowToolbar
-                                            id="_IDGenOverflowToolbar"
-                                            design="Transparent"
-                                        >
-                                            <m:ToolbarSpacer
-                                                id="_IDGenToolbarSpacer1"
-                                            />
-                                            <m:Button
-                                                id="_IDGenButton4"
-                                                tooltip="Create New"
-                                                text="Create"
-                                                press="onCreatePartner"
-                                            />
+                                        <m:OverflowToolbar id="_IDGenOverflowToolbar" design="Transparent">
+                                            <m:ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                                            <m:Button id="_IDGenButton4" tooltip="Create New" text="Create" press="onCreatePartner" />
                                         </m:OverflowToolbar>
                                     </smartTable:customToolbar>
-                                    <m:Table
-                                        id="_IDGenTable"
-                                        growing="false"
-                                    />
+                                    <m:Table id="_IDGenTable" growing="false" />
                                 </smartTable:SmartTable>
                             </l:VerticalLayout>
                         </blocks>
