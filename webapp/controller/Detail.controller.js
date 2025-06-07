@@ -94,9 +94,9 @@ sap.ui.define([
         },
         _onModelChange: function () {
             if (this.getView().getBusy()) this.getView().setBusy(false);
-            var oViewModel = this.getView().getModel("viewEditableModel");
-            var bHasPendingChanges = this.oDataModel.hasPendingChanges();
-            oViewModel.setProperty("/showSave", bHasPendingChanges);
+            // var oViewModel = this.getView().getModel("viewEditableModel");
+            // var bHasPendingChanges = this.oDataModel.hasPendingChanges();
+            // oViewModel.setProperty("/showSave", bHasPendingChanges);
         },
         onOverflowToolbarButtonFullScreenPress: function () {
             this.bFocusFullScreenButton = true;
@@ -131,6 +131,7 @@ sap.ui.define([
             // Going to Edit mode: always allow
             if (bNewState) {
                 oViewModel.setProperty("/editMode", true);
+                oViewModel.setProperty("/showSave", true);
                 return;
             }
 
@@ -157,12 +158,41 @@ sap.ui.define([
             } else {
                 // No changes, just switch off
                 oViewModel.setProperty("/editMode", false);
+                oViewModel.setProperty("/showSave", false);
             }
         },
         onSave: function () {
-            debugger;
-            var aChanges = this.oDataModel.getPendingChanges();
-            this.oDataModel.submitChanges();
+            const oView = this.getView();
+            const oModel = oView.getModel();
+            const oVM = oView.getModel("viewEditableModel");
+            const oContext = oView.getElementBinding().getBoundContext();
+            const oRemarksList = oView.byId("idRemarksList");
+            if (!oContext) {
+                sap.m.MessageBox.error("No bound context found.");
+                return;
+            }
+
+            const sPath = oContext.getPath(); // "/ZCDS_PS_MASTER('0003')"
+            const oPayload = oModel.getObject(sPath); // Get full object from model
+
+            oView.setBusy(true);
+
+            oModel.update(sPath, oPayload, {
+                method: "PUT",
+                success: () => {
+                    sap.m.MessageToast.show("Saved successfully.");
+                    oVM.setProperty("/editMode", false);
+                    oVM.setProperty("/showSave", false);
+                    oRemarksList.getBinding("items").refresh(); // Refresh remarks list
+                },
+                error: (oError) => {
+                    sap.m.MessageBox.error("Save failed.");
+                    console.error(oError);
+                },
+                complete: () => {
+                    oView.setBusy(false);
+                }
+            });
         },
         onCreatePartner: function (oEvent) {
             debugger;

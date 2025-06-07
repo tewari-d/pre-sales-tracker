@@ -25,7 +25,7 @@
 
                 <actions>
                     <m:Button id="_IDGenButton" text="Save" type="Emphasized" press=".onSave" visible="{viewEditableModel>/showSave}" />
-                    <m:Button id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
+                    <m:Button id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" press="onEditModeToggle" />
                     <m:Button id="_IDGenButton2" text="Delete" type="Transparent" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
@@ -132,7 +132,7 @@
                         <blocks>
                             <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
                                 <l:content>
-                                    <m:List id="_IDGenList1" items="{path : 'toRemarks'}">
+                                    <m:List id="idRemarksList" items="{path : 'toRemarks'}">
                                         <m:FeedListItem id="_IDGenFeedListItem" senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}" />
                                     </m:List>
                                     <m:FeedInput id="_IDGenFeedInput1" post="onUpdateNewRemarks" placeholder="Enter new remarks here..." showIcon="false" />
