@@ -54,7 +54,7 @@
                     <OverflowToolbar id="_IDGenOverflowToolbar1" design="Transparent">
                         <SegmentedButton id="statusSegmented" selectionChange="onStatusSegmentChange">
                             <items>
-                                <SegmentedButtonItem id="segALL" key="ALL" text="All" />
+                                <SegmentedButtonItem id="segALL" key="DEFAULT" text="Default" />
                                 <SegmentedButtonItem id="segWIP" key="WIP" text="In Progress (0)" />
                                 <SegmentedButtonItem id="segSUBMITTED" key="SUBMITTED" text="Submitted (0)" />
                             </items>

@@ -9,9 +9,17 @@ sap.ui.define([
             const oSmartTable = this.byId("presalesDBSmartTable");
             const oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
 
+            this._oInitialStatusFilter = null;
+
             if (oSmartFilterBar) {
                 // Wait for metadata to be loaded
-                oSmartFilterBar.attachInitialized(this._setDefaultFilters, this);
+                oSmartFilterBar.attachInitialized(() => {
+                    this._setDefaultFilters();
+
+                    // Save the initial Status filter separately
+                    const oInitialFilter = oSmartFilterBar.getFilterData();
+                    this._oInitialStatusFilter = JSON.parse(JSON.stringify(oInitialFilter.Status));
+                });
             }
 
             oSmartTable.attachBeforeRebindTable(this._updateSegmentedCounts, this);
@@ -73,23 +81,24 @@ sap.ui.define([
             }
 
             // Step 1: Get existing filters
-            const oData = oSmartFilterBar.getFilterData();
+            const oCurrentFilters = oSmartFilterBar.getFilterData();
 
             // Step 2: Update only the Status field
-            if (sKey === "ALL") {
-                delete oData.Status;
-            } else {
-                oData.Status = {
-                    value: null,
-                    items: [
-                        { key: sKey, text: sKey }
-                    ]
+            if (sKey === "DEFAULT") {
+                if (this._oInitialStatusFilter) {
+                    oCurrentFilters.Status = JSON.parse(JSON.stringify(this._oInitialStatusFilter));
+                } else {
+                    delete oCurrentFilters.Status;
                 }
-                // wrap in array in case it's a multi-value filter
+            } else {
+                oCurrentFilters.Status = {
+                    value: null,
+                    items: [{ key: sKey, text: sKey }]
+                };
             }
 
             // Step 3: Apply updated filter set
-            oSmartFilterBar.setFilterData(oData, true);
+            oSmartFilterBar.setFilterData(oCurrentFilters, true);
             oSmartFilterBar.search();
         },
         formatRowHighlight: function (sStatus, sPlanned, sSubmitted) {

@@ -407,12 +407,7 @@
                                             text="{RmText}"
                                         />
                                     </m:List>
-                                    <m:FeedInput
-                                        id="_IDGenFeedInput1"
-                                        post="onUpdateNewRemarks"
-                                        placeholder="Enter new remarks here..."
-                                        showIcon="false"
-                                    />
+                                    <m:FeedInput id="_IDGenFeedInput1" post="onUpdateNewRemarks" placeholder="Enter new remarks here..." showIcon="false" />
                                 </l:content>
                             </l:VerticalLayout>
                         </blocks>
@@ -426,23 +421,8 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
-                            <l:VerticalLayout
-                                id="_IDGenVerticalLayout2"
-                                width="100%"
-                            >
-                                <smartTable:SmartTable
-                                    id="_IDGenSmartTable1"
-                                    entitySet="zcds_ps_partner"
-                                    tableBindingPath="toParters"
-                                    header="Partners"
-                                    showRowCount="true"
-                                    tableType="ResponsiveTable"
-                                    enableExport="true"
-                                    beforeExport="onBeforeExport"
-                                    useTablePersonalisation="true"
-                                    enableAutoBinding="true"
-                                    requestAtLeastFields="Id"
-                                >
+                            <l:VerticalLayout id="_IDGenVerticalLayout2" width="100%">
+                                <smartTable:SmartTable id="_IDGenSmartTable1" entitySet="zcds_ps_partner" tableBindingPath="toParters" header="Partners" showRowCount="true" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useTablePersonalisation="true" enableAutoBinding="true" requestAtLeastFields="Id">
                                     <smartTable:customToolbar>
                                         <m:OverflowToolbar
                                             id="_IDGenOverflowToolbar"
