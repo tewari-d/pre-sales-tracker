@@ -144,7 +144,8 @@ sap.ui.define([
             var sNewText = oEvent.getParameter("value");
             this.getView().getModel("viewEditableModel").setProperty("/newRemarkText", sNewText);
         },
-        onFieldGroupChange: function () {
+        onFieldGroupChange: function (oEvent) {
+            debugger;
             this.oDataModel.checkUpdate(true);
             this._onModelChange();
         },
@@ -193,7 +194,7 @@ sap.ui.define([
             const oModel = oView.getModel();
             const oVM = oView.getModel("viewEditableModel");
             const oContext = oView.getElementBinding().getBoundContext();
-            const oRemarksList = oView.byId("idRemarksList");
+            const oRemarksList = oView.byId("_IDGenList1");
             if (!oContext) {
                 sap.m.MessageBox.error("No bound context found.");
                 return;
@@ -203,6 +204,27 @@ sap.ui.define([
             const oPayload = oModel.getObject(sPath); // Get full object from model
 
             oView.setBusy(true);
+
+            if(oPayload.Status === 'SUBMITTED'){
+                if (oPayload.PracticeReviewwer === "" || oPayload.PreSalesReviewwer === "" || oPayload.ResourceFutureDemandUpdated === "") {
+                    sap.m.MessageBox.error("All three fields are required:\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer",
+                        {
+                            onClose: function () {
+                                // Focus the first empty field
+                                if (oPayload.PracticeReviewwer === "") {
+                                    this.byId("_IDGenSmartField24").focus();
+                                } else if (oPayload.PreSalesReviewwer === "") {
+                                    this.byId("_IDGenSmartField25").focus();
+                                } else if (oPayload.ResourceFutureDemandUpdated === "") {
+                                    this.byId("_IDGenSmartField26").focus();
+                                }
+                            }.bind(this)
+                        }
+                    );
+                    oView.setBusy(false);
+                    return;
+                }
+            }
 
             oModel.update(sPath, oPayload, {
                 method: "PUT",
@@ -215,6 +237,7 @@ sap.ui.define([
                 error: (oError) => {
                     sap.m.MessageBox.error("Save failed.");
                     console.error(oError);
+                    oView.setBusy(false);
                 },
                 complete: () => {
                     oView.setBusy(false);
@@ -417,7 +440,29 @@ sap.ui.define([
             if (this._pLogDialog) {
                 this._pLogDialog.close();
             }
-        }     
+        },
+        onOpenReviewerDialog: function () {
+            const oView = this.getView();
+            const oContext = oView.getBindingContext(); // or specific context path
         
+            if (!this._pReviewerDialog) {
+                Fragment.load({
+                    name: "your.namespace.view.fragments.ReviewerDialog",
+                    controller: this
+                }).then(function (oDialog) {
+                    this._pReviewerDialog = oDialog;
+                    oView.addDependent(oDialog);
+        
+                    // Bind dialog to context
+                    this._pReviewerDialog.setBindingContext(oContext);
+                    this._pReviewerDialog.setModel(oView.getModel());
+        
+                    this._pReviewerDialog.open();
+                }.bind(this));
+            } else {
+                this._pReviewerDialog.setBindingContext(oContext);
+                this._pReviewerDialog.open();
+            }
+        }                  
     });
 });

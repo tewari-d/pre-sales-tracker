@@ -170,7 +170,7 @@
                             <smartForm:SmartForm
                                 validateFieldGroup="onFieldGroupChange"
                                 id="smartFormColumn"
-                                app:defaultCheckBoxDisplayBehaviour="OnOff"
+                                app:defaultCheckBoxDisplayBehaviour="YesNo"
                                 app:defaultDropDownDisplayBehaviour="idAndDescription"
                                 title="{Name}"
                                 validationMode="Async"
@@ -346,6 +346,32 @@
                                         <smartField:SmartField
                                             id="_IDGenSmartField23"
                                             value="{DocUrl}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
+                                </smartForm:Group>
+                                <smartForm:Group id="_IDGenGroup4"
+                                    title="Reviewers"
+                                    visible="{= ${Status} === 'SUBMITTED' ? true : false }"
+                                >
+                                    <smartForm:GroupElement id="_IDGenGroupElement21"
+                                    >
+                                        <smartField:SmartField id="_IDGenSmartField24"
+                                            value="{PracticeReviewwer}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement22"
+                                    >
+                                        <smartField:SmartField id="_IDGenSmartField25"
+                                            value="{PreSalesReviewwer}"
+                                            fieldGroupIds="generalInfoFieldGroup"
+                                        />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement23"
+                                    >
+                                        <smartField:SmartField id="_IDGenSmartField26"
+                                            value="{ResourceFutureDemandUpdated}"
                                             fieldGroupIds="generalInfoFieldGroup"
                                         />
                                     </smartForm:GroupElement>
