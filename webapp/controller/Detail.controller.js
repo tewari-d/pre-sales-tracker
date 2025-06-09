@@ -30,8 +30,34 @@ sap.ui.define([
             this.getView().setModel(oEditModel, "viewEditableModel");
 
         },
-        onUpdateNewRemarks(oEvent) {
-            sap.m.MessageToast.show("Remarks will be updated");
+        onUpdateNewRemarks: function (oEvent) {
+            var oView = this.getView();
+            var oFeedInput = oView.byId("_IDGenFeedInput1");
+            var sText = oEvent.getParameter("value").trim();
+        
+            if (!sText) {
+                MessageToast.show("Please enter a remark.");
+                return;
+            }
+        
+            var oModel = oView.getModel();
+            var oContext = oFeedInput.getBindingContext();
+            var sPath = oContext.getPath() + "/toRemarks"; // deep insert path
+        
+            var oNewEntry = {
+                Id: oContext.getObject().Id,
+                RmText: sText
+            };
+        
+            oModel.create(sPath, oNewEntry, {
+                success: function () {
+                    sap.m.MessageToast.show("Remark added successfully.");
+                    oFeedInput.setValue("");
+                },
+                error: function () {
+                    sap.m.MessageBox.error("Failed to add remark.");
+                }
+            });
         },
         _checkExistingEdits() {
             var oViewModel = this.getView().getModel("viewEditableModel");
@@ -73,6 +99,7 @@ sap.ui.define([
             oViewModel.setProperty("/editMode", false);     // switch to display
             oViewModel.setProperty("/showSave", false);     // hide save
             this._id = oEvent.getParameter("arguments").id || this._id || "0";
+            this.getView().byId("_IDGenFeedInput1").setValue("");
             oView.setBusy(true); // start busy indicator
             this.getView().bindElement({
                 path: "/ZCDS_PS_MASTER('" + this._id + "')",
@@ -165,7 +192,6 @@ sap.ui.define([
             this.oDataModel.submitChanges();
         },
         onCreatePartner: function (oEvent) {
-            debugger;
             var oView = this.getView();
 
             if (!this._pPartnerDialog) {
@@ -183,12 +209,13 @@ sap.ui.define([
                 oDialog.open();
             });
 
-        },
+        },        
         onCreatePartnerConfirm: function () {
+            debugger;
             var oView = this.getView();
-            var sName = Fragment.byId(oView.getId(), "partnerNameInput").getValue();
+            var sName = Fragment.byId(oView.getId(), "partnerNameSmartField").getValue();
             var sPartnerFunction = Fragment.byId(oView.getId(), "partnerFunctionSmartField").getValue();
-            var sEmail = Fragment.byId(oView.getId(), "partnerEmailInput").getValue();
+            var sEmail = Fragment.byId(oView.getId(), "partnerEmailSmartField").getValue();
 
             if (!sName) {
                 sap.m.MessageToast.show("Please enter Name");
@@ -211,10 +238,111 @@ sap.ui.define([
             Fragment.byId(oView.getId(), "partnerDialog").close();
 
             // Call create logic here
-            // this.getView().getModel().create(...)
+            var oModel = oView.getModel();
+            var oContext = Fragment.byId(oView.getId(), "partnerDialog").getBindingContext();
+            var sPath = oContext.getPath() + "/toParters"; // deep insert path
+        
+            var oNewEntry = {
+                Id: oContext.getObject().Id,
+                PartnerName: sName,
+                PartnerFunction: sPartnerFunction,
+                PartnerEmail: sEmail
+            };
+        
+            oModel.create(sPath, oNewEntry, {
+                success: function () {
+                    sap.m.MessageToast.show("Partner added successfully.");
+                },
+                error: function () {
+                    sap.m.MessageBox.error("Failed to add new partner.");
+                }
+            });
         },
         onCreatePartnerCancel: function () {
             Fragment.byId(this.getView().getId(), "partnerDialog").close();
+        },
+        onPartnerEdit: function (oEvent) {
+            var oSource = oEvent.getSource();                           // the button
+            var oContext = oSource.getBindingContext();                 // get the row context
+            var oData = oContext.getObject();                           // full partner data
+
+            // Example: open a fragment dialog with partner data pre-filled for editing
+            if (!this._oEditPartnerDialog) {
+                Fragment.load({
+                    name: "com.nagarro.www.presalestracker.view.fragments.PartnerEdit",
+                    controller: this
+                }).then(function (oDialog) {
+                    this._oEditPartnerDialog = oDialog;
+                    this.getView().addDependent(oDialog);
+                    this._bindEditDialog(oContext);
+                    oDialog.open();
+                }.bind(this));
+            } else {
+                this._bindEditDialog(oContext);
+                this._oEditPartnerDialog.open();
+            }
+        },
+
+        _bindEditDialog: function (oContext) {
+            this._oEditPartnerDialog.setBindingContext(oContext);
+            this._oEditPartnerDialog.setModel(this.getView().getModel());
+        },
+
+        onPartnerDelete: function (oEvent) {
+            var oSource = oEvent.getSource();
+            var oContext = oSource.getBindingContext();
+            var oModel = this.getView().getModel();
+            var oData = oContext.getObject();
+
+            var sPartnerName = oData.PartnerName || "Unknown";
+            var sPartnerFunc = oData.PartnerFunction || "Unknown";
+
+            sap.m.MessageBox.confirm("Are you sure you want to delete this partner?", {
+                title: "Delete Partner: " + sPartnerName + " (" + sPartnerFunc + ")",
+                actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                onClose: function (oAction) {
+                    if (oAction === sap.m.MessageBox.Action.YES) {
+                        oModel.remove(oContext.getPath(), {
+                            success: function () {
+                                sap.m.MessageToast.show("Partner deleted successfully.");
+                            },
+                            error: function (oError) {
+                                sap.m.MessageBox.error("Error while deleting partner.");
+                            }
+                        });
+                    }
+                }
+            });
+        },
+        onSaveEditedPartner: function () {
+            var oModel = this.getView().getModel();
+
+            if (oModel.hasPendingChanges()) {
+                oModel.submitChanges({
+                    success: function () {
+                        sap.m.MessageToast.show("Partner updated successfully.");
+                    },
+                    error: function () {
+                        sap.m.MessageBox.error("Update failed.");
+                    }
+                });
+            }
+
+            if (this._oEditPartnerDialog) {
+                this._oEditPartnerDialog.close();
+            }
+        },
+
+        onCancelEdit: function () {
+            var oModel = this.getView().getModel();
+
+            if (oModel.hasPendingChanges()) {
+                oModel.resetChanges(); // discard unsaved changes
+            }
+
+            if (this._oEditPartnerDialog) {
+                this._oEditPartnerDialog.close();
+            }
         }
 
 
