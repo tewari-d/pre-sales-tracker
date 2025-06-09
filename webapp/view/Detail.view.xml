@@ -80,6 +80,18 @@
                         type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }"
                         press="onEditModeToggle"
                     />
+                    <m:Button id="_IDGenButton10"
+                        tooltip="Show Change Logs"
+                        icon="sap-icon://activities"
+                        press=".onShowChangeLogs"
+                    >
+                        <m:customData>
+                            <core:CustomData
+                                key="objectClass"
+                                value="ZCDO_PS_MASTER"
+                            />
+                        </m:customData>
+                    </m:Button>
                     <m:Button
                         id="_IDGenButton2"
                         text="Delete"
@@ -112,6 +124,7 @@
                         text="Received Date"
                     />
                     <m:Text
+                        id="_IDGenText2"
                         text="{path: 'ReceivedDate', type:'sap.ui.model.type.Date', formatOptions: { style:'medium' } }"
                     />
                 </m:VBox>
@@ -328,8 +341,10 @@
                                         />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement
+                                        id="_IDGenGroupElement"
                                     >
                                         <smartField:SmartField
+                                            id="_IDGenSmartField23"
                                             value="{DocUrl}"
                                             fieldGroupIds="generalInfoFieldGroup"
                                         />
@@ -407,7 +422,12 @@
                                             text="{RmText}"
                                         />
                                     </m:List>
-                                    <m:FeedInput id="_IDGenFeedInput1" post="onUpdateNewRemarks" placeholder="Enter new remarks here..." showIcon="false" />
+                                    <m:FeedInput
+                                        id="_IDGenFeedInput1"
+                                        post="onUpdateNewRemarks"
+                                        placeholder="Enter new remarks here..."
+                                        showIcon="false"
+                                    />
                                 </l:content>
                             </l:VerticalLayout>
                         </blocks>
@@ -421,8 +441,23 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
-                            <l:VerticalLayout id="_IDGenVerticalLayout2" width="100%">
-                                <smartTable:SmartTable id="_IDGenSmartTable1" entitySet="zcds_ps_partner" tableBindingPath="toParters" header="Partners" showRowCount="true" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useTablePersonalisation="true" enableAutoBinding="true" requestAtLeastFields="Id">
+                            <l:VerticalLayout
+                                id="_IDGenVerticalLayout2"
+                                width="100%"
+                            >
+                                <smartTable:SmartTable
+                                    id="_IDGenSmartTable1"
+                                    entitySet="zcds_ps_partner"
+                                    tableBindingPath="toParters"
+                                    header="Partners"
+                                    showRowCount="true"
+                                    tableType="ResponsiveTable"
+                                    enableExport="true"
+                                    beforeExport="onBeforeExport"
+                                    useTablePersonalisation="true"
+                                    enableAutoBinding="true"
+                                    requestAtLeastFields="Id"
+                                >
                                     <smartTable:customToolbar>
                                         <m:OverflowToolbar
                                             id="_IDGenOverflowToolbar"
@@ -438,9 +473,23 @@
                                                 press="onCreatePartner"
                                                 enabled="{viewEditableModel>/editMode}"
                                             />
+                                            <m:Button
+                                                id="_IDGenButton9"
+                                                tooltip="Show Change Logs"
+                                                icon="sap-icon://activities"
+                                                press=".onShowChangeLogs"
+                                            >
+                                                <m:customData>
+                                                    <core:CustomData
+                                                        key="objectClass"
+                                                        value="ZCDO_PS_PARTNER"
+                                                    />
+                                                </m:customData>
+                                            </m:Button>
                                         </m:OverflowToolbar>
                                     </smartTable:customToolbar>
                                     <m:Table
+                                        id="_IDGenTable"
                                         growing="false"
                                     >
                                         <m:columns>
@@ -460,6 +509,7 @@
                                                 />
                                             </m:Column>
                                             <m:Column
+                                                id="_IDGenColumn"
                                                 width="50px"
                                             >
                                                 <m:customData>
@@ -469,12 +519,15 @@
                                                     />
                                                 </m:customData>
                                                 <m:Text
+                                                    id="_IDGenText3"
                                                     text=""
                                                 />
                                             </m:Column>
                                         </m:columns>
                                         <m:items>
-                                            <m:ColumnListItem>
+                                            <m:ColumnListItem
+                                                id="_IDGenColumnListItem"
+                                            >
                                                 <m:Button
                                                     id="_IDGenObjectStatus"
                                                     icon="sap-icon://edit"

@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m">
+
+    <Dialog
+        id="changeLogDialog"
+        title="Change Log"
+        draggable="true"
+        resizable="true"
+        contentWidth="60rem"
+        contentHeight="25rem"
+        verticalScrolling="true"
+        horizontalScrolling="false">
+        
+        <VBox id="_IDGenVBox4" fitContainer="true" class="sapUiContentPadding">
+            <m:Table
+                id="logTable"
+                items="{/}"
+                growing="true"
+                growingScrollToLoad="true"
+                width="100%">
+                
+                <m:columns>
+                    <m:Column id="_IDGenColumn2">
+                        <m:Text id="_IDGenText4" text="Log Entry" />
+                    </m:Column>
+                </m:columns>
+
+                <m:items>
+                    <m:ColumnListItem id="_IDGenColumnListItem2">
+                        <m:cells>
+                            <m:Text id="_IDGenText5" text="{CDText}" />
+                        </m:cells>
+                    </m:ColumnListItem>
+                </m:items>
+            </m:Table>
+        </VBox>
+
+        <endButton>
+            <Button id="_IDGenButton8" text="Close" press=".onCloseLogDialog" />
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

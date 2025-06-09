@@ -373,8 +373,51 @@ sap.ui.define([
             if (this._oEditPartnerDialog) {
                 this._oEditPartnerDialog.close();
             }
-        }
+        },
+        onShowChangeLogs: function (oEvent) {
+            const oView = this.getView();
+            const oModel = oView.getModel(); 
+            const oContext = oEvent.getSource().getBindingContext();
+            const sObjectClass = oEvent.getSource().data("objectClass");
+            const sObjectId = oContext.getProperty("Id"); // or any key field
+        
+            // Call Function Import
+            oModel.callFunction("/GetChangeLogs", {
+                method: "GET",  
+                urlParameters: {
+                    ObjectClass: sObjectClass,
+                    ObjectId: sObjectId
+                },
+                success: function (oData) {
+                    const aLogs = oData.results || [];
+                    const oLogModel = new sap.ui.model.json.JSONModel(aLogs);
 
-
+                    // Load and open dialog
+                    if (!this._pLogDialog) {
+                        Fragment.load({
+                            name: "com.nagarro.www.presalestracker.view.fragments.ViewChangeLog",
+                            controller: this
+                        }).then(function (oDialog) {
+                            this._pLogDialog = oDialog;
+                            oView.addDependent(oDialog);
+                            this._pLogDialog.setModel(oLogModel);
+                            this._pLogDialog.open();
+                        }.bind(this));
+                    } else {
+                        this._pLogDialog.setModel(oLogModel);
+                        this._pLogDialog.open();
+                    }
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Failed to load change logs.");
+                }
+            });
+        }   ,
+        onCloseLogDialog: function () {
+            if (this._pLogDialog) {
+                this._pLogDialog.close();
+            }
+        }     
+        
     });
 });
