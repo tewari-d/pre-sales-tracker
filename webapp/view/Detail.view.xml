@@ -435,6 +435,7 @@
                                 width="100%"
                             >
                                 <l:content>
+                                <m:ScrollContainer id="_IDGenScrollContainer1" height="300px" vertical="true">
                                     <m:List
                                         id="_IDGenList1"
                                         items="{path : 'toRemarks'}"
@@ -448,6 +449,7 @@
                                             text="{RmText}"
                                         />
                                     </m:List>
+                                    </m:ScrollContainer>
                                     <m:FeedInput
                                         id="_IDGenFeedInput1"
                                         post="onUpdateNewRemarks"
@@ -471,6 +473,7 @@
                                 id="_IDGenVerticalLayout2"
                                 width="100%"
                             >
+                            <m:ScrollContainer id="_IDGenScrollContainer2" height="300px" vertical="true">
                                 <smartTable:SmartTable
                                     id="_IDGenSmartTable1"
                                     entitySet="zcds_ps_partner"
@@ -483,6 +486,7 @@
                                     useTablePersonalisation="true"
                                     enableAutoBinding="true"
                                     requestAtLeastFields="Id"
+                                    fitContainer="true"
                                 >
                                     <smartTable:customToolbar>
                                         <m:OverflowToolbar
@@ -572,6 +576,7 @@
                                         </m:items>
                                     </m:Table>
                                 </smartTable:SmartTable>
+                                </m:ScrollContainer>
                             </l:VerticalLayout>
                         </blocks>
                     </ObjectPageSubSection>
