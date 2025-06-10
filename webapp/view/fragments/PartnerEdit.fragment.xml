@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:smartField="sap.ui.comp.smartfield">
-    <Dialog id="_IDGenDialog1"  title="Create Partner" contentWidth="400px" class="sapUiContentPadding">
+    <Dialog id="_IDGenDialog1"  title="Update Partner {PartnerName} ({PartnerFunction})" contentWidth="400px" class="sapUiContentPadding">
         <content>
             <Label id="_IDGenLabel3"  text="Name" labelFor="partnerNameInput" />
             <smartField:SmartField id="_IDGenSmartField17"
@@ -9,12 +9,13 @@
                 width="100%"
                 value="{path: 'PartnerName', type: 'sap.ui.model.type.String'}"
                 entitySet="zcds_ps_partner" />
-            <Label id="_IDGenLabel7"  text="Partner Function" labelFor="partnerFunctionSmartField" />    
+            <Label id="_IDGenLabel7"  text="Partner Function" labelFor="partnerFunctionSmartField" visible="false"/>    
             <smartField:SmartField id="_IDGenSmartField21"
-                
+                visible="false"
                 width="100%"
                 value="{path: 'PartnerFunction', type: 'sap.ui.model.type.String'}"
-                entitySet="zcds_ps_partner" />
+                entitySet="zcds_ps_partner" 
+                editable="false"/>
             <Label id="_IDGenLabel8"  text="Email" labelFor="partnerEmailInput" />
             <smartField:SmartField id="_IDGenSmartField22"
                 
