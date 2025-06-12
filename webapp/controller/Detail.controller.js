@@ -283,12 +283,12 @@ sap.ui.define([
             // Basic email format check using regex
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!sEmail || !emailRegex.test(sEmail)) {
+            if (sEmail !== "" && !emailRegex.test(sEmail)) {
                 sap.m.MessageToast.show("Please enter a valid Email address");
                 return;
             }
 
-            Fragment.byId(oView.getId(), "partnerDialog").close();
+            Fragment.byId(oView.getId(), "partnerDialog").destroy();
 
             // Call create logic here
             var oModel = oView.getModel();
@@ -322,6 +322,7 @@ sap.ui.define([
             // Example: open a fragment dialog with partner data pre-filled for editing
             if (!this._oEditPartnerDialog) {
                 Fragment.load({
+                    id: this.getView().getId(),
                     name: "com.nagarro.www.presalestracker.view.fragments.PartnerEdit",
                     controller: this
                 }).then(function (oDialog) {
@@ -463,6 +464,10 @@ sap.ui.define([
                 this._pReviewerDialog.setBindingContext(oContext);
                 this._pReviewerDialog.open();
             }
+        },
+        onRemarksListLoaded: function(oEvent){
+            debugger;
+            oEvent.getSource().getParent()
         }                  
     });
 });

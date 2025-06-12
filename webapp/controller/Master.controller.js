@@ -138,6 +138,7 @@ sap.ui.define([
             var oView = this.getView();
             if (!this._oCreateOppDialog) {
                 Fragment.load({
+                  id: oView.getId(),
                     name: "com.nagarro.www.presalestracker.view.fragments.CreateOpportunity",
                     controller: this
                 }).then(function (oDialog) {
@@ -197,13 +198,18 @@ sap.ui.define([
                     //POST
                     var oModel = this.getView().getModel();
                     debugger;
+                    this._oCreateOppDialog.setBusy(true);
                     oModel.create("/ZCDS_PS_MASTER", oPayload, {
                         success: function (oData, oResponse) {
-                            MessageToast.show("Oppotunity created successfully!");
-                        },
+                            sap.m.MessageToast.show("Oppotunity created successfully!");
+                            this._oCreateOppDialog.setBusy(false);
+                            oModel.refresh();
+                        }.bind(this),
                         error: function (oError) {
-                            MessageBox.error("Failed to create operation: " + oError.message);
-                        }
+                            sap.m.MessageBox.error("Failed to create operation: " + oError.message);
+                            this._oCreateOppDialog.setBusy(false);
+                            oModel.refresh();
+                        }.bind(this)
                     });
                 }
             }
@@ -290,7 +296,12 @@ sap.ui.define([
 
         _validatePayload(oPayload) {
             return [];
+        },
+
+        checkCreateSmartform: function(oEvent){
+
         }
+
 
     });
 });

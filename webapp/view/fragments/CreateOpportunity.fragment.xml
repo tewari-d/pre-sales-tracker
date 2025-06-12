@@ -40,21 +40,24 @@
                         <smartField:SmartField
                             id="_IDGenSmartField27"
                             value="{CustomerName}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement25">
                         <smartField:SmartField
                             id="_IDGenSmartField28"
                             value="{Geography}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement26">
                         <smartField:SmartField
                             id="_IDGenSmartField29"
                             value="{LineOfBusiness}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement27">
@@ -62,21 +65,26 @@
                             id="_IDGenSmartField30"
                             value="{SolutionArea}"
                             app:multiLineSettings="{cols: 50, rows: 2}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement28">
                         <smartField:SmartField
                             id="_IDGenSmartField31"
                             value="{Country}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" 
+                            fieldGroupIds="createHeaderFields"
+                            validateFieldGroup="checkCreateSmartform"
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement29">
                         <smartField:SmartField
                             id="_IDGenSmartField32"
                             value="{DealType}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
+                            fixedValueListValidationEnabled="true"
                         />
                     </smartForm:GroupElement>
                 </smartForm:Group>
@@ -88,7 +96,8 @@
                         <smartField:SmartField
                             id="_IDGenSmartField33"
                             value="{Status}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement31">
@@ -96,70 +105,80 @@
                             id="_IDGenSmartField34"
                             value="{OppDesc}"
                             app:multiLineSettings="{cols: 50, rows: 2}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement32">
                         <smartField:SmartField
                             id="_IDGenSmartField35"
                             value="{OppType}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement33">
                         <smartField:SmartField
                             id="_IDGenSmartField36"
                             value="{ReceivedDate}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement34">
                         <smartField:SmartField
                             id="_IDGenSmartField37"
                             value="{PlannedSubmissionDate}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement35">
                         <smartField:SmartField
                             id="_IDGenSmartField38"
                             value="{SubmissionDate}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement43">
                         <smartField:SmartField
                             id="_IDGenSmartField39"
                             value="{OppTcv}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement36">
                         <smartField:SmartField
                             id="_IDGenSmartField40"
                             value="{CommModel}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement37">
                         <smartField:SmartField
                             id="_IDGenSmartField41"
                             value="{CloseDate}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement38">
                         <smartField:SmartField
                             id="_IDGenSmartField42"
                             value="{Probability}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement39">
                         <smartField:SmartField
                             id="_IDGenSmartField43"
                             value="{DocUrl}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                 </smartForm:Group>
@@ -172,21 +191,24 @@
                         <smartField:SmartField
                             id="_IDGenSmartField44"
                             value="{PracticeReviewwer}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement41">
                         <smartField:SmartField
                             id="_IDGenSmartField45"
                             value="{PreSalesReviewwer}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement42">
                         <smartField:SmartField
                             id="_IDGenSmartField46"
                             value="{ResourceFutureDemandUpdated}"
-                            entitySet="ZCDS_PS_MASTER"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+
                         />
                     </smartForm:GroupElement>
                 </smartForm:Group>
