@@ -154,7 +154,7 @@
                             <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
                                 <l:content>
                                     <m:ScrollContainer id="_IDGenScrollContainer1" height="300px" vertical="true">
-                                        <m:List id="_IDGenList1" items="{path : 'toRemarks'}" updateFinished="onRemarksListLoaded">
+                                        <m:List id="_IDGenList1" items="{path : 'toRemarks'}" >
                                             <m:FeedListItem id="_IDGenFeedListItem" senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}" />
                                         </m:List>
                                     </m:ScrollContainer>

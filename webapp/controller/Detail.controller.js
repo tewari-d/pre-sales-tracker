@@ -102,15 +102,7 @@ sap.ui.define([
             this.getView().byId("_IDGenFeedInput1").setValue("");
             oView.setBusy(true); // start busy indicator
             this.getView().bindElement({
-                path: "/ZCDS_PS_MASTER('" + this._id + "')",
-                events: {
-                    dataRequested: function () {
-                        oView.setBusy(true); // start busy indicator
-                    },
-                    dataReceived: function () {
-                        oView.setBusy(false); // stop busy when data is loaded
-                    }
-                }
+                path: "/ZCDS_PS_MASTER('" + this._id + "')"
             });
 
             var oView = this.getView();
@@ -145,7 +137,6 @@ sap.ui.define([
             this.getView().getModel("viewEditableModel").setProperty("/newRemarkText", sNewText);
         },
         onFieldGroupChange: function (oEvent) {
-            debugger;
             this.oDataModel.checkUpdate(true);
             this._onModelChange();
         },
@@ -264,7 +255,6 @@ sap.ui.define([
 
         },        
         onCreatePartnerConfirm: function () {
-            debugger;
             var oView = this.getView();
             var sName = Fragment.byId(oView.getId(), "partnerNameSmartField").getValue();
             var sPartnerFunction = Fragment.byId(oView.getId(), "partnerFunctionSmartField").getValue();
@@ -464,10 +454,6 @@ sap.ui.define([
                 this._pReviewerDialog.setBindingContext(oContext);
                 this._pReviewerDialog.open();
             }
-        },
-        onRemarksListLoaded: function(oEvent){
-            debugger;
-            oEvent.getSource().getParent()
-        }                  
+        }                
     });
 });

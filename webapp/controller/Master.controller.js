@@ -197,18 +197,19 @@ sap.ui.define([
                 if (aValidationErrors.length == 0) {
                     //POST
                     var oModel = this.getView().getModel();
-                    debugger;
                     this._oCreateOppDialog.setBusy(true);
                     oModel.create("/ZCDS_PS_MASTER", oPayload, {
                         success: function (oData, oResponse) {
-                            sap.m.MessageToast.show("Oppotunity created successfully!");
+                            sap.m.MessageToast.show("Oppotunity "+oData.Id+" created successfully!");
                             this._oCreateOppDialog.setBusy(false);
                             oModel.refresh();
+                            this._oCreateOppDialog.destroy();
                         }.bind(this),
                         error: function (oError) {
                             sap.m.MessageBox.error("Failed to create operation: " + oError.message);
                             this._oCreateOppDialog.setBusy(false);
                             oModel.refresh();
+                            this._oCreateOppDialog.destroy();
                         }.bind(this)
                     });
                 }
@@ -234,11 +235,8 @@ sap.ui.define([
 
                 // --- Handle DatePicker fields ---
                 if (oInnerControl && oInnerControl.isA("sap.m.DatePicker")) {
-                    if (oValue instanceof Date) {
-                        oPayload[sPropertyName] = "/Date(" + oValue.getTime() + ")/";
-                    } else {
-                        oPayload[sPropertyName] = null; 
-                    }
+                    var oDateValue = oValue ? `/Date(${new Date(oValue).getTime()})/` : null;
+                    oPayload[sPropertyName] = oDateValue;
                     return;
                 }
 
