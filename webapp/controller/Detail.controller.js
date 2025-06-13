@@ -198,7 +198,7 @@ sap.ui.define([
 
             if(oPayload.Status === 'SUBMITTED'){
                 if (oPayload.PracticeReviewwer === "" || oPayload.PreSalesReviewwer === "" || oPayload.ResourceFutureDemandUpdated === "") {
-                    sap.m.MessageBox.error("All three fields are required:\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer",
+                    sap.m.MessageBox.error("All three fields are required:\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer\n• Opportunity Value",
                         {
                             onClose: function () {
                                 // Focus the first empty field
@@ -208,6 +208,8 @@ sap.ui.define([
                                     this.byId("_IDGenSmartField25").focus();
                                 } else if (oPayload.ResourceFutureDemandUpdated === "") {
                                     this.byId("_IDGenSmartField26").focus();
+                                } else if (oPayload.OppTcv === "") {
+                                    this.byId("_IDGenSmartField9").focus();
                                 }
                             }.bind(this)
                         }
