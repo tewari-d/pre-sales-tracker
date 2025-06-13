@@ -186,7 +186,10 @@ sap.ui.define([
           var oPayload = this._getHeaderPayload(oSmartForm);
 
           //Read Remarks
-          oPayload.toRemarks = [{ 'RmText': oRemarksForm.getContent()[0].getValue() }];
+          var enteredRemark = oRemarksForm.getContent()[0].getValue();
+          if (enteredRemark !== "") {
+            oPayload.toRemarks = [{ 'RmText': oRemarksForm.getContent()[0].getValue() }];
+          }
 
           //Read Partners
           oPayload.toParters = this._getPartnersPayload(oPartnersForm.getContent()[0]);
