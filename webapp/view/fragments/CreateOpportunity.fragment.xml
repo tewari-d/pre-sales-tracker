@@ -181,6 +181,12 @@
 
                         />
                     </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement44" >
+                        <smartField:SmartField id="_IDGenSmartField49"
+                            value="{NextFollowUpDate}"
+                            entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields"
+                        />
+                    </smartForm:GroupElement>
                 </smartForm:Group>
                 <smartForm:Group
                     id="_IDGenGroup6"

@@ -116,6 +116,9 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement45" >
+                                        <smartField:SmartField id="_IDGenSmartField47"  value="{NextFollowUpDate}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup4" title="Reviewers" visible="{= ${Status} === 'SUBMITTED' ? true : false }">
                                     <smartForm:GroupElement id="_IDGenGroupElement21">
