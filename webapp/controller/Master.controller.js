@@ -1,8 +1,8 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/core/Fragment"
+  "sap/ui/core/mvc/Controller",
+  "sap/ui/core/Fragment"
 ], (Controller, Fragment) => {
-    "use strict";
+  "use strict";
 
   return Controller.extend(
     "com.nagarro.www.presalestracker.controller.Master",
@@ -45,8 +45,8 @@ sap.ui.define([
       },
       onSelectionChange(oEvent) {
         let oNextUIState = this.getOwnerComponent()
-            .getHelper()
-            .getNextUIState(1),
+          .getHelper()
+          .getNextUIState(1),
           opportunity = oEvent
             .getSource()
             .getSelectedContexts()[0]
@@ -129,176 +129,179 @@ sap.ui.define([
           const today = new Date();
           const diffDays = (plannedDate - today) / (1000 * 60 * 60 * 24);
 
-                if (diffDays < 0) return "Error";      // Overdue
-                if (diffDays <= 3) return "Warning";   // Imminent
-            }
-            return "None";
-        },
-        onCreate: function () {
-            var oView = this.getView();
-            if (!this._oCreateOppDialog) {
-                Fragment.load({
-                  id: oView.getId(),
-                    name: "com.nagarro.www.presalestracker.view.fragments.CreateOpportunity",
-                    controller: this
-                }).then(function (oDialog) {
-                    this._oCreateOppDialog = oDialog;
-                    oView.addDependent(oDialog);
-                    oDialog.open();
-                }.bind(this));
-            } else {
-                this._oCreateOppDialog.open();
-            }
-        },
-        onCancel: function () {
-            this._oCreateOppDialog.destroy();
-            delete this._oCreateOppDialog;
-        },
-        onAddPartner: function (oEvent) {                               //to add a new row
-            var oItem = new sap.m.ColumnListItem({
-                cells: [
-                    new sap.m.Input(),
-                    new sap.ui.comp.smartfield.SmartField({ entitySet: 'zcds_ps_partner', value: "{PartnerFunction}" }),
-                    new sap.m.Input(),
-                    new sap.m.Button({
-                        icon: "sap-icon://delete",
-                        type: "Reject",
-                        press: [this.removeItem, this]
-                    })
-                ]
-            });
-            var oTable = oEvent.getSource().getParent().getParent();
-            oTable.addItem(oItem);
-        },
-        removeItem: function (oEvent) {
-            var oTable = oEvent.getSource().getParent().getParent();
-            oTable.removeItem(oEvent.getSource().getParent());
-        },
-        onSaveNewOpportunity: function (oEvent) {
-            //get payloads
-            var oViewContents = oEvent.getSource().getEventingParent().getContent();
-            if (oViewContents.length !== 0) {
-                var oSmartForm = oViewContents[0];
-                var oRemarksForm = oViewContents[1];
-                var oPartnersForm = oViewContents[2];
-
-                //Read header fields
-                var oPayload = this._getHeaderPayload(oSmartForm);
-
-                //Read Remarks
-                oPayload.toRemarks = [{ 'RmText': oRemarksForm.getContent()[0].getValue() }];
-
-                //Read Partners
-                oPayload.toParters = this._getPartnersPayload(oPartnersForm.getContent()[0]);
-
-                //Validate all inputs
-                var aValidationErrors = this._validatePayload(oPayload);
-
-                if (aValidationErrors.length == 0) {
-                    //POST
-                    var oModel = this.getView().getModel();
-                    this._oCreateOppDialog.setBusy(true);
-                    oModel.create("/ZCDS_PS_MASTER", oPayload, {
-                        success: function (oData, oResponse) {
-                            sap.m.MessageToast.show("Oppotunity "+oData.Id+" created successfully!");
-                            this._oCreateOppDialog.setBusy(false);
-                            oModel.refresh();
-                            this._oCreateOppDialog.destroy();
-                        }.bind(this),
-                        error: function (oError) {
-                            sap.m.MessageBox.error("Failed to create operation: " + oError.message);
-                            this._oCreateOppDialog.setBusy(false);
-                            oModel.refresh();
-                            this._oCreateOppDialog.destroy();
-                        }.bind(this)
-                    });
-                }
-            }
-        },
-
-        _getHeaderPayload: function (oSmartForm) {
-            var aSmartFields = oSmartForm.getSmartFields();
-            var oPayload = {};
-
-            aSmartFields.forEach(function (oSmartField) {
-                var oMeta = oSmartField.getDataProperty();
-
-                if (!oMeta || !oMeta.property) {
-                    console.warn("No metadata for SmartField:", oSmartField);
-                    return;
-                }
-
-                var sPropertyName = oMeta.property.name;
-                var sEdmType = oMeta.property.type;
-                var oValue = oSmartField.getValue();
-                var oInnerControl = oSmartField.getFirstInnerControl();
-
-                // --- Handle DatePicker fields ---
-                if (oInnerControl && oInnerControl.isA("sap.m.DatePicker")) {
-                    var oDateValue = oValue ? `/Date(${new Date(oValue).getTime()})/` : null;
-                    oPayload[sPropertyName] = oDateValue;
-                    return;
-                }
-
-                // --- Handle numeric types ---
-                var aNumericTypes = [
-                    "Edm.Int16", "Edm.Int32", "Edm.Int64",
-                    "Edm.Decimal", "Edm.Double", "Edm.Single"
-                ];
-
-                if (aNumericTypes.includes(sEdmType)) {
-                    if (sEdmType === "Edm.Decimal" || sEdmType === "Edm.Double") {
-                        // Always return as string, even for 0
-                        if (oValue === null || oValue === "" || isNaN(oValue)) {
-                            oPayload[sPropertyName] = "0.00";
-                        } else {
-                            oPayload[sPropertyName] = parseFloat(oValue).toFixed(2); // As string
-                        }
-                    } else {
-                        // For integer types
-                        oPayload[sPropertyName] = (oValue === null || oValue === "" || isNaN(oValue))
-                            ? 0
-                            : Number(oValue);
-                    }
-                    return;
-                }
-
-                // --- All other types ---
-                oPayload[sPropertyName] = oValue;
-            });
-
-            return oPayload;
-
-        },
-
-        _getPartnersPayload: function (oTable) {
-            var aItems = oTable.getItems();
-            var aPartners = [];
-
-            aItems.forEach(function (oItem) {
-                var aCells = oItem.getCells();
-
-                var sName = aCells[0].getValue(); // First Input field
-                var sFunction = aCells[1].getValue(); // SmartField
-                var sEmail = aCells[2].getValue(); // Second Input field
-
-                aPartners.push({
-                    PartnerName: sName,
-                    PartnerFunction: sFunction,
-                    PartnerEmail: sEmail
-                });
-            });
-
-            return aPartners;
-        },
-
-        _validatePayload(oPayload) {
-            return [];
-        },
-
-        checkCreateSmartform: function(oEvent){
-
+          if (diffDays < 0) return "Error";      // Overdue
+          if (diffDays <= 3) return "Warning";   // Imminent
         }
+        return "None";
+      },
+      onCreate: function () {
+        var oView = this.getView();
+        if (!this._oCreateOppDialog) {
+          Fragment.load({
+            id: oView.getId(),
+            name: "com.nagarro.www.presalestracker.view.fragments.CreateOpportunity",
+            controller: this
+          }).then(function (oDialog) {
+            this._oCreateOppDialog = oDialog;
+            oView.addDependent(oDialog);
+            oDialog.open();
+          }.bind(this));
+        } else {
+          this._oCreateOppDialog.open();
+        }
+      },
+      onCancel: function () {
+        this._oCreateOppDialog.destroy();
+        delete this._oCreateOppDialog;
+      },
+      onAddPartner: function (oEvent) {                               //to add a new row
+        var oItem = new sap.m.ColumnListItem({
+          cells: [
+            new sap.m.Input(),
+            new sap.ui.comp.smartfield.SmartField({ entitySet: 'zcds_ps_partner', value: "{PartnerFunction}" }),
+            new sap.m.Input(),
+            new sap.m.Button({
+              icon: "sap-icon://delete",
+              type: "Reject",
+              press: [this.removeItem, this]
+            })
+          ]
+        });
+        var oTable = oEvent.getSource().getParent().getParent();
+        oTable.addItem(oItem);
+      },
+      removeItem: function (oEvent) {
+        var oTable = oEvent.getSource().getParent().getParent();
+        oTable.removeItem(oEvent.getSource().getParent());
+      },
+      onSaveNewOpportunity: function (oEvent) {
+        //get payloads
+        var oViewContents = oEvent.getSource().getEventingParent().getContent();
+        if (oViewContents.length !== 0) {
+          var oSmartForm = oViewContents[0];
+          var oRemarksForm = oViewContents[1];
+          var oPartnersForm = oViewContents[2];
+
+          //Read header fields
+          var oPayload = this._getHeaderPayload(oSmartForm);
+
+          //Read Remarks
+          oPayload.toRemarks = [{ 'RmText': oRemarksForm.getContent()[0].getValue() }];
+
+          //Read Partners
+          oPayload.toParters = this._getPartnersPayload(oPartnersForm.getContent()[0]);
+
+          //Validate all inputs
+          var aValidationErrors = this._validatePayload(oPayload);
+
+          if (aValidationErrors.length == 0) {
+            //POST
+            var oModel = this.getView().getModel();
+            this._oCreateOppDialog.setBusy(true);
+            oModel.create("/ZCDS_PS_MASTER", oPayload, {
+              success: function (oData, oResponse) {
+                sap.m.MessageToast.show("Oppotunity " + oData.Id + " created successfully!");
+                this._oCreateOppDialog.setBusy(false);
+                oModel.refresh();
+                this._oCreateOppDialog.destroy();
+                delete this._oCreateOppDialog;
+              }.bind(this),
+              error: function (oError) {
+                sap.m.MessageBox.error("Failed to create operation: " + oError.message);
+                this._oCreateOppDialog.setBusy(false);
+                oModel.refresh();
+                this._oCreateOppDialog.destroy();
+                delete this._oCreateOppDialog;
+              }.bind(this)
+            });
+          }
+        }
+      },
+
+      _getHeaderPayload: function (oSmartForm) {
+        var aSmartFields = oSmartForm.getSmartFields();
+        var oPayload = {};
+
+        aSmartFields.forEach(function (oSmartField) {
+          var oMeta = oSmartField.getDataProperty();
+
+          if (!oMeta || !oMeta.property) {
+            console.warn("No metadata for SmartField:", oSmartField);
+            return;
+          }
+
+          var sPropertyName = oMeta.property.name;
+          var sEdmType = oMeta.property.type;
+          var oValue = oSmartField.getValue();
+          var oInnerControl = oSmartField.getFirstInnerControl();
+
+          // --- Handle DatePicker fields ---
+          if (oInnerControl && oInnerControl.isA("sap.m.DatePicker")) {
+            var oDate = oInnerControl.getDateValue();
+            var oDateValue = oDate ? `/Date(${oDate.getTime()})/` : null;
+            oPayload[sPropertyName] = oDateValue;
+            return;
+          }
+
+          // --- Handle numeric types ---
+          var aNumericTypes = [
+            "Edm.Int16", "Edm.Int32", "Edm.Int64",
+            "Edm.Decimal", "Edm.Double", "Edm.Single"
+          ];
+
+          if (aNumericTypes.includes(sEdmType)) {
+            if (sEdmType === "Edm.Decimal" || sEdmType === "Edm.Double") {
+              // Always return as string, even for 0
+              if (oValue === null || oValue === "" || isNaN(oValue)) {
+                oPayload[sPropertyName] = "0.00";
+              } else {
+                oPayload[sPropertyName] = parseFloat(oValue).toFixed(2); // As string
+              }
+            } else {
+              // For integer types
+              oPayload[sPropertyName] = (oValue === null || oValue === "" || isNaN(oValue))
+                ? 0
+                : Number(oValue);
+            }
+            return;
+          }
+
+          // --- All other types ---
+          oPayload[sPropertyName] = oValue;
+        });
+
+        return oPayload;
+
+      },
+
+      _getPartnersPayload: function (oTable) {
+        var aItems = oTable.getItems();
+        var aPartners = [];
+
+        aItems.forEach(function (oItem) {
+          var aCells = oItem.getCells();
+
+          var sName = aCells[0].getValue(); // First Input field
+          var sFunction = aCells[1].getValue(); // SmartField
+          var sEmail = aCells[2].getValue(); // Second Input field
+
+          aPartners.push({
+            PartnerName: sName,
+            PartnerFunction: sFunction,
+            PartnerEmail: sEmail
+          });
+        });
+
+        return aPartners;
+      },
+
+      _validatePayload(oPayload) {
+        return [];
+      },
+
+      checkCreateSmartform: function (oEvent) {
+
+      }
 
 
     });
