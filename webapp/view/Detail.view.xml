@@ -45,7 +45,7 @@
                 </m:VBox>
                 <m:VBox id="_IDGenVBox1" justifyContent="Center" class="sapUiSmallMarginEnd">
                     <m:Label id="_IDGenLabel1" text="Status" />
-                    <m:Text id="_IDGenText1" text="{Status}" />
+                    <m:Text id="_IDGenText1" text="{StatusText}" />
                 </m:VBox>
                 <m:VBox id="_IDGenVBox2" justifyContent="Center" class="sapUiSmallMarginEnd">
                     <m:Label id="_IDGenLabel2" text="Documents URL" />
@@ -116,8 +116,8 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement45" >
-                                        <smartField:SmartField id="_IDGenSmartField47"  value="{NextFollowUpDate}" fieldGroupIds="generalInfoFieldGroup" />
+                                    <smartForm:GroupElement id="_IDGenGroupElement45">
+                                        <smartField:SmartField id="_IDGenSmartField47" value="{NextFollowUpDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup4" title="Reviewers" visible="{= ${Status} === 'SUBMITTED' ? true : false }">
@@ -157,7 +157,7 @@
                             <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
                                 <l:content>
                                     <m:ScrollContainer id="_IDGenScrollContainer1" height="300px" vertical="true">
-                                        <m:List id="_IDGenList1" items="{path : 'toRemarks'}" >
+                                        <m:List id="_IDGenList1" items="{path : 'toRemarks'}">
                                             <m:FeedListItem id="_IDGenFeedListItem" senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}" />
                                         </m:List>
                                     </m:ScrollContainer>
