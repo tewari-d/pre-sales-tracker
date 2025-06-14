@@ -59,9 +59,6 @@
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection">
                         <blocks>
                             <smartForm:SmartForm validateFieldGroup="onFieldGroupChange" id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="YesNo" app:defaultDropDownDisplayBehaviour="idAndDescription" title="{Name}" validationMode="Async" editable="{viewEditableModel>/editMode}" editToggled="handleEditToggled">
-                                <smartForm:layout>
-                                    <smartForm:ColumnLayout id="_IDGenColumnLayout" columnsM="2" columnsL="3" columnsXL="3" />
-                                </smartForm:layout>
                                 <smartForm:Group id="_IDGenGroup" title="Customer Details">
                                     <smartForm:GroupElement id="_IDGenGroupElement19">
                                         <smartField:SmartField id="_IDGenSmartField19" value="{CustomerName}" fieldGroupIds="generalInfoFieldGroup" />
@@ -131,7 +128,7 @@
                                         <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
-                                <smartForm:Group id="_IDGenGroup2" title="Administrative Details">
+                                <smartForm:Group id="_IDGenGroup2" title="Administrative Details" expandable="true" expanded="false">
                                     <smartForm:GroupElement id="_IDGenGroupElement13">
                                         <smartField:SmartField id="_IDGenSmartField13" value="{CreatedBy}" editable="false" />
                                     </smartForm:GroupElement>
