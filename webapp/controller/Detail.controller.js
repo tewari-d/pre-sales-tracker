@@ -94,17 +94,23 @@ sap.ui.define([
             var oViewModel = this.getView().getModel("viewEditableModel");
             var oModel = this.getView().getModel();
             var oView = this.getView();
-            oModel.resetChanges();                           // discard changes
-            oModel.checkUpdate(true);                        // refresh bindings
-            oViewModel.setProperty("/editMode", false);     // switch to display
-            oViewModel.setProperty("/showSave", false);     // hide save
+            oModel.resetChanges();                      
+            oModel.checkUpdate(true);                     
+            oViewModel.setProperty("/editMode", false);    
+            oViewModel.setProperty("/showSave", false);  
             this._id = oEvent.getParameter("arguments").id || this._id || "0";
             this.getView().byId("_IDGenFeedInput1").setValue("");
-            oView.setBusy(true); // start busy indicator
             this.getView().bindElement({
-                path: "/ZCDS_PS_MASTER('" + this._id + "')"
+                path: "/ZCDS_PS_MASTER('" + this._id + "')",
+                events: {
+                    dataRequested: function () {
+                        this.getView().setBusy(true);
+                    }.bind(this),
+                    dataReceived: function () {
+                        this.getView().setBusy(false);
+                    }.bind(this)
+                }
             });
-
             var oView = this.getView();
             var oModel = oView.getModel();
             this.oDataModel = oModel;
@@ -113,9 +119,6 @@ sap.ui.define([
         },
         _onModelChange: function () {
             if (this.getView().getBusy()) this.getView().setBusy(false);
-            // var oViewModel = this.getView().getModel("viewEditableModel");
-            // var bHasPendingChanges = this.oDataModel.hasPendingChanges();
-            // oViewModel.setProperty("/showSave", bHasPendingChanges);
         },
         onOverflowToolbarButtonFullScreenPress: function () {
             this.bFocusFullScreenButton = true;

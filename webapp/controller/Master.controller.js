@@ -47,15 +47,19 @@ sap.ui.define([
         let oNextUIState = this.getOwnerComponent()
           .getHelper()
           .getNextUIState(1),
-          opportunity = oEvent
+          /*opportunity = oEvent
             .getSource()
             .getSelectedContexts()[0]
-            .getObject().Id;
+            .getObject().Id;*/
+          opportunity = oEvent.getParameter("listItem").getBindingContext().getObject().Id;  
 
         this.oRouter.navTo("Detail", {
           layout: oNextUIState.layout,
           id: opportunity,
         });
+      },
+      onItemPress: function(){
+        sap.m.MessageToast.show("Item Pressed");
       },
       _updateSegmentedCounts: function () {
         const oSmartFilterBar = this.byId("presalesDBsmartFilterBar");

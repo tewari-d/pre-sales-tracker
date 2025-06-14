@@ -173,7 +173,7 @@
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection2">
                         <blocks>
                             <l:VerticalLayout id="_IDGenVerticalLayout2" width="100%">
-                                <m:ScrollContainer id="_IDGenScrollContainer2" height="300px" vertical="true">
+                                <m:ScrollContainer id="_IDGenScrollContainer2" height="300px"  vertical="true">
                                     <smartTable:SmartTable id="_IDGenSmartTable1" entitySet="zcds_ps_partner" tableBindingPath="toParters" header="Partners" showRowCount="true" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useTablePersonalisation="true" enableAutoBinding="true" requestAtLeastFields="Id" fitContainer="true">
                                         <smartTable:customToolbar>
                                             <m:OverflowToolbar id="_IDGenOverflowToolbar" design="Transparent">
