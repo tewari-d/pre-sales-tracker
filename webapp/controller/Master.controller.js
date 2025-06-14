@@ -239,6 +239,17 @@ sap.ui.define(
             }
           }
         },
+        formatRowHighlight: function (sStatus, sPlanned, sSubmitted) {
+          if (sStatus === "WIP" && !sSubmitted && sPlanned) {
+            const plannedDate = new Date(sPlanned);
+            const today = new Date();
+            const diffDays = (plannedDate - today) / (1000 * 60 * 60 * 24);
+
+            if (diffDays < 0) return "Error"; // Overdue
+            if (diffDays <= 3) return "Warning"; // Imminent
+          }
+          return "None";
+        },
 
         _getHeaderPayload: function (oSmartForm) {
           var aSmartFields = oSmartForm.getSmartFields();
