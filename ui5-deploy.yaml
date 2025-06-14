@@ -16,6 +16,7 @@ builder:
         target:
           destination: ps4_500
           url: http://ps4-deepakt:44300
+          # url: https://sapdev.nagarro.com:44301
           client: '500'
         app:
           name: ZBSP_PS_TRACKER
