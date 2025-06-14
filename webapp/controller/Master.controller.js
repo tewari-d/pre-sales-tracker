@@ -62,7 +62,20 @@ sap.ui.define(
         _updateSegmentedCounts: function () {
           const oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
           const oModel = this.getOwnerComponent().getModel();
-          const aBaseFilters = oSmartFilterBar.getFilters(); // All current filters
+          const aAllFilters = oSmartFilterBar.getFilters();
+
+          // Exclude "Status" filters
+          const aBaseFilters = [];
+          const flatten = function (oFilter) {
+            if (oFilter instanceof sap.ui.model.Filter) {
+              if (oFilter.aFilters) {
+                oFilter.aFilters.forEach(flatten);
+              } else if (oFilter.sPath !== "Status") {
+                aBaseFilters.push(oFilter);
+              }
+            }
+          };
+          aAllFilters.forEach(flatten);
 
           const aStatuses = [
             { key: "WIP", label: "In Progress", id: "segWIP" },
@@ -71,15 +84,8 @@ sap.ui.define(
           ];
 
           aStatuses.forEach((oStatus) => {
-            // Clone base filters and add status-specific filter
-            const aFilters = aBaseFilters.slice(); // copy filters
-            aFilters.push(
-              new sap.ui.model.Filter(
-                "Status",
-                sap.ui.model.FilterOperator.EQ,
-                oStatus.key
-              )
-            );
+            const aFilters = aBaseFilters.slice();
+            aFilters.push(new sap.ui.model.Filter("Status", "EQ", oStatus.key));
 
             oModel.read("/ZCDS_PS_MASTER/$count", {
               filters: aFilters,
