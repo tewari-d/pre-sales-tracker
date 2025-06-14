@@ -34,26 +34,26 @@ sap.ui.define(
         _setDefaultFilters: function () {
           var oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
 
-        const oFilterData = {
-          Status: {
-            items: [
-              { key: "WIP", text: "WIP" },
-              { key: "SUBMITTED", text: "SUBMITTED" },
-              { key: "HOLD", text: "HOLD" },
-            ],
-          },
-        };
-        oSmartFilterBar.setFilterData(oFilterData);
-      },
-      onSelectionChange(oEvent) {
-        let oNextUIState = this.getOwnerComponent()
-          .getHelper()
-          .getNextUIState(1),
-          /*opportunity = oEvent
-            .getSource()
-            .getSelectedContexts()[0]
-            .getObject().Id;*/
-          opportunity = oEvent.getParameter("listItem").getBindingContext().getObject().Id;  
+          const oFilterData = {
+            Status: {
+              items: [
+                { key: "WIP", text: "WIP" },
+                { key: "SUBMITTED", text: "SUBMITTED" },
+                { key: "HOLD", text: "HOLD" },
+              ],
+            },
+          };
+          oSmartFilterBar.setFilterData(oFilterData);
+        },
+        onSelectionChange(oEvent) {
+          let oNextUIState = this.getOwnerComponent()
+            .getHelper()
+            .getNextUIState(1),
+            /*opportunity = oEvent
+              .getSource()
+              .getSelectedContexts()[0]
+              .getObject().Id;*/
+            opportunity = oEvent.getParameter("listItem").getBindingContext().getObject().Id;
 
           this.oRouter.navTo("Detail", {
             layout: oNextUIState.layout,
@@ -145,6 +145,14 @@ sap.ui.define(
         },
         onCreate: function () {
           var oView = this.getView();
+          var oModel = oView.getModel();
+          var oNewContext = oModel.createEntry("/ZCDS_PS_MASTER", {
+            properties: {
+              Status: "HOLD",
+              Currency: "EUR",
+              ReceivedDate: new Date()
+            }
+          });
           if (!this._oCreateOppDialog) {
             Fragment.load({
               id: oView.getId(),
@@ -154,16 +162,21 @@ sap.ui.define(
               function (oDialog) {
                 this._oCreateOppDialog = oDialog;
                 oView.addDependent(oDialog);
+                oDialog.setBindingContext(oNewContext);
+                oDialog.setModel(oModel);
                 oDialog.open();
               }.bind(this)
             );
           } else {
+            oDialog.setBindingContext(oNewContext);
+            oDialog.setModel(oModel);
             this._oCreateOppDialog.open();
           }
         },
         onCancel: function () {
           this._oCreateOppDialog.destroy();
           delete this._oCreateOppDialog;
+
         },
         onAddPartner: function (oEvent) {
           //to add a new row
@@ -190,10 +203,49 @@ sap.ui.define(
           oTable.removeItem(oEvent.getSource().getParent());
         },
         onSaveNewOpportunity: function (oEvent) {
+          var oDialog = oEvent
+          .getSource()
+          .getEventingParent();
+
+          //Smartfields error state
+          oDialog.getModel().checkUpdate(true, true);
+          const aSmartFields = oDialog.getControlsByFieldGroupId("createHeaderFields");
+
+          let bAllValid = true;
+        
+          aSmartFields.forEach(function (oSmartField) {
+            if (typeof oSmartField.getInnerControls === "function") {
+              const aInnerControls = oSmartField.getInnerControls();
+        
+              aInnerControls.forEach(function (oInnerControl) {
+                if (typeof oInnerControl.getValueState === "function") {
+                  const sState = oInnerControl.getValueState();
+        
+                  if (sState === "Error") {
+                    bAllValid = false;
+        
+                    // Optional: visually highlight the error (already happens via ValueState)
+                    // Optional: focus first invalid field
+                    if (!this._bFocused) {
+                      oInnerControl.focus();
+                      this._bFocused = true;
+                    }
+                  }
+                }
+              }, this);
+            }
+          }, this);
+        
+          delete this._bFocused;
+        
+          if (!bAllValid) {
+            MessageBox.error("Please correct the highlighted errors before saving.");
+            return;
+          }
+        
+
           //get payloads
-          var oViewContents = oEvent
-            .getSource()
-            .getEventingParent()
+          var oViewContents = oDialog
             .getContent();
           if (oViewContents.length !== 0) {
             var oSmartForm = oViewContents[0];
@@ -229,15 +281,17 @@ sap.ui.define(
                     "Oppotunity " + oData.Id + " created successfully!"
                   );
                   this._oCreateOppDialog.setBusy(false);
+                  oModel.resetChanges();
                   oModel.refresh();
                   this._oCreateOppDialog.destroy();
                   delete this._oCreateOppDialog;
                 }.bind(this),
                 error: function (oError) {
                   sap.m.MessageBox.error(
-                    "Failed to create operation: " + oError.message
+                    "Failed to create opportunity: " + oError.message
                   );
                   this._oCreateOppDialog.setBusy(false);
+                  oModel.resetChanges();
                   oModel.refresh();
                   this._oCreateOppDialog.destroy();
                   delete this._oCreateOppDialog;

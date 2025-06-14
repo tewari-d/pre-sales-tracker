@@ -123,7 +123,6 @@ sap.ui.define(
             var oView = this.getView();
             var oModel = oView.getModel();
             this.oDataModel = oModel;
-            this.oDataModel.setDefaultBindingMode('TwoWay');
             this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
         },
         _onModelChange: function () {
