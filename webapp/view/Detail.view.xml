@@ -185,19 +185,19 @@
                                         </smartTable:customToolbar>
                                         <m:Table id="_IDGenTable" growing="false">
                                             <m:columns>
-                                                <m:Column id="_IDGenColumn1" width="50px">
+                                                <m:Column id="_IDGenColumn1" width="55px">
                                                     <m:customData>
-                                                        <core:CustomData key="p13nData" value='\{"columnKey": "EditButton", "leadingProperty": "PartnerName", "columnIndex": 4}'
+                                                        <core:CustomData key="p13nData" value='\{"columnKey": "EditButton","visible":false,"showInColumnMenu":false, "columnIndex": 4}'
                                                     />
 </m:customData>
-<m:Text id="_IDGenText" text="" />
+<m:Text id="_IDGenText" text="Edit" />
                                                     </m:Column>
-                                                    <m:Column id="_IDGenColumn" width="50px">
+                                                    <m:Column id="_IDGenColumn" width="70px">
                                                         <m:customData>
                                                             <core:CustomData key="p13nData" value='\{"columnKey": "DeleteButton", "leadingProperty": "PartnerName", "columnIndex": 5}'
                                                     />
 </m:customData>
-<m:Text id="_IDGenText3" text="" />
+<m:Text id="_IDGenText3" text="Delete" />
                                                         </m:Column>
                                                     </m:columns>
                                                     <m:items>
