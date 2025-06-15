@@ -207,6 +207,7 @@ sap.ui.define(
           .getSource()
           .getEventingParent();
 
+          /* 
           //Smartfields error state
           oDialog.getModel().checkUpdate(true, true);
           const aSmartFields = oDialog.getControlsByFieldGroupId("createHeaderFields");
@@ -239,10 +240,10 @@ sap.ui.define(
           delete this._bFocused;
         
           if (!bAllValid) {
-            MessageBox.error("Please correct the highlighted errors before saving.");
+            sap.m.MessageBox.error("Please correct the highlighted errors before saving.");
             return;
           }
-        
+        */
 
           //get payloads
           var oViewContents = oDialog

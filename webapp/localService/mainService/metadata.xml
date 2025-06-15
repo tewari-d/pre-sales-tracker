@@ -32,6 +32,13 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="ZOD_PS_TRACKER_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ChangeLog" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CDNumber"/>
+                </Key>
+                <Property Name="CDNumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CDText" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
             <EntityType Name="I_CountryTextType" sap:label="Country/Region - Text" sap:value-list="true" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="Country"/>
@@ -44,53 +51,89 @@
                 <Property Name="NationalityLongName" Type="Edm.String" MaxLength="50" sap:label="Nationality (Long)" sap:quickinfo="Nationality (Max. 50 Characters)"/>
                 <Property Name="CountryShortName" Type="Edm.String" MaxLength="15" sap:label="Country/Region Name" sap:quickinfo="Name of Country/Region (Short)"/>
             </EntityType>
+            <EntityType Name="I_CurrencyType" sap:label="Currency" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Currency"/>
+                </Key>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:text="Currency_Text" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="Currency_Text" Type="Edm.String" MaxLength="40" sap:label="Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Decimals" Type="Edm.Byte" sap:label="Decimal Places" sap:quickinfo="Number of decimal places"/>
+                <Property Name="CurrencyISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO Code" sap:quickinfo="ISO Currency Code"/>
+                <Property Name="AlternativeCurrencyKey" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Alternative Key"/>
+                <Property Name="IsPrimaryCurrencyForISOCrcy" Type="Edm.Boolean" sap:label="Primary" sap:quickinfo="Primary SAP Currency Code for ISO Code"/>
+            </EntityType>
+            <EntityType Name="ZCDS_PS_CASE_STUDIESType" sap:label="Pre Sales Case Studies" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Industry" Type="Edm.String" MaxLength="500" sap:label="Industry"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="500" sap:label="Description"/>
+                <Property Name="Url" Type="Edm.String" MaxLength="500" sap:label="URL"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Created At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="UpdatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="UpdatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Changed On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="UpdatedAt" Type="Edm.Time" Precision="0" sap:label="Changed At" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
             <EntityType Name="ZCDS_PS_DOMAIN_VALUESType" sap:label="Read Fixed Values of a Domain" sap:value-list="true" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="DomainName"/>
                     <PropertyRef Name="Language"/>
-                    <PropertyRef Name="ActivationState"/>
                     <PropertyRef Name="ValueKey"/>
                     <PropertyRef Name="Version"/>
                 </Key>
                 <Property Name="DomainName" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:label="Domain name"/>
                 <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Lang." sap:quickinfo="Language Key"/>
-                <Property Name="ActivationState" Type="Edm.String" Nullable="false" MaxLength="1" sap:display-format="UpperCase" sap:label="Activation State" sap:quickinfo="Activation State of Repository Object"/>
                 <Property Name="ValueKey" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Value key" sap:quickinfo="Domain value key"/>
                 <Property Name="Version" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Version" sap:quickinfo="Version of the entry (not used)"/>
-                <Property Name="DomainValueText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
-                <Property Name="DomainValue" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Lower Value" sap:quickinfo="Values for Domains: Single Value/Lower Limit"/>
+                <Property Name="DomainValueText" Type="Edm.String" MaxLength="60" sap:label="Key" sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="DomainValue" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Description" sap:quickinfo="Values for Domains: Single Value/Lower Limit"/>
             </EntityType>
             <EntityType Name="ZCDS_PS_MASTERType" sap:label="Pre Sales Master View" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="Id"/>
                 </Key>
                 <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID"/>
-                <Property Name="CustomerName" Type="Edm.String" MaxLength="100" sap:label="Customer" sap:quickinfo="Customer Name"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="100" sap:field-control="CustomerName_fc" sap:label="Customer" sap:quickinfo="Customer Name"/>
                 <Property Name="OppDesc" Type="Edm.String" sap:label="Opp. Descr" sap:quickinfo="Opportunity Description"/>
-                <Property Name="Geography" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Geography" sap:value-list="fixed-values"/>
-                <Property Name="LineOfBusiness" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Line of Business" sap:heading="" sap:value-list="fixed-values"/>
+                <Property Name="Geography" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="GeographyText" sap:label="Geography" sap:value-list="standard"/>
+                <Property Name="GeographyText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="LineOfBusiness" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="LineOfBusinessText" sap:label="Line of Business" sap:heading="" sap:value-list="standard"/>
+                <Property Name="LineOfBusinessText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="SolutionArea" Type="Edm.String" sap:label="SAP Area of Solution / Requirement" sap:quickinfo="Solution Area"/>
                 <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="Country_Text" sap:label="Country/Region Key" sap:value-list="standard"/>
                 <Property Name="Country_Text" Type="Edm.String" MaxLength="50" sap:label="Country/Region Name" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="DealType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Deal Type" sap:value-list="fixed-values"/>
-                <Property Name="OppType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Oppr. Type" sap:quickinfo="Opportunity Type" sap:value-list="fixed-values"/>
+                <Property Name="DealType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:text="DealTypeText" sap:label="Deal Type" sap:value-list="standard"/>
+                <Property Name="DealTypeText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="OppType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="OppTypeText" sap:label="Oppr. Type" sap:quickinfo="Opportunity Type" sap:value-list="standard"/>
+                <Property Name="OppTypeText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="ReceivedDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Received Date"/>
                 <Property Name="SubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Submission Date"/>
-                <Property Name="Status" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Status" sap:value-list="fixed-values"/>
-                <Property Name="OppTcv" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="Currency" sap:label="Opp. Size TCV"/>
-                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
-                <Property Name="CommModel" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Commercial Model" sap:value-list="fixed-values"/>
+                <Property Name="Status" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:text="StatusText" sap:label="Status" sap:value-list="standard"/>
+                <Property Name="StatusText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="OppTcv" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="Currency" sap:label="Opp. Size (Mil.)" sap:quickinfo="Opp. Size TCV"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CommModel" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="CommModelText" sap:label="Commercial Model" sap:value-list="standard"/>
+                <Property Name="CommModelText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="CloseDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Win / Loss Date"/>
                 <Property Name="Probability" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Probability (%)"/>
                 <Property Name="DocUrl" Type="Edm.String" sap:label="Documents URL"/>
                 <Property Name="PlannedSubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Planned Submission Date" sap:quickinfo="Planned Submission"/>
-                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="Name of Person Responsible for Creating the Object"/>
-                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On" sap:quickinfo="Record Creation Date"/>
-                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Time" sap:quickinfo="Entry time"/>
-                <Property Name="UpdatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:quickinfo="Name of Person Who Changed Object"/>
-                <Property Name="UpdatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Changed On" sap:quickinfo="Last Changed On"/>
-                <Property Name="UpdatedAt" Type="Edm.Time" Precision="0" sap:label="Changed at" sap:quickinfo="Time last change was made"/>
-                <Property Name="Owner" Type="Edm.String" sap:label="Owner" sap:quickinfo="Partner Name"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On"/>
+                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Created At"/>
+                <Property Name="UpdatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By"/>
+                <Property Name="UpdatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Changed On"/>
+                <Property Name="UpdatedAt" Type="Edm.Time" Precision="0" sap:label="Changed At"/>
+                <Property Name="Owner" Type="Edm.String" MaxLength="50" sap:label="Owner" sap:quickinfo="Partner Name"/>
+                <Property Name="PracticeReviewwer" Type="Edm.String" sap:display-format="UpperCase" sap:label="Reviewed by (practice)"/>
+                <Property Name="PreSalesReviewwer" Type="Edm.String" sap:display-format="UpperCase" sap:label="Reviewed by (pre-sale)"/>
+                <Property Name="ResourceFutureDemandUpdated" Type="Edm.Boolean" sap:label="Resource future demand updated"/>
+                <Property Name="NextFollowUpDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Next Follow Up Date"/>
+                <Property Name="CustomerName_fc" Type="Edm.Byte"/>
+                <Property Name="Delete_fc" Type="Edm.Byte"/>
                 <NavigationProperty Name="toParters" Relationship="ZOD_PS_TRACKER_SRV.assoc_0E830E05DCCE1EACD94E6BC859063FD0" FromRole="FromRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0" ToRole="ToRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0"/>
                 <NavigationProperty Name="toRemarks" Relationship="ZOD_PS_TRACKER_SRV.assoc_8F8CAE5B84BE6150829AA49088AB9BBE" FromRole="FromRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE" ToRole="ToRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE"/>
             </EntityType>
@@ -101,16 +144,17 @@
                     <PropertyRef Name="PartnerItem"/>
                 </Key>
                 <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID"/>
-                <Property Name="PartnerFunction" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Partner Function"/>
+                <Property Name="PartnerFunction" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:text="PFText" sap:label="Partner Function" sap:value-list="standard"/>
                 <Property Name="PartnerItem" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="NonNegative" sap:label="Line Item" sap:quickinfo="Partner Line Item"/>
-                <Property Name="PartnerName" Type="Edm.String" sap:label="Name" sap:quickinfo="Partner Name"/>
+                <Property Name="PartnerName" Type="Edm.String" MaxLength="50" sap:label="Name" sap:quickinfo="Partner Name"/>
                 <Property Name="PartnerEmail" Type="Edm.String" sap:label="Email" sap:quickinfo="Partner Email"/>
-                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="Name of Person Responsible for Creating the Object"/>
-                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On" sap:quickinfo="Record Creation Date"/>
-                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Time" sap:quickinfo="Entry time"/>
-                <Property Name="UpdatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By" sap:quickinfo="Name of Person Who Changed Object"/>
-                <Property Name="UpdatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Changed On" sap:quickinfo="Last Changed On"/>
-                <Property Name="UpdatedAt" Type="Edm.Time" Precision="0" sap:label="Changed at" sap:quickinfo="Time last change was made"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On"/>
+                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Created At"/>
+                <Property Name="UpdatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed By"/>
+                <Property Name="UpdatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Changed On"/>
+                <Property Name="UpdatedAt" Type="Edm.Time" Precision="0" sap:label="Changed At"/>
+                <Property Name="PFText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
             </EntityType>
             <EntityType Name="ZCDS_PS_REMARKSType" sap:label="Pre Sales Remarks" sap:content-version="1">
                 <Key>
@@ -120,9 +164,9 @@
                 <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="ID"/>
                 <Property Name="RmItem" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="NonNegative" sap:label="Line Item" sap:quickinfo="Remarks Line Item"/>
                 <Property Name="RmText" Type="Edm.String" sap:label="Remarks" sap:quickinfo="Remarks Text"/>
-                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:quickinfo="Name of Person Responsible for Creating the Object"/>
-                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On" sap:quickinfo="Record Creation Date"/>
-                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Time" sap:quickinfo="Entry time"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Created On"/>
+                <Property Name="CreatedAt" Type="Edm.Time" Precision="0" sap:label="Created At"/>
             </EntityType>
             <Association Name="assoc_8F8CAE5B84BE6150829AA49088AB9BBE" sap:content-version="1">
                 <End Type="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType" Multiplicity="1" Role="FromRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE"/>
@@ -133,11 +177,14 @@
                 <End Type="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType" Multiplicity="*" Role="ToRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0"/>
             </Association>
             <EntityContainer Name="ZOD_PS_TRACKER_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ChangeLogs" EntityType="ZOD_PS_TRACKER_SRV.ChangeLog" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="I_CountryText" EntityType="ZOD_PS_TRACKER_SRV.I_CountryTextType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="I_Currency" EntityType="ZOD_PS_TRACKER_SRV.I_CurrencyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_PS_CASE_STUDIES" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_CASE_STUDIESType" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="ZCDS_PS_DOMAIN_VALUES" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_DOMAIN_VALUESType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="ZCDS_PS_MASTER" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="zcds_ps_partner" EntityType="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="ZCDS_PS_REMARKS" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_REMARKSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_PS_MASTER" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="zcds_ps_partner" EntityType="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType" sap:content-version="1"/>
+                <EntitySet Name="ZCDS_PS_REMARKS" EntityType="ZOD_PS_TRACKER_SRV.ZCDS_PS_REMARKSType" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
                 <AssociationSet Name="assoc_8F8CAE5B84BE6150829AA49088AB9BBE" Association="ZOD_PS_TRACKER_SRV.assoc_8F8CAE5B84BE6150829AA49088AB9BBE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZCDS_PS_MASTER" Role="FromRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE"/>
                     <End EntitySet="ZCDS_PS_REMARKS" Role="ToRole_assoc_8F8CAE5B84BE6150829AA49088AB9BBE"/>
@@ -146,6 +193,10 @@
                     <End EntitySet="ZCDS_PS_MASTER" Role="FromRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0"/>
                     <End EntitySet="zcds_ps_partner" Role="ToRole_assoc_0E830E05DCCE1EACD94E6BC859063FD0"/>
                 </AssociationSet>
+                <FunctionImport Name="GetChangeLogs" ReturnType="Collection(ZOD_PS_TRACKER_SRV.ChangeLog)" EntitySet="ChangeLogs" m:HttpMethod="GET">
+                    <Parameter Name="ObjectClass" Type="Edm.String" Mode="In"/>
+                    <Parameter Name="ObjectId" Type="Edm.String" Mode="In"/>
+                </FunctionImport>
             </EntityContainer>
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/Geography" xmlns="http://docs.oasis-open.org/odata/ns/edm">
@@ -162,21 +213,6 @@
                                     <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Language"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ActivationState"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ValueKey"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Version"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
@@ -187,7 +223,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues"/>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/LineOfBusiness" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
@@ -203,21 +238,6 @@
                                     <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Language"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ActivationState"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ValueKey"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Version"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
@@ -228,7 +248,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues"/>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/Country" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
@@ -241,13 +260,13 @@
                             <Collection>
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="Country"/>
-                                    <PropertyValue Property="ValueListProperty" String="CountryName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="Country"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="Language"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CountryName"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="NationalityName"/>
@@ -257,6 +276,10 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="CountryShortName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterConstant">
+                                    <PropertyValue Property="Constant" String="E"/>
+                                    <PropertyValue Property="ValueListProperty" String="Language"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -277,21 +300,6 @@
                                     <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Language"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ActivationState"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ValueKey"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Version"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
@@ -302,7 +310,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues"/>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/OppType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
@@ -318,21 +325,6 @@
                                     <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Language"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ActivationState"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ValueKey"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Version"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
@@ -343,7 +335,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues"/>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/Status" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
@@ -359,21 +350,6 @@
                                     <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Language"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ActivationState"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ValueKey"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Version"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
@@ -384,7 +360,39 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="DistinctValuesSupported" Bool="true"/>
+                        <PropertyValue Property="CollectionPath" String="I_Currency"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Currency_Text"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Decimals"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CurrencyISOCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AlternativeCurrencyKey"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsPrimaryCurrencyForISOCrcy"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/CommModel" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
@@ -400,21 +408,6 @@
                                     <PropertyValue Property="ValueListProperty" String="DomainValue"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Language"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ActivationState"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="ValueKey"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="Version"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
@@ -425,7 +418,31 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType/PartnerFunction" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Read Fixed Values of a Domain"/>
+                        <PropertyValue Property="DistinctValuesSupported" Bool="true"/>
+                        <PropertyValue Property="CollectionPath" String="ZCDS_PS_DOMAIN_VALUES"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="PartnerFunction"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterConstant">
+                                    <PropertyValue Property="Constant" String="ZDO_PS_PART_FN"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZOD_PS_TRACKER_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
@@ -448,7 +465,11 @@
                                     <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
                                 </Record>
                                 <Record>
-                                    <PropertyValue Property="Property" PropertyPath="Owner"/>
+                                    <PropertyValue Property="Property" PropertyPath="PracticeReviewwer"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="PreSalesReviewwer"/>
                                     <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
                                 </Record>
                             </Collection>
@@ -463,7 +484,7 @@
                                     <PropertyValue Property="NavigationProperty" NavigationPropertyPath="toParters"/>
                                     <PropertyValue Property="InsertRestrictions">
                                         <Record>
-                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                            <PropertyValue Property="Insertable" Bool="true"/>
                                         </Record>
                                     </PropertyValue>
                                 </Record>
@@ -486,7 +507,8 @@
                                 <PropertyPath>OppDesc</PropertyPath>
                                 <PropertyPath>SolutionArea</PropertyPath>
                                 <PropertyPath>DocUrl</PropertyPath>
-                                <PropertyPath>Owner</PropertyPath>
+                                <PropertyPath>PracticeReviewwer</PropertyPath>
+                                <PropertyPath>PreSalesReviewwer</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -521,10 +543,6 @@
                         <PropertyValue Property="FilterExpressionRestrictions">
                             <Collection>
                                 <Record>
-                                    <PropertyValue Property="Property" PropertyPath="PartnerName"/>
-                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
-                                </Record>
-                                <Record>
                                     <PropertyValue Property="Property" PropertyPath="PartnerEmail"/>
                                     <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
                                 </Record>
@@ -536,12 +554,21 @@
                     <Record>
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
-                                <PropertyPath>PartnerName</PropertyPath>
                                 <PropertyPath>PartnerEmail</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.I_CurrencyType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SAPObjectNodeType">
+                    <Record>
+                        <PropertyValue Property="Name" String="Currency"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.I_CurrencyType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.UnitSpecificScale" Path="Decimals"/>
             </Annotations>
             <atom:link rel="self" href="https://ps4-deepakt:44300/sap/opu/odata/sap/ZOD_PS_TRACKER_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
             <atom:link rel="latest-version" href="https://ps4-deepakt:44300/sap/opu/odata/sap/ZOD_PS_TRACKER_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>

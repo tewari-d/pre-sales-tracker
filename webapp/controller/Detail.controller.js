@@ -322,7 +322,7 @@ sap.ui.define(
             oView.getId(),
             "partnerDialog"
           ).getBindingContext();
-          var sPath = oContext.getPath() + "/toParters"; // deep insert path
+          var sPath = oContext.getPath() + "/toParters"; 
 
           var oNewEntry = {
             Id: oContext.getObject().Id,

@@ -26,15 +26,101 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema Namespace="zod_ps_tracker_anno_mdl.v1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_CASE_STUDIESType">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Id"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Industry"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Url"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Industry</PropertyPath>
+                        <PropertyPath>Description</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_DOMAIN_VALUESType/DomainName">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_DOMAIN_VALUESType/Language">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_DOMAIN_VALUESType/ValueKey">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_DOMAIN_VALUESType/Version">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/toParters">
                 <Annotation Term="UI.HiddenFilter"/>
             </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/toRemarks">
                 <Annotation Term="UI.HiddenFilter"/>
             </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/GeographyText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/LineOfBusinessText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/DealTypeText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/OppTypeText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/StatusText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/CommModelText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/CustomerName_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/Delete_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/OppDesc">
+                <Annotation Term="UI.MultiLineText"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/SolutionArea">
+                <Annotation Term="UI.MultiLineText"/>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType/Status">
+                <Annotation Term="Common.Text" Path="StatusText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_MASTERType">
+                <Annotation Term="UI.FieldGroup">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PracticeReviewwer"/>
+                                    <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
                 <Annotation Term="UI.LineItem">
                     <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Id"/>
+                        </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="CustomerName"/>
                         </Record>
@@ -63,6 +149,9 @@
                     </Collection>
                 </Annotation>
             </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType/PFText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
             <Annotations Target="ZOD_PS_TRACKER_SRV.zcds_ps_partnerType">
                 <Annotation Term="UI.LineItem">
                     <Collection>
@@ -77,8 +166,16 @@
                         </Record>
                     </Collection>
                 </Annotation>
-                <Annotation Term="UI.PresentationVariant">
+                <Annotation Term="UI.PresentationVariant" Qualifier="DefaultGrouping">
                     <Record>
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="PartnerItem"/>
+                                    <PropertyValue Property="Descending" Bool="false"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
                         <PropertyValue Property="GroupBy">
                             <Collection>
                                 <PropertyPath>PartnerFunction</PropertyPath>
@@ -86,6 +183,9 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="ZOD_PS_TRACKER_SRV.ZCDS_PS_REMARKSType/RmText">
+                <Annotation Term="UI.MultiLineText"/>
             </Annotations>
         </Schema>
     </edmx:DataServices>
