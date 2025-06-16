@@ -55,7 +55,7 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <smartTable:SmartTable id="presalesDBSmartTable" entitySet="ZCDS_PS_MASTER" smartFilterId="presalesDBsmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Opportunities" showRowCount="true" persistencyKey="_presalesfiori_dashboard_table" enableAutoBinding="true" beforeRebindTable="onbeforeRebindTable" requestAtLeastFields="Id,Status,PlannedSubmissionDate,SubmissionDate">
+            <smartTable:SmartTable id="presalesDBSmartTable" entitySet="ZCDS_PS_MASTER" smartFilterId="presalesDBsmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Opportunities" showRowCount="true" persistencyKey="_presalesfiori_dashboard_table" enableAutoBinding="true" beforeRebindTable="onbeforeRebindTable" requestAtLeastFields="CreatedBy,CreatedAt,UpdatedBy,UpdatedOn,Id,Status,PlannedSubmissionDate,SubmissionDate">
                 <!-- layout data used to make the table growing but the filter bar fixed -->
                 <smartTable:layoutData>
                     <FlexItemData id="_IDGenFlexItemData1" growFactor="1" baseSize="0%" />
@@ -71,7 +71,7 @@
                             </items>
                         </SegmentedButton>
                         <ToolbarSpacer id="_IDGenToolbarSpacer" />
-                        <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Create" press="onCreate" />
+                        <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" press="onCreate" />
                     </OverflowToolbar>
                 </smartTable:customToolbar>
                 <Table mode="SingleSelectMaster" id="innerUi5Table" alternateRowColors="true" itemPress="onSelectionChange"  growing="false">

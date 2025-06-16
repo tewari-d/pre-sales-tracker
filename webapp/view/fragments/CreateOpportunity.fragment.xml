@@ -157,7 +157,7 @@
 
                         />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement37">
+                    <smartForm:GroupElement id="_IDGenGroupElement37" visible="false">
                         <smartField:SmartField
                             id="_IDGenSmartField41"
                             value="{CloseDate}"

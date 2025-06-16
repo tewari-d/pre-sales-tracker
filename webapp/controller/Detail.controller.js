@@ -121,6 +121,7 @@ sap.ui.define(
                 }
             });
             var oView = this.getView();
+            oView.getElementBinding().refresh(true);
             var oModel = oView.getModel();
             this.oDataModel = oModel;
             this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
