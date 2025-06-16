@@ -47,13 +47,16 @@ sap.ui.define(
         },
         onSelectionChange(oEvent) {
           let oNextUIState = this.getOwnerComponent()
-            .getHelper()
-            .getNextUIState(1),
+              .getHelper()
+              .getNextUIState(1),
             /*opportunity = oEvent
               .getSource()
               .getSelectedContexts()[0]
               .getObject().Id;*/
-            opportunity = oEvent.getParameter("listItem").getBindingContext().getObject().Id;
+            opportunity = oEvent
+              .getParameter("listItem")
+              .getBindingContext()
+              .getObject().Id;
 
           this.oRouter.navTo("Detail", {
             layout: oNextUIState.layout,
@@ -150,8 +153,8 @@ sap.ui.define(
             properties: {
               Status: "WIP",
               Currency: "EUR",
-              ReceivedDate: new Date()
-            }
+              ReceivedDate: new Date(),
+            },
           });
           if (!this._oCreateOppDialog) {
             Fragment.load({
@@ -176,7 +179,6 @@ sap.ui.define(
         onCancel: function () {
           this._oCreateOppDialog.destroy();
           delete this._oCreateOppDialog;
-
         },
         onAddPartner: function (oEvent) {
           debugger;
@@ -212,9 +214,7 @@ sap.ui.define(
           oTable.removeItem(oEvent.getSource().getParent());
         },
         onSaveNewOpportunity: function (oEvent) {
-          var oDialog = oEvent
-            .getSource()
-            .getEventingParent();
+          var oDialog = oEvent.getSource().getEventingParent();
 
           /* 
           //Smartfields error state
@@ -255,8 +255,7 @@ sap.ui.define(
         */
 
           //get payloads
-          var oViewContents = oDialog
-            .getContent();
+          var oViewContents = oDialog.getContent();
           if (oViewContents.length !== 0) {
             var oSmartForm = oViewContents[0];
             var oRemarksForm = oViewContents[1];
@@ -293,6 +292,7 @@ sap.ui.define(
                   this._oCreateOppDialog.setBusy(false);
                   oModel.resetChanges();
                   oModel.refresh();
+                  this._updateSegmentedCounts();
                   this._oCreateOppDialog.destroy();
                   delete this._oCreateOppDialog;
                 }.bind(this),
