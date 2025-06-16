@@ -179,7 +179,15 @@ sap.ui.define(
 
         },
         onAddPartner: function (oEvent) {
+          debugger;
           //to add a new row
+          var oContext = this.getView().getModel().createEntry("/zcds_ps_partner", {
+            properties: {
+              PartnerName: "",
+              PartnerFunction: "OWN",
+              PartnerEmail: ""
+            }
+          });
           var oItem = new sap.m.ColumnListItem({
             cells: [
               new sap.m.Input(),
@@ -195,6 +203,7 @@ sap.ui.define(
               }),
             ],
           });
+          oItem.setBindingContext(oContext);
           var oTable = oEvent.getSource().getParent().getParent();
           oTable.addItem(oItem);
         },
@@ -204,8 +213,8 @@ sap.ui.define(
         },
         onSaveNewOpportunity: function (oEvent) {
           var oDialog = oEvent
-          .getSource()
-          .getEventingParent();
+            .getSource()
+            .getEventingParent();
 
           /* 
           //Smartfields error state
@@ -298,6 +307,11 @@ sap.ui.define(
                   delete this._oCreateOppDialog;
                 }.bind(this),
               });
+            } else {
+              sap.m.MessageBox.error(aValidationErrors.join("\n"), {
+                title: "Validation Error"
+              });
+              return;
             }
           }
         },
@@ -395,9 +409,49 @@ sap.ui.define(
         },
 
         _validatePayload(oPayload) {
-          return [];
-        },
+          var aErrors = [];
 
+          var aPartners = oPayload.toParters || [];
+
+          var bHasOwner = aPartners.some(function (oPartner) {
+            return oPartner.PartnerFunction === "OWN";
+          });
+
+          if (!bHasOwner) {
+            this._addOwnerInTable();
+            aErrors.push("At least one partner with function 'OWN' (Owner) is required.");
+          }
+
+          return aErrors;
+        },
+        _addOwnerInTable: function(){
+          debugger;
+          var oContext = this.getView().getModel().createEntry("/zcds_ps_partner", {
+            properties: {
+              PartnerName: "",
+              PartnerFunction: "OWN",
+              PartnerEmail: ""
+            }
+          });
+          var oItem = new sap.m.ColumnListItem({
+            cells: [
+              new sap.m.Input(),
+              new sap.ui.comp.smartfield.SmartField({
+                entitySet: "zcds_ps_partner",
+                value: "{PartnerFunction}",
+              }),
+              new sap.m.Input(),
+              new sap.m.Button({
+                icon: "sap-icon://delete",
+                type: "Reject",
+                press: [this.removeItem, this],
+              }),
+            ],
+          });
+          oItem.setBindingContext(oContext);
+          var oTable = Fragment.byId( this.getView().getId(), "createPartnerTable");
+          oTable.addItem(oItem);
+        },
         onNavigateToCaseStudies: function () {
           const oCrossAppNav = sap.ushell?.Container?.getService(
             "CrossApplicationNavigation"
