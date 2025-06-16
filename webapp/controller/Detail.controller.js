@@ -100,34 +100,36 @@ sap.ui.define(
           }
         },
         _onOppMatched: function (oEvent) {
-            var oViewModel = this.getView().getModel("viewEditableModel");
-            var oModel = this.getView().getModel();
-            var oView = this.getView();
-            oModel.resetChanges();                      
-            oModel.checkUpdate(true);                     
-            oViewModel.setProperty("/editMode", false);    
-            oViewModel.setProperty("/showSave", false);  
-            this._id = oEvent.getParameter("arguments").id || this._id || "0";
-            this.getView().byId("_IDGenFeedInput1").setValue("");
-            this.getView().bindElement({
-                path: "/ZCDS_PS_MASTER('" + this._id + "')",
-                events: {
-                    dataRequested: function () {
-                        this.getView().setBusy(true);
-                    }.bind(this),
-                    dataReceived: function () {
-                        this.getView().setBusy(false);
-                    }.bind(this)
-                }
-            });
-            var oView = this.getView();
-            oView.getElementBinding().refresh(true);
-            var oModel = oView.getModel();
-            this.oDataModel = oModel;
-            this.oDataModel.attachBatchRequestCompleted(this._onModelChange.bind(this));
+          var oViewModel = this.getView().getModel("viewEditableModel");
+          var oModel = this.getView().getModel();
+          var oView = this.getView();
+          oModel.resetChanges();
+          oModel.checkUpdate(true);
+          oViewModel.setProperty("/editMode", false);
+          oViewModel.setProperty("/showSave", false);
+          this._id = oEvent.getParameter("arguments").id || this._id || "0";
+          this.getView().byId("_IDGenFeedInput1").setValue("");
+          this.getView().bindElement({
+            path: "/ZCDS_PS_MASTER('" + this._id + "')",
+            events: {
+              dataRequested: function () {
+                this.getView().setBusy(true);
+              }.bind(this),
+              dataReceived: function () {
+                this.getView().setBusy(false);
+              }.bind(this),
+            },
+          });
+          var oView = this.getView();
+          oView.getElementBinding().refresh(true);
+          var oModel = oView.getModel();
+          this.oDataModel = oModel;
+          this.oDataModel.attachBatchRequestCompleted(
+            this._onModelChange.bind(this)
+          );
         },
         _onModelChange: function () {
-            if (this.getView().getBusy()) this.getView().setBusy(false);
+          if (this.getView().getBusy()) this.getView().setBusy(false);
         },
         onOverflowToolbarButtonFullScreenPress: function () {
           this.bFocusFullScreenButton = true;
@@ -323,7 +325,7 @@ sap.ui.define(
             oView.getId(),
             "partnerDialog"
           ).getBindingContext();
-          var sPath = oContext.getPath() + "/toParters"; 
+          var sPath = oContext.getPath() + "/toParters";
 
           var oNewEntry = {
             Id: oContext.getObject().Id,
@@ -507,6 +509,10 @@ sap.ui.define(
             this._pReviewerDialog.setBindingContext(oContext);
             this._pReviewerDialog.open();
           }
+        },
+        formatId: function (sId) {
+          // Remove leading zeros
+          return sId ? sId.replace(/^0+/, "") : "";
         },
       }
     );

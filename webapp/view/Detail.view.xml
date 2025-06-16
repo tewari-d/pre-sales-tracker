@@ -14,8 +14,9 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle">
                 <expandedHeading>
-                    <m:Title id="_IDGenTitle1" text="{CustomerName}" wrapping="true" class="sapUiSmallMarginEnd" />
-                    <!-- <ObjectPageHeader id="idObjectPageHeader" objectSubtitle="{detail>/ID}" objectTitle="{CustomerName}" /> -->
+                    <!-- <m:Title id="_IDGenTitle1" text="{CustomerName}" wrapping="true" class="sapUiSmallMarginEnd" />
+                    <m:Label id="_IDGenLabel9" text="{path: 'Id', formatter: '.formatId' }" class="sapUiSmallMarginEnd" /> -->
+                    <ObjectPageHeader id="idObjectPageHeader" objectSubtitle="ID: {path: 'Id', formatter: '.formatId' }" objectTitle="{CustomerName}" />
                 </expandedHeading>
                 <navigationActions>
                     <m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="onOverflowToolbarButtonFullScreenPress" id="idEnterFullScreenOverflowToolbarButton" tooltip="Enter Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
