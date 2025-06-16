@@ -148,7 +148,7 @@ sap.ui.define(
           var oModel = oView.getModel();
           var oNewContext = oModel.createEntry("/ZCDS_PS_MASTER", {
             properties: {
-              Status: "HOLD",
+              Status: "WIP",
               Currency: "EUR",
               ReceivedDate: new Date()
             }
