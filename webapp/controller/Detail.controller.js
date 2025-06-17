@@ -14,8 +14,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-              "idExitFullScreenOverflowToolbarButton"
-            ),
+            "idExitFullScreenOverflowToolbarButton"
+          ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -270,19 +270,19 @@ sap.ui.define(
           var oView = this.getView();
 
           if (!this._pPartnerDialog) {
-            this._pPartnerDialog = Fragment.load({
+             Fragment.load({
               id: oView.getId(),
               name: "com.nagarro.www.presalestracker.view.fragments.NewPartnerCreate",
               controller: this,
             }).then(function (oDialog) {
+              this._pPartnerDialog = oDialog;
               oView.addDependent(oDialog);
+              oDialog.open();
               return oDialog;
-            });
+            }.bind(this));
+          }else{
+            this._pPartnerDialog.open();
           }
-
-          this._pPartnerDialog.then(function (oDialog) {
-            oDialog.open();
-          });
         },
         onCreatePartnerConfirm: function () {
           var oView = this.getView();
@@ -317,8 +317,6 @@ sap.ui.define(
             return;
           }
 
-          Fragment.byId(oView.getId(), "partnerDialog").destroy();
-
           // Call create logic here
           var oModel = oView.getModel();
           var oContext = Fragment.byId(
@@ -326,6 +324,7 @@ sap.ui.define(
             "partnerDialog"
           ).getBindingContext();
           var sPath = oContext.getPath() + "/toParters";
+
 
           var oNewEntry = {
             Id: oContext.getObject().Id,
@@ -337,14 +336,19 @@ sap.ui.define(
           oModel.create(sPath, oNewEntry, {
             success: function () {
               sap.m.MessageToast.show("Partner added successfully.");
-            },
+              oModel.resetChanges();
+              Fragment.byId(oView.getId(), "partnerDialog").close();
+            }.bind(this),
             error: function () {
               sap.m.MessageBox.error("Failed to add new partner.");
-            },
+              oModel.resetChanges();
+              Fragment.byId(oView.getId(), "partnerDialog").close();
+            }.bind(this),
           });
         },
         onCreatePartnerCancel: function () {
           Fragment.byId(this.getView().getId(), "partnerDialog").close();
+          this.getView().getModel().resetChanges();
         },
         onPartnerEdit: function (oEvent) {
           var oSource = oEvent.getSource(); // the button
