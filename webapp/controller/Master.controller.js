@@ -47,8 +47,8 @@ sap.ui.define(
         },
         onSelectionChange(oEvent) {
           let oNextUIState = this.getOwnerComponent()
-              .getHelper()
-              .getNextUIState(1),
+            .getHelper()
+            .getNextUIState(1),
             /*opportunity = oEvent
               .getSource()
               .getSelectedContexts()[0]
@@ -308,9 +308,16 @@ sap.ui.define(
                 }.bind(this),
               });
             } else {
-              sap.m.MessageBox.error(aValidationErrors.join("\n"), {
-                title: "Validation Error"
-              });
+              sap.m.MessageBox.error(
+                new sap.m.Text({
+                  text: "• " + aValidationErrors.join("\n• "),
+                  wrapping: true
+                }),
+                {
+                  title: "Validation Error",
+                  contentWidth: "400px"
+                }
+              );
               return;
             }
           }
@@ -411,10 +418,41 @@ sap.ui.define(
         _validatePayload(oPayload) {
           var aErrors = [];
 
+          //Check mandatory fields in header
+          var mMandatoryFields = {
+            CustomerName: "Customer",
+            LineOfBusiness: "Line of Business",
+            Geography: "Geography",
+            DealType: "Deal Type",
+            Status: "Status",
+            OppType: "Opportunity Type"
+          };
+
+          // Loop through and validate each field
+          Object.keys(mMandatoryFields).forEach(function (sField) {
+            if (!oPayload[sField]) {
+              aErrors.push(mMandatoryFields[sField] + " is required.");
+            }
+          });
+
           var aPartners = oPayload.toParters || [];
 
-          var bHasOwner = aPartners.some(function (oPartner) {
-            return oPartner.PartnerFunction === "OWN";
+          var bHasOwner = false;
+          var bAllValid = true;
+
+          aPartners.forEach(function (oPartner) {
+            var sName = oPartner.PartnerName;
+            var sFunc = oPartner.PartnerFunction;
+
+            // Check if owner exists
+            if (sFunc === "OWN") {
+              bHasOwner = true;
+            }
+
+            // Check if both fields are filled
+            if (!sName || sName.trim() === "" || !sFunc || sFunc.trim() === "") {
+              bAllValid = false;
+            }
           });
 
           if (!bHasOwner) {
@@ -422,9 +460,14 @@ sap.ui.define(
             aErrors.push("At least one partner with function 'OWN' (Owner) is required.");
           }
 
+          if (!bAllValid) {
+            aErrors.push("All partners must have both name and function filled.");
+          }
+
+
           return aErrors;
         },
-        _addOwnerInTable: function(){
+        _addOwnerInTable: function () {
           debugger;
           var oContext = this.getView().getModel().createEntry("/zcds_ps_partner", {
             properties: {
@@ -449,7 +492,7 @@ sap.ui.define(
             ],
           });
           oItem.setBindingContext(oContext);
-          var oTable = Fragment.byId( this.getView().getId(), "createPartnerTable");
+          var oTable = Fragment.byId(this.getView().getId(), "createPartnerTable");
           oTable.addItem(oItem);
         },
         onNavigateToCaseStudies: function () {
