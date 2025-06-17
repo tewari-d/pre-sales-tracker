@@ -270,7 +270,7 @@ sap.ui.define(
           var oView = this.getView();
 
           if (!this._pPartnerDialog) {
-             Fragment.load({
+            Fragment.load({
               id: oView.getId(),
               name: "com.nagarro.www.presalestracker.view.fragments.NewPartnerCreate",
               controller: this,
@@ -280,7 +280,7 @@ sap.ui.define(
               oDialog.open();
               return oDialog;
             }.bind(this));
-          }else{
+          } else {
             this._pPartnerDialog.open();
           }
         },
@@ -339,8 +339,24 @@ sap.ui.define(
               oModel.resetChanges();
               Fragment.byId(oView.getId(), "partnerDialog").close();
             }.bind(this),
-            error: function () {
-              sap.m.MessageBox.error("Failed to add new partner.");
+            error: function (oError) {
+              var sErrorMessage = "An unknown error occurred.";
+
+              try {
+                // Try parsing the error response
+                var oResponse = oError.responseText ? JSON.parse(oError.responseText) : null;
+                if (oResponse && oResponse.error && oResponse.error.message && oResponse.error.message.value) {
+                  sErrorMessage = oResponse.error.message.value;
+                } else if (oError.message) {
+                  sErrorMessage = oError.message;
+                }
+              } catch (e) {
+                // Fallback to generic error or the raw response text
+                sErrorMessage = oError.responseText || "Failed to parse backend error response.";
+              }
+
+              sap.m.MessageBox.error(sErrorMessage);
+
               oModel.resetChanges();
               Fragment.byId(oView.getId(), "partnerDialog").close();
             }.bind(this),
@@ -389,7 +405,7 @@ sap.ui.define(
           var sPartnerName = oData.PartnerName || "Unknown";
           var sPartnerFunc = oData.PartnerFunction || "Unknown";
 
-          if(sPartnerFunc === "OWN"){
+          if (sPartnerFunc === "OWN") {
             sap.m.MessageBox.error("Owner of the opportunity cannot be deleted.");
             return;
           }
