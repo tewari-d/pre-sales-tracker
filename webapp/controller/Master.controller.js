@@ -186,18 +186,24 @@ sap.ui.define(
           var oContext = this.getView().getModel().createEntry("/zcds_ps_partner", {
             properties: {
               PartnerName: "",
-              PartnerFunction: "OWN",
+              PartnerFunction: "",
               PartnerEmail: ""
             }
           });
           var oItem = new sap.m.ColumnListItem({
             cells: [
-              new sap.m.Input(),
+              new sap.ui.comp.smartfield.SmartField({
+                entitySet: "zcds_ps_partner",
+                value: "{PartnerName}",
+              }),
               new sap.ui.comp.smartfield.SmartField({
                 entitySet: "zcds_ps_partner",
                 value: "{PartnerFunction}",
               }),
-              new sap.m.Input(),
+              new sap.ui.comp.smartfield.SmartField({
+                entitySet: "zcds_ps_partner",
+                value: "{PartnerEmail}",
+              }),
               new sap.m.Button({
                 icon: "sap-icon://delete",
                 type: "Reject",
@@ -437,16 +443,15 @@ sap.ui.define(
 
           var aPartners = oPayload.toParters || [];
 
-          var bHasOwner = false;
           var bAllValid = true;
-
+          var iOwnerCount = 0;
           aPartners.forEach(function (oPartner) {
             var sName = oPartner.PartnerName;
             var sFunc = oPartner.PartnerFunction;
 
             // Check if owner exists
             if (sFunc === "OWN") {
-              bHasOwner = true;
+              iOwnerCount++;
             }
 
             // Check if both fields are filled
@@ -455,15 +460,16 @@ sap.ui.define(
             }
           });
 
-          if (!bHasOwner) {
-            this._addOwnerInTable();
+          if (iOwnerCount === 0) {
+            this._addOwnerInTable(); // Optional helper
             aErrors.push("At least one partner with function 'OWN' (Owner) is required.");
+          } else if (iOwnerCount > 1) {
+            aErrors.push("Only one partner with function 'OWN' (Owner) is allowed.");
           }
 
           if (!bAllValid) {
             aErrors.push("All partners must have both name and function filled.");
           }
-
 
           return aErrors;
         },

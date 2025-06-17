@@ -389,11 +389,16 @@ sap.ui.define(
           var sPartnerName = oData.PartnerName || "Unknown";
           var sPartnerFunc = oData.PartnerFunction || "Unknown";
 
+          if(sPartnerFunc === "OWN"){
+            sap.m.MessageBox.error("Owner of the opportunity cannot be deleted.");
+            return;
+          }
+
           sap.m.MessageBox.confirm(
             "Are you sure you want to delete this partner?",
             {
               title:
-                "Delete Partner: " + sPartnerName + " (" + sPartnerFunc + ")",
+                sPartnerName + " (" + sPartnerFunc + ")",
               actions: [
                 sap.m.MessageBox.Action.YES,
                 sap.m.MessageBox.Action.NO,
