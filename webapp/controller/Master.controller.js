@@ -517,6 +517,22 @@ sap.ui.define(
             MessageToast.show("Navigation service not available");
           }
         },
+        onNavigateToNonOpp: function () {
+          const oCrossAppNav = sap.ushell?.Container?.getService(
+            "CrossApplicationNavigation"
+          );
+
+          if (oCrossAppNav) {
+            oCrossAppNav.toExternal({
+              target: {
+                semanticObject: "ZPS_NONOPP",
+                action: "manage",
+              },
+            });
+          } else {
+            MessageToast.show("Navigation service not available");
+          }
+        }
       }
     );
   }

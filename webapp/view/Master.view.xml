@@ -49,6 +49,7 @@
                     </smartFilterBar:SmartFilterBar>
                     <HBox id="_IDGenHBox" justifyContent="End">
                         <Button id="_IDGenButton14" text="Case Studies" icon="sap-icon://navigation-right-arrow" press="onNavigateToCaseStudies" type="Transparent" />
+                        <Button id="_IDGenButton15" text="Non Opportunities" icon="sap-icon://navigation-right-arrow" press="onNavigateToNonOpp" type="Transparent" />
                     </HBox>
                 </VBox>
             </f:DynamicPageHeader>
