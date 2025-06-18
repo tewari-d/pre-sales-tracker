@@ -1,6 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"],
-  (Controller, Fragment) => {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/Fragment",
+    "com/nagarro/www/presalestracker/utils/FieldValidators",
+  ],
+  (Controller, Fragment, FieldValidators) => {
     "use strict";
 
     return Controller.extend(
@@ -35,6 +39,11 @@ sap.ui.define(
             showSave: false,
           });
           this.getView().setModel(oEditModel, "viewEditableModel");
+
+          const oProbField = this.getView().byId("idEditProbability");
+          if (oProbField) {
+            FieldValidators.applyProbabilityValidation(oProbField);
+          }
         },
         onUpdateNewRemarks: function (oEvent) {
           var oView = this.getView();
