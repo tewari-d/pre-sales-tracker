@@ -1,6 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"],
-  (Controller, Fragment) => {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/Fragment",
+    "com/nagarro/www/presalestracker/utils/FieldValidators",
+  ],
+  (Controller, Fragment, FieldValidators) => {
     "use strict";
 
     return Controller.extend(
@@ -47,8 +51,8 @@ sap.ui.define(
         },
         onSelectionChange(oEvent) {
           let oNextUIState = this.getOwnerComponent()
-            .getHelper()
-            .getNextUIState(1),
+              .getHelper()
+              .getNextUIState(1),
             /*opportunity = oEvent
               .getSource()
               .getSelectedContexts()[0]
@@ -168,6 +172,13 @@ sap.ui.define(
                 oDialog.setBindingContext(oNewContext);
                 oDialog.setModel(oModel);
                 oDialog.open();
+
+                let oProbabilityInput = this.getView().byId(
+                  "idCreateProbability"
+                );
+                if (oProbabilityInput) {
+                  FieldValidators.applyProbabilityValidation(oProbabilityInput);
+                }
               }.bind(this)
             );
           } else {
@@ -183,13 +194,15 @@ sap.ui.define(
         onAddPartner: function (oEvent) {
           debugger;
           //to add a new row
-          var oContext = this.getView().getModel().createEntry("/zcds_ps_partner", {
-            properties: {
-              PartnerName: "",
-              PartnerFunction: "",
-              PartnerEmail: ""
-            }
-          });
+          var oContext = this.getView()
+            .getModel()
+            .createEntry("/zcds_ps_partner", {
+              properties: {
+                PartnerName: "",
+                PartnerFunction: "",
+                PartnerEmail: "",
+              },
+            });
           var oItem = new sap.m.ColumnListItem({
             cells: [
               new sap.ui.comp.smartfield.SmartField({
@@ -278,11 +291,11 @@ sap.ui.define(
               sap.m.MessageBox.error(
                 new sap.m.Text({
                   text: "• " + aValidationErrors.join("\n• "),
-                  wrapping: true
+                  wrapping: true,
                 }),
                 {
                   title: "Validation Error",
-                  contentWidth: "400px"
+                  contentWidth: "400px",
                 }
               );
               return;
@@ -308,9 +321,9 @@ sap.ui.define(
           aItems.forEach(function (oItem) {
             var aCells = oItem.getCells();
 
-            var sName = aCells[0].getValue();  
-            var sFunction = aCells[1].getValue();  
-            var sEmail = aCells[2].getValue();  
+            var sName = aCells[0].getValue();
+            var sFunction = aCells[1].getValue();
+            var sEmail = aCells[2].getValue();
 
             aPartners.push({
               PartnerName: sName,
@@ -332,7 +345,7 @@ sap.ui.define(
             Geography: "Geography",
             DealType: "Deal Type",
             Status: "Status",
-            OppType: "Opportunity Type"
+            OppType: "Opportunity Type",
           };
 
           // Loop through and validate each field
@@ -356,33 +369,46 @@ sap.ui.define(
             }
 
             // Check if both fields are filled
-            if (!sName || sName.trim() === "" || !sFunc || sFunc.trim() === "") {
+            if (
+              !sName ||
+              sName.trim() === "" ||
+              !sFunc ||
+              sFunc.trim() === ""
+            ) {
               bAllValid = false;
             }
           });
 
           if (iOwnerCount === 0) {
             this._addOwnerInTable(); // Optional helper
-            aErrors.push("At least one partner with function 'OWN' (Owner) is required.");
+            aErrors.push(
+              "At least one partner with function 'OWN' (Owner) is required."
+            );
           } else if (iOwnerCount > 1) {
-            aErrors.push("Only one partner with function 'OWN' (Owner) is allowed.");
+            aErrors.push(
+              "Only one partner with function 'OWN' (Owner) is allowed."
+            );
           }
 
           if (!bAllValid) {
-            aErrors.push("All partners must have both name and function filled.");
+            aErrors.push(
+              "All partners must have both name and function filled."
+            );
           }
 
           return aErrors;
         },
         _addOwnerInTable: function () {
           debugger;
-          var oContext = this.getView().getModel().createEntry("/zcds_ps_partner", {
-            properties: {
-              PartnerName: "",
-              PartnerFunction: "OWN",
-              PartnerEmail: ""
-            }
-          });
+          var oContext = this.getView()
+            .getModel()
+            .createEntry("/zcds_ps_partner", {
+              properties: {
+                PartnerName: "",
+                PartnerFunction: "OWN",
+                PartnerEmail: "",
+              },
+            });
           var oItem = new sap.m.ColumnListItem({
             cells: [
               new sap.m.Input(),
@@ -399,7 +425,10 @@ sap.ui.define(
             ],
           });
           oItem.setBindingContext(oContext);
-          var oTable = Fragment.byId(this.getView().getId(), "createPartnerTable");
+          var oTable = Fragment.byId(
+            this.getView().getId(),
+            "createPartnerTable"
+          );
           oTable.addItem(oItem);
         },
         onNavigateToCaseStudies: function () {
@@ -433,7 +462,7 @@ sap.ui.define(
           } else {
             MessageToast.show("Navigation service not available");
           }
-        }
+        },
       }
     );
   }

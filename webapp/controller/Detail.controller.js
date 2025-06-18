@@ -1,6 +1,10 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"],
-  (Controller, Fragment) => {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/Fragment",
+    "com/nagarro/www/presalestracker/utils/FieldValidators",
+  ],
+  (Controller, Fragment, FieldValidators) => {
     "use strict";
 
     return Controller.extend(
@@ -14,8 +18,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-            "idExitFullScreenOverflowToolbarButton"
-          ),
+              "idExitFullScreenOverflowToolbarButton"
+            ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -35,6 +39,11 @@ sap.ui.define(
             showSave: false,
           });
           this.getView().setModel(oEditModel, "viewEditableModel");
+
+          const oProbField = this.getView().byId("idEditProbability");
+          if (oProbField) {
+            FieldValidators.applyProbabilityValidation(oProbField);
+          }
         },
         onUpdateNewRemarks: function (oEvent) {
           var oView = this.getView();
@@ -248,6 +257,13 @@ sap.ui.define(
             }
           }
 
+          if (oPayload.toParters) {
+            delete oPayload.toParters;
+          }
+          if (oPayload.toRemarks) {
+            delete oPayload.toRemarks;
+          }
+
           oModel.update(sPath, oPayload, {
             method: "PUT",
             success: () => {
@@ -274,12 +290,14 @@ sap.ui.define(
               id: oView.getId(),
               name: "com.nagarro.www.presalestracker.view.fragments.NewPartnerCreate",
               controller: this,
-            }).then(function (oDialog) {
-              this._pPartnerDialog = oDialog;
-              oView.addDependent(oDialog);
-              oDialog.open();
-              return oDialog;
-            }.bind(this));
+            }).then(
+              function (oDialog) {
+                this._pPartnerDialog = oDialog;
+                oView.addDependent(oDialog);
+                oDialog.open();
+                return oDialog;
+              }.bind(this)
+            );
           } else {
             this._pPartnerDialog.open();
           }
@@ -325,7 +343,6 @@ sap.ui.define(
           ).getBindingContext();
           var sPath = oContext.getPath() + "/toParters";
 
-
           var oNewEntry = {
             Id: oContext.getObject().Id,
             PartnerName: sName,
@@ -344,15 +361,24 @@ sap.ui.define(
 
               try {
                 // Try parsing the error response
-                var oResponse = oError.responseText ? JSON.parse(oError.responseText) : null;
-                if (oResponse && oResponse.error && oResponse.error.message && oResponse.error.message.value) {
+                var oResponse = oError.responseText
+                  ? JSON.parse(oError.responseText)
+                  : null;
+                if (
+                  oResponse &&
+                  oResponse.error &&
+                  oResponse.error.message &&
+                  oResponse.error.message.value
+                ) {
                   sErrorMessage = oResponse.error.message.value;
                 } else if (oError.message) {
                   sErrorMessage = oError.message;
                 }
               } catch (e) {
                 // Fallback to generic error or the raw response text
-                sErrorMessage = oError.responseText || "Failed to parse backend error response.";
+                sErrorMessage =
+                  oError.responseText ||
+                  "Failed to parse backend error response.";
               }
 
               sap.m.MessageBox.error(sErrorMessage);
@@ -406,15 +432,16 @@ sap.ui.define(
           var sPartnerFunc = oData.PartnerFunction || "Unknown";
 
           if (sPartnerFunc === "OWN") {
-            sap.m.MessageBox.error("Owner of the opportunity cannot be deleted.");
+            sap.m.MessageBox.error(
+              "Owner of the opportunity cannot be deleted."
+            );
             return;
           }
 
           sap.m.MessageBox.confirm(
             "Are you sure you want to delete this partner?",
             {
-              title:
-                sPartnerName + " (" + sPartnerFunc + ")",
+              title: sPartnerName + " (" + sPartnerFunc + ")",
               actions: [
                 sap.m.MessageBox.Action.YES,
                 sap.m.MessageBox.Action.NO,

@@ -115,7 +115,7 @@
                                         <smartField:SmartField id="_IDGenSmartField11" value="{CloseDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement12">
-                                        <smartField:SmartField id="_IDGenSmartField12" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
