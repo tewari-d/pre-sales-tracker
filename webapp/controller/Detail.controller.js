@@ -485,6 +485,7 @@ sap.ui.define(
               // Load and open dialog
               if (!this._pLogDialog) {
                 Fragment.load({
+                  id: this.getView().getId(),
                   name: "com.nagarro.www.presalestracker.view.fragments.ViewChangeLog",
                   controller: this,
                 }).then(
