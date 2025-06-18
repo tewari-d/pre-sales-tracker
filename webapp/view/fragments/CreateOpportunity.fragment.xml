@@ -56,7 +56,7 @@
                         <smartField:SmartField id="_IDGenSmartField37" value="{PlannedSubmissionDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement35">
-                        <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" visible="{= ${Status} === 'SUBMITTED' ? true : false }" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement43">
                         <smartField:SmartField id="_IDGenSmartField39" value="{OppTcv}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />

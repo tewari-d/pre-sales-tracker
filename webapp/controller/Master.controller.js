@@ -51,8 +51,8 @@ sap.ui.define(
         },
         onSelectionChange(oEvent) {
           let oNextUIState = this.getOwnerComponent()
-              .getHelper()
-              .getNextUIState(1),
+            .getHelper()
+            .getNextUIState(1),
             /*opportunity = oEvent
               .getSource()
               .getSelectedContexts()[0]
@@ -354,6 +354,17 @@ sap.ui.define(
               aErrors.push(mMandatoryFields[sField] + " is required.");
             }
           });
+
+          if (oPayload.Status === 'SUBMITTED') {
+            if (
+              !oPayload.PracticeReviewwer ||
+              !oPayload.PreSalesReviewwer ||
+              !oPayload.ResourceFutureDemandUpdated
+            ) {
+              aErrors.push("Future Demand Updated, Pre Sales Reviewer, Practice Reviewer, Opportunity Value are mandatory if Status is SUBMITTED.");
+            }
+
+          }
 
           var aPartners = oPayload.toParters || [];
 

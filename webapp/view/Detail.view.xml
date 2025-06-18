@@ -103,7 +103,7 @@
                                         <smartField:SmartField id="_IDGenSmartField18" value="{PlannedSubmissionDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement8">
-                                        <smartField:SmartField id="_IDGenSmartField8" value="{SubmissionDate}" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField8" visible="{= ${Status} === 'SUBMITTED' ? true : false }" value="{SubmissionDate}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement9">
                                         <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" fieldGroupIds="generalInfoFieldGroup" />

@@ -236,7 +236,7 @@ sap.ui.define(
               oPayload.ResourceFutureDemandUpdated === ""
             ) {
               sap.m.MessageBox.error(
-                "All three fields are required:\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer\n• Opportunity Value",
+                "Below fields are required:\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer\n• Opportunity Value",
                 {
                   onClose: function () {
                     // Focus the first empty field
