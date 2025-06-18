@@ -222,53 +222,14 @@ sap.ui.define(
         onSaveNewOpportunity: function (oEvent) {
           var oDialog = oEvent.getSource().getEventingParent();
 
-          /* 
-          //Smartfields error state
-          oDialog.getModel().checkUpdate(true, true);
-          const aSmartFields = oDialog.getControlsByFieldGroupId("createHeaderFields");
-
-          let bAllValid = true;
-        
-          aSmartFields.forEach(function (oSmartField) {
-            if (typeof oSmartField.getInnerControls === "function") {
-              const aInnerControls = oSmartField.getInnerControls();
-        
-              aInnerControls.forEach(function (oInnerControl) {
-                if (typeof oInnerControl.getValueState === "function") {
-                  const sState = oInnerControl.getValueState();
-        
-                  if (sState === "Error") {
-                    bAllValid = false;
-        
-                    // Optional: visually highlight the error (already happens via ValueState)
-                    // Optional: focus first invalid field
-                    if (!this._bFocused) {
-                      oInnerControl.focus();
-                      this._bFocused = true;
-                    }
-                  }
-                }
-              }, this);
-            }
-          }, this);
-        
-          delete this._bFocused;
-        
-          if (!bAllValid) {
-            sap.m.MessageBox.error("Please correct the highlighted errors before saving.");
-            return;
-          }
-        */
-
           //get payloads
           var oViewContents = oDialog.getContent();
           if (oViewContents.length !== 0) {
-            var oSmartForm = oViewContents[0];
             var oRemarksForm = oViewContents[1];
             var oPartnersForm = oViewContents[2];
 
             //Read header fields
-            var oPayload = this._getHeaderPayload(oSmartForm);
+            var oPayload = oDialog.getBindingContext().getObject();
 
             //Read Remarks
             var enteredRemark = oRemarksForm.getContent()[0].getValue();
@@ -293,7 +254,7 @@ sap.ui.define(
               oModel.create("/ZCDS_PS_MASTER", oPayload, {
                 success: function (oData, oResponse) {
                   sap.m.MessageToast.show(
-                    "Oppotunity " + oData.Id + " created successfully!"
+                    "Opportunity " + Number(oData.Id) + " created successfully!"
                   );
                   this._oCreateOppDialog.setBusy(false);
                   oModel.resetChanges();
@@ -340,66 +301,6 @@ sap.ui.define(
           return "None";
         },
 
-        _getHeaderPayload: function (oSmartForm) {
-          var aSmartFields = oSmartForm.getSmartFields();
-          var oPayload = {};
-
-          aSmartFields.forEach(function (oSmartField) {
-            var oMeta = oSmartField.getDataProperty();
-
-            if (!oMeta || !oMeta.property) {
-              console.warn("No metadata for SmartField:", oSmartField);
-              return;
-            }
-
-            var sPropertyName = oMeta.property.name;
-            var sEdmType = oMeta.property.type;
-            var oValue = oSmartField.getValue();
-            var oInnerControl = oSmartField.getFirstInnerControl();
-
-            // --- Handle DatePicker fields ---
-            if (oInnerControl && oInnerControl.isA("sap.m.DatePicker")) {
-              var oDate = oInnerControl.getDateValue();
-              var oDateValue = oDate ? `/Date(${oDate.getTime()})/` : null;
-              oPayload[sPropertyName] = oDateValue;
-              return;
-            }
-
-            // --- Handle numeric types ---
-            var aNumericTypes = [
-              "Edm.Int16",
-              "Edm.Int32",
-              "Edm.Int64",
-              "Edm.Decimal",
-              "Edm.Double",
-              "Edm.Single",
-            ];
-
-            if (aNumericTypes.includes(sEdmType)) {
-              if (sEdmType === "Edm.Decimal" || sEdmType === "Edm.Double") {
-                // Always return as string, even for 0
-                if (oValue === null || oValue === "" || isNaN(oValue)) {
-                  oPayload[sPropertyName] = "0.00";
-                } else {
-                  oPayload[sPropertyName] = parseFloat(oValue).toFixed(2); // As string
-                }
-              } else {
-                // For integer types
-                oPayload[sPropertyName] =
-                  oValue === null || oValue === "" || isNaN(oValue)
-                    ? 0
-                    : Number(oValue);
-              }
-              return;
-            }
-
-            // --- All other types ---
-            oPayload[sPropertyName] = oValue;
-          });
-
-          return oPayload;
-        },
-
         _getPartnersPayload: function (oTable) {
           var aItems = oTable.getItems();
           var aPartners = [];
@@ -407,9 +308,9 @@ sap.ui.define(
           aItems.forEach(function (oItem) {
             var aCells = oItem.getCells();
 
-            var sName = aCells[0].getValue(); // First Input field
-            var sFunction = aCells[1].getValue(); // SmartField
-            var sEmail = aCells[2].getValue(); // Second Input field
+            var sName = aCells[0].getValue();  
+            var sFunction = aCells[1].getValue();  
+            var sEmail = aCells[2].getValue();  
 
             aPartners.push({
               PartnerName: sName,
