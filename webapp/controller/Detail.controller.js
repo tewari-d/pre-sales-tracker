@@ -509,6 +509,17 @@ sap.ui.define(
               const aLogs = oData.results || [];
               const oLogModel = new sap.ui.model.json.JSONModel(aLogs);
 
+              const bindTable = function () {
+                const oLogTable = Fragment.byId(oView.getId(), "logTable");
+                oLogTable.setModel(oLogModel);
+                oLogTable.bindItems({
+                  path: "/",
+                  template: new sap.m.ColumnListItem({
+                    cells: [new sap.m.Text({ text: "{CDText}" })],
+                  }),
+                });
+              };
+
               // Load and open dialog
               if (!this._pLogDialog) {
                 Fragment.load({
@@ -519,12 +530,12 @@ sap.ui.define(
                   function (oDialog) {
                     this._pLogDialog = oDialog;
                     oView.addDependent(oDialog);
-                    this._pLogDialog.setModel(oLogModel);
+                    bindTable();
                     this._pLogDialog.open();
                   }.bind(this)
                 );
               } else {
-                this._pLogDialog.setModel(oLogModel);
+                bindTable();
                 this._pLogDialog.open();
               }
             }.bind(this),
