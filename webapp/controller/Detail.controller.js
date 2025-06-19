@@ -164,6 +164,7 @@ sap.ui.define(
           let sNextLayout = this.oModel.getProperty(
             "/actionButtonsInfo/midColumn/closeColumn"
           );
+          this._id = null;
           this.oRouter.navTo("Master", { layout: sNextLayout });
         },
         onNewRemarkLiveChange: function (oEvent) {
