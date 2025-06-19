@@ -109,6 +109,10 @@ sap.ui.define(
           }
         },
         _onOppMatched: function (oEvent) {
+          if(this.sameViewInFullScreen){
+            this.sameViewInFullScreen = false;
+            return;
+          }
           var oViewModel = this.getView().getModel("viewEditableModel");
           var oModel = this.getView().getModel();
           var oView = this.getView();
@@ -141,6 +145,7 @@ sap.ui.define(
           if (this.getView().getBusy()) this.getView().setBusy(false);
         },
         onOverflowToolbarButtonFullScreenPress: function () {
+          this.sameViewInFullScreen = true;
           this.bFocusFullScreenButton = true;
           let sNextLayout = this.oModel.getProperty(
             "/actionButtonsInfo/midColumn/fullScreen"
@@ -148,6 +153,7 @@ sap.ui.define(
           this.oRouter.navTo("Detail", { layout: sNextLayout, id: this._id });
         },
         onOverflowToolbarButtonExitFullScreenPress: function () {
+          this.sameViewInFullScreen = true;
           this.bFocusFullScreenButton = true;
           let sNextLayout = this.oModel.getProperty(
             "/actionButtonsInfo/midColumn/exitFullScreen"
