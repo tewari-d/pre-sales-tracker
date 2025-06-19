@@ -50,7 +50,7 @@
                 </m:VBox>
                 <m:VBox id="_IDGenVBox2" justifyContent="Center" class="sapUiSmallMarginEnd">
                     <m:Label id="_IDGenLabel2" text="Documents URL" />
-                    <m:Link id="_IDGenLink" text="Click here for Opportunity Documents" href="{DocUrl}" />
+                    <m:Link id="_IDGenLink" text="Click here for Opportunity Documents" href="{DocUrl}" target="_blank" />
                 </m:VBox>
             </m:FlexBox>
         </headerContent>
