@@ -595,6 +595,35 @@ sap.ui.define(
           // Remove leading zeros
           return sId ? sId.replace(/^0+/, "") : "";
         },
+        isEditingActive: function () {
+          const oVM = this.getView().getModel("viewEditableModel");
+          const bEditMode = oVM.getProperty("/editMode");
+
+          const oFeedInput = this.getView().byId("_IDGenFeedInput1");
+          const sNewRemark = oFeedInput?.getValue()?.trim();
+
+          return bEditMode || (sNewRemark && sNewRemark.length > 0);
+        },
+
+        cancelEditing: function () {
+          const oModel = this.getView().getModel();
+          const oVM = this.getView().getModel("viewEditableModel");
+
+          if (oModel.hasPendingChanges()) {
+            oModel.resetChanges();
+            oModel.checkUpdate(true);
+          }
+
+          // Reset edit mode
+          oVM.setProperty("/editMode", false);
+          oVM.setProperty("/showSave", false);
+
+          // Clear new remark text
+          const oFeedInput = this.getView().byId("_IDGenFeedInput1");
+          if (oFeedInput) {
+            oFeedInput.setValue("");
+          }
+        },
       }
     );
   }
