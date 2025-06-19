@@ -359,11 +359,18 @@ sap.ui.define(
             if (
               !oPayload.PracticeReviewwer ||
               !oPayload.PreSalesReviewwer ||
-              !oPayload.ResourceFutureDemandUpdated
+              !oPayload.ResourceFutureDemandUpdated ||
+              !oPayload.SubmissionDate
             ) {
-              aErrors.push("Future Demand Updated, Pre Sales Reviewer, Practice Reviewer, Opportunity Value are mandatory if Status is SUBMITTED.");
+              aErrors.push("Submission Date, Future Demand Updated, Pre Sales Reviewer, Practice Reviewer, Opportunity Value are mandatory if Status is SUBMITTED.");
             }
 
+          }
+
+          if (oPayload.Status === 'WIN' || oPayload.Status === 'LOSS') {
+            if (!oPayload.CloseDate) {
+              aErrors.push(`If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`);
+            }
           }
 
           var aPartners = oPayload.toParters || [];

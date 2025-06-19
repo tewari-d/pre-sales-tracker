@@ -64,8 +64,8 @@
                     <smartForm:GroupElement id="_IDGenGroupElement36">
                         <smartField:SmartField id="_IDGenSmartField40" value="{CommModel}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement37" visible="false">
-                        <smartField:SmartField id="_IDGenSmartField41" value="{CloseDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    <smartForm:GroupElement id="_IDGenGroupElement37">
+                        <smartField:SmartField id="_IDGenSmartField41" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' }" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement38">
                         <smartField:SmartField id="idCreateProbability" value="{Probability}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
@@ -77,7 +77,7 @@
                         <smartField:SmartField id="_IDGenSmartField49" value="{NextFollowUpDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                 </smartForm:Group>
-                <smartForm:Group id="_IDGenGroup6" title="Reviewers" visible="{= ${Status} === 'SUBMITTED' ? true : false }">
+                <smartForm:Group id="_IDGenGroup6" title="Reviewers">
                     <smartForm:GroupElement id="_IDGenGroupElement40">
                         <smartField:SmartField id="_IDGenSmartField44" value="{PracticeReviewwer}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>

@@ -233,10 +233,11 @@ sap.ui.define(
             if (
               oPayload.PracticeReviewwer === "" ||
               oPayload.PreSalesReviewwer === "" ||
-              oPayload.ResourceFutureDemandUpdated === ""
+              oPayload.ResourceFutureDemandUpdated === "" ||
+              oPayload.SubmissionDate === ""
             ) {
               sap.m.MessageBox.error(
-                "Below fields are required:\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer\n• Opportunity Value",
+                "Below fields are required:\n• Submission Date\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer\n• Opportunity Value",
                 {
                   onClose: function () {
                     // Focus the first empty field
@@ -249,6 +250,22 @@ sap.ui.define(
                     } else if (oPayload.OppTcv === "") {
                       this.byId("_IDGenSmartField9").focus();
                     }
+                  }.bind(this),
+                }
+              );
+              oView.setBusy(false);
+              return;
+            }
+          }
+
+          if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
+            if (!oPayload.CloseDate) {
+              sap.m.MessageBox.error(
+                `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`,
+                {
+                  onClose: function () {
+                    // Focus the first empty field
+                    this.byId("_IDGenSmartField11").focus();
                   }.bind(this),
                 }
               );
