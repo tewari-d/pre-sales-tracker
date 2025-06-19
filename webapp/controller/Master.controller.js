@@ -49,22 +49,50 @@ sap.ui.define(
           };
           oSmartFilterBar.setFilterData(oFilterData);
         },
-        onSelectionChange(oEvent) {
-          let oNextUIState = this.getOwnerComponent()
+        onSelectionChange: function (oEvent) {
+          const oSelectedItem = oEvent.getParameter("listItem");
+          const sNextId = oSelectedItem.getBindingContext().getObject().Id;
+          const oNextUIState = this.getOwnerComponent()
             .getHelper()
-            .getNextUIState(1),
-            /*opportunity = oEvent
-              .getSource()
-              .getSelectedContexts()[0]
-              .getObject().Id;*/
-            opportunity = oEvent
-              .getParameter("listItem")
-              .getBindingContext()
-              .getObject().Id;
+            .getNextUIState(1);
 
+          const oDetailPage = this.getView()
+            .getParent()
+            .getParent()
+            .getCurrentMidColumnPage();
+          const oDetailController = oDetailPage?.getController();
+
+          const sCurrentId = oDetailController?._id;
+
+          if (sNextId === sCurrentId) {
+            return;
+          }
+
+          if (oDetailController?.isEditingActive()) {
+            sap.m.MessageBox.confirm(
+              "You have unsaved changes. Do you want to discard them?",
+              {
+                actions: [
+                  sap.m.MessageBox.Action.YES,
+                  sap.m.MessageBox.Action.NO,
+                ],
+                onClose: function (oAction) {
+                  if (oAction === sap.m.MessageBox.Action.YES) {
+                    oDetailController.cancelEditing?.();
+                    this._navigateToDetail(sNextId, oNextUIState.layout);
+                  }
+                }.bind(this),
+              }
+            );
+          } else {
+            this._navigateToDetail(sNextId, oNextUIState.layout);
+          }
+        },
+
+        _navigateToDetail: function (sId, sLayout) {
           this.oRouter.navTo("Detail", {
-            layout: oNextUIState.layout,
-            id: opportunity,
+            layout: sLayout,
+            id: sId,
           });
         },
         _updateSegmentedCounts: function () {
@@ -355,21 +383,24 @@ sap.ui.define(
             }
           });
 
-          if (oPayload.Status === 'SUBMITTED') {
+          if (oPayload.Status === "SUBMITTED") {
             if (
               !oPayload.PracticeReviewwer ||
               !oPayload.PreSalesReviewwer ||
               !oPayload.ResourceFutureDemandUpdated ||
               !oPayload.SubmissionDate
             ) {
-              aErrors.push("Submission Date, Future Demand Updated, Pre Sales Reviewer, Practice Reviewer, Opportunity Value are mandatory if Status is SUBMITTED.");
+              aErrors.push(
+                "Submission Date, Future Demand Updated, Pre Sales Reviewer, Practice Reviewer, Opportunity Value are mandatory if Status is SUBMITTED."
+              );
             }
-
           }
 
-          if (oPayload.Status === 'WIN' || oPayload.Status === 'LOSS') {
+          if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
             if (!oPayload.CloseDate) {
-              aErrors.push(`If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`);
+              aErrors.push(
+                `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`
+              );
             }
           }
 
