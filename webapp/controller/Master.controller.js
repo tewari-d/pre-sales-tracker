@@ -220,7 +220,6 @@ sap.ui.define(
           delete this._oCreateOppDialog;
         },
         onAddPartner: function (oEvent) {
-          debugger;
           //to add a new row
           var oContext = this.getView()
             .getModel()
@@ -448,7 +447,6 @@ sap.ui.define(
           return aErrors;
         },
         _addOwnerInTable: function () {
-          debugger;
           var oContext = this.getView()
             .getModel()
             .createEntry("/zcds_ps_partner", {
@@ -460,12 +458,18 @@ sap.ui.define(
             });
           var oItem = new sap.m.ColumnListItem({
             cells: [
-              new sap.m.Input(),
+              new sap.ui.comp.smartfield.SmartField({
+                entitySet: "zcds_ps_partner",
+                value: "{PartnerName}",
+              }),
               new sap.ui.comp.smartfield.SmartField({
                 entitySet: "zcds_ps_partner",
                 value: "{PartnerFunction}",
               }),
-              new sap.m.Input(),
+              new sap.ui.comp.smartfield.SmartField({
+                entitySet: "zcds_ps_partner",
+                value: "{PartnerEmail}",
+              }),
               new sap.m.Button({
                 icon: "sap-icon://delete",
                 type: "Reject",

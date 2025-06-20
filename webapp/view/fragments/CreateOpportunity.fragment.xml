@@ -10,9 +10,9 @@
     <Dialog id="wizardDialog" title="Create Opportunity" stretch="true" class="sapUiContentPadding">
         <content>
             <smartForm:SmartForm id="_IDGenSmartForm" app:defaultCheckBoxDisplayBehaviour="YesNo" app:defaultDropDownDisplayBehaviour="idAndDescription" title="General Data" validationMode="Async" editable="true">
-                <smartForm:layout>
+                <!-- <smartForm:layout>
                     <smartForm:ColumnLayout id="_IDGenColumnLayout1" columnsM="2" columnsL="3" columnsXL="3" />
-                </smartForm:layout>
+                </smartForm:layout> -->
                 <smartForm:Group id="_IDGenGroup3" title="Customer Details">
                     <smartForm:GroupElement id="_IDGenGroupElement24">
                         <smartField:SmartField id="_IDGenSmartField27" value="{CustomerName}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
