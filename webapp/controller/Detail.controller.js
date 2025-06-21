@@ -109,7 +109,7 @@ sap.ui.define(
           }
         },
         _onOppMatched: function (oEvent) {
-          if(this.sameViewInFullScreen){
+          if (this.sameViewInFullScreen) {
             this.sameViewInFullScreen = false;
             return;
           }
@@ -161,11 +161,33 @@ sap.ui.define(
           this.oRouter.navTo("Detail", { layout: sNextLayout, id: this._id });
         },
         onOverflowToolbarButtonClosePress: function () {
-          let sNextLayout = this.oModel.getProperty(
+          const sNextLayout = this.oModel.getProperty(
             "/actionButtonsInfo/midColumn/closeColumn"
           );
-          this._id = null;
-          this.oRouter.navTo("Master", { layout: sNextLayout });
+
+          if (this.isEditingActive()) {
+            sap.m.MessageBox.confirm(
+              "You have unsaved changes or remarks. Do you want to discard them and close?",
+              {
+                title: "Discard Changes?",
+                actions: [
+                  sap.m.MessageBox.Action.OK,
+                  sap.m.MessageBox.Action.CANCEL,
+                ],
+                emphasizedAction: sap.m.MessageBox.Action.CANCEL,
+                onClose: function (sAction) {
+                  if (sAction === sap.m.MessageBox.Action.OK) {
+                    this.cancelEditing();
+                    this._id = null;
+                    this.oRouter.navTo("Master", { layout: sNextLayout });
+                  }
+                }.bind(this),
+              }
+            );
+          } else {
+            this._id = null;
+            this.oRouter.navTo("Master", { layout: sNextLayout });
+          }
         },
         onNewRemarkLiveChange: function (oEvent) {
           var sNewText = oEvent.getParameter("value");
