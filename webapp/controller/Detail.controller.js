@@ -653,6 +653,10 @@ sap.ui.define(
             oFeedInput.setValue("");
           }
         },
+        shortenUrl: function (sUrl) {
+          if (!sUrl) return "";
+          return "Click here for Opportunity Documents";
+        },
       }
     );
   }
