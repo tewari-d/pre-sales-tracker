@@ -75,7 +75,7 @@
                         <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" press="onCreate" />
                     </OverflowToolbar>
                 </smartTable:customToolbar>
-                <Table mode="SingleSelectMaster" id="innerUi5Table" alternateRowColors="true" itemPress="onSelectionChange"  growing="false">
+                <Table mode="SingleSelectMaster" id="innerUi5Table" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" itemPress="onSelectionChange" growing="false">
                     <ColumnListItem type="Active" id="_IDGenColumnListItem1" highlight="{parts: [
                         { path: 'Status' },
                         { path: 'PlannedSubmissionDate' },
