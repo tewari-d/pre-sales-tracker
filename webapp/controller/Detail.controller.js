@@ -282,7 +282,7 @@ sap.ui.define(
               sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField24";
             }
 
-            if (!oPayload.OppTcv) {
+            if (!oPayload.OppTcv ||  Number(oPayload.OppTcv) === 0) {
               aMissingFields.push("• Opportunity Value");
               sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField9";
             }

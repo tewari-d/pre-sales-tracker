@@ -383,17 +383,32 @@ sap.ui.define(
           });
 
           if (oPayload.Status === "SUBMITTED") {
-            if (
-              !oPayload.PracticeReviewwer ||
-              !oPayload.PreSalesReviewwer ||
-              !oPayload.ResourceFutureDemandUpdated ||
-              !oPayload.SubmissionDate
-            ) {
-              aErrors.push(
-                "Submission Date, Future Demand Updated, Pre Sales Reviewer, Practice Reviewer, Opportunity Value are mandatory if Status is SUBMITTED."
-              );
+              const submissionErrors = [];
+            if (!oPayload.SubmissionDate) {
+              submissionErrors.push("Submission Date");
+            }
+
+            if (!oPayload.ResourceFutureDemandUpdated) {
+              submissionErrors.push("Future Demand Updated");
+            }
+
+            if (!oPayload.PreSalesReviewwer) {
+              submissionErrors.push("Pre Sales Reviewer");
+            }
+
+            if (!oPayload.PracticeReviewwer) {
+              submissionErrors.push("Practice Reviewer");
+            }
+
+            if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
+              submissionErrors.push("Opportunity Value");
+            }
+            if(submissionErrors.length > 0){
+              aErrors.push("If the status is SUBMITTED, the following fields are mandatory:");
+              aErrors.push(...submissionErrors);
             }
           }
+
 
           if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
             if (!oPayload.CloseDate) {
