@@ -162,7 +162,7 @@
                                 <l:content>
                                     <m:FeedInput id="_IDGenFeedInput1" post="onUpdateNewRemarks" placeholder="Enter new remarks here..." showIcon="false" />
                                     <m:FlexBox id="_IDGenFlexBox2" direction="Column" renderType="Div">
-                                        <m:List id="_IDGenList1" growing="true" growingScrollToLoad="false" growingThreshold="3" items="{ path: 'toRemarks', sorter: { path: 'CreatedOn', descending: true } }" noDataText="No Existing Remarks">
+                                        <m:List id="_IDGenList1" growing="true" growingScrollToLoad="false" growingThreshold="6" items="{ path: 'toRemarks', sorter: { path: 'CreatedOn', descending: true } }" noDataText="No Existing Remarks">
                                             <m:FeedListItem id="_IDGenFeedListItem" senderActive="false" showIcon="false" sender="{CreatedBy}" timestamp="{path: 'CreatedOn', type: 'DateType', formatOptions: { style: 'full' } }" text="{RmText}" />
                                         </m:List>
                                     </m:FlexBox>
@@ -178,7 +178,7 @@
                         <blocks>
                             <l:VerticalLayout id="_IDGenVerticalLayout2" width="100%">
                                 <m:FlexBox id="_IDGenFlexBox3" direction="Column" renderType="Div">
-                                    <smartTable:SmartTable id="_IDGenSmartTable1" entitySet="zcds_ps_partner" tableBindingPath="toParters" header="Partners" showRowCount="true" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useTablePersonalisation="true" enableAutoBinding="true" fitContainer="true">
+                                    <smartTable:SmartTable id="_IDGenSmartTable1" entitySet="zcds_ps_partner" tableBindingPath="toParters" header="Partners" showRowCount="true" tableType="ResponsiveTable" enableExport="false" beforeExport="onBeforeExport" useTablePersonalisation="true" enableAutoBinding="true" fitContainer="true">
                                         <smartTable:customToolbar>
                                             <m:OverflowToolbar id="_IDGenOverflowToolbar" design="Transparent">
                                                 <m:ToolbarSpacer id="_IDGenToolbarSpacer1" />

@@ -18,8 +18,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-              "idExitFullScreenOverflowToolbarButton"
-            ),
+            "idExitFullScreenOverflowToolbarButton"
+          ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -109,7 +109,7 @@ sap.ui.define(
           }
         },
         _onOppMatched: function (oEvent) {
-          if(this.sameViewInFullScreen){
+          if (this.sameViewInFullScreen) {
             this.sameViewInFullScreen = false;
             return;
           }
@@ -237,25 +237,41 @@ sap.ui.define(
           oView.setBusy(true);
 
           if (oPayload.Status === "SUBMITTED") {
-            if (
-              oPayload.PracticeReviewwer === "" ||
-              oPayload.PreSalesReviewwer === "" ||
-              oPayload.ResourceFutureDemandUpdated === "" ||
-              oPayload.SubmissionDate === ""
-            ) {
+            const aMissingFields = [];
+            let sFirstMissingFieldId = "";
+
+            if (!oPayload.SubmissionDate) {
+              aMissingFields.push("• Submission Date");
+              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField8";
+            }
+
+            if (!oPayload.ResourceFutureDemandUpdated) {
+              aMissingFields.push("• Future Demand Updated");
+              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField26";
+            }
+
+            if (!oPayload.PreSalesReviewwer) {
+              aMissingFields.push("• Pre Sales Reviewer");
+              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField25";
+            }
+
+            if (!oPayload.PracticeReviewwer) {
+              aMissingFields.push("• Practice Reviewer");
+              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField24";
+            }
+
+            if (!oPayload.OppTcv) {
+              aMissingFields.push("• Opportunity Value");
+              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField9";
+            }
+
+            if (aMissingFields.length > 0) {
               sap.m.MessageBox.error(
-                "Below fields are required:\n• Submission Date\n• Future Demand Updated\n• Pre Sales Reviewer\n• Practice Reviewer\n• Opportunity Value",
+                "Please fill the following required field(s):\n" + aMissingFields.join("\n"),
                 {
                   onClose: function () {
-                    // Focus the first empty field
-                    if (oPayload.PracticeReviewwer === "") {
-                      this.byId("_IDGenSmartField24").focus();
-                    } else if (oPayload.PreSalesReviewwer === "") {
-                      this.byId("_IDGenSmartField25").focus();
-                    } else if (oPayload.ResourceFutureDemandUpdated === "") {
-                      this.byId("_IDGenSmartField26").focus();
-                    } else if (oPayload.OppTcv === "") {
-                      this.byId("_IDGenSmartField9").focus();
+                    if (sFirstMissingFieldId) {
+                      this.byId(sFirstMissingFieldId).focus();
                     }
                   }.bind(this),
                 }
