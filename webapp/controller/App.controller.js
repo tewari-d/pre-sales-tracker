@@ -31,23 +31,15 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], (BaseController) => {
         var sRouteName = oEvent.getParameter("name"),
           oArguments = oEvent.getParameter("arguments");
 
-        this.currentOpportunity = oArguments.id;
-
         this._updateUIElements();
 
+        // Save the current route name
         this.currentRouteName = sRouteName;
+        this.currentActivity = oArguments.id;
       },
       _updateUIElements: function () {
-        const oComponent = this.getOwnerComponent();
-        const oModel = oComponent.getModel("comp");
-        const oHelper = oComponent.getHelper();
-
-        const oUIState = oHelper.getCurrentUIState();
-
-        if (this.currentOpportunity) {
-          oUIState.layout = sap.f.LayoutType.TwoColumnsMidExpanded;
-        }
-
+        var oModel = this.getOwnerComponent().getModel("comp");
+        var oUIState = this.getOwnerComponent().getHelper().getCurrentUIState();
         oModel.setData(oUIState);
       },
       handleBackButtonPressed: function () {

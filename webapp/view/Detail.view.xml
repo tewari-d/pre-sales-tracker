@@ -118,7 +118,7 @@
                                         <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
-                                        <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField23" value="{parts: [{path: 'DocUrl'}], formatter: '.shortenUrl'}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement45">
                                         <smartField:SmartField id="_IDGenSmartField47" value="{NextFollowUpDate}" fieldGroupIds="generalInfoFieldGroup" />
