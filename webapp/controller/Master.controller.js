@@ -172,9 +172,8 @@ sap.ui.define(
             const plannedDate = new Date(sPlanned);
             const today = new Date();
             const diffDays = (plannedDate - today) / (1000 * 60 * 60 * 24);
-
-            if (diffDays < 0) return "Error"; // Overdue
-            if (diffDays <= 3) return "Warning"; // Imminent
+            if (diffDays < 0) return "Error";
+            if (diffDays <= 3) return "Information";
           }
           return "None";
         },
@@ -329,18 +328,6 @@ sap.ui.define(
             }
           }
         },
-        formatRowHighlight: function (sStatus, sPlanned, sSubmitted) {
-          if (sStatus === "WIP" && !sSubmitted && sPlanned) {
-            const plannedDate = new Date(sPlanned);
-            const today = new Date();
-            const diffDays = (plannedDate - today) / (1000 * 60 * 60 * 24);
-
-            if (diffDays < 0) return "Error"; // Overdue
-            if (diffDays <= 3) return "Warning"; // Imminent
-          }
-          return "None";
-        },
-
         _getPartnersPayload: function (oTable) {
           var aItems = oTable.getItems();
           var aPartners = [];
@@ -383,7 +370,7 @@ sap.ui.define(
           });
 
           if (oPayload.Status === "SUBMITTED") {
-              const submissionErrors = [];
+            const submissionErrors = [];
             if (!oPayload.SubmissionDate) {
               submissionErrors.push("Submission Date");
             }
@@ -403,12 +390,13 @@ sap.ui.define(
             if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
               submissionErrors.push("Opportunity Value");
             }
-            if(submissionErrors.length > 0){
-              aErrors.push("If the status is SUBMITTED, the following fields are mandatory:");
+            if (submissionErrors.length > 0) {
+              aErrors.push(
+                "If the status is SUBMITTED, the following fields are mandatory:"
+              );
               aErrors.push(...submissionErrors);
             }
           }
-
 
           if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
             if (!oPayload.CloseDate) {
