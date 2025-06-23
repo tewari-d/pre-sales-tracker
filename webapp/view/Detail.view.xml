@@ -414,7 +414,7 @@
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement13"
                                     >
-                                        <smartField:SmartField
+                                        <smartField:SmartField id="_IDGenSmartField12"
                                             value="{CreatedBy}"
                                             editable="false"
                                         />
@@ -422,7 +422,7 @@
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement14"
                                     >
-                                        <smartField:SmartField
+                                        <smartField:SmartField id="_IDGenSmartField42"
                                             value="{CreatedOn}"
                                             editable="false"
                                         />
@@ -430,7 +430,7 @@
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement15"
                                     >
-                                        <smartField:SmartField
+                                        <smartField:SmartField id="_IDGenSmartField53"
                                             value="{UpdatedBy}"
                                             editable="false"
                                         />
@@ -438,7 +438,7 @@
                                     <smartForm:GroupElement
                                         id="_IDGenGroupElement16"
                                     >
-                                        <smartField:SmartField
+                                        <smartField:SmartField id="_IDGenSmartField54"
                                             value="{UpdatedOn}"
                                             editable="false"
                                         />
@@ -621,11 +621,11 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection title="Administrative Details" >
+            <ObjectPageSection id="_IDGenObjectPageSection3" title="Administrative Details" >
                 <subSections>
-                    <ObjectPageSubSection>
+                    <ObjectPageSubSection id="_IDGenObjectPageSubSection3">
                         <blocks>
-                        <m:FlexBox
+                        <m:FlexBox id="_IDGenFlexBox4"
                                         direction="Column"
                                         renderType="Div"
                                     >
@@ -636,29 +636,29 @@
                                 xmlns:smartForm="sap.ui.comp.smartform"
                                 xmlns:smartField="sap.ui.comp.smartfield"
                             >
-                                <smartForm:Group>
-                                    <smartForm:GroupElement>
+                                <smartForm:Group id="_IDGenGroup7">
+                                    <smartForm:GroupElement id="_IDGenGroupElement49">
                                         <smartField:SmartField
                                             id="_IDGenSmartField13"
                                             value="{CreatedBy}"
                                         />
                                     </smartForm:GroupElement>
 
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement51">
                                         <smartField:SmartField
                                             id="_IDGenSmartField14"
                                             value="{CreatedOn}"
                                         />
                                     </smartForm:GroupElement>
 
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement52">
                                         <smartField:SmartField
                                             id="_IDGenSmartField15"
                                             value="{UpdatedBy}"
                                         />
                                     </smartForm:GroupElement>
 
-                                    <smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement53">
                                         <smartField:SmartField
                                             id="_IDGenSmartField16"
                                             value="{UpdatedOn}"
