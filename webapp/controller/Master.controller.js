@@ -173,7 +173,7 @@ sap.ui.define(
             const today = new Date();
             const diffDays = (plannedDate - today) / (1000 * 60 * 60 * 24);
             if (diffDays < 0) return "Error";
-            if (diffDays <= 3) return "Information";
+            if (diffDays <= 1) return "Information";
           }
           return "None";
         },
