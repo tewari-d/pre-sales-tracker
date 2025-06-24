@@ -52,11 +52,14 @@
                     <smartForm:GroupElement id="_IDGenGroupElement33">
                         <smartField:SmartField id="_IDGenSmartField36" value="{ReceivedDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement55" >
+                        <smartField:SmartField id="_IDGenSmartField55"  value="{DueSubmissionDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement34">
                         <smartField:SmartField id="_IDGenSmartField37" value="{PlannedSubmissionDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement35">
-                        <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" visible="{= ${Status} === 'WIP' ? false : true }" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement43">
                         <smartField:SmartField id="_IDGenSmartField39" value="{OppTcv}" entitySet="ZCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />

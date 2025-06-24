@@ -282,7 +282,7 @@ sap.ui.define(
               sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField24";
             }
 
-            if (!oPayload.OppTcv ||  Number(oPayload.OppTcv) === 0) {
+            if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
               aMissingFields.push("• Opportunity Value");
               sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField9";
             }
@@ -302,6 +302,76 @@ sap.ui.define(
               return;
             }
           }
+
+          if (oPayload.Status === "WIP") {
+            if (oPayload.PlannedSubmissionDate || oPayload.PlannedSubmissionDate === null) {
+              const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
+              const oToday = new Date();
+
+              oToday.setHours(0, 0, 0, 0);
+
+              if (oPlannedDate < oToday) {
+                sap.m.MessageBox.error(
+                  `Planned Submission Date cannot be in the past.`,
+                  {
+                    onClose: function () {
+                      this.byId("_IDGenSmartField18").focus();
+                    }.bind(this),
+                  }
+                );
+                oView.setBusy(false);
+                return;
+              }
+            }
+            /*if (oPayload.DueSubmissionDate || oPayload.DueSubmissionDate === null) {
+              const oDueDate = new Date(oPayload.DueSubmissionDate);
+              const oToday = new Date();
+
+              oToday.setHours(0, 0, 0, 0);
+
+              if (oDueDate < oToday) {
+                sap.m.MessageBox.error(
+                  `Due Submission Date cannot be in the past.`,
+                  {
+                    onClose: function () {
+                      this.byId("_IDGenSmartField57").focus();
+                    }.bind(this),
+                  }
+                );
+                oView.setBusy(false);
+                return;
+              }
+            }*/
+          }
+
+          if (oPayload.ReceivedDate && oPayload.PlannedSubmissionDate) {
+            const oReceived = new Date(oPayload.ReceivedDate);
+            const oPlanned = new Date(oPayload.PlannedSubmissionDate);
+
+            oReceived.setHours(0, 0, 0, 0);
+            oPlanned.setHours(0, 0, 0, 0);
+
+            if (oReceived > oPlanned) {
+              sap.m.MessageBox.error("Received Date must be on or before Planned Submission Date.");
+              oView.setBusy(false);
+              return;
+            }
+          }
+
+          if (oPayload.ReceivedDate && oPayload.DueSubmissionDate) {
+            const oReceived = new Date(oPayload.ReceivedDate);
+            const oDue = new Date(oPayload.DueSubmissionDate);
+
+            oReceived.setHours(0, 0, 0, 0);
+            oDue.setHours(0, 0, 0, 0);
+
+            if (oReceived > oDue) {
+              sap.m.MessageBox.error("Received Date must be on or before Due Submission Date.");
+              oView.setBusy(false);
+              return;
+            }
+          }
+
 
           if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
             if (!oPayload.CloseDate) {

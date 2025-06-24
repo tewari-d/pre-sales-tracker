@@ -173,7 +173,7 @@ sap.ui.define(
             const today = new Date();
             const diffDays = (plannedDate - today) / (1000 * 60 * 60 * 24);
             if (diffDays < 0) return "Error";
-            if (diffDays <= 3) return "Information";
+            if (diffDays <= 1) return "Information";
           }
           return "None";
         },
@@ -371,7 +371,7 @@ sap.ui.define(
 
           if (oPayload.Status === "SUBMITTED") {
             const submissionErrors = [];
-            if (!oPayload.SubmissionDate) {
+            if (!oPayload.SubmissionDate || oPayload.SubmissionDate === null) {
               submissionErrors.push("Submission Date");
             }
 
@@ -405,6 +405,55 @@ sap.ui.define(
               );
             }
           }
+
+          if (oPayload.Status === "WIP") {
+            if (oPayload.PlannedSubmissionDate || oPayload.PlannedSubmissionDate === null) {
+              const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
+              const oToday = new Date();
+
+              oToday.setHours(0, 0, 0, 0);
+
+              if (oPlannedDate < oToday) {
+                aErrors.push("Planned Submission Date cannot be in the past.");
+              }
+            }
+            /*if (oPayload.DueSubmissionDate || oPayload.DueSubmissionDate === null) {
+              const oDueDate = new Date(oPayload.DueSubmissionDate);
+              const oToday = new Date();
+
+              oToday.setHours(0, 0, 0, 0);
+
+              if (oDueDate < oToday) {
+                aErrors.push("Due Submission Date cannot be in the past.");
+              }
+            }*/
+          }
+
+          if (oPayload.ReceivedDate && oPayload.PlannedSubmissionDate) {
+            const oReceived = new Date(oPayload.ReceivedDate);
+            const oPlanned = new Date(oPayload.PlannedSubmissionDate);
+
+            oReceived.setHours(0, 0, 0, 0);
+            oPlanned.setHours(0, 0, 0, 0);
+
+            if (oReceived > oPlanned) {
+              aErrors.push("Received Date must be on or before Planned Submission Date.");
+            }
+          }
+
+          if (oPayload.ReceivedDate && oPayload.DueSubmissionDate) {
+            const oReceived = new Date(oPayload.ReceivedDate);
+            const oDue = new Date(oPayload.DueSubmissionDate);
+
+            oReceived.setHours(0, 0, 0, 0);
+            oDue.setHours(0, 0, 0, 0);
+
+            if (oReceived > oDue) {
+              aErrors.push("Received Date must be on or before Due Submission Date.");
+            }
+          }
+
+
 
           var aPartners = oPayload.toParters || [];
 
