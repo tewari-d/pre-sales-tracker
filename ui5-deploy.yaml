@@ -13,6 +13,7 @@ builder:
     - name: deploy-to-abap
       afterTask: generateCachebusterInfo
       configuration:
+        ignoreCertError: true
         target:
           destination: ps4_500
           url: http://ps4-deepakt:44300

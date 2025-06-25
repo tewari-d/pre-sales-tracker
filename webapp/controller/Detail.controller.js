@@ -18,8 +18,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-            "idExitFullScreenOverflowToolbarButton"
-          ),
+              "idExitFullScreenOverflowToolbarButton"
+            ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -264,32 +264,38 @@ sap.ui.define(
 
             if (!oPayload.SubmissionDate) {
               aMissingFields.push("• Submission Date");
-              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField8";
+              sFirstMissingFieldId =
+                sFirstMissingFieldId || "_IDGenSmartField8";
             }
 
             if (!oPayload.ResourceFutureDemandUpdated) {
               aMissingFields.push("• Future Demand Updated");
-              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField26";
+              sFirstMissingFieldId =
+                sFirstMissingFieldId || "_IDGenSmartField26";
             }
 
             if (!oPayload.PreSalesReviewwer) {
               aMissingFields.push("• Pre Sales Reviewer");
-              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField25";
+              sFirstMissingFieldId =
+                sFirstMissingFieldId || "_IDGenSmartField25";
             }
 
             if (!oPayload.PracticeReviewwer) {
               aMissingFields.push("• Practice Reviewer");
-              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField24";
+              sFirstMissingFieldId =
+                sFirstMissingFieldId || "_IDGenSmartField24";
             }
 
             if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
               aMissingFields.push("• Opportunity Value");
-              sFirstMissingFieldId = sFirstMissingFieldId || "_IDGenSmartField9";
+              sFirstMissingFieldId =
+                sFirstMissingFieldId || "_IDGenSmartField9";
             }
 
             if (aMissingFields.length > 0) {
               sap.m.MessageBox.error(
-                "Please fill the following required field(s):\n" + aMissingFields.join("\n"),
+                "Please fill the following required field(s):\n" +
+                  aMissingFields.join("\n"),
                 {
                   onClose: function () {
                     if (sFirstMissingFieldId) {
@@ -304,7 +310,10 @@ sap.ui.define(
           }
 
           if (oPayload.Status === "WIP") {
-            if (oPayload.PlannedSubmissionDate || oPayload.PlannedSubmissionDate === null) {
+            if (
+              oPayload.PlannedSubmissionDate ||
+              oPayload.PlannedSubmissionDate === null
+            ) {
               const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
               const oToday = new Date();
 
@@ -352,7 +361,9 @@ sap.ui.define(
             oPlanned.setHours(0, 0, 0, 0);
 
             if (oReceived > oPlanned) {
-              sap.m.MessageBox.error("Received Date must be on or before Planned Submission Date.");
+              sap.m.MessageBox.error(
+                "Received Date must be on or before Planned Submission Date."
+              );
               oView.setBusy(false);
               return;
             }
@@ -366,12 +377,13 @@ sap.ui.define(
             oDue.setHours(0, 0, 0, 0);
 
             if (oReceived > oDue) {
-              sap.m.MessageBox.error("Received Date must be on or before Due Submission Date.");
+              sap.m.MessageBox.error(
+                "Received Date must be on or before Due Submission Date."
+              );
               oView.setBusy(false);
               return;
             }
           }
-
 
           if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
             if (!oPayload.CloseDate) {
@@ -387,6 +399,19 @@ sap.ui.define(
               oView.setBusy(false);
               return;
             }
+          }
+
+          if (oPayload.Status === "LOSS" && !oPayload.Reason) {
+            sap.m.MessageBox.error(
+              `If the Opportunity is ${oPayload.Status}, please fill the Loss Reason.`,
+              {
+                onClose: function () {
+                  this.byId("_IDGenSmartField56").focus();
+                }.bind(this),
+              }
+            );
+            oView.setBusy(false);
+            return;
           }
 
           if (oPayload.toParters) {
