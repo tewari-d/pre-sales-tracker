@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartField="sap.ui.comp.smartfield">
+    <Dialog id="_IDGenDialog1"  title="Update Partner {PartnerName} ({PartnerFunction})" contentWidth="400px" class="sapUiContentPadding">
+        <content>
+            <Label id="_IDGenLabel3"  text="Name" labelFor="partnerNameInput" />
+            <smartField:SmartField id="_IDGenSmartField17"
+                width="100%"
+                value="{path: 'PartnerName', type: 'sap.ui.model.type.String'}"
+                entitySet="xNGRxCDS_PS_PARTNER" />
+            <Label id="_IDGenLabel7"  text="Partner Function" labelFor="partnerFunctionSmartField" visible="false"/>    
+            <smartField:SmartField id="_IDGenSmartField21"
+                visible="false"
+                width="100%"
+                value="{path: 'PartnerFunction', type: 'sap.ui.model.type.String'}"
+                entitySet="xNGRxCDS_PS_PARTNER" 
+                editable="false"/>
+            <Label id="_IDGenLabel8"  text="Email" labelFor="partnerEmailInput" />
+            <smartField:SmartField id="_IDGenSmartField22"
+                
+                width="100%"
+                value="{path: 'PartnerEmail', type: 'sap.ui.model.type.String'}"
+                entitySet="xNGRxCDS_PS_PARTNER" placeholder="example@example.com" />
+        </content>
+        <beginButton>
+            <Button id="_IDGenButton6"  text="Save" type="Emphasized" press="onSaveEditedPartner" />
+        </beginButton>
+        <endButton>
+            <Button id="_IDGenButton7"  text="Cancel" press="onCancelEdit" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

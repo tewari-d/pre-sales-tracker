@@ -1,0 +1,130 @@
+<!-- view/WizardDialog.fragment.xml -->
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:f="sap.ui.comp.smartform"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:wizard="sap.m">
+    <Dialog id="wizardDialog" title="Create Opportunity" stretch="true" class="sapUiContentPadding">
+        <content>
+            <smartForm:SmartForm id="_IDGenSmartForm" app:defaultCheckBoxDisplayBehaviour="YesNo" app:defaultDropDownDisplayBehaviour="idAndDescription" title="General Data" validationMode="Async" editable="true">
+                <!-- <smartForm:layout>
+                    <smartForm:ColumnLayout id="_IDGenColumnLayout1" columnsM="2" columnsL="3" columnsXL="3" />
+                </smartForm:layout> -->
+                <smartForm:Group id="_IDGenGroup3" title="Customer Details">
+                    <smartForm:GroupElement id="_IDGenGroupElement24">
+                        <smartField:SmartField id="_IDGenSmartField27" value="{CustomerName}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement25">
+                        <smartField:SmartField id="_IDGenSmartField28" value="{Geography}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement26">
+                        <smartField:SmartField id="_IDGenSmartField29" value="{LineOfBusiness}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement47" visible="{= ${LineOfBusiness} === 'OTHR' ? true : false }">
+                        <smartField:SmartField id="_IDGenSmartField52" value="{LineOfBusinessOther}" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement27">
+                        <smartField:SmartField id="_IDGenSmartField30" value="{SolutionArea}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement28">
+                        <smartField:SmartField id="_IDGenSmartField31" value="{Country}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" validateFieldGroup="checkCreateSmartform" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement29">
+                        <smartField:SmartField id="_IDGenSmartField32" value="{DealType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" />
+                    </smartForm:GroupElement>
+                </smartForm:Group>
+                <smartForm:Group id="_IDGenGroup5" title="Opportunity Details">
+                    <smartForm:GroupElement id="_IDGenGroupElement30">
+                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement31">
+                        <smartField:SmartField id="_IDGenSmartField34" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement32">
+                        <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement50" visible="{= ${OppType} === 'OTR' ? true : false }">
+                        <smartField:SmartField id="_IDGenSmartField51" value="{OppTypeOther}" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement33">
+                        <smartField:SmartField id="_IDGenSmartField36" value="{ReceivedDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement55" >
+                        <smartField:SmartField id="_IDGenSmartField55"  value="{DueSubmissionDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement34">
+                        <smartField:SmartField id="_IDGenSmartField37" value="{PlannedSubmissionDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement35">
+                        <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" visible="{= ${Status} === 'WIP' ? false : true }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement43">
+                        <smartField:SmartField id="_IDGenSmartField39" value="{OppTcv}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement36">
+                        <smartField:SmartField id="_IDGenSmartField40" value="{CommModel}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement37">
+                        <smartField:SmartField id="_IDGenSmartField41" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement38">
+                        <smartField:SmartField id="idCreateProbability" value="{Probability}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement39">
+                        <smartField:SmartField id="_IDGenSmartField43" value="{DocUrl}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement44">
+                        <smartField:SmartField id="_IDGenSmartField49" value="{NextFollowUpDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                </smartForm:Group>
+                <smartForm:Group id="_IDGenGroup6" title="Reviewers">
+                    <smartForm:GroupElement id="_IDGenGroupElement40">
+                        <smartField:SmartField id="_IDGenSmartField44" value="{PracticeReviewwer}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement41">
+                        <smartField:SmartField id="_IDGenSmartField45" value="{PreSalesReviewwer}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement42">
+                        <smartField:SmartField id="_IDGenSmartField46" value="{ResourceFutureDemandUpdated}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                </smartForm:Group>
+            </smartForm:SmartForm>
+            <form:SimpleForm id="_IDGenSimpleForm1" layout="ResponsiveGridLayout" editable="true" title="Remarks">
+                <TextArea id="_IDGenTextArea" placeholder="Enter Remarks Here..." />
+            </form:SimpleForm>
+            <form:SimpleForm id="_IDGenSimpleForm" layout="ResponsiveGridLayout" editable="true" title="Partners">
+                <Table id="createPartnerTable" headerText="Partners">
+                    <headerToolbar>
+                        <Toolbar id="_IDGenToolbar">
+                            <ToolbarSpacer id="_IDGenToolbarSpacer3" />
+                            <Button id="_IDGenButton11" text="Add Partner" type="Emphasized" press="onAddPartner" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column id="_IDGenColumn3" width="50%">
+                            <Text id="_IDGenText6" text="Name" />
+                        </Column>
+                        <Column id="_IDGenColumn4" width="50%">
+                            <Text id="_IDGenText7" text="Partner Function" />
+                        </Column>
+                        <Column id="_IDGenColumn5" width="50%">
+                            <Text id="_IDGenText8" text="Email" />
+                        </Column>
+                        <Column id="_IDGenColumn6" width="50%">
+                            <Text id="_IDGenText9" />
+                        </Column>
+                    </columns>
+                </Table>
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button id="_IDGenButton12" text="Save" press="onSaveNewOpportunity" />
+        </beginButton>
+        <endButton>
+            <Button id="_IDGenButton13" text="Cancel" press="onCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

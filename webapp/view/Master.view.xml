@@ -1,0 +1,89 @@
+<mvc:View controllerName="com.ngr.www.presalestracker.ngrpresalestracker.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
+                <f:heading>
+                    <Title id="_IDGenTitle" text="Opportunities" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="idGenDynamicPageHeader">
+
+                <VBox id="_IDGenVBox3">
+
+                    <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters" useDateRangeType="false">
+                        <!-- layout data used to make the table growing but the filter bar fixed -->
+                        <smartFilterBar:layoutData>
+                            <FlexItemData id="_IDGenFlexItemData" shrinkFactor="0" />
+                        </smartFilterBar:layoutData>
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1" key="ReceivedDate" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration2" key="SubmissionDate" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration3" key="CloseDate" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration4" key="CreatedOn" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                            <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration5" key="UpdatedOn" conditionType="{
+                            module: 'sap.ui.comp.config.condition.DateRangeType'
+                        }" />
+                        </smartFilterBar:controlConfiguration>
+
+
+
+                    </smartFilterBar:SmartFilterBar>
+                    <HBox id="_IDGenHBox" justifyContent="End">
+                        <Button id="_IDGenButton14" text="Case Studies" icon="sap-icon://navigation-right-arrow" press="onNavigateToCaseStudies" type="Transparent" />
+                        <Button id="_IDGenButton15" text="Non Opportunities" icon="sap-icon://navigation-right-arrow" press="onNavigateToNonOpp" type="Transparent" />
+                    </HBox>
+                </VBox>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <smartTable:SmartTable id="presalesDBSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="presalesDBsmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Opportunities" showRowCount="true" persistencyKey="_presalesfiori_dashboard_table" enableAutoBinding="true" beforeRebindTable="onbeforeRebindTable" requestAtLeastFields="CreatedBy,CreatedAt,UpdatedBy,UpdatedOn,Id,Status,PlannedSubmissionDate,SubmissionDate">
+                <!-- layout data used to make the table growing but the filter bar fixed -->
+                <smartTable:layoutData>
+                    <FlexItemData id="_IDGenFlexItemData1" growFactor="1" baseSize="0%" />
+                </smartTable:layoutData>
+                <smartTable:customToolbar>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1" design="Transparent">
+                        <SegmentedButton id="statusSegmented" selectionChange="onStatusSegmentChange">
+                            <items>
+                                <SegmentedButtonItem id="segALL" key="DEFAULT" text="Default" />
+                                <SegmentedButtonItem id="segWIP" key="WIP" text="In Progress (0)" />
+                                <SegmentedButtonItem id="segSUBMITTED" key="SUBMITTED" text="Submitted (0)" />
+                                <SegmentedButtonItem id="segHOLD" key="HOLD" text="On Hold (0)" />
+                            </items>
+                        </SegmentedButton>
+                        <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                        <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" press="onCreate" />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+                <Table mode="SingleSelectMaster" id="innerUi5Table" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" itemPress="onSelectionChange" growing="false">
+                    <ColumnListItem type="Active" id="_IDGenColumnListItem1" highlight="{parts: [
+                        { path: 'Status' },
+                        { path: 'PlannedSubmissionDate' },
+                        { path: 'SubmissionDate' }
+                      ],
+                      formatter: '.formatRowHighlight'}" />
+                </Table>
+            </smartTable:SmartTable>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
