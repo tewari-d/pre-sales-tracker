@@ -118,7 +118,7 @@
                                         <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
-                                        <smartField:SmartField id="_IDGenSmartField23" value="{parts: [{path: 'DocUrl'}], formatter: '.shortenUrl'}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" visible="{viewEditableModel>/editMode}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement45">
                                         <smartField:SmartField id="_IDGenSmartField47" value="{NextFollowUpDate}" fieldGroupIds="generalInfoFieldGroup" />
@@ -188,7 +188,7 @@
                                         <smartTable:customToolbar>
                                             <m:OverflowToolbar id="_IDGenOverflowToolbar" design="Transparent">
                                                 <m:ToolbarSpacer id="_IDGenToolbarSpacer1" />
-                                                <m:Button id="_IDGenButton4" tooltip="Create New" text="Create" press="onCreatePartner" enabled="{viewEditableModel>/editMode}" />
+                                                <m:Button id="_IDGenButton4" tooltip="Create New" text="Create" press="onCreatePartner" enabled="{!viewEditableModel>/editMode}" />
                                                 <m:Button id="_IDGenButton9" tooltip="Show Change Logs" icon="sap-icon://activities" press=".onShowChangeLogs">
                                                     <m:customData>
                                                         <core:CustomData key="objectClass" value="/NGR/CDO_PS_PAR" />

@@ -17,6 +17,7 @@ builder:
           destination: ps4_500
           url: http://ps4-deepakt:44300
           client: '500'
+          # url: https://sapdev.nagarro.com:44301
         app:
           name: /NGR/BSP_PS_TRACKER
           description: Pre Sales Tracker Application
