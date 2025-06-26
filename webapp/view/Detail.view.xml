@@ -231,7 +231,7 @@
                         <subSections>
                             <ObjectPageSubSection id="_IDGenObjectPageSubSection3">
                                 <blocks>
-                                    <m:FlexBox id="_IDGenFlexBox4" direction="Column" renderType="Div">
+                                    <m:FlexBox id="_IDGenFlexBox4" direction="Column" renderType="Div" alignItems="Start">
                                         <smartForm:SmartForm id="auditSmartForm" editable="false" layout="ColumnLayout"
                                             xmlns:smartForm="sap.ui.comp.smartform"
                                             xmlns:smartField="sap.ui.comp.smartfield">
