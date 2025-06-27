@@ -389,7 +389,8 @@ sap.ui.define(
 
           // Loop through and validate each field
           Object.keys(mMandatoryFields).forEach(function (sField) {
-            if (!oPayload[sField]) {
+            const value = oPayload[sField];
+            if (!value || value.trim() === "") {
               aErrors.push(mMandatoryFields[sField] + " is required.");
             }
           });
@@ -429,8 +430,7 @@ sap.ui.define(
 
           if (oPayload.Status === "WIP") {
             if (
-              oPayload.PlannedSubmissionDate ||
-              oPayload.PlannedSubmissionDate === null
+              oPayload.PlannedSubmissionDate
             ) {
               const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
               const oToday = new Date();
@@ -441,46 +441,32 @@ sap.ui.define(
                 aErrors.push("Planned Submission Date cannot be in the past.");
               }
             }
-            /*if (oPayload.DueSubmissionDate || oPayload.DueSubmissionDate === null) {
-                const oDueDate = new Date(oPayload.DueSubmissionDate);
-                const oToday = new Date();
-  
-                oToday.setHours(0, 0, 0, 0);
-  
-                if (oDueDate < oToday) {
-                  aErrors.push("Due Submission Date cannot be in the past.");
-                }
-              }*/
           }
 
-          if (oPayload.ReceivedDate && oPayload.PlannedSubmissionDate) {
-            const oReceived = new Date(oPayload.ReceivedDate);
-            const oPlanned = new Date(oPayload.PlannedSubmissionDate);
+          const mDateFieldsToCheck = {
+            "PlannedSubmissionDate": "Planned Submission Date",
+            "DueSubmissionDate": "Due Submission Date",
+            "SubmissionDate": "Submission Date",
+            "CloseDate": "WIN/ LOSS Date",
+          };
+          function normalizeDateOnly(dateStr) {
+            const d = new Date(dateStr);
+            d.setHours(0, 0, 0, 0);  
+            return d;
+          }
+          const receivedDate = normalizeDateOnly(oPayload.ReceivedDate);
 
-            oReceived.setHours(0, 0, 0, 0);
-            oPlanned.setHours(0, 0, 0, 0);
+          Object.keys(mDateFieldsToCheck).forEach(function (sField) {
+            const fieldDateStr = oPayload[sField];
 
-            if (oReceived > oPlanned) {
-              aErrors.push(
-                "Received Date must be on or before Planned Submission Date."
-              );
+            if (fieldDateStr) {
+              const fieldDate = normalizeDateOnly(fieldDateStr);
+
+              if (fieldDate < receivedDate) {
+                aErrors.push(`${mDateFieldsToCheck[sField]} cannot be before Received Date.`);
+              }
             }
-          }
-
-          if (oPayload.ReceivedDate && oPayload.DueSubmissionDate) {
-            const oReceived = new Date(oPayload.ReceivedDate);
-            const oDue = new Date(oPayload.DueSubmissionDate);
-
-            oReceived.setHours(0, 0, 0, 0);
-            oDue.setHours(0, 0, 0, 0);
-
-            if (oReceived > oDue) {
-              aErrors.push(
-                "Received Date must be on or before Due Submission Date."
-              );
-            }
-          }
-
+          });
           var aPartners = oPayload.toParters || [];
 
           var bAllValid = true;
