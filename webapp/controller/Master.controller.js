@@ -400,10 +400,6 @@ sap.ui.define(
               submissionErrors.push("Submission Date");
             }
 
-            if (!oPayload.ResourceFutureDemandUpdated) {
-              submissionErrors.push("Future Demand Updated");
-            }
-
             if (!oPayload.PreSalesReviewwer) {
               submissionErrors.push("Pre Sales Reviewer");
             }

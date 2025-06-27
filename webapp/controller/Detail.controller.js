@@ -268,12 +268,6 @@ sap.ui.define(
                 sFirstMissingFieldId || "_IDGenSmartField8";
             }
 
-            if (!oPayload.ResourceFutureDemandUpdated) {
-              aMissingFields.push("• Future Demand Updated");
-              sFirstMissingFieldId =
-                sFirstMissingFieldId || "_IDGenSmartField26";
-            }
-
             if (!oPayload.PreSalesReviewwer) {
               aMissingFields.push("• Pre Sales Reviewer");
               sFirstMissingFieldId =
