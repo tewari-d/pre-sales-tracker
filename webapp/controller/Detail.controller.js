@@ -18,8 +18,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-              "idExitFullScreenOverflowToolbarButton"
-            ),
+            "idExitFullScreenOverflowToolbarButton"
+          ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -295,7 +295,7 @@ sap.ui.define(
             if (aMissingFields.length > 0) {
               sap.m.MessageBox.error(
                 "Please fill the following required field(s):\n" +
-                  aMissingFields.join("\n"),
+                aMissingFields.join("\n"),
                 {
                   onClose: function () {
                     if (sFirstMissingFieldId) {
@@ -775,6 +775,38 @@ sap.ui.define(
           if (!sUrl) return "";
           return "Click here for Opportunity Documents";
         },
+        onDeleteOpportunity: function (oEvent) {
+          debugger;
+          var oSource = oEvent.getSource();
+          var oContext = oSource.getBindingContext();
+          var oModel = this.getView().getModel();
+          var oData = oContext.getObject();
+
+          var sOpportunityId = oData.Id || "Unknown";
+
+          sap.m.MessageBox.confirm(
+            "Are you sure you want to mark this opportunity as deleted?",
+            {
+              title: sOpportunityId,
+              actions: [
+                sap.m.MessageBox.Action.YES,
+                sap.m.MessageBox.Action.NO,
+              ],
+              onClose: function (oAction) {
+                if (oAction === sap.m.MessageBox.Action.YES) {
+                  oModel.remove(oContext.getPath(), {
+                    success: function () {
+                      sap.m.MessageToast.show("Opportunity marked deleted.");
+                    },
+                    error: function (oError) {
+                      sap.m.MessageBox.error("Error while deleting partner.");
+                    },
+                  });
+                }
+              },
+            }
+          );
+        }
       }
     );
   }
