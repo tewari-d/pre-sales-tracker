@@ -18,8 +18,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-            "idExitFullScreenOverflowToolbarButton"
-          ),
+              "idExitFullScreenOverflowToolbarButton"
+            ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -295,7 +295,7 @@ sap.ui.define(
             if (aMissingFields.length > 0) {
               sap.m.MessageBox.error(
                 "Please fill the following required field(s):\n" +
-                aMissingFields.join("\n"),
+                  aMissingFields.join("\n"),
                 {
                   onClose: function () {
                     if (sFirstMissingFieldId) {
@@ -333,24 +333,24 @@ sap.ui.define(
               }
             }
             /*if (oPayload.DueSubmissionDate || oPayload.DueSubmissionDate === null) {
-              const oDueDate = new Date(oPayload.DueSubmissionDate);
-              const oToday = new Date();
- 
-              oToday.setHours(0, 0, 0, 0);
- 
-              if (oDueDate < oToday) {
-                sap.m.MessageBox.error(
-                  `Due Submission Date cannot be in the past.`,
-                  {
-                    onClose: function () {
-                      this.byId("_IDGenSmartField57").focus();
-                    }.bind(this),
-                  }
-                );
-                oView.setBusy(false);
-                return;
-              }
-            }*/
+                const oDueDate = new Date(oPayload.DueSubmissionDate);
+                const oToday = new Date();
+  
+                oToday.setHours(0, 0, 0, 0);
+  
+                if (oDueDate < oToday) {
+                  sap.m.MessageBox.error(
+                    `Due Submission Date cannot be in the past.`,
+                    {
+                      onClose: function () {
+                        this.byId("_IDGenSmartField57").focus();
+                      }.bind(this),
+                    }
+                  );
+                  oView.setBusy(false);
+                  return;
+                }
+              }*/
           }
 
           if (oPayload.ReceivedDate && oPayload.PlannedSubmissionDate) {
@@ -420,6 +420,10 @@ sap.ui.define(
           if (oPayload.toRemarks) {
             delete oPayload.toRemarks;
           }
+          const oListPage = this.getView()
+            .getParent()
+            .getParent()
+            .getCurrentBeginColumnPage();
 
           oModel.update(sPath, oPayload, {
             method: "PUT",
@@ -428,6 +432,9 @@ sap.ui.define(
               oVM.setProperty("/editMode", false);
               oVM.setProperty("/showSave", false);
               oRemarksList.getBinding("items").refresh(); // Refresh remarks list
+
+              oListPage.getModel().refresh();
+              oListPage.getController()._updateSegmentedCounts();
             },
             error: (oError) => {
               sap.m.MessageBox.error("Save failed.");
@@ -768,38 +775,6 @@ sap.ui.define(
           if (!sUrl) return "";
           return "Click here for Opportunity Documents";
         },
-        onDeleteOpportunity: function (oEvent) {
-          debugger;
-          var oSource = oEvent.getSource();
-          var oContext = oSource.getBindingContext();
-          var oModel = this.getView().getModel();
-          var oData = oContext.getObject();
-
-          var sOpportunityId = oData.Id || "Unknown";
-
-          sap.m.MessageBox.confirm(
-            "Are you sure you want to mark this opportunity as deleted?",
-            {
-              title: sOpportunityId,
-              actions: [
-                sap.m.MessageBox.Action.YES,
-                sap.m.MessageBox.Action.NO,
-              ],
-              onClose: function (oAction) {
-                if (oAction === sap.m.MessageBox.Action.YES) {
-                  oModel.remove(oContext.getPath(), {
-                    success: function () {
-                      sap.m.MessageToast.show("Opportunity marked deleted.");
-                    },
-                    error: function (oError) {
-                      sap.m.MessageBox.error("Error while deleting partner.");
-                    },
-                  });
-                }
-              },
-            }
-          );
-        }
       }
     );
   }

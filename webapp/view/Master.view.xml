@@ -56,7 +56,7 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <smartTable:SmartTable id="presalesDBSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="presalesDBsmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Opportunities" showRowCount="true" persistencyKey="_presalesfiori_dashboard_table" enableAutoBinding="true" beforeRebindTable="onbeforeRebindTable" requestAtLeastFields="CreatedBy,CreatedAt,UpdatedBy,UpdatedOn,Id,Status,PlannedSubmissionDate,SubmissionDate">
+            <smartTable:SmartTable id="presalesDBSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="presalesDBsmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onBeforeExport" useVariantManagement="true" useTablePersonalisation="true" header="Opportunities" showRowCount="true" persistencyKey="_presalesfiori_dashboard_table" enableAutoBinding="true" beforeRebindTable="onbeforeRebindTable" requestAtLeastFields="CreatedBy,CreatedAt,UpdatedBy,UpdatedOn,Id,Status,PlannedSubmissionDate,SubmissionDate,DueSubmissionDate">
                 <!-- layout data used to make the table growing but the filter bar fixed -->
                 <smartTable:layoutData>
                     <FlexItemData id="_IDGenFlexItemData1" growFactor="1" baseSize="0%" />
@@ -79,7 +79,8 @@
                     <ColumnListItem type="Active" id="_IDGenColumnListItem1" highlight="{parts: [
                         { path: 'Status' },
                         { path: 'PlannedSubmissionDate' },
-                        { path: 'SubmissionDate' }
+                        { path: 'SubmissionDate' },
+                        { path: 'DueSubmissionDate' }
                       ],
                       formatter: '.formatRowHighlight'}" />
                 </Table>
