@@ -24,7 +24,7 @@
 
                 <actions>
                     <m:Button id="_IDGenButton" text="Save" type="Emphasized" press=".onSave" visible="{viewEditableModel>/showSave}" />
-                    <m:Button visible="{= ${Delete_fc} !== 0 }" id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
+                    <m:Button id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
                     <m:Button id="_IDGenButton10" tooltip="Show Change Logs" icon="sap-icon://activities" press=".onShowChangeLogs">
                         <m:customData>
                             <core:CustomData key="objectClass" value="/NGR/CDO_PS_MAS" />
