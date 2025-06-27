@@ -18,8 +18,8 @@ sap.ui.define(
             .getRoute("Detail")
             .attachPatternMatched(this._onOppMatched, this);
           const oExitButton = this.getView().byId(
-            "idExitFullScreenOverflowToolbarButton"
-          ),
+              "idExitFullScreenOverflowToolbarButton"
+            ),
             oEnterButton = this.getView().byId(
               "idEnterFullScreenOverflowToolbarButton"
             );
@@ -130,6 +130,28 @@ sap.ui.define(
               }.bind(this),
               dataReceived: function () {
                 this.getView().setBusy(false);
+
+                const oView = this.getView();
+                const oCtx = oView.getElementBinding().getBoundContext();
+
+                if (oCtx) {
+                  const oData = oCtx.getObject();
+                  this._oInitialSubmissionDate = oData.SubmissionDate;
+                  this._oInitialStatus = oData.Status;
+
+                  const oSmartField = oView.byId("_IDGenSmartField20");
+                  if (!oSmartField) return;
+
+                  oSmartField.attachInnerControlsCreated(() => {
+                    const aInnerControls = oSmartField.getInnerControls();
+                    if (aInnerControls && aInnerControls.length > 0) {
+                      const oControl = aInnerControls[0];
+                      if (typeof oControl.attachChange === "function") {
+                        oControl.attachChange(this._onStatusChange.bind(this));
+                      }
+                    }
+                  });
+                }
               }.bind(this),
             },
           });
@@ -289,7 +311,7 @@ sap.ui.define(
             if (aMissingFields.length > 0) {
               sap.m.MessageBox.error(
                 "Please fill the following required field(s):\n" +
-                aMissingFields.join("\n"),
+                  aMissingFields.join("\n"),
                 {
                   onClose: function () {
                     if (sFirstMissingFieldId) {
@@ -764,6 +786,20 @@ sap.ui.define(
           if (oFeedInput) {
             oFeedInput.setValue("");
           }
+
+          if (this._bSubmissionDateCleared && this._oInitialSubmissionDate) {
+            const oContext = this.getView()
+              .getElementBinding()
+              .getBoundContext();
+            if (oContext) {
+              const sPath = oContext.getPath();
+              oModel.setProperty(
+                sPath + "/SubmissionDate",
+                this._oInitialSubmissionDate
+              );
+              this._bSubmissionDateCleared = false;
+            }
+          }
         },
         shortenUrl: function (sUrl) {
           if (!sUrl) return "";
@@ -800,7 +836,28 @@ sap.ui.define(
               },
             }
           );
-        }
+        },
+        _onStatusChange: function (oEvent) {
+          const sNewStatus =
+            oEvent.getSource().getSelectedKey?.() ||
+            oEvent.getSource().getValue?.();
+          const oView = this.getView();
+          const oContext = oView.getElementBinding().getBoundContext();
+
+          if (!oContext || !sNewStatus) return;
+
+          const sPath = oContext.getPath();
+          const oModel = oContext.getModel();
+
+          if (
+            this._oInitialStatus !== "SUBMITTED" &&
+            sNewStatus === "SUBMITTED" &&
+            this._oInitialSubmissionDate
+          ) {
+            oModel.setProperty(sPath + "/SubmissionDate", null);
+            this._bSubmissionDateCleared = true;
+          }
+        },
       }
     );
   }
