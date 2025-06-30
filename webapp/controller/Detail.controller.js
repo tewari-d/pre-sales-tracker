@@ -760,12 +760,14 @@ sap.ui.define(
         },
         isEditingActive: function () {
           const oVM = this.getView().getModel("viewEditableModel");
+          const oModel = this.getView().getModel();
           const bEditMode = oVM.getProperty("/editMode");
 
           const oFeedInput = this.getView().byId("_IDGenFeedInput1");
           const sNewRemark = oFeedInput?.getValue()?.trim();
+          const bHasPendingChanges = oModel.hasPendingChanges();
 
-          return bEditMode || (sNewRemark && sNewRemark.length > 0);
+          return (sNewRemark && sNewRemark.length > 0) || bHasPendingChanges;
         },
 
         cancelEditing: function () {
