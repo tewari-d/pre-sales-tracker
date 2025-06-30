@@ -137,6 +137,9 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement23">
                                         <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement58" >
+                                        <smartField:SmartField id="_IDGenSmartField60" value="{DeliveryHandover}" visible="{= ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup2" title="Administrative Details" expandable="true" expanded="false" visible="false">
                                     <smartForm:GroupElement id="_IDGenGroupElement13">

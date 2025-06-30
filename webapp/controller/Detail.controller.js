@@ -279,6 +279,35 @@ sap.ui.define(
           const oPayload = oModel.getObject(sPath); // Get full object from model
 
           oView.setBusy(true);
+          
+          if (oPayload.Status === "COMPLETE"){
+            if(!oPayload.DeliveryHandover || oPayload.DeliveryHandover === ""){
+              sap.m.MessageBox.error(
+                `Opportunity can not be completed without handling over to the Delivery Teams.`,
+                {
+                  onClose: function () {
+                    this.byId("_IDGenSmartField60").focus();
+                  }.bind(this),
+                }
+              );
+              oView.setBusy(false);
+              return;
+            }
+          }
+          if (oPayload.Status === "WIN"){
+            if(!oPayload.CommModel || oPayload.CommModel === ""){
+              sap.m.MessageBox.error(
+                `Please specify Commercial Model of the Opportunity.`,
+                {
+                  onClose: function () {
+                    this.byId("_IDGenSmartField10").focus();
+                  }.bind(this),
+                }
+              );
+              oView.setBusy(false);
+              return;
+            }
+          }
 
           if (oPayload.Status === "SUBMITTED") {
             const aMissingFields = [];
