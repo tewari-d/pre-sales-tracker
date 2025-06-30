@@ -167,8 +167,8 @@ sap.ui.define(
           oSmartFilterBar.setFilterData(oCurrentFilters, true);
           oSmartFilterBar.search();
         },
-        formatRowHighlight: function (sStatus, sPlanned, sSubmitted, sDue) {
-          if (sStatus !== "WIP" || sSubmitted) {
+        formatRowHighlight: function (sStatus, sPlanned, sDue) {
+          if (sStatus !== "WIP") {
             return "None";
           }
 
@@ -429,9 +429,7 @@ sap.ui.define(
           }
 
           if (oPayload.Status === "WIP") {
-            if (
-              oPayload.PlannedSubmissionDate
-            ) {
+            if (oPayload.PlannedSubmissionDate) {
               const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
               const oToday = new Date();
 
@@ -444,14 +442,14 @@ sap.ui.define(
           }
 
           const mDateFieldsToCheck = {
-            "PlannedSubmissionDate": "Planned Submission Date",
-            "DueSubmissionDate": "Due Submission Date",
-            "SubmissionDate": "Submission Date",
-            "CloseDate": "WIN/ LOSS Date",
+            PlannedSubmissionDate: "Planned Submission Date",
+            DueSubmissionDate: "Due Submission Date",
+            SubmissionDate: "Submission Date",
+            CloseDate: "WIN/ LOSS Date",
           };
           function normalizeDateOnly(dateStr) {
             const d = new Date(dateStr);
-            d.setHours(0, 0, 0, 0);  
+            d.setHours(0, 0, 0, 0);
             return d;
           }
           const receivedDate = normalizeDateOnly(oPayload.ReceivedDate);
@@ -463,7 +461,9 @@ sap.ui.define(
               const fieldDate = normalizeDateOnly(fieldDateStr);
 
               if (fieldDate < receivedDate) {
-                aErrors.push(`${mDateFieldsToCheck[sField]} cannot be before Received Date.`);
+                aErrors.push(
+                  `${mDateFieldsToCheck[sField]} cannot be before Received Date.`
+                );
               }
             }
           });

@@ -79,7 +79,6 @@
                     <ColumnListItem type="Active" id="_IDGenColumnListItem1" highlight="{parts: [
                         { path: 'Status' },
                         { path: 'PlannedSubmissionDate' },
-                        { path: 'SubmissionDate' },
                         { path: 'DueSubmissionDate' }
                       ],
                       formatter: '.formatRowHighlight'}" />
