@@ -69,6 +69,7 @@
                                 <SegmentedButtonItem id="segWIP" key="WIP" text="In Progress (0)" />
                                 <SegmentedButtonItem id="segSUBMITTED" key="SUBMITTED" text="Submitted (0)" />
                                 <SegmentedButtonItem id="segHOLD" key="HOLD" text="On Hold (0)" />
+                                <SegmentedButtonItem id="segWIN" key="WIN" text="Win (0)" />
                             </items>
                         </SegmentedButton>
                         <ToolbarSpacer id="_IDGenToolbarSpacer" />

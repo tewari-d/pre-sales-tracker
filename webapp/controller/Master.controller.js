@@ -44,6 +44,7 @@ sap.ui.define(
                 { key: "WIP", text: "WIP" },
                 { key: "SUBMITTED", text: "SUBMITTED" },
                 { key: "HOLD", text: "HOLD" },
+                { key: "WIN", text: "WIN" },
               ],
             },
           };
@@ -117,6 +118,7 @@ sap.ui.define(
             { key: "WIP", label: "In Progress", id: "segWIP" },
             { key: "SUBMITTED", label: "Submitted", id: "segSUBMITTED" },
             { key: "HOLD", label: "On Hold", id: "segHOLD" },
+            { key: "WIN", label: "Win", id: "segWIN" },
           ];
 
           aStatuses.forEach((oStatus) => {
