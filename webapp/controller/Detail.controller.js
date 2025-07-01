@@ -333,6 +333,12 @@ sap.ui.define(
               sFirstMissingFieldId =
                 sFirstMissingFieldId || "_IDGenSmartField24";
             }
+            
+            if (!oPayload.ResourceFutureDemandUpdated) {
+              aMissingFields.push("• Resource future demand updated");
+              sFirstMissingFieldId =
+                sFirstMissingFieldId || "_IDGenSmartField26";
+            }
 
             if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
               aMissingFields.push("• Opportunity Value");
@@ -851,7 +857,7 @@ sap.ui.define(
           sap.m.MessageBox.confirm(
             "Are you sure you want to mark this opportunity as deleted?",
             {
-              title: "Delete Confirmation "+sOpportunityId,
+              title: "Delete Confirmation: "+sOpportunityId,
               actions: [
                 sap.m.MessageBox.Action.YES,
                 sap.m.MessageBox.Action.NO,
@@ -864,7 +870,7 @@ sap.ui.define(
                       this.onOverflowToolbarButtonClosePress();
                     }.bind(this),
                     error: function (oError) {
-                      sap.m.MessageBox.error("Error while deleting partner.");
+                      sap.m.MessageBox.error("Error while deleting Opportunity.");
                     },
                   });
                 }
