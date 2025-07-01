@@ -24,7 +24,7 @@
 
                 <actions>
                     <m:Button id="_IDGenButton" text="Save" type="Emphasized" press=".onSave" visible="{viewEditableModel>/showSave}" />
-                    <m:Button id="editModeButton" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
+                    <m:Button id="editModeButton" visible="{= ${Edit_fc} !== 0 }" icon="{= ${viewEditableModel>/editMode} ? 'sap-icon://display' : 'sap-icon://edit' }" tooltip="{= ${viewEditableModel>/editMode} ? 'Revert Changes' : 'Edit' }" type="{= ${viewEditableModel>/editMode} ? 'Emphasized' : 'Default' }" press="onEditModeToggle" />
                     <m:Button id="_IDGenButton10" tooltip="Show Change Logs" icon="sap-icon://activities" press=".onShowChangeLogs">
                         <m:customData>
                             <core:CustomData key="objectClass" value="/NGR/CDO_PS_MAS" />
@@ -137,7 +137,7 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement23">
                                         <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement58" >
+                                    <smartForm:GroupElement id="_IDGenGroupElement58">
                                         <smartField:SmartField id="_IDGenSmartField60" value="{DeliveryHandover}" visible="{= ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
