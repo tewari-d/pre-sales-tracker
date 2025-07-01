@@ -30,7 +30,7 @@
                             <core:CustomData key="objectClass" value="/NGR/CDO_PS_MAS" />
                         </m:customData>
                     </m:Button>
-                    <m:Button id="_IDGenButton2" text="Delete" type="Transparent" visible="{= ${Delete_fc} !== 0 }" press="onDeleteOpportunity"/>
+                    <m:Button id="_IDGenButton2" text="Delete" type="Transparent" visible="true" press="onDeleteOpportunity"/>
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>

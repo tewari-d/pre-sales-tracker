@@ -840,18 +840,18 @@ sap.ui.define(
           return "Click here for Opportunity Documents";
         },
         onDeleteOpportunity: function (oEvent) {
-          debugger;
+
           var oSource = oEvent.getSource();
           var oContext = oSource.getBindingContext();
           var oModel = this.getView().getModel();
           var oData = oContext.getObject();
 
-          var sOpportunityId = oData.Id || "Unknown";
+          var sOpportunityId = Number(oData.Id) || "Unknown";
 
           sap.m.MessageBox.confirm(
             "Are you sure you want to mark this opportunity as deleted?",
             {
-              title: sOpportunityId,
+              title: "Delete Confirmation "+sOpportunityId,
               actions: [
                 sap.m.MessageBox.Action.YES,
                 sap.m.MessageBox.Action.NO,
@@ -861,13 +861,14 @@ sap.ui.define(
                   oModel.remove(oContext.getPath(), {
                     success: function () {
                       sap.m.MessageToast.show("Opportunity marked deleted.");
-                    },
+                      this.onOverflowToolbarButtonClosePress();
+                    }.bind(this),
                     error: function (oError) {
                       sap.m.MessageBox.error("Error while deleting partner.");
                     },
                   });
                 }
-              },
+              }.bind(this),
             }
           );
         },
