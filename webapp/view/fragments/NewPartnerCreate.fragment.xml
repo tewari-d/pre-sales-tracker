@@ -4,26 +4,11 @@
     <Dialog id="partnerDialog" title="Create Partner" contentWidth="400px" class="sapUiContentPadding">
         <content>
             <Label id="_IDGenLabel4" text="Name" labelFor="partnerNameInput" />
-            <smartField:SmartField
-                id="partnerNameSmartField"
-                width="100%"
-                value="{path: 'PartnerName', type: 'sap.ui.model.type.String'}"
-                entitySet="xNGRxCDS_PS_PARTNER"
-                fieldGroupIds="newPartnerFieldGroup" />
-            <Label id="_IDGenLabel5" text="Partner Function" labelFor="partnerFunctionSmartField" />    
-            <smartField:SmartField
-                id="partnerFunctionSmartField"
-                width="100%"
-                value="{path: 'PartnerFunction', type: 'sap.ui.model.type.String'}"
-                entitySet="xNGRxCDS_PS_PARTNER"
-                fieldGroupIds="newPartnerFieldGroup" />
+            <smartField:SmartField id="partnerNameSmartField" width="100%" value="{path: 'PartnerName', type: 'sap.ui.model.type.String'}" entitySet="xNGRxCDS_PS_PARTNER" fieldGroupIds="newPartnerFieldGroup" />
+            <Label id="_IDGenLabel5" text="Partner Function" labelFor="partnerFunctionSmartField" />
+            <smartField:SmartField id="partnerFunctionSmartField" width="100%" value="{path: 'PartnerFunction', type: 'sap.ui.model.type.String'}" entitySet="xNGRxCDS_PS_PARTNER" fieldGroupIds="newPartnerFieldGroup" innerControlsCreated="onControlCreated" />
             <Label id="_IDGenLabel6" text="Email" labelFor="partnerEmailInput" />
-            <smartField:SmartField
-                id="partnerEmailSmartField"
-                width="100%"
-                value="{path: 'PartnerEmail', type: 'sap.ui.model.type.String'}"
-                entitySet="xNGRxCDS_PS_PARTNER" placeholder="example@example.com"
-                fieldGroupIds="newPartnerFieldGroup" />
+            <smartField:SmartField id="partnerEmailSmartField" width="100%" value="{path: 'PartnerEmail', type: 'sap.ui.model.type.String'}" entitySet="xNGRxCDS_PS_PARTNER" placeholder="example@example.com" fieldGroupIds="newPartnerFieldGroup" />
         </content>
         <beginButton>
             <Button id="_IDGenButton1" text="Create" type="Emphasized" press="onCreatePartnerConfirm" />

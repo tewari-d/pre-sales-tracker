@@ -265,6 +265,7 @@ sap.ui.define(
               new sap.ui.comp.smartfield.SmartField({
                 entitySet: "xNGRxCDS_PS_PARTNER",
                 value: "{PartnerFunction}",
+                innerControlsCreated: this.onControlCreated,
               }),
               new sap.ui.comp.smartfield.SmartField({
                 entitySet: "xNGRxCDS_PS_PARTNER",
@@ -531,6 +532,7 @@ sap.ui.define(
               new sap.ui.comp.smartfield.SmartField({
                 entitySet: "xNGRxCDS_PS_PARTNER",
                 value: "{PartnerFunction}",
+                innerControlsCreated: this.onControlCreated,
               }),
               new sap.ui.comp.smartfield.SmartField({
                 entitySet: "xNGRxCDS_PS_PARTNER",
