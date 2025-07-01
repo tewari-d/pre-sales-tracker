@@ -279,9 +279,12 @@ sap.ui.define(
           const oPayload = oModel.getObject(sPath); // Get full object from model
 
           oView.setBusy(true);
-          
-          if (oPayload.Status === "COMPLETE"){
-            if(!oPayload.DeliveryHandover || oPayload.DeliveryHandover === ""){
+
+          if (oPayload.Status === "COMPLETE") {
+            if (
+              !oPayload.DeliveryHandover ||
+              oPayload.DeliveryHandover === ""
+            ) {
               sap.m.MessageBox.error(
                 `Opportunity can not be completed without handling over to the Delivery Teams.`,
                 {
@@ -294,8 +297,8 @@ sap.ui.define(
               return;
             }
           }
-          if (oPayload.Status === "WIN"){
-            if(!oPayload.CommModel || oPayload.CommModel === ""){
+          if (oPayload.Status === "WIN") {
+            if (!oPayload.CommModel || oPayload.CommModel === "") {
               sap.m.MessageBox.error(
                 `Please specify Commercial Model of the Opportunity.`,
                 {
@@ -887,6 +890,15 @@ sap.ui.define(
           ) {
             oModel.setProperty(sPath + "/SubmissionDate", null);
             this._bSubmissionDateCleared = true;
+          }
+        },
+        onControlCreated: function (oEvent) {
+          if (
+            oEvent.getParameters()[0] instanceof sap.m.Input &&
+            oEvent.getParameters()[0].getShowValueHelp()
+          ) {
+            // set ValueHelpOnly for Inputs with ValueHelp
+            oEvent.getParameters()[0].setValueHelpOnly(true);
           }
         },
       }

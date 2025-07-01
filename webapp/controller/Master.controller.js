@@ -582,6 +582,15 @@ sap.ui.define(
             MessageToast.show("Navigation service not available");
           }
         },
+        onControlCreated: function (oEvent) {
+          if (
+            oEvent.getParameters()[0] instanceof sap.m.Input &&
+            oEvent.getParameters()[0].getShowValueHelp()
+          ) {
+            // set ValueHelpOnly for Inputs with ValueHelp
+            oEvent.getParameters()[0].setValueHelpOnly(true);
+          }
+        },
       }
     );
   }
