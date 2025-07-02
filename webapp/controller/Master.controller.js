@@ -593,6 +593,9 @@ sap.ui.define(
             oEvent.getParameters()[0].setValueHelpOnly(true);
           }
         },
+        onStatusControlCreated: function(oEvent){
+          oEvent.getParameters()[0].setEditable(false);
+        }
       }
     );
   }

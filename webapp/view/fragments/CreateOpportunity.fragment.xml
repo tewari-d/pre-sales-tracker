@@ -38,7 +38,7 @@
                 </smartForm:Group>
                 <smartForm:Group id="_IDGenGroup5" title="Opportunity Details">
                     <smartForm:GroupElement id="_IDGenGroupElement30">
-                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields"  fetchValueListReadOnly="true" innerControlsCreated="onStatusControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement31">
                         <smartField:SmartField id="_IDGenSmartField34" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
@@ -58,7 +58,7 @@
                     <smartForm:GroupElement id="_IDGenGroupElement55">
                         <smartField:SmartField id="_IDGenSmartField55" value="{DueSubmissionDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement35">
+                    <smartForm:GroupElement id="_IDGenGroupElement35" visible="false">
                         <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" visible="{= ${Status} === 'WIP' ? false : true }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement43">
@@ -76,14 +76,14 @@
                     <smartForm:GroupElement id="_IDGenGroupElement39">
                         <smartField:SmartField id="_IDGenSmartField43" value="{DocUrl}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement44">
+                    <smartForm:GroupElement id="_IDGenGroupElement44" visible="false">
                         <smartField:SmartField id="_IDGenSmartField49" value="{NextFollowUpDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement56">
+                    <smartForm:GroupElement id="_IDGenGroupElement56" visible="false">
                         <smartField:SmartField id="_IDGenSmartField59" value="{Reason}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" visible="{= ${Reason} !== '' || ${Status} === 'LOSS' }" />
                     </smartForm:GroupElement>
                 </smartForm:Group>
-                <smartForm:Group id="_IDGenGroup6" title="Reviewers">
+                <smartForm:Group id="_IDGenGroup6" title="Reviewers" visible="false">
                     <smartForm:GroupElement id="_IDGenGroupElement40">
                         <smartField:SmartField id="_IDGenSmartField44" value="{PracticeReviewwer}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
