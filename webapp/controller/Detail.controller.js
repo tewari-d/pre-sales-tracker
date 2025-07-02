@@ -334,7 +334,7 @@ sap.ui.define(
                 sFirstMissingFieldId || "_IDGenSmartField24";
             }
             
-            if (oPayload.ResourceFutureDemandUpdated === null) {
+            if (!oPayload.ResourceFutureDemandUpdated) {
               aMissingFields.push("• Resource future demand updated");
               sFirstMissingFieldId =
                 sFirstMissingFieldId || "_IDGenSmartField26";

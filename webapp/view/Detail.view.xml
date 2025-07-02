@@ -135,7 +135,7 @@
                                         <smartField:SmartField id="_IDGenSmartField25" value="{PreSalesReviewwer}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement23">
-                                        <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" innerControlsCreated="onControlCreated" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement58">
                                         <smartField:SmartField id="_IDGenSmartField60" value="{DeliveryHandover}" visible="{= ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
