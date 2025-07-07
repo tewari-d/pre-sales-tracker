@@ -243,6 +243,7 @@ sap.ui.define(
         },
         onCancel: function () {
           this._oCreateOppDialog.destroy();
+          this.getView().getModel().resetChanges([this._oCreateOppDialog.getBindingContext().getPath()]);
           delete this._oCreateOppDialog;
         },
         onAddPartner: function (oEvent) {
