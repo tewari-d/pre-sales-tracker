@@ -86,6 +86,9 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement5">
                                         <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement60">
+                                        <smartField:SmartField id="_IDGenSmartField62" value="{SapSystem}"  fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
                                         <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>

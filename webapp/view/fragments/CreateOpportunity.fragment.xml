@@ -43,6 +43,9 @@
                     <smartForm:GroupElement id="_IDGenGroupElement31">
                         <smartField:SmartField id="_IDGenSmartField34" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement59">
+                        <smartField:SmartField id="_IDGenSmartField61" value="{SapSystem}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields"  />
+                    </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement32">
                         <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>

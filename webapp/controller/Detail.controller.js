@@ -280,6 +280,19 @@ sap.ui.define(
 
           oView.setBusy(true);
 
+          if (!oPayload.SapSystem) {
+            sap.m.MessageBox.error(
+              `Please specify SAP System of the opportunity.`,
+              {
+                onClose: function () {
+                  this.byId("_IDGenSmartField62").focus();
+                }.bind(this),
+              }
+            );
+            oView.setBusy(false);
+            return;
+          }
+
           if (oPayload.Status === "COMPLETE") {
             if (
               !oPayload.DeliveryHandover ||
