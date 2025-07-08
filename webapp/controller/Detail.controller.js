@@ -44,6 +44,7 @@ sap.ui.define(
           if (oProbField) {
             FieldValidators.applyProbabilityValidation(oProbField);
           }
+          this._waitAndAttachShellBackHandler();
         },
         onUpdateNewRemarks: function (oEvent) {
           var oView = this.getView();
@@ -950,17 +951,9 @@ sap.ui.define(
                   oBackBtn._hasCustomHandlerAttached = true;
 
                   oBackBtn.attachPress(() => {
-                    const oModel = this?.getView()?.getModel();
-                    const oVM = this?.getView()?.getModel("viewEditableModel");
-                    const oFeedInput = this?.byId("_IDGenFeedInput1");
-                    const sRemark = oFeedInput?.getValue()?.trim();
-
-                    const bIsEdit = oVM?.getProperty("/editMode");
-                    const bModelChanged = oModel?.hasPendingChanges();
-
-                    if (bModelChanged || sRemark) {
+                    if (this.isEditingActive()) {
                       sap.m.MessageBox.confirm(
-                        "You have unsaved changes. Discard them and go back?",
+                        "You have unsaved changes or remarks. Do you want to discard them and close?",
                         {
                           actions: [
                             sap.m.MessageBox.Action.YES,
@@ -968,10 +961,7 @@ sap.ui.define(
                           ],
                           onClose: (sAction) => {
                             if (sAction === sap.m.MessageBox.Action.YES) {
-                              oModel.resetChanges();
-                              oVM.setProperty("/editMode", false);
-                              oVM.setProperty("/showSave", false);
-                              oFeedInput?.setValue("");
+                              this.cancelEditing();
                               window.history.go(-1);
                             }
                           },
