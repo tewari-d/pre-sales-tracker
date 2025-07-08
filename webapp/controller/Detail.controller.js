@@ -346,7 +346,7 @@ sap.ui.define(
               sFirstMissingFieldId =
                 sFirstMissingFieldId || "_IDGenSmartField24";
             }
-            
+
             if (!oPayload.ResourceFutureDemandUpdated) {
               aMissingFields.push("• Resource future demand updated");
               sFirstMissingFieldId =
@@ -859,7 +859,6 @@ sap.ui.define(
           return "Click here for Opportunity Documents";
         },
         onDeleteOpportunity: function (oEvent) {
-
           var oSource = oEvent.getSource();
           var oContext = oSource.getBindingContext();
           var oModel = this.getView().getModel();
@@ -870,7 +869,7 @@ sap.ui.define(
           sap.m.MessageBox.confirm(
             "Are you sure you want to mark this opportunity as deleted?",
             {
-              title: "Delete Confirmation: "+sOpportunityId,
+              title: "Delete Confirmation: " + sOpportunityId,
               actions: [
                 sap.m.MessageBox.Action.YES,
                 sap.m.MessageBox.Action.NO,
@@ -883,7 +882,9 @@ sap.ui.define(
                       this.onOverflowToolbarButtonClosePress();
                     }.bind(this),
                     error: function (oError) {
-                      sap.m.MessageBox.error("Error while deleting Opportunity.");
+                      sap.m.MessageBox.error(
+                        "Error while deleting Opportunity."
+                      );
                     },
                   });
                 }
@@ -920,6 +921,108 @@ sap.ui.define(
             // set ValueHelpOnly for Inputs with ValueHelp
             oEvent.getParameters()[0].setValueHelpOnly(true);
           }
+        },
+        _waitAndAttachShellBackHandler: function () {
+          const fnTryAttach = () => {
+            try {
+              const oRenderer = sap.ushell.Container?.getRenderer?.();
+              const oShellCtrl = oRenderer?.getShellController?.();
+              const oShellHeader = oShellCtrl?.getView?.()?.getShellHeader?.();
+              const aHeadItems = oShellHeader?.getAggregation?.("headItems");
+
+              if (Array.isArray(aHeadItems) && aHeadItems.length > 0) {
+                const oBackBtn = aHeadItems.find((btn) =>
+                  btn.getId().includes("backBtn")
+                );
+
+                if (oBackBtn && !oBackBtn._hasCustomHandlerAttached) {
+                  oBackBtn._originalPressHandlers = oBackBtn.mEventRegistry
+                    ?.press
+                    ? [...oBackBtn.mEventRegistry.press]
+                    : [];
+                  if (oBackBtn.mEventRegistry?.press) {
+                    oBackBtn.mEventRegistry.press.splice(
+                      0,
+                      oBackBtn.mEventRegistry.press.length
+                    );
+                  }
+
+                  oBackBtn._hasCustomHandlerAttached = true;
+
+                  oBackBtn.attachPress(() => {
+                    const oModel = this?.getView()?.getModel();
+                    const oVM = this?.getView()?.getModel("viewEditableModel");
+                    const oFeedInput = this?.byId("_IDGenFeedInput1");
+                    const sRemark = oFeedInput?.getValue()?.trim();
+
+                    const bIsEdit = oVM?.getProperty("/editMode");
+                    const bModelChanged = oModel?.hasPendingChanges();
+
+                    if (bModelChanged || sRemark) {
+                      sap.m.MessageBox.confirm(
+                        "You have unsaved changes. Discard them and go back?",
+                        {
+                          actions: [
+                            sap.m.MessageBox.Action.YES,
+                            sap.m.MessageBox.Action.NO,
+                          ],
+                          onClose: (sAction) => {
+                            if (sAction === sap.m.MessageBox.Action.YES) {
+                              oModel.resetChanges();
+                              oVM.setProperty("/editMode", false);
+                              oVM.setProperty("/showSave", false);
+                              oFeedInput?.setValue("");
+                              window.history.go(-1);
+                            }
+                          },
+                        }
+                      );
+                    } else {
+                      window.history.go(-1);
+                    }
+                  });
+
+                  return;
+                }
+              }
+            } catch (e) {}
+            setTimeout(fnTryAttach, 300);
+          };
+
+          fnTryAttach();
+        },
+
+        onExit: function () {
+          try {
+            const oRenderer = sap.ushell.Container?.getRenderer?.();
+            const oShellCtrl = oRenderer?.getShellController?.();
+            const oShellHeader = oShellCtrl?.getView?.()?.getShellHeader?.();
+            const aHeadItems = oShellHeader?.getAggregation?.("headItems");
+
+            if (Array.isArray(aHeadItems) && aHeadItems.length > 0) {
+              const oBackBtn = aHeadItems.find((btn) =>
+                btn.getId().includes("backBtn")
+              );
+
+              if (oBackBtn && oBackBtn._hasCustomHandlerAttached) {
+                // Clear custom flag
+                oBackBtn._hasCustomHandlerAttached = false;
+
+                // Remove custom press handler safely
+                if (oBackBtn.mEventRegistry?.press) {
+                  oBackBtn.mEventRegistry.press.length = 0;
+                }
+
+                // Restore original handlers
+                const aOriginal = oBackBtn._originalPressHandlers || [];
+                aOriginal.forEach((fn) =>
+                  oBackBtn.attachPress(fn.fFunction, fn.oListener)
+                );
+
+                delete oBackBtn._originalPressHandlers;
+              }
+            }
+          } catch (e) {}
         },
       }
     );
