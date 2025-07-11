@@ -242,8 +242,15 @@ sap.ui.define(
           }
         },
         onCancel: function () {
+          var oModel = this.getView().getModel();
+
+          var oPartnerTableItems = Fragment.byId(this.getView().getId(),"createPartnerTable").getItems();
+          oPartnerTableItems.forEach(function (oItem) {
+            oModel.resetChanges([oItem.getBindingContextPath()]);
+          });
+          oModel.resetChanges([this._oCreateOppDialog.getBindingContext().getPath()]);
+          
           this._oCreateOppDialog.destroy();
-          this.getView().getModel().resetChanges([this._oCreateOppDialog.getBindingContext().getPath()]);
           delete this._oCreateOppDialog;
         },
         onAddPartner: function (oEvent) {
