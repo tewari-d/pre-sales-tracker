@@ -9,7 +9,7 @@
 |**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>http://ps4-deepakt:44300/sap/opu/odata/ngr/OD_PS_TRACKER_SRV|
 |**Module Name**<br>ngr-pre-sales-tracker|
-|**Application Title**<br>Pre Sales Tracker|
+|**Application Title**<br>SAP Pre Sales Tracker|
 |**Namespace**<br>com.ngr.www.presalestracker|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.120.14|
@@ -19,7 +19,7 @@
 
 ## ngr-pre-sales-tracker
 
-Pre Sales Tracker Application
+SAP Pre Sales Tracker Application
 
 ### Starting the generated app
 
