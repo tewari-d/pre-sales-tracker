@@ -87,7 +87,7 @@
                                         <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement60">
-                                        <smartField:SmartField id="_IDGenSmartField62" value="{SapSystem}"  fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField62" value="{SapSystem}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
                                         <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
@@ -128,6 +128,9 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement57">
                                         <smartField:SmartField id="_IDGenSmartField56" value="{Reason}" fieldGroupIds="generalInfoFieldGroup" visible="{= ${Reason} !== '' || ${Status} === 'LOSS' }" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement61">
+                                        <smartField:SmartField id="_IDGenSmartField63" value="{CloseRemarks}" fieldGroupIds="generalInfoFieldGroup" visible="{= ${CloseRemarks} !== '' || ${Status} === 'CLSD' }" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup4" title="Reviewers" visible="{= ${Status} !== 'WIP' }">
