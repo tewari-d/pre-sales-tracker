@@ -35,6 +35,9 @@
                     <smartForm:GroupElement id="_IDGenGroupElement29">
                         <smartField:SmartField id="_IDGenSmartField32" value="{DealType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement63">
+                        <smartField:SmartField id="_IDGenSmartField58" value="{BUDetails}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
+                    </smartForm:GroupElement>
                 </smartForm:Group>
                 <smartForm:Group id="_IDGenGroup5" title="Opportunity Details">
                     <smartForm:GroupElement id="_IDGenGroupElement30">
@@ -48,6 +51,9 @@
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement32">
                         <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement65" >
+                        <smartField:SmartField id="_IDGenSmartField67" value="{ProposalType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement50" visible="{= ${OppType} === 'OTR' ? true : false }">
                         <smartField:SmartField id="_IDGenSmartField51" value="{OppTypeOther}" fieldGroupIds="createHeaderFields" />

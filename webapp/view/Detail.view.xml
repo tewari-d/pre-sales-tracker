@@ -78,6 +78,9 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement4">
                                         <smartField:SmartField id="_IDGenSmartField4" value="{DealType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement64" >
+                                        <smartField:SmartField id="_IDGenSmartField64" value="{BUDetails}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                    </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup1" title="Opportunity Details">
                                     <smartForm:GroupElement id="_IDGenGroupElement20">
@@ -91,6 +94,9 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
                                         <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement62"  >
+                                        <smartField:SmartField id="_IDGenSmartField66"  value="{ProposalType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement48" visible="{= ${OppType} === 'OTR' ? true : false }">
                                         <smartField:SmartField id="_IDGenSmartField48" value="{OppTypeOther}" fieldGroupIds="generalInfoFieldGroup" />
