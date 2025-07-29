@@ -17,6 +17,9 @@
                     <smartForm:GroupElement id="_IDGenGroupElement24">
                         <smartField:SmartField id="_IDGenSmartField27" value="{CustomerName}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement67">
+                        <smartField:SmartField id="_IDGenSmartField65" value="{CustomerDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement25">
                         <smartField:SmartField id="_IDGenSmartField28" value="{Geography}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>

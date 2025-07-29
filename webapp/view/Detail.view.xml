@@ -60,6 +60,9 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement19">
                                         <smartField:SmartField id="_IDGenSmartField19" value="{CustomerName}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement68">
+                                        <smartField:SmartField id="_IDGenSmartField68" value="{CustomerDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement17">
                                         <smartField:SmartField id="_IDGenSmartField" value="{Geography}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
