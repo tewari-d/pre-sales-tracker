@@ -139,7 +139,7 @@
                                         <smartField:SmartField id="_IDGenSmartField56" value="{Reason}" fieldGroupIds="generalInfoFieldGroup" visible="{= ${Reason} !== '' || ${Status} === 'LOSS' }" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement61">
-                                        <smartField:SmartField id="_IDGenSmartField63" value="{CloseRemarks}" fieldGroupIds="generalInfoFieldGroup" visible="{= ${CloseRemarks} !== '' || ${Status} === 'CLSD' }" />
+                                        <smartField:SmartField id="_IDGenSmartField63" value="{CloseRemarks}" fieldGroupIds="generalInfoFieldGroup" visible="{= ${CloseRemarks} !== '' || ${Status} === 'CLSD' || ${Status} === 'NOGO' }" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup4" title="Reviewers" visible="{= ${Status} !== 'WIP' }">

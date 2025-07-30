@@ -519,6 +519,18 @@ sap.ui.define(
             oView.setBusy(false);
             return;
           }
+          if (oPayload.Status === "NOGO" && !oPayload.CloseRemarks) {
+            sap.m.MessageBox.error(
+              `If the Opportunity is ${oPayload.Status}, please fill the Close Remarks.`,
+              {
+                onClose: function () {
+                  this.byId("_IDGenSmartField63").focus();
+                }.bind(this),
+              }
+            );
+            oView.setBusy(false);
+            return;
+          }
 
           if (oPayload.toParters) {
             delete oPayload.toParters;
