@@ -397,8 +397,7 @@ sap.ui.define(
             Status: "Status",
             OppType: "Opportunity Type",
             SapSystem: "SAP System",
-            BUDetails: "BU Details",
-            ProposalType: "Proposal Type"
+            BUDetails: "BU Details"
           };
 
           // Loop through and validate each field

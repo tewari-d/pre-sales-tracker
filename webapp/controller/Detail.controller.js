@@ -306,18 +306,6 @@ sap.ui.define(
             oView.setBusy(false);
             return;
           }
-          if (!oPayload.ProposalType) {
-            sap.m.MessageBox.error(
-              `Please specify Proposal Type of the opportunity.`,
-              {
-                onClose: function () {
-                  this.byId("_IDGenSmartField66").focus();
-                }.bind(this),
-              }
-            );
-            oView.setBusy(false);
-            return;
-          }
 
           if (oPayload.Status === "COMPLETE") {
             if (
