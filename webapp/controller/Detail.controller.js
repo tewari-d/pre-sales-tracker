@@ -400,18 +400,18 @@ sap.ui.define(
 
               oToday.setHours(0, 0, 0, 0);
 
-              if (oPlannedDate < oToday) {
-                sap.m.MessageBox.error(
-                  `Planned Submission Date cannot be in the past.`,
-                  {
-                    onClose: function () {
-                      this.byId("_IDGenSmartField18").focus();
-                    }.bind(this),
-                  }
-                );
-                oView.setBusy(false);
-                return;
-              }
+              // if (oPlannedDate < oToday) {
+              //   sap.m.MessageBox.error(
+              //     `Planned Submission Date cannot be in the past.`,
+              //     {
+              //       onClose: function () {
+              //         this.byId("_IDGenSmartField18").focus();
+              //       }.bind(this),
+              //     }
+              //   );
+              //   oView.setBusy(false);
+              //   return;
+              // }
             }
             /*if (oPayload.DueSubmissionDate || oPayload.DueSubmissionDate === null) {
                 const oDueDate = new Date(oPayload.DueSubmissionDate);

@@ -17,10 +17,10 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /sap
-            url: http://ps4-deepakt:44300
-            destination: ps4_500
-            # url: https://sapdev.nagarro.com:44301
-            # client: '500'  
+            # url: http://ps4-deepakt:44300
+            # destination: ps4_500
+            url: https://sapdev.nagarro.com:44301
+            client: '500'  
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

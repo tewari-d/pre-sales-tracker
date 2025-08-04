@@ -244,12 +244,17 @@ sap.ui.define(
         onCancel: function () {
           var oModel = this.getView().getModel();
 
-          var oPartnerTableItems = Fragment.byId(this.getView().getId(),"createPartnerTable").getItems();
+          var oPartnerTableItems = Fragment.byId(
+            this.getView().getId(),
+            "createPartnerTable"
+          ).getItems();
           oPartnerTableItems.forEach(function (oItem) {
             oModel.resetChanges([oItem.getBindingContextPath()]);
           });
-          oModel.resetChanges([this._oCreateOppDialog.getBindingContext().getPath()]);
-          
+          oModel.resetChanges([
+            this._oCreateOppDialog.getBindingContext().getPath(),
+          ]);
+
           this._oCreateOppDialog.destroy();
           delete this._oCreateOppDialog;
         },
@@ -397,7 +402,7 @@ sap.ui.define(
             Status: "Status",
             OppType: "Opportunity Type",
             SapSystem: "SAP System",
-            BUDetails: "BU Details"
+            BUDetails: "BU Details",
           };
 
           // Loop through and validate each field
@@ -442,16 +447,14 @@ sap.ui.define(
           }
 
           if (oPayload.Status === "WIP") {
-            if (oPayload.PlannedSubmissionDate) {
-              const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
-              const oToday = new Date();
-
-              oToday.setHours(0, 0, 0, 0);
-
-              if (oPlannedDate < oToday) {
-                aErrors.push("Planned Submission Date cannot be in the past.");
-              }
-            }
+            // if (oPayload.PlannedSubmissionDate) {
+            //   const oPlannedDate = new Date(oPayload.PlannedSubmissionDate);
+            //   const oToday = new Date();
+            //   oToday.setHours(0, 0, 0, 0);
+            //   if (oPlannedDate < oToday) {
+            //     aErrors.push("Planned Submission Date cannot be in the past.");
+            //   }
+            // }
           }
 
           const mDateFieldsToCheck = {
@@ -603,9 +606,9 @@ sap.ui.define(
             oEvent.getParameters()[0].setValueHelpOnly(true);
           }
         },
-        onStatusControlCreated: function(oEvent){
+        onStatusControlCreated: function (oEvent) {
           oEvent.getParameters()[0].setEditable(false);
-        }
+        },
       }
     );
   }
