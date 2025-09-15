@@ -50,6 +50,7 @@
                     <HBox id="_IDGenHBox" justifyContent="End">
                         <Button id="_IDGenButton14" text="Presales Repository" icon="sap-icon://navigation-right-arrow" press="onNavigateToCaseStudies" type="Transparent" />
                         <Button id="_IDGenButton15" text="Non Opportunities" icon="sap-icon://navigation-right-arrow" press="onNavigateToNonOpp" type="Transparent" />
+                        <Button id="_IDGenButton3"  text="Future Demands" icon="sap-icon://navigation-right-arrow" press="onNavigateToFutDmd" type="Transparent" />
                     </HBox>
                 </VBox>
             </f:DynamicPageHeader>

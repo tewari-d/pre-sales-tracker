@@ -581,6 +581,22 @@ sap.ui.define(
             MessageToast.show("Navigation service not available");
           }
         },
+        onNavigateToFutDmd: function () {
+          const oCrossAppNav = sap.ushell?.Container?.getService(
+            "CrossApplicationNavigation"
+          );
+
+          if (oCrossAppNav) {
+            oCrossAppNav.toExternal({
+              target: {
+                semanticObject: "ZRS_FUTURE_DEMANDS",
+                action: "manage",
+              },
+            });
+          } else {
+            MessageToast.show("Navigation service not available");
+          }
+        },
         onNavigateToNonOpp: function () {
           const oCrossAppNav = sap.ushell?.Container?.getService(
             "CrossApplicationNavigation"
