@@ -44,18 +44,18 @@
                 </smartForm:Group>
                 <smartForm:Group id="_IDGenGroup5" title="Opportunity Details">
                     <smartForm:GroupElement id="_IDGenGroupElement30">
-                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields"  fetchValueListReadOnly="true" innerControlsCreated="onStatusControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fetchValueListReadOnly="true" innerControlsCreated="onStatusControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement31">
                         <smartField:SmartField id="_IDGenSmartField34" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement59">
-                        <smartField:SmartField id="_IDGenSmartField61" value="{SapSystem}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields"  />
+                        <smartField:SmartField id="_IDGenSmartField61" value="{SapSystem}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement32">
                         <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement65" >
+                    <smartForm:GroupElement id="_IDGenGroupElement65">
                         <smartField:SmartField id="_IDGenSmartField67" value="{ProposalType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement50" visible="{= ${OppType} === 'OTR' ? true : false }">
@@ -87,6 +87,9 @@
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement39">
                         <smartField:SmartField id="_IDGenSmartField43" value="{DocUrl}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement69">
+                        <smartField:SmartField id="_IDGenSmartField70" value="{CommercialUrl}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement44" visible="false">
                         <smartField:SmartField id="_IDGenSmartField49" value="{NextFollowUpDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />

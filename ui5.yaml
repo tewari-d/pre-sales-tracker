@@ -20,7 +20,7 @@ server:
             # url: http://ps4-deepakt:44300
             # destination: ps4_500
             url: https://sapdev.nagarro.com:44301
-            client: '500'  
+            client: "110"
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

@@ -15,12 +15,13 @@ builder:
       configuration:
         target:
           destination: ps4
-          url: http://ps4-deepakt:44300
-          client: '110'
+          # url: http://ps4-deepakt:44300
+          url: https://sapdev.nagarro.com:44301
+          client: "110"
         app:
           name: /NGR/BSP_PS_TRACKER
           description: Pre Sales Tracker Application
           package: /NGR/SAP_PRACTICE_PRE_SALES
-          transport: PS4K901289
+          transport: PS4K901342
         exclude:
           - /test/

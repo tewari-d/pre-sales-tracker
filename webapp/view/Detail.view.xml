@@ -48,6 +48,10 @@
                     <m:Label id="_IDGenLabel2" text="Documents URL" />
                     <m:Link id="_IDGenLink" text="Click here for Opportunity Documents" href="{DocUrl}" target="_blank" />
                 </m:VBox>
+                <m:VBox id="_IDGenVBox5" justifyContent="Center" class="sapUiSmallMarginEnd" visible="{= ${CommercialUrl} !== '' }">
+                    <m:Label id="_IDGenLabel9" text="Link to Commercials" />
+                    <m:Link id="_IDGenLink1" text="Click here for Commercials Documents" href="{CommercialUrl}" target="_blank" />
+                </m:VBox>
             </m:FlexBox>
         </headerContent>
         <sections>
@@ -81,7 +85,7 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement4">
                                         <smartField:SmartField id="_IDGenSmartField4" value="{DealType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement64" >
+                                    <smartForm:GroupElement id="_IDGenGroupElement64">
                                         <smartField:SmartField id="_IDGenSmartField64" value="{BUDetails}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
@@ -98,8 +102,8 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
                                         <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement62"  >
-                                        <smartField:SmartField id="_IDGenSmartField66"  value="{ProposalType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                    <smartForm:GroupElement id="_IDGenGroupElement62">
+                                        <smartField:SmartField id="_IDGenSmartField66" value="{ProposalType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement48" visible="{= ${OppType} === 'OTR' ? true : false }">
                                         <smartField:SmartField id="_IDGenSmartField48" value="{OppTypeOther}" fieldGroupIds="generalInfoFieldGroup" />
@@ -131,6 +135,9 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" visible="{viewEditableModel>/editMode}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement66">
+                                        <smartField:SmartField id="_IDGenSmartField69" value="{CommercialUrl}" visible="{viewEditableModel>/editMode}" url="{CommercialUrl}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement45">
                                         <smartField:SmartField id="_IDGenSmartField47" value="{NextFollowUpDate}" fieldGroupIds="generalInfoFieldGroup" />
