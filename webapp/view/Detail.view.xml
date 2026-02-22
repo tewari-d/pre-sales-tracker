@@ -102,11 +102,17 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
                                         <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement62">
-                                        <smartField:SmartField id="_IDGenSmartField66" value="{ProposalType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
-                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement48" visible="{= ${OppType} === 'OTR' ? true : false }">
                                         <smartField:SmartField id="_IDGenSmartField48" value="{OppTypeOther}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement72">
+                                        <smartField:SmartField id="_IDGenSmartField73" value="{Complexity}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement71">
+                                        <smartField:SmartField id="_IDGenSmartField72" value="{ProposalTypeOp}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement62">
+                                        <smartField:SmartField id="_IDGenSmartField66" value="{ProposalType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement7">
                                         <smartField:SmartField id="_IDGenSmartField7" value="{ReceivedDate}" fieldGroupIds="generalInfoFieldGroup" />
@@ -132,6 +138,9 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement12">
                                         <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement70">
+                                        <smartField:SmartField id="_IDGenSmartField71" value="{WinChance}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" visible="{viewEditableModel>/editMode}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />

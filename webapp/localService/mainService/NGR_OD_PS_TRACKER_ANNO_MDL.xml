@@ -26,6 +26,18 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema Namespace="com.sap.ngr.od_ps_tracker_anno_mdl.v1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_BOOLE_VALUESType/DomainName">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_BOOLE_VALUESType/Language">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_BOOLE_VALUESType/ValueKey">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_BOOLE_VALUESType/Version">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_DOMAIN_VALUESType/DomainName">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
@@ -38,6 +50,12 @@
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_DOMAIN_VALUESType/Version">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/toParters">
+                <Annotation Term="UI.HiddenFilter"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/toRemarks">
+                <Annotation Term="UI.HiddenFilter"/>
+            </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/GeographyText">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
@@ -45,6 +63,9 @@
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/DealTypeText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/BUDetailsText">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/OppTypeText">
@@ -56,11 +77,29 @@
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/CommModelText">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/ResourceForecastText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/ComplexityText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/WinChanceText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/ProposalTypeOpText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/CustomerName_fc">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/Delete_fc">
                 <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/Edit_fc">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/CustomerDesc">
+                <Annotation Term="UI.MultiLineText"/>
             </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/OppDesc">
                 <Annotation Term="UI.MultiLineText"/>
@@ -70,6 +109,31 @@
             </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/Status">
                 <Annotation Term="Common.Text" Path="StatusText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/CommModel">
+                <Annotation Term="Common.Text" Path="CommModelText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/ResourceFutureDemandUpdated">
+                <Annotation Term="Common.Text" Path="ResourceForecastText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/Complexity">
+                <Annotation Term="Common.Text" Path="ComplexityText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/WinChance">
+                <Annotation Term="Common.Text" Path="WinChanceText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/ProposalTypeOp">
+                <Annotation Term="Common.Text" Path="ProposalTypeOpText">
                     <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
                 </Annotation>
             </Annotations>

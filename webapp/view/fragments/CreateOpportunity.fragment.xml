@@ -55,11 +55,17 @@
                     <smartForm:GroupElement id="_IDGenGroupElement32">
                         <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement65">
-                        <smartField:SmartField id="_IDGenSmartField67" value="{ProposalType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
-                    </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement50" visible="{= ${OppType} === 'OTR' ? true : false }">
                         <smartField:SmartField id="_IDGenSmartField51" value="{OppTypeOther}" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement74">
+                        <smartField:SmartField id="_IDGenSmartField75" value="{Complexity}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement73">
+                        <smartField:SmartField id="_IDGenSmartField74" value="{ProposalTypeOp}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement65">
+                        <smartField:SmartField id="_IDGenSmartField67" value="{ProposalType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement33">
                         <smartField:SmartField id="_IDGenSmartField36" value="{ReceivedDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
@@ -84,6 +90,9 @@
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement38">
                         <smartField:SmartField id="idCreateProbability" value="{Probability}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                    </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement75">
+                        <smartField:SmartField id="_IDGenSmartField76" value="{WinChance}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement39">
                         <smartField:SmartField id="_IDGenSmartField43" value="{DocUrl}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />

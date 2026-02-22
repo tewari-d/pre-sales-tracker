@@ -3,8 +3,9 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Fragment",
     "com/ngr/www/presalestracker/ngrpresalestracker/utils/FieldValidators",
+    "sap/ui/export/Spreadsheet",
   ],
-  (Controller, Fragment, FieldValidators) => {
+  (Controller, Fragment, FieldValidators, Spreadsheet) => {
     "use strict";
 
     return Controller.extend(
@@ -25,14 +26,14 @@ sap.ui.define(
               // Save the initial Status filter separately
               const oInitialFilter = oSmartFilterBar.getFilterData();
               this._oInitialStatusFilter = JSON.parse(
-                JSON.stringify(oInitialFilter.Status)
+                JSON.stringify(oInitialFilter.Status),
               );
             });
           }
 
           oSmartTable.attachBeforeRebindTable(
             this._updateSegmentedCounts,
-            this
+            this,
           );
         },
         _setDefaultFilters: function () {
@@ -83,7 +84,7 @@ sap.ui.define(
                     this._navigateToDetail(sNextId, oNextUIState.layout);
                   }
                 }.bind(this),
-              }
+              },
             );
           } else {
             this._navigateToDetail(sNextId, oNextUIState.layout);
@@ -153,7 +154,7 @@ sap.ui.define(
           if (sKey === "DEFAULT") {
             if (this._oInitialStatusFilter) {
               oCurrentFilters.Status = JSON.parse(
-                JSON.stringify(this._oInitialStatusFilter)
+                JSON.stringify(this._oInitialStatusFilter),
               );
             } else {
               delete oCurrentFilters.Status;
@@ -228,12 +229,12 @@ sap.ui.define(
                 oDialog.open();
 
                 let oProbabilityInput = this.getView().byId(
-                  "idCreateProbability"
+                  "idCreateProbability",
                 );
                 if (oProbabilityInput) {
                   FieldValidators.applyProbabilityValidation(oProbabilityInput);
                 }
-              }.bind(this)
+              }.bind(this),
             );
           } else {
             oDialog.setBindingContext(oNewContext);
@@ -246,7 +247,7 @@ sap.ui.define(
 
           var oPartnerTableItems = Fragment.byId(
             this.getView().getId(),
-            "createPartnerTable"
+            "createPartnerTable",
           ).getItems();
           oPartnerTableItems.forEach(function (oItem) {
             oModel.resetChanges([oItem.getBindingContextPath()]);
@@ -321,7 +322,7 @@ sap.ui.define(
 
             //Read Partners
             oPayload.toParters = this._getPartnersPayload(
-              oPartnersForm.getContent()[0]
+              oPartnersForm.getContent()[0],
             );
 
             //Validate all inputs
@@ -334,7 +335,9 @@ sap.ui.define(
               oModel.create("/xNGRxCDS_PS_MASTER", oPayload, {
                 success: function (oData, oResponse) {
                   sap.m.MessageToast.show(
-                    "Opportunity " + Number(oData.Id) + " created successfully!"
+                    "Opportunity " +
+                      Number(oData.Id) +
+                      " created successfully!",
                   );
                   this._oCreateOppDialog.setBusy(false);
                   oModel.resetChanges();
@@ -345,7 +348,7 @@ sap.ui.define(
                 }.bind(this),
                 error: function (oError) {
                   sap.m.MessageBox.error(
-                    "Failed to create opportunity: " + oError.message
+                    "Failed to create opportunity: " + oError.message,
                   );
                   this._oCreateOppDialog.setBusy(false);
                   oModel.resetChanges();
@@ -358,12 +361,12 @@ sap.ui.define(
               sap.m.MessageBox.error(
                 new sap.m.Text({
                   text: "• " + aValidationErrors.join("\n• "),
-                  wrapping: true,
+                  wrapping: false,
                 }),
                 {
                   title: "Validation Error",
                   contentWidth: "400px",
-                }
+                },
               );
               return;
             }
@@ -403,6 +406,9 @@ sap.ui.define(
             OppType: "Opportunity Type",
             SapSystem: "SAP System",
             BUDetails: "BU Details",
+            Complexity: "Complexity",
+            ProposalTypeOp: "Proposal Type",
+            WinChance: "Win Chance",
           };
 
           // Loop through and validate each field
@@ -432,7 +438,7 @@ sap.ui.define(
             }
             if (submissionErrors.length > 0) {
               aErrors.push(
-                "If the status is SUBMITTED, the following fields are mandatory:"
+                "If the status is SUBMITTED, the following fields are mandatory:",
               );
               aErrors.push(...submissionErrors);
             }
@@ -441,7 +447,7 @@ sap.ui.define(
           if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
             if (!oPayload.CloseDate) {
               aErrors.push(
-                `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`
+                `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`,
               );
             }
           }
@@ -478,7 +484,7 @@ sap.ui.define(
 
               if (fieldDate < receivedDate) {
                 aErrors.push(
-                  `${mDateFieldsToCheck[sField]} cannot be before Received Date.`
+                  `${mDateFieldsToCheck[sField]} cannot be before Received Date.`,
                 );
               }
             }
@@ -510,17 +516,17 @@ sap.ui.define(
           if (iOwnerCount === 0) {
             this._addOwnerInTable(); // Optional helper
             aErrors.push(
-              "At least one partner with function 'OWN' (Owner) is required."
+              "At least one partner with function 'OWN' (Owner) is required.",
             );
           } else if (iOwnerCount > 1) {
             aErrors.push(
-              "Only one partner with function 'OWN' (Owner) is allowed."
+              "Only one partner with function 'OWN' (Owner) is allowed.",
             );
           }
 
           if (!bAllValid) {
             aErrors.push(
-              "All partners must have both name and function filled."
+              "All partners must have both name and function filled.",
             );
           }
 
@@ -561,13 +567,13 @@ sap.ui.define(
           oItem.setBindingContext(oContext);
           var oTable = Fragment.byId(
             this.getView().getId(),
-            "createPartnerTable"
+            "createPartnerTable",
           );
           oTable.addItem(oItem);
         },
         onNavigateToCaseStudies: function () {
           const oCrossAppNav = sap.ushell?.Container?.getService(
-            "CrossApplicationNavigation"
+            "CrossApplicationNavigation",
           );
 
           if (oCrossAppNav) {
@@ -583,7 +589,7 @@ sap.ui.define(
         },
         onNavigateToFutDmd: function () {
           const oCrossAppNav = sap.ushell?.Container?.getService(
-            "CrossApplicationNavigation"
+            "CrossApplicationNavigation",
           );
 
           if (oCrossAppNav) {
@@ -599,7 +605,7 @@ sap.ui.define(
         },
         onNavigateToNonOpp: function () {
           const oCrossAppNav = sap.ushell?.Container?.getService(
-            "CrossApplicationNavigation"
+            "CrossApplicationNavigation",
           );
 
           if (oCrossAppNav) {
@@ -613,6 +619,578 @@ sap.ui.define(
             MessageToast.show("Navigation service not available");
           }
         },
+        onPipelineReport: function () {
+          const oView = this.getView();
+
+          if (!this.oPipelineDialog) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "com.ngr.www.presalestracker.ngrpresalestracker.view.fragments.PipelineReport",
+              controller: this,
+            }).then(
+              function (oDialog) {
+                this.oPipelineDialog = oDialog;
+                oView.addDependent(oDialog);
+                this._initPipelineFilters();
+                oDialog.open();
+              }.bind(this),
+            );
+          } else {
+            this._initPipelineFilters();
+            this.oPipelineDialog.open();
+          }
+        },
+
+        _initPipelineFilters: function () {
+          const oDialog = this.oPipelineDialog;
+          if (!oDialog) return;
+
+          const oSmartFilterBar = oDialog.getContent()[0].getItems()[0];
+          const oSmartTable = oDialog.getContent()[0].getItems()[1];
+
+          // Wait for SmartFilterBar to be initialized
+          if (!oSmartFilterBar.getInitialized?.()) {
+            oSmartFilterBar.attachInitialized(() => {
+              this._applyPipelineFilters(oSmartFilterBar, oSmartTable);
+            });
+          } else {
+            this._applyPipelineFilters(oSmartFilterBar, oSmartTable);
+          }
+        },
+
+        _applyPipelineFilters: function (oSmartFilterBar, oSmartTable) {
+          // Set initial filter for Status = WIP or SUBMITTED
+          oSmartFilterBar.setFilterData(
+            {
+              Status: {
+                items: [
+                  { key: "WIP", text: "WIP" },
+                  { key: "SUBMITTED", text: "SUBMITTED" },
+                ],
+              },
+            },
+            true,
+          );
+          // Trigger search to load data with filters
+          oSmartFilterBar.search();
+        },
+
+        onPipelineSearch: function (oEvent) {
+          // SmartFilterBar search completed - hide unwanted columns & apply formatter
+          const oDialog = this.oPipelineDialog;
+          if (!oDialog) return;
+
+          const oSmartTable = oDialog.getContent()[0].getItems()[1];
+          // No filter or search here to avoid loop
+          setTimeout(() => {
+            this._hideUnwantedColumns(oSmartTable);
+            this._applyOppTcvFormatter(oSmartTable); // Apply formatter AFTER data is loaded
+            // Compute and display total in EUR after data rendered
+            this._computePipelineTotal(oSmartTable);
+          }, 300);
+        },
+
+        _loadAvailableCurrencies: function (fnCallback) {
+          try {
+            var oView = this.getView();
+            var oMasterModel = oView.getModel("MasterData");
+
+            if (!oMasterModel) {
+              oMasterModel = new sap.ui.model.json.JSONModel({
+                Currencies: [],
+                RateMap: {},
+              });
+              oView.setModel(oMasterModel, "MasterData");
+            }
+
+            var sUrl = "https://open.er-api.com/v6/latest/EUR";
+
+            fetch(sUrl)
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (data) {
+                if (data && data.rates) {
+                  var aKeys = Object.keys(data.rates).sort();
+                  var aCurrencyList = aKeys.map(function (key) {
+                    return { key: key, text: key };
+                  });
+                  oMasterModel.setProperty("/Currencies", aCurrencyList);
+                  oMasterModel.setProperty("/RateMap", data.rates);
+                }
+                if (typeof fnCallback === "function") fnCallback();
+              })
+              .catch(function (err) {
+                console.error("Failed to load exchange rates:", err);
+                if (typeof fnCallback === "function") fnCallback();
+              });
+          } catch (e) {
+            console.error("_loadAvailableCurrencies error:", e);
+            if (typeof fnCallback === "function") fnCallback();
+          }
+        },
+
+        _computePipelineTotal: function (oSmartTable) {
+          try {
+            const oDialog = this.oPipelineDialog;
+            if (!oDialog || !oSmartTable) return;
+
+            const oSmartFilterBar = oDialog.getContent()[0].getItems()[0];
+            const oModel = this.getView().getModel();
+
+            const aFilters =
+              oSmartFilterBar && oSmartFilterBar.getFilters
+                ? oSmartFilterBar.getFilters()
+                : [];
+
+            // Ensure we have live rates; if not, load them and retry after load
+            const oMasterData = this.getView().getModel("MasterData");
+            const mRates =
+              (oMasterData && oMasterData.getProperty("/RateMap")) || {};
+
+            const performRead = function () {
+              oModel.read("/xNGRxCDS_PS_MASTER", {
+                filters: aFilters,
+                urlParameters: { $select: "OppTcv,Currency", $top: 100000 },
+                success: function (oData) {
+                  const aRows = oData.results || oData.value || [];
+
+                  let fTotalEur = 0;
+
+                  aRows.forEach((oRow) => {
+                    const dOpp = parseFloat(oRow.OppTcv) || 0;
+                    const sCurrency = oRow.Currency || "EUR";
+                    const dRate =
+                      (mRates && mRates[sCurrency]) ||
+                      (sCurrency === "EUR" ? 1 : undefined);
+
+                    if (dRate && dRate !== 0) {
+                      // API rates are 1 EUR = X [currency], so convert by dividing
+                      fTotalEur += dOpp / dRate;
+                    } else if (sCurrency === "EUR") {
+                      fTotalEur += dOpp;
+                    } else {
+                      // Fallback: treat as EUR if rate missing
+                      fTotalEur += dOpp;
+                    }
+                  });
+
+                  const sFormatted = fTotalEur.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  });
+
+                  this.byId("pipelineTotalEur")?.setText(
+                    "Total (EUR): " + sFormatted + " EUR",
+                  );
+                }.bind(this),
+                error: function (oError) {
+                  console.error(
+                    "Error fetching pipeline rows for total:",
+                    oError,
+                  );
+                  this.byId("pipelineTotalEur")?.setText(
+                    "Total (EUR): 0.00 EUR",
+                  );
+                }.bind(this),
+              });
+            }.bind(this);
+
+            if (!oMasterData || Object.keys(mRates).length === 0) {
+              // Lazy-load rates then run the read
+              this._loadAvailableCurrencies(
+                function () {
+                  // refresh local reference
+                  const oMD = this.getView().getModel("MasterData");
+                  const newRates = (oMD && oMD.getProperty("/RateMap")) || {};
+                  // assign to closure variable used by performRead
+                  if (Object.keys(newRates).length > 0) {
+                    for (var k in newRates) mRates[k] = newRates[k];
+                  }
+                  performRead();
+                }.bind(this),
+              );
+            } else {
+              performRead();
+            }
+          } catch (error) {
+            console.error("Error computing pipeline total:", error);
+            this.byId("pipelineTotalEur")?.setText("Total (EUR): 0.00 EUR");
+          }
+        },
+
+        onPipelineTableInitialize: function (oEvent) {
+          // SmartTable initialization complete - enable growing (infinite scroll)
+          try {
+            const oSmartTable = oEvent.getSource();
+            const oInnerTable = oSmartTable.getTable && oSmartTable.getTable();
+            if (!oInnerTable) return;
+
+            // Enable growing with scroll-to-load for responsive table
+            if (typeof oInnerTable.setGrowing === "function") {
+              oInnerTable.setGrowing(true);
+              oInnerTable.setGrowingScrollToLoad(true);
+              // How many items to load per request
+              if (typeof oInnerTable.setGrowingThreshold === "function") {
+                oInnerTable.setGrowingThreshold(20);
+              }
+            }
+
+            // Enable sticky column headers and toolbar if supported
+            if (typeof oInnerTable.setSticky === "function") {
+              try {
+                oInnerTable.setSticky(["ColumnHeaders", "HeaderToolbar"]);
+              } catch (e) {
+                // some table instances expect an array or string; ignore failures
+              }
+            }
+            // Re-apply formatter and total when table updates (e.g., growing loads more rows)
+            if (typeof oInnerTable.attachUpdateFinished === "function") {
+              oInnerTable.attachUpdateFinished(
+                function () {
+                  // small delay to ensure controls are rendered
+                  setTimeout(() => {
+                    try {
+                      this._applyOppTcvFormatter(oSmartTable);
+                      this._computePipelineTotal(oSmartTable);
+                    } catch (e) {
+                      console.error("Error in updateFinished handler:", e);
+                    }
+                  }, 50);
+                }.bind(this),
+              );
+            }
+          } catch (err) {
+            console.error(
+              "Error enabling growing/sticky on pipeline table:",
+              err,
+            );
+          }
+        },
+
+        _hideUnwantedColumns: function (oSmartTable) {
+          try {
+            const oInnerTable = oSmartTable.getTable();
+            if (!oInnerTable) return;
+
+            const aColumns = oInnerTable.getColumns();
+
+            // Map of header text to show (exact matches)
+            const aRequiredHeaders = [
+              "Customer",
+              "Opp. Size",
+              "Status",
+              "Win Chance",
+              "SAP Area of Solution / Requirement",
+              "Country/Region Name",
+            ];
+
+            console.log("=== PIPELINE COLUMNS DEBUG ===");
+            console.log("Total columns found:", aColumns.length);
+            console.log("Required headers:", aRequiredHeaders);
+
+            // Hide all columns except the 7 required ones
+            aColumns.forEach((oColumn, iIndex) => {
+              const sHeader = oColumn.getHeader?.()?.getText?.() || "";
+              const bIsRequired = aRequiredHeaders.includes(sHeader);
+
+              console.log(
+                `Column ${iIndex}: Header="${sHeader}" -> ${bIsRequired ? "KEEP" : "HIDE"}`,
+              );
+
+              oColumn.setVisible(bIsRequired);
+              // Set Opp. Size column width
+              if (sHeader === "Opp. Size") {
+                oColumn.setWidth("300px"); // Make column much wider
+                if (oColumn.setMinWidth) {
+                  oColumn.setMinWidth(120); // Ensure minimum width
+                }
+              }
+            });
+            console.log("=== END DEBUG ===");
+          } catch (error) {
+            console.error("Error hiding unwanted columns:", error);
+          }
+        },
+
+        _configureTableColumns: function (oSmartTable) {
+          // Column visibility is managed by _hideUnwantedColumns
+        },
+
+        _applyOppTcvFormatter: function (oSmartTable) {
+          try {
+            const oInnerTable = oSmartTable.getTable();
+            if (!oInnerTable) return;
+
+            // Get rows/items from the table
+            const aRows = oInnerTable.getItems?.() || [];
+
+            if (aRows.length === 0) {
+              // Data may not be rendered yet, wait and retry
+              setTimeout(() => this._applyOppTcvFormatter(oSmartTable), 500);
+              return;
+            }
+
+            // Get column headers to find Opp. Size column index
+            const aColumns = oInnerTable.getColumns();
+            let iOppTcvColumnIndex = -1;
+
+            aColumns.forEach((oCol, idx) => {
+              const sHeader = oCol.getHeader?.()?.getText?.() || "";
+              if (sHeader === "Opp. Size") {
+                iOppTcvColumnIndex = idx;
+              }
+            });
+
+            if (iOppTcvColumnIndex === -1) {
+              return;
+            }
+
+            // Iterate through rows and bind formatter to Opp. Size cells
+            aRows.forEach((oRow, rowIdx) => {
+              const aCells = oRow.getCells?.() || [];
+              if (aCells.length > iOppTcvColumnIndex) {
+                const oCell = aCells[iOppTcvColumnIndex];
+
+                // SmartTable wraps cells in HBox with 2 items
+                // Item 1 = value display
+                const aItems = oCell.getItems?.() || [];
+
+                if (aItems.length >= 2) {
+                  // Hide the original value (first item) and show only EUR value
+                  const oOriginalValue = aItems[0];
+                  const oValueCell = aItems[1];
+                  if (oOriginalValue && oOriginalValue.setVisible) {
+                    oOriginalValue.setVisible(false);
+                  }
+                  if (oValueCell && oValueCell.bindProperty) {
+                    try {
+                      oValueCell.unbindProperty("text");
+                      oValueCell.bindProperty("text", {
+                        parts: [{ path: "OppTcv" }, { path: "Currency" }],
+                        formatter: this.formatOppTcvToEur.bind(this),
+                      });
+                      if (oValueCell.setMaxWidth) {
+                        oValueCell.setMaxWidth("300px"); // Increase text width
+                      }
+                      if (oValueCell.setWrapping) {
+                        oValueCell.setWrapping(false); // Prevent wrapping
+                      }
+                      if (oValueCell.setTextAlign) {
+                        oValueCell.setTextAlign("Left"); // Align text left
+                      }
+                      if (oValueCell.setWidth) {
+                        oValueCell.setWidth("300px"); // Set explicit width
+                      }
+                    } catch (e) {
+                      // Silently handle binding errors
+                    }
+                  }
+                }
+              }
+            });
+          } catch (error) {
+            console.error("Error applying OppTcv formatter:", error);
+          }
+        },
+
+        formatOppTcvToEur: function (dOppTcv, sCurrency) {
+          if (!dOppTcv && dOppTcv !== 0) return "0.00 EUR";
+          if (!sCurrency) sCurrency = "EUR";
+
+          try {
+            var dOpp = parseFloat(dOppTcv) || 0;
+
+            if (!sCurrency || sCurrency === "EUR") {
+              return (
+                dOpp.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }) + " EUR"
+              );
+            }
+
+            var oMasterData = this.getView().getModel("MasterData");
+            var mRates =
+              (oMasterData && oMasterData.getProperty("/RateMap")) || {};
+            var dRate = mRates[sCurrency];
+
+            if (!dRate) {
+              // Trigger background load for future calls, but return fallback now
+              this._loadAvailableCurrencies();
+              return (
+                dOpp.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }) + " EUR"
+              );
+            }
+
+            // API returns rates as 1 EUR = X [currency]
+            var dEur = dRate && dRate !== 0 ? dOpp / dRate : dOpp;
+
+            return (
+              dEur.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }) + " EUR"
+            );
+          } catch (e) {
+            console.error("formatOppTcvToEur error:", e);
+            return "0.00 EUR";
+          }
+        },
+
+        onPipelineBeforeExport: function (oEvent) {
+          // Optional: customize export behavior
+          const oExportSettings = oEvent.getParameter("exportSettings");
+          oExportSettings.fileName =
+            "Pipeline_Report_" +
+            new Date().toISOString().split("T")[0] +
+            ".xlsx";
+        },
+
+        onExportPipelineToExcel: function () {
+          try {
+            const oDialog = this.oPipelineDialog;
+            if (!oDialog) return;
+
+            const oSmartFilterBar = oDialog.getContent()[0].getItems()[0];
+            const oModel = this.getView().getModel();
+
+            // Get filters from the dialog's SmartFilterBar (if available)
+            const aFilters =
+              oSmartFilterBar && oSmartFilterBar.getFilters
+                ? oSmartFilterBar.getFilters()
+                : [];
+
+            // Read all matching rows from OData (use high $top to fetch all)
+            oModel.read("/xNGRxCDS_PS_MASTER", {
+              filters: aFilters,
+              urlParameters: {
+                $select: "Id,CustomerName,Status,WinChance,OppTcv,Currency",
+                $top: 100000,
+              },
+              success: function (oData) {
+                const aRows = oData.results || oData.value || [];
+                const oMasterData = this.getView().getModel("MasterData");
+                const mRates =
+                  (oMasterData && oMasterData.getProperty("/RateMap")) || {};
+
+                const aData = aRows.map(function (oRow) {
+                  const dOpp = parseFloat(oRow.OppTcv) || 0;
+                  const sCurrency = oRow.Currency || "EUR";
+                  const dRate = mRates[sCurrency];
+                  const dEur = dRate && dRate !== 0 ? dOpp / dRate : dOpp;
+
+                  return {
+                    Id: oRow.Id,
+                    CustomerName: oRow.CustomerName,
+                    Status: oRow.Status,
+                    WinChance: oRow.WinChance,
+                    OppSizeOriginal: parseFloat(dOpp.toFixed(2)),
+                    OriginalCurrency: sCurrency,
+                    OppSizeEUR: parseFloat(dEur.toFixed(2)),
+                  };
+                });
+
+                const aColumns = [
+                  { label: "ID", property: "Id" },
+                  { label: "Customer", property: "CustomerName" },
+                  { label: "Status", property: "Status" },
+                  { label: "Win Chance", property: "WinChance" },
+                  {
+                    label: "Opp. Size (Original)",
+                    property: "OppSizeOriginal",
+                    type: "Number",
+                    scale: 2,
+                  },
+                  { label: "Currency", property: "OriginalCurrency" },
+                  {
+                    label: "Opp. Size (EUR)",
+                    property: "OppSizeEUR",
+                    type: "Number",
+                    scale: 2,
+                  },
+                ];
+
+                // Build timestamped filename: DDMMMYYYY_HHMM (e.g. 22Feb2026_0002)
+                var _now = new Date();
+                var _pad = function (n) {
+                  return n < 10 ? "0" + n : n;
+                };
+                var _months = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ];
+                var _dd = _pad(_now.getDate());
+                var _mon = _months[_now.getMonth()];
+                var _yyyy = _now.getFullYear();
+                // Use 12-hour format with AM/PM
+                var _hours24 = _now.getHours();
+                var _hh12 = _hours24 % 12;
+                if (_hh12 === 0) _hh12 = 12;
+                var _hh = _pad(_hh12);
+                var _mm = _pad(_now.getMinutes());
+                var _ampm = _hours24 >= 12 ? "PM" : "AM";
+                var sFileName =
+                  "Pipeline_Report_" +
+                  _dd +
+                  _mon +
+                  _yyyy +
+                  "_" +
+                  _hh +
+                  _mm +
+                  _ampm +
+                  ".xlsx";
+
+                const oSettings = {
+                  workbook: {
+                    columns: aColumns,
+                    context: { title: "Pipeline Report" },
+                  },
+                  dataSource: aData,
+                  fileName: sFileName,
+                  worker: false,
+                };
+
+                const oSheet = new Spreadsheet(oSettings);
+                oSheet.build().finally(function () {
+                  oSheet.destroy();
+                });
+              }.bind(this),
+              error: function (oError) {
+                console.error(
+                  "Error reading pipeline rows for export:",
+                  oError,
+                );
+                sap.m.MessageBox.error(
+                  "Failed to fetch pipeline rows for export.",
+                );
+              }.bind(this),
+            });
+          } catch (e) {
+            console.error("Export to Excel failed:", e);
+            sap.m.MessageBox.error("Failed to export pipeline to Excel.");
+          }
+        },
+
+        onClosePipelineDialog: function () {
+          if (this.oPipelineDialog) {
+            this.oPipelineDialog.close();
+          }
+        },
+
         onControlCreated: function (oEvent) {
           if (
             oEvent.getParameters()[0] instanceof sap.m.Input &&
@@ -625,7 +1203,7 @@ sap.ui.define(
         onStatusControlCreated: function (oEvent) {
           oEvent.getParameters()[0].setEditable(false);
         },
-      }
+      },
     );
-  }
+  },
 );

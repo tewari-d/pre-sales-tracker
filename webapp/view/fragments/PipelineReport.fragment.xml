@@ -1,0 +1,40 @@
+<Dialog id="pipelineReportDialog" title="Pipeline Report" contentWidth="100%" contentHeight="100%" showHeader="true" resizable="true" draggable="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+    <content>
+        <VBox fitContainer="true" class="sapUiContentPadding">
+            <!-- SmartFilterBar -->
+            <smartFilterBar:SmartFilterBar id="pipelineSmartFilterBar" useDateRangeType="true" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="pipelineFilterKey" search="onPipelineSearch" liveMode="true">
+                <smartFilterBar:controlConfiguration>
+                    <smartFilterBar:ControlConfiguration key="ReceivedDate" visibleInAdvancedArea="true" controlType="date" conditionType="{
+                        module: 'sap.ui.comp.config.condition.DateRangeType'
+                    }" />
+                </smartFilterBar:controlConfiguration>
+                <smartFilterBar:layoutData>
+                    <FlexItemData shrinkFactor="0" />
+                </smartFilterBar:layoutData>
+            </smartFilterBar:SmartFilterBar>
+
+            <!-- SmartTable -->
+            <smartTable:SmartTable id="pipelineSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="pipelineSmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onPipelineBeforeExport" useVariantManagement="false" useTablePersonalisation="true" header="Pipeline Opportunities" showRowCount="true" enableAutoBinding="false" requestAtLeastFields="CustomerName,OppTcv,Currency,Status,WinChance,SolutionArea,Country_Text" initiallyVisibleFields="CustomerName,OppTcv,Currency,Status,WinChance,SolutionArea,Country_Text" class="sapUiResponsive" initialise="onPipelineTableInitialize" beforeRebindTable="onBeforeRebindTable" growing="true">
+                <smartTable:layoutData>
+                    <FlexItemData growFactor="1" baseSize="0%" />
+                </smartTable:layoutData>
+                <smartTable:customToolbar>
+                    <OverflowToolbar id="pipelineCustomToolbar" design="Transparent">
+                        <ToolbarSpacer />
+                        <Text id="pipelineTotalEur" text="Total (EUR): 0.00 EUR" class="sapUiSmallMarginEnd" />
+                        <Button id="exportPipelineBtn" text="Download as Excel" icon="sap-icon://excel-attachment" press="onExportPipelineToExcel" type="Emphasized" />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+            </smartTable:SmartTable>
+
+
+        </VBox>
+    </content>
+    <buttons>
+        <Button text="Close" press="onClosePipelineDialog" type="Default" />
+    </buttons>
+</Dialog>

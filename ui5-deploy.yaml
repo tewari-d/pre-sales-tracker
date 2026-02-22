@@ -16,7 +16,7 @@ builder:
         target:
           destination: ps4
           # url: http://ps4-deepakt:44300
-          url: https://sapdev.nagarro.com:44301
+          url: https://sapdev.nagarro.com:44300
           client: "110"
         app:
           name: /NGR/BSP_PS_TRACKER

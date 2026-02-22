@@ -50,7 +50,7 @@
                     <HBox id="_IDGenHBox" justifyContent="End">
                         <Button id="_IDGenButton14" text="Presales Repository" icon="sap-icon://navigation-right-arrow" press="onNavigateToCaseStudies" type="Transparent" />
                         <Button id="_IDGenButton15" text="Non Opportunities" icon="sap-icon://navigation-right-arrow" press="onNavigateToNonOpp" type="Transparent" />
-                        <Button id="_IDGenButton3"  text="Future Demands" icon="sap-icon://navigation-right-arrow" press="onNavigateToFutDmd" type="Transparent" />
+                        <Button id="_IDGenButton3" text="Future Demands" icon="sap-icon://navigation-right-arrow" press="onNavigateToFutDmd" type="Transparent" />
                     </HBox>
                 </VBox>
             </f:DynamicPageHeader>
@@ -74,7 +74,8 @@
                             </items>
                         </SegmentedButton>
                         <ToolbarSpacer id="_IDGenToolbarSpacer" />
-                        <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" press="onCreate" />
+                        <Button id="pipelineReportButton" tooltip="View Pipeline Report" text="Pipeline" icon="sap-icon://bar-chart" press="onPipelineReport" />
+                        <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" icon="sap-icon://add" press="onCreate" />
                     </OverflowToolbar>
                 </smartTable:customToolbar>
                 <Table mode="SingleSelectMaster" id="innerUi5Table" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growingThreshold="150" itemPress="onSelectionChange" growing="true">
