@@ -21,7 +21,7 @@
 
                 <VBox id="_IDGenVBox3">
 
-                    <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters" useDateRangeType="false">
+                    <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters" useDateRangeType="false" liveMode="true">
                         <!-- layout data used to make the table growing but the filter bar fixed -->
                         <smartFilterBar:layoutData>
                             <FlexItemData id="_IDGenFlexItemData" shrinkFactor="0" />
@@ -74,8 +74,17 @@
                             </items>
                         </SegmentedButton>
                         <ToolbarSpacer id="_IDGenToolbarSpacer" />
-                        <Button id="pipelineReportButton" tooltip="View Pipeline Report" text="Pipeline" icon="sap-icon://bar-chart" press="onPipelineReport" />
                         <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" icon="sap-icon://add" press="onCreate" />
+                        <MenuButton id="reportsMenuButton" text="Reports" buttonMode="Regular" tooltip="View Reports">
+                            <menu>
+                                <Menu itemSelected="onReportMenuItemSelected">
+                                    <items>
+                                        <MenuItem text="Pipeline Report" key="pipeline" />
+                                        <MenuItem text="Work Report" key="work" />
+                                    </items>
+                                </Menu>
+                            </menu>
+                        </MenuButton>
                     </OverflowToolbar>
                 </smartTable:customToolbar>
                 <Table mode="SingleSelectMaster" id="innerUi5Table" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growingThreshold="150" itemPress="onSelectionChange" growing="true">

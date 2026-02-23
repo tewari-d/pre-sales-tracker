@@ -18,7 +18,7 @@
             </smartFilterBar:SmartFilterBar>
 
             <!-- SmartTable -->
-            <smartTable:SmartTable id="pipelineSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="pipelineSmartFilterBar" tableType="ResponsiveTable" enableExport="true" beforeExport="onPipelineBeforeExport" useVariantManagement="false" useTablePersonalisation="true" header="Pipeline Opportunities" showRowCount="true" enableAutoBinding="false" requestAtLeastFields="CustomerName,OppTcv,Currency,Status,WinChance,SolutionArea,Country_Text" initiallyVisibleFields="CustomerName,OppTcv,Currency,Status,WinChance,SolutionArea,Country_Text" class="sapUiResponsive" initialise="onPipelineTableInitialize" beforeRebindTable="onBeforeRebindTable" growing="true">
+            <smartTable:SmartTable id="pipelineSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="pipelineSmartFilterBar" tableType="ResponsiveTable" enableExport="false" beforeExport="onPipelineBeforeExport" useVariantManagement="false" useTablePersonalisation="true" header="Opportunities" showRowCount="true" enableAutoBinding="false" requestAtLeastFields="CustomerName,OppTcv,Currency,Status,WinChance,SolutionArea,Country_Text" initiallyVisibleFields="CustomerName,OppTcv,Currency,Status,WinChance,SolutionArea,Country_Text" class="sapUiResponsive" initialise="onPipelineTableInitialize" beforeRebindTable="onBeforeRebindTable" growing="true">
                 <smartTable:layoutData>
                     <FlexItemData growFactor="1" baseSize="0%" />
                 </smartTable:layoutData>
@@ -26,7 +26,7 @@
                     <OverflowToolbar id="pipelineCustomToolbar" design="Transparent">
                         <ToolbarSpacer />
                         <Text id="pipelineTotalEur" text="Total (EUR): 0.00 EUR" class="sapUiSmallMarginEnd" />
-                        <Button id="exportPipelineBtn" text="Download as Excel" icon="sap-icon://excel-attachment" press="onExportPipelineToExcel" type="Emphasized" />
+                        <Button id="exportPipelineBtn" text="Download as Excel" icon="sap-icon://excel-attachment" press="onExportPipelineToExcel" />
                     </OverflowToolbar>
                 </smartTable:customToolbar>
             </smartTable:SmartTable>

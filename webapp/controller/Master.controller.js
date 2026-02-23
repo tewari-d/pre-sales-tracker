@@ -1191,6 +1191,456 @@ sap.ui.define(
           }
         },
 
+        // ─── Reports Menu ────────────────────────────────────────────────
+        onReportMenuItemSelected: function (oEvent) {
+          var sKey = oEvent.getParameter("item").getKey();
+          if (sKey === "pipeline") {
+            this.onPipelineReport();
+          } else if (sKey === "work") {
+            this.onWorkReport();
+          }
+        },
+
+        // ─── Work Report ─────────────────────────────────────────────────
+        onWorkReport: function () {
+          const oView = this.getView();
+
+          if (!this.oWorkDialog) {
+            Fragment.load({
+              id: oView.getId(),
+              name: "com.ngr.www.presalestracker.ngrpresalestracker.view.fragments.WorkReport",
+              controller: this,
+            }).then(
+              function (oDialog) {
+                this.oWorkDialog = oDialog;
+                oView.addDependent(oDialog);
+                this._initWorkFilters();
+                oDialog.open();
+              }.bind(this),
+            );
+          } else {
+            this._initWorkFilters();
+            this.oWorkDialog.open();
+          }
+        },
+
+        _initWorkFilters: function () {
+          const oDialog = this.oWorkDialog;
+          if (!oDialog) return;
+
+          const oSmartFilterBar = oDialog.getContent()[0].getItems()[0];
+          const oSmartTable = oDialog.getContent()[0].getItems()[1];
+
+          // Apply filters once when SmartFilterBar is initialized or when dialog opens.
+          const applyOnce = () => {
+            if (oDialog.__workFiltersApplied) return;
+            try {
+              // If ReceivedDate is not already set by the user/variant, set it to LASTWEEKS(4)
+              var oFilterData = {};
+              var oExisting = {};
+              try {
+                oExisting = oSmartFilterBar.getFilterData?.() || {};
+              } catch (e) {
+                oExisting = {};
+              }
+
+              var bHasReceived = false;
+              try {
+                bHasReceived = !!(
+                  oExisting &&
+                  (oExisting.ReceivedDate ||
+                    (oExisting.ReceivedDate && oExisting.ReceivedDate.items))
+                );
+              } catch (e) {
+                bHasReceived = false;
+              }
+
+              if (!bHasReceived) {
+                oFilterData.ReceivedDate = {
+                  // use conditionTypeInfo to match ControlConfiguration in fragment
+                  conditionTypeInfo: {
+                    name: "sap.ui.comp.config.condition.DateRangeType",
+                    data: {
+                      key: "LASTWEEKS",
+                      operation: "LASTWEEKS",
+                      value1: 4,
+                    },
+                  },
+                };
+
+                try {
+                  oSmartFilterBar.setFilterData(oFilterData, true);
+                  // Trigger search so SmartTable binds with the filter
+                  oSmartFilterBar.search();
+                } catch (e) {
+                  // ignore failures
+                }
+              }
+            } catch (e) {
+              // ignore
+            }
+            oDialog.__workFiltersApplied = true;
+          };
+
+          if (!oSmartFilterBar.getInitialized?.()) {
+            oSmartFilterBar.attachInitialized(applyOnce.bind(this));
+          } else {
+            applyOnce.call(this);
+          }
+
+          // Ensure filters are applied after the dialog is opened (cover timing edge-cases)
+          if (!oDialog._applyWorkFiltersAfterOpenAttached) {
+            oDialog.attachAfterOpen(
+              function () {
+                applyOnce.call(this);
+              }.bind(this),
+            );
+            oDialog._applyWorkFiltersAfterOpenAttached = true;
+          }
+        },
+
+        onWorkSearch: function (oEvent) {
+          const oDialog = this.oWorkDialog;
+          if (!oDialog) return;
+
+          const oSmartTable = oDialog.getContent()[0].getItems()[1];
+          setTimeout(() => {
+            this._hideWorkReportColumns(oSmartTable);
+            this._addLeadTimeColumn(oSmartTable);
+          }, 300);
+        },
+
+        onWorkBeforeRebindTable: function (oEvent) {
+          try {
+            var oBindingParams = oEvent.getParameter("bindingParams");
+            if (!oBindingParams) return;
+
+            // Group by Owner and then sort by ReceivedDate (newest first)
+            var oOwnerGroup = new sap.ui.model.Sorter("Owner", false, function (
+              oContext,
+            ) {
+              var sOwner = oContext.getProperty("Owner") || "";
+              return {
+                key: sOwner,
+                text: sOwner,
+              };
+            });
+
+            var oDateSorter = new sap.ui.model.Sorter("ReceivedDate", true);
+
+            oBindingParams.sorter = [oOwnerGroup, oDateSorter];
+
+            // Mark the SmartTable so downstream logic can hide the Owner column
+            try {
+              var oSmartTable = oEvent.getSource();
+              if (oSmartTable && typeof oSmartTable.data === "function") {
+                oSmartTable.data("workGroupingEnabled", true);
+              }
+            } catch (e) {
+              // ignore
+            }
+          } catch (e) {
+            console.error("Error setting work table sorters/grouping:", e);
+          }
+        },
+
+        _hideWorkReportColumns: function (oSmartTable) {
+          try {
+            const oInnerTable = oSmartTable.getTable();
+            if (!oInnerTable) return;
+
+            const aColumns = oInnerTable.getColumns();
+
+            // If grouping by Owner was enabled via beforeRebindTable, hide the Owner column
+            const bGrouping =
+              typeof oSmartTable.data === "function" &&
+              oSmartTable.data("workGroupingEnabled") === true;
+
+            const aRequiredHeaders = [
+              "Owner",
+              "Customer",
+              "Win Chance",
+              "Status",
+              "Proposal Type",
+              "SAP Area of Solution / Requirement",
+              "Lead Time (Days)",
+            ];
+
+            aColumns.forEach((oColumn) => {
+              const sHeader = oColumn.getHeader?.()?.getText?.() || "";
+
+              // Hide Owner column when grouped (group header already shows it)
+              if (bGrouping && sHeader === "Owner") {
+                oColumn.setVisible(false);
+                return;
+              }
+
+              const bIsRequired = aRequiredHeaders.includes(sHeader);
+              oColumn.setVisible(bIsRequired);
+            });
+          } catch (error) {
+            console.error("Error hiding work report columns:", error);
+          }
+        },
+
+        _addLeadTimeColumn: function (oSmartTable) {
+          try {
+            const oInnerTable = oSmartTable.getTable();
+            if (!oInnerTable) return;
+
+            // Add Lead Time column header if not already present
+            const aColumns = oInnerTable.getColumns();
+            const bExists = aColumns.some(
+              (c) => c.getHeader?.()?.getText?.() === "Lead Time (Days)",
+            );
+            if (!bExists) {
+              oInnerTable.addColumn(
+                new sap.m.Column({
+                  header: new sap.m.Text({ text: "Lead Time (Days)" }),
+                }),
+              );
+              // Ensure the newly added column is visible
+              const aColsAfterAdd = oInnerTable.getColumns();
+              const oLeadCol = aColsAfterAdd.find(
+                (c) => c.getHeader?.()?.getText?.() === "Lead Time (Days)",
+              );
+              if (oLeadCol && typeof oLeadCol.setVisible === "function") {
+                oLeadCol.setVisible(true);
+              }
+            }
+
+            // Compute and set Lead Time cell for each rendered row
+            const aItems = oInnerTable.getItems?.() || [];
+            const iColCount = oInnerTable.getColumns().length;
+
+            aItems.forEach((oItem) => {
+              // Skip group header rows (they render differently)
+              try {
+                var sMeta = oItem.getMetadata?.().getName?.();
+                if (sMeta === "sap.m.GroupHeaderListItem") return;
+              } catch (e) {
+                // ignore
+              }
+
+              const aCells = oItem.getCells?.() || [];
+              // Only add cell if not yet added (cell count < column count)
+              if (aCells.length < iColCount) {
+                const oCtx = oItem.getBindingContext();
+                let sText = "N/A";
+                if (oCtx) {
+                  const oData = oCtx.getObject();
+                  const oSubDate = oData.SubmissionDate
+                    ? new Date(oData.SubmissionDate)
+                    : null;
+                  const oRecDate = oData.ReceivedDate
+                    ? new Date(oData.ReceivedDate)
+                    : null;
+                  if (
+                    oSubDate &&
+                    oRecDate &&
+                    !isNaN(oSubDate) &&
+                    !isNaN(oRecDate)
+                  ) {
+                    const iDays = Math.round(
+                      (oSubDate - oRecDate) / (1000 * 60 * 60 * 24),
+                    );
+                    sText = iDays >= 0 ? iDays + " days" : "-";
+                  }
+                }
+                oItem.addCell(new sap.m.Text({ text: sText }));
+              }
+            });
+          } catch (error) {
+            console.error("Error adding Lead Time column:", error);
+          }
+        },
+
+        onWorkTableInitialize: function (oEvent) {
+          try {
+            const oSmartTable = oEvent.getSource();
+            const oInnerTable = oSmartTable.getTable?.();
+            if (!oInnerTable) return;
+
+            if (typeof oInnerTable.setGrowing === "function") {
+              oInnerTable.setGrowing(true);
+              oInnerTable.setGrowingScrollToLoad(true);
+              if (typeof oInnerTable.setGrowingThreshold === "function") {
+                oInnerTable.setGrowingThreshold(20);
+              }
+            }
+
+            if (typeof oInnerTable.setSticky === "function") {
+              try {
+                oInnerTable.setSticky(["ColumnHeaders", "HeaderToolbar"]);
+              } catch (e) {
+                // ignore
+              }
+            }
+
+            if (typeof oInnerTable.attachUpdateFinished === "function") {
+              oInnerTable.attachUpdateFinished(
+                function () {
+                  setTimeout(() => {
+                    try {
+                      this._hideWorkReportColumns(oSmartTable);
+                      this._addLeadTimeColumn(oSmartTable);
+                    } catch (e) {
+                      console.error(
+                        "Error in work report updateFinished handler:",
+                        e,
+                      );
+                    }
+                  }, 50);
+                }.bind(this),
+              );
+            }
+          } catch (err) {
+            console.error("Error initializing work report table:", err);
+          }
+        },
+
+        onExportWorkToExcel: function () {
+          try {
+            const oDialog = this.oWorkDialog;
+            if (!oDialog) return;
+
+            const oSmartFilterBar = oDialog.getContent()[0].getItems()[0];
+            const oModel = this.getView().getModel();
+
+            const aFilters =
+              oSmartFilterBar && oSmartFilterBar.getFilters
+                ? oSmartFilterBar.getFilters()
+                : [];
+
+            oModel.read("/xNGRxCDS_PS_MASTER", {
+              filters: aFilters,
+              urlParameters: {
+                $select:
+                  "Owner,CustomerName,WinChance,Status,ProposalTypeOp,SolutionArea,SubmissionDate,ReceivedDate",
+                $top: 100000,
+              },
+              success: function (oData) {
+                const aRows = oData.results || oData.value || [];
+
+                const aExportData = aRows.map(function (oRow) {
+                  const oSubDate = oRow.SubmissionDate
+                    ? new Date(oRow.SubmissionDate)
+                    : null;
+                  const oRecDate = oRow.ReceivedDate
+                    ? new Date(oRow.ReceivedDate)
+                    : null;
+                  let iLeadTime = null;
+                  if (
+                    oSubDate &&
+                    oRecDate &&
+                    !isNaN(oSubDate) &&
+                    !isNaN(oRecDate)
+                  ) {
+                    iLeadTime = Math.round(
+                      (oSubDate - oRecDate) / (1000 * 60 * 60 * 24),
+                    );
+                  }
+                  return {
+                    Owner: oRow.Owner || "",
+                    CustomerName: oRow.CustomerName || "",
+                    WinChance: oRow.WinChance || "",
+                    Status: oRow.Status || "",
+                    ProposalTypeOp: oRow.ProposalTypeOp || "",
+                    SolutionArea: oRow.SolutionArea || "",
+                    LeadTimeDays: iLeadTime !== null ? iLeadTime : "",
+                  };
+                });
+
+                const aColumns = [
+                  { label: "Owner", property: "Owner" },
+                  { label: "Customer", property: "CustomerName" },
+                  { label: "Winning Chance", property: "WinChance" },
+                  { label: "Status", property: "Status" },
+                  { label: "Proposal Type", property: "ProposalTypeOp" },
+                  {
+                    label: "SAP Area of Solution / Requirement",
+                    property: "SolutionArea",
+                  },
+                  {
+                    label: "Lead Time (Days)",
+                    property: "LeadTimeDays",
+                    type: "Number",
+                  },
+                ];
+
+                // Build timestamped filename
+                var _now = new Date();
+                var _pad = (n) => (n < 10 ? "0" + n : n);
+                var _months = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ];
+                var _dd = _pad(_now.getDate());
+                var _mon = _months[_now.getMonth()];
+                var _yyyy = _now.getFullYear();
+                var _hours24 = _now.getHours();
+                var _hh12 = _hours24 % 12 || 12;
+                var _hh = _pad(_hh12);
+                var _mm = _pad(_now.getMinutes());
+                var _ampm = _hours24 >= 12 ? "PM" : "AM";
+                var sFileName =
+                  "Work_Report_" +
+                  _dd +
+                  _mon +
+                  _yyyy +
+                  "_" +
+                  _hh +
+                  _mm +
+                  _ampm +
+                  ".xlsx";
+
+                const oSettings = {
+                  workbook: {
+                    columns: aColumns,
+                    context: { title: "Work Report" },
+                  },
+                  dataSource: aExportData,
+                  fileName: sFileName,
+                  worker: false,
+                };
+
+                const oSheet = new Spreadsheet(oSettings);
+                oSheet.build().finally(function () {
+                  oSheet.destroy();
+                });
+              }.bind(this),
+              error: function (oError) {
+                console.error(
+                  "Error reading work report rows for export:",
+                  oError,
+                );
+                sap.m.MessageBox.error(
+                  "Failed to fetch work report rows for export.",
+                );
+              }.bind(this),
+            });
+          } catch (e) {
+            console.error("Work report export failed:", e);
+            sap.m.MessageBox.error("Failed to export work report to Excel.");
+          }
+        },
+
+        onCloseWorkDialog: function () {
+          if (this.oWorkDialog) {
+            this.oWorkDialog.close();
+          }
+        },
+
         onControlCreated: function (oEvent) {
           if (
             oEvent.getParameters()[0] instanceof sap.m.Input &&

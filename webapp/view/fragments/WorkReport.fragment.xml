@@ -1,0 +1,39 @@
+<Dialog id="workReportDialog" title="Work Report" contentWidth="100%" contentHeight="100%" showHeader="true" resizable="true" draggable="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+    <content>
+        <VBox fitContainer="true" class="sapUiContentPadding">
+            <!-- SmartFilterBar -->
+            <smartFilterBar:SmartFilterBar id="workSmartFilterBar" useDateRangeType="true" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="workReportFilterKey" search="onWorkSearch" liveMode="true">
+                <smartFilterBar:controlConfiguration>
+                    <smartFilterBar:ControlConfiguration key="ReceivedDate" visibleInAdvancedArea="true" conditionType="{
+								module: 'sap.ui.comp.config.condition.DateRangeType',
+								defaultOperation: 'LASTWEEKS',
+								values: [4]
+							}" />
+                </smartFilterBar:controlConfiguration>
+                <smartFilterBar:layoutData>
+                    <FlexItemData shrinkFactor="0" />
+                </smartFilterBar:layoutData>
+            </smartFilterBar:SmartFilterBar>
+
+            <!-- SmartTable -->
+            <smartTable:SmartTable id="workSmartTable" entitySet="xNGRxCDS_PS_MASTER" smartFilterId="workSmartFilterBar" tableType="ResponsiveTable" enableExport="false" useVariantManagement="false" useTablePersonalisation="true" header="Opportunities" showRowCount="true" enableAutoBinding="false" requestAtLeastFields="Owner,CustomerName,WinChance,Status,ProposalTypeOp,SolutionArea,SubmissionDate,ReceivedDate" initiallyVisibleFields="Owner,CustomerName,WinChance,Status,ProposalTypeOp,SolutionArea" class="sapUiResponsive" initialise="onWorkTableInitialize" beforeRebindTable="onWorkBeforeRebindTable" growing="true">
+                <smartTable:layoutData>
+                    <FlexItemData growFactor="1" baseSize="0%" />
+                </smartTable:layoutData>
+                <smartTable:customToolbar>
+                    <OverflowToolbar id="workCustomToolbar" design="Transparent">
+                        <ToolbarSpacer />
+                        <Button id="exportWorkBtn" text="Download as Excel" icon="sap-icon://excel-attachment" press="onExportWorkToExcel" />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+            </smartTable:SmartTable>
+        </VBox>
+    </content>
+    <buttons>
+        <Button text="Close" press="onCloseWorkDialog" type="Default" />
+    </buttons>
+</Dialog>
