@@ -408,7 +408,7 @@ sap.ui.define(
             BUDetails: "BU Details",
             Complexity: "Complexity",
             ProposalTypeOp: "Proposal Type",
-            WinChance: "Win Chance",
+            // WinChance: "Win Chance",
           };
 
           // Loop through and validate each field
@@ -826,6 +826,11 @@ sap.ui.define(
             const oInnerTable = oSmartTable.getTable && oSmartTable.getTable();
             if (!oInnerTable) return;
 
+            // Alternating row colors
+            if (typeof oInnerTable.setAlternateRowColors === "function") {
+              oInnerTable.setAlternateRowColors(true);
+            }
+
             // Enable growing with scroll-to-load for responsive table
             if (typeof oInnerTable.setGrowing === "function") {
               oInnerTable.setGrowing(true);
@@ -1068,7 +1073,8 @@ sap.ui.define(
             oModel.read("/xNGRxCDS_PS_MASTER", {
               filters: aFilters,
               urlParameters: {
-                $select: "Id,CustomerName,Status,WinChance,OppTcv,Currency",
+                $select:
+                  "Id,CustomerName,Status,StatusText,WinChance,WinChanceText,OppTcv,Currency,SolutionArea,Country_Text",
                 $top: 100000,
               },
               success: function (oData) {
@@ -1085,9 +1091,11 @@ sap.ui.define(
 
                   return {
                     Id: oRow.Id,
-                    CustomerName: oRow.CustomerName,
-                    Status: oRow.Status,
-                    WinChance: oRow.WinChance,
+                    CustomerName: oRow.CustomerName || "",
+                    Status: oRow.StatusText || oRow.Status || "",
+                    WinChance: oRow.WinChanceText || oRow.WinChance || "",
+                    SolutionArea: oRow.SolutionArea || "",
+                    Country: oRow.Country_Text || "",
                     OppSizeOriginal: parseFloat(dOpp.toFixed(2)),
                     OriginalCurrency: sCurrency,
                     OppSizeEUR: parseFloat(dEur.toFixed(2)),
@@ -1095,22 +1103,34 @@ sap.ui.define(
                 });
 
                 const aColumns = [
-                  { label: "ID", property: "Id" },
-                  { label: "Customer", property: "CustomerName" },
-                  { label: "Status", property: "Status" },
-                  { label: "Win Chance", property: "WinChance" },
+                  { label: "ID", property: "Id", width: 10 },
+                  { label: "Customer", property: "CustomerName", width: 35 },
+                  { label: "Status", property: "Status", width: 22 },
+                  { label: "Win Chance", property: "WinChance", width: 20 },
+                  {
+                    label: "SAP Area of Solution / Requirement",
+                    property: "SolutionArea",
+                    width: 45,
+                  },
+                  { label: "Country / Region", property: "Country", width: 25 },
                   {
                     label: "Opp. Size (Original)",
                     property: "OppSizeOriginal",
                     type: "Number",
                     scale: 2,
+                    width: 20,
                   },
-                  { label: "Currency", property: "OriginalCurrency" },
+                  {
+                    label: "Currency",
+                    property: "OriginalCurrency",
+                    width: 12,
+                  },
                   {
                     label: "Opp. Size (EUR)",
                     property: "OppSizeEUR",
                     type: "Number",
                     scale: 2,
+                    width: 20,
                   },
                 ];
 
@@ -1461,6 +1481,11 @@ sap.ui.define(
             const oInnerTable = oSmartTable.getTable?.();
             if (!oInnerTable) return;
 
+            // Alternating row colors
+            if (typeof oInnerTable.setAlternateRowColors === "function") {
+              oInnerTable.setAlternateRowColors(true);
+            }
+
             if (typeof oInnerTable.setGrowing === "function") {
               oInnerTable.setGrowing(true);
               oInnerTable.setGrowingScrollToLoad(true);
@@ -1516,7 +1541,7 @@ sap.ui.define(
               filters: aFilters,
               urlParameters: {
                 $select:
-                  "Owner,CustomerName,WinChance,Status,ProposalTypeOp,SolutionArea,SubmissionDate,ReceivedDate",
+                  "Owner,CustomerName,WinChance,WinChanceText,Status,StatusText,ProposalTypeOp,ProposalTypeOpText,SolutionArea,SubmissionDate,ReceivedDate",
                 $top: 100000,
               },
               success: function (oData) {
@@ -1543,28 +1568,35 @@ sap.ui.define(
                   return {
                     Owner: oRow.Owner || "",
                     CustomerName: oRow.CustomerName || "",
-                    WinChance: oRow.WinChance || "",
-                    Status: oRow.Status || "",
-                    ProposalTypeOp: oRow.ProposalTypeOp || "",
+                    WinChance: oRow.WinChanceText || oRow.WinChance || "",
+                    Status: oRow.StatusText || oRow.Status || "",
+                    ProposalTypeOp:
+                      oRow.ProposalTypeOpText || oRow.ProposalTypeOp || "",
                     SolutionArea: oRow.SolutionArea || "",
                     LeadTimeDays: iLeadTime !== null ? iLeadTime : "",
                   };
                 });
 
                 const aColumns = [
-                  { label: "Owner", property: "Owner" },
-                  { label: "Customer", property: "CustomerName" },
-                  { label: "Winning Chance", property: "WinChance" },
-                  { label: "Status", property: "Status" },
-                  { label: "Proposal Type", property: "ProposalTypeOp" },
+                  { label: "Owner", property: "Owner", width: 25 },
+                  { label: "Customer", property: "CustomerName", width: 35 },
+                  { label: "Win Chance", property: "WinChance", width: 20 },
+                  { label: "Status", property: "Status", width: 22 },
+                  {
+                    label: "Proposal Type",
+                    property: "ProposalTypeOp",
+                    width: 22,
+                  },
                   {
                     label: "SAP Area of Solution / Requirement",
                     property: "SolutionArea",
+                    width: 45,
                   },
                   {
                     label: "Lead Time (Days)",
                     property: "LeadTimeDays",
                     type: "Number",
+                    width: 20,
                   },
                 ];
 

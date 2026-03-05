@@ -91,9 +91,9 @@
                     <smartForm:GroupElement id="_IDGenGroupElement38">
                         <smartField:SmartField id="idCreateProbability" value="{Probability}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
-                    <smartForm:GroupElement id="_IDGenGroupElement75">
+                    <!-- <smartForm:GroupElement id="_IDGenGroupElement75">
                         <smartField:SmartField id="_IDGenSmartField76" value="{WinChance}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
-                    </smartForm:GroupElement>
+                    </smartForm:GroupElement> -->
                     <smartForm:GroupElement id="_IDGenGroupElement39">
                         <smartField:SmartField id="_IDGenSmartField43" value="{DocUrl}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>

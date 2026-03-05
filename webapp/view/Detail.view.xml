@@ -140,7 +140,7 @@
                                         <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement70">
-                                        <smartField:SmartField id="_IDGenSmartField71" value="{WinChance}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField71" value="{WinChance}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" editable="false" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" visible="{viewEditableModel>/editMode}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />

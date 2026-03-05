@@ -27,6 +27,7 @@
                 <smartTable:customToolbar>
                     <OverflowToolbar id="workCustomToolbar" design="Transparent">
                         <ToolbarSpacer />
+                        <Text text="ℹ Lead Time = number of days from Received Date to first Submission Date to the customer." class="sapUiSmallMarginBeginEnd" />
                         <Button id="exportWorkBtn" text="Download as Excel" icon="sap-icon://excel-attachment" press="onExportWorkToExcel" />
                     </OverflowToolbar>
                 </smartTable:customToolbar>
