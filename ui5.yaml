@@ -17,10 +17,9 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /sap
-            # url: http://ps4-deepakt:44300
-            # destination: ps4_500
-            url: https://sapdev.nagarro.com:44300
-            client: "110"
+            url: https://sapdev.nagarro.com:44300/
+            client: '110'
+            authenticationType: basic
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -32,3 +31,8 @@ server:
       configuration:
         flp:
           theme: sap_horizon
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**

@@ -31,8 +31,9 @@ server:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         backend:
           - path: /sap
-            url: http://ps4-deepakt:44300
-            destination: ps4_500
+            url: https://sapdev.nagarro.com:44300/
+            client: '110'
+            authenticationType: basic
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:
@@ -45,3 +46,8 @@ server:
         annotations:
           - localPath: ./webapp/localService/mainService/NGR_OD_PS_TRACKER_ANNO_MDL.xml
             urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='%2FNGR%2FOD_PS_TRACKER_ANNO_MDL',Version='0001')/$value/
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**

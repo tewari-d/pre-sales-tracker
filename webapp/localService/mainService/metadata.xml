@@ -148,8 +148,9 @@
                 <Property Name="DeliveryHandover" Type="Edm.Boolean" sap:label="Delivery Handover" sap:quickinfo="Hand Over to Delivery Team"/>
                 <Property Name="Complexity" Type="Edm.String" MaxLength="6" sap:text="ComplexityText" sap:label="Complexity" sap:value-list="standard"/>
                 <Property Name="ComplexityText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
-                <Property Name="WinChance" Type="Edm.String" MaxLength="6" sap:text="WinChanceText" sap:label="Win Chance" sap:value-list="standard"/>
-                <Property Name="WinChanceText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="WinChanceSource" Type="Edm.String" MaxLength="6" sap:label="Win Chance"/>
+                <Property Name="WinChance" Type="Edm.String" MaxLength="6" sap:label="Win Chance" sap:value-list="standard"/>
+                <Property Name="WinChanceText" Type="Edm.String" MaxLength="6"/>
                 <Property Name="ProposalTypeOp" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="ProposalTypeOpText" sap:label="Proposal Type" sap:quickinfo="Proposal Type (options)" sap:value-list="standard"/>
                 <Property Name="ProposalTypeOpText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="CustomerName_fc" Type="Edm.Byte"/>
