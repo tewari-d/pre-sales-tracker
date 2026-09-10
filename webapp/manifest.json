@@ -55,7 +55,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.120.14",
+      "minUI5Version": "1.136.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -96,8 +96,7 @@
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
-        "path": "com.ngr.www.presalestracker.ngrpresalestracker.view",
-        "async": true
+        "path": "com.ngr.www.presalestracker.ngrpresalestracker.view"
       },
       "routes": [
         {
@@ -133,8 +132,7 @@
     "rootView": {
       "viewName": "com.ngr.www.presalestracker.ngrpresalestracker.view.App",
       "type": "XML",
-      "id": "App",
-      "async": true
+      "id": "App"
     },
     "config": {
       "fullWidth": true
