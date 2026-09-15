@@ -193,14 +193,12 @@
                         <VBox class="chartCard">
                             <Title id="ownerTitle" text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
+                            <ScrollContainer vertical="true" horizontal="false" height="24rem" width="100%" class="ownerScroll">
                             <FlexBox wrap="Wrap" class="ownerSplit">
                                 <VBox id="ownerHost" class="ownerChartHost"/>
                                 <VBox id="ownerStatsBox" class="ownerStats">
                                     <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
                                         <columns>
-                                            <Column>
-                                                <Text text="{i18n>owner}"/>
-                                            </Column>
                                             <Column hAlign="End" width="5.5rem">
                                                 <Text text="{i18n>ownerStatsCount}"/>
                                             </Column>
@@ -214,7 +212,6 @@
                                         <items>
                                             <ColumnListItem type="Active" press=".onOwnerRowPress">
                                                 <cells>
-                                                    <Text text="{dashboard>label}"/>
                                                     <Text text="{dashboard>total}"/>
                                                     <Text text="{path:'dashboard>value',formatter:'.formatEur'}"/>
                                                     <Text text="{path:'dashboard>winRate',formatter:'.formatRate'}"/>
@@ -224,6 +221,7 @@
                                     </Table>
                                 </VBox>
                             </FlexBox>
+                            </ScrollContainer>
                         </VBox>
                     </VBox>
                     <VBox id="opportunityTableSection" class="dashboardTable">

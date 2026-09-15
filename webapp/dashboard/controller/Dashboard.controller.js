@@ -586,7 +586,7 @@ sap.ui.define(
             this._viewModel.setProperty("/charts/ownerTable", table);
             // Tall enough for every owner, so neither the chart nor the table
             // scrolls on its own and the rows can sit exactly on the bars.
-            this._charts.owner.setHeight(Math.max(12, table.length * 2.75 + 6) + "rem");
+            this._charts.owner.setHeight(Math.max(22, table.length * 2.75 + 6) + "rem");
           }
         },
         // Keep the stats table and the chart one object: rows aligned to the
@@ -630,13 +630,20 @@ sap.ui.define(
           const chartBounds = dom.getBoundingClientRect();
           // Stacked below the chart (narrow layout): nothing to align.
           if (box.getBoundingClientRect().top >= chartBounds.bottom - 1) { reset(); return; }
-          const centers = [...new Set(Array.from(dom.querySelectorAll(".v-datapoint"))
+          // One centre per bar (segments of a stack share it); keep sub-pixel
+          // values so the row pitch does not drift over a long list.
+          const centers = [];
+          Array.from(dom.querySelectorAll(".v-datapoint"))
             .map((point) => point.getBoundingClientRect())
             .filter((rect) => rect.height > 0)
-            .map((rect) => Math.round((rect.top + rect.bottom) / 2)))].sort((a, b) => a - b);
+            .map((rect) => (rect.top + rect.bottom) / 2)
+            .sort((a, b) => a - b)
+            .forEach((center) => {
+              if (!centers.length || center - centers[centers.length - 1] > 1) { centers.push(center); }
+            });
           if (!centers.length || centers.length !== rows.length) { reset(); return; }
           const barHeight = dom.querySelector(".v-datapoint").getBoundingClientRect().height;
-          const pitch = centers.length > 1 ? centers[1] - centers[0] : barHeight * 1.6;
+          const pitch = centers.length > 1 ? (centers[centers.length - 1] - centers[0]) / (centers.length - 1) : barHeight * 1.6;
           const header = box.querySelector(".sapMListTblHeader");
           const headerHeight = header ? header.getBoundingClientRect().height : 0;
           // The chart host and the box start at the same flex line, so move

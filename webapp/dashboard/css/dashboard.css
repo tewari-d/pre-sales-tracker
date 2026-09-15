@@ -67,7 +67,8 @@
 /* Owner card: chart on the left, per-owner stats table on the right. */
 .presalesDashboard .ownerSplit { gap: 1rem; align-items: flex-start; }
 .presalesDashboard .ownerChartHost { flex: 1 1 30rem; min-width: 0; }
-.presalesDashboard .ownerStats { flex: 0 1 30rem; min-width: 22rem; max-width: 100%; width: auto; box-sizing: border-box; }
+.presalesDashboard .ownerStats { flex: 0 0 auto; max-width: 100%; width: auto; box-sizing: border-box; }
+.presalesDashboard .ownerScroll { width: 100%; }
 .presalesDashboard .ownerStats .sapMListTbl { table-layout: auto; width: 100%; }
 /* Rows take the bar pitch measured from the chart so each row sits on its bar. */
 .presalesDashboard .ownerStats .sapMListTblRow { height: var(--ownerPitch, auto); }
