@@ -240,6 +240,7 @@ sap.ui.define(
           chart.attachRenderComplete(() => this._restoreScroll());
           if (ownerSplit) {
             chart.attachRenderComplete(() => this._trackOwnerClickOrigin(chart));
+            this._linkOwnerTable(chart);
           }
           chart.attachSelectData((event) => this._onChartSelect(name, event));
           this.byId(name + "Host").addItem(chart);
@@ -581,7 +582,72 @@ sap.ui.define(
           this._viewModel.setProperty("/charts/" + name, data);
           if (name === "owner") {
             this._applyOwnerPalette();
-            this._viewModel.setProperty("/charts/ownerTable", this._ownerTable(data));
+            const table = this._ownerTable(data);
+            this._viewModel.setProperty("/charts/ownerTable", table);
+            // Tall enough for every owner, so neither the chart nor the table
+            // scrolls on its own and the rows can sit exactly on the bars.
+            this._charts.owner.setHeight(Math.max(12, table.length * 2.75 + 6) + "rem");
+          }
+        },
+        // Keep the stats table and the chart one object: rows aligned to the
+        // measured bar positions, and a hovered bar highlights its row.
+        _linkOwnerTable: function (chart) {
+          const box = this.byId("ownerStatsBox");
+          const table = this.byId("ownerStatsTable");
+          // Second pass one frame later: the first measurement can precede the
+          // table's own re-layout after a resize or data change.
+          const align = () => {
+            this._alignOwnerTable(chart);
+            requestAnimationFrame(() => this._alignOwnerTable(chart));
+          };
+          chart.attachRenderComplete(align);
+          table.addEventDelegate({ onAfterRendering: align });
+          chart.attachBrowserEvent("mousemove", (event) => {
+            const point = event.target instanceof Element && event.target.closest(".v-datapoint[data-id]");
+            const row = point && ChartHover.rowForPoint(this._viewModel.getProperty("/charts/owner") || [], Number(point.getAttribute("data-id")), true);
+            this._highlightOwnerRow(row ? row.key : null);
+          });
+          chart.attachBrowserEvent("mouseleave", () => this._highlightOwnerRow(null));
+          this._ownerAlign = align;
+          box.addEventDelegate({ onAfterRendering: align });
+        },
+        _highlightOwnerRow: function (key) {
+          this.byId("ownerStatsTable").getItems().forEach((item) => {
+            const row = item.getBindingContext("dashboard")?.getObject();
+            item.toggleStyleClass("ownerRowActive", !!row && row.key === key);
+          });
+        },
+        _alignOwnerTable: function (chart) {
+          const dom = chart.getDomRef();
+          const box = this.byId("ownerStatsBox").getDomRef();
+          const host = this.byId("ownerHost").getDomRef();
+          if (!dom || !box || !host || this._exited) { return; }
+          const reset = () => { box.style.paddingTop = ""; box.style.removeProperty("--ownerPitch"); host.style.marginTop = ""; };
+          // Measure from the unshifted layout, then apply the offsets.
+          host.style.marginTop = "";
+          box.style.paddingTop = "";
+          const rows = box.querySelectorAll(".sapMListTblRow:not(.sapMListTblHeader)");
+          const chartBounds = dom.getBoundingClientRect();
+          // Stacked below the chart (narrow layout): nothing to align.
+          if (box.getBoundingClientRect().top >= chartBounds.bottom - 1) { reset(); return; }
+          const centers = [...new Set(Array.from(dom.querySelectorAll(".v-datapoint"))
+            .map((point) => point.getBoundingClientRect())
+            .filter((rect) => rect.height > 0)
+            .map((rect) => Math.round((rect.top + rect.bottom) / 2)))].sort((a, b) => a - b);
+          if (!centers.length || centers.length !== rows.length) { reset(); return; }
+          const barHeight = dom.querySelector(".v-datapoint").getBoundingClientRect().height;
+          const pitch = centers.length > 1 ? centers[1] - centers[0] : barHeight * 1.6;
+          const header = box.querySelector(".sapMListTblHeader");
+          const headerHeight = header ? header.getBoundingClientRect().height : 0;
+          // The chart host and the box start at the same flex line, so move
+          // whichever side needs to come down for the first row and bar to meet.
+          box.style.setProperty("--ownerPitch", pitch + "px");
+          const firstBar = centers[0] - host.getBoundingClientRect().top;
+          const firstRow = headerHeight + pitch / 2;
+          if (firstRow > firstBar) {
+            host.style.marginTop = (firstRow - firstBar) + "px";
+          } else {
+            box.style.paddingTop = (firstBar - firstRow) + "px";
           }
         },
         // One row per owner, in the chart's order, for the stats table beside it.

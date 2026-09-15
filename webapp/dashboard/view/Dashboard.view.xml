@@ -191,17 +191,12 @@
                     <!-- <Text text="{dashboard>/overview}" class="dashboardContext"/> -->
                     <VBox class="chartGrid chartGridFull" visible="{= ${dashboard>/rows}.length > 0 }">
                         <VBox class="chartCard">
-                            <Title text="{i18n>ownerTitle}" level="H3"/>
+                            <Title id="ownerTitle" text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
                             <FlexBox wrap="Wrap" class="ownerSplit">
                                 <VBox id="ownerHost" class="ownerChartHost"/>
-                                <ScrollContainer vertical="true" horizontal="false" height="24rem" width="100%" class="ownerStats">
-                                    <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" noDataText="{i18n>noData}" ariaLabelledBy="ownerStatsTitle">
-                                        <headerToolbar>
-                                            <OverflowToolbar design="Transparent">
-                                                <Title id="ownerStatsTitle" text="{i18n>ownerStatsTitle}" level="H4"/>
-                                            </OverflowToolbar>
-                                        </headerToolbar>
+                                <VBox id="ownerStatsBox" class="ownerStats">
+                                    <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
                                         <columns>
                                             <Column>
                                                 <Text text="{i18n>owner}"/>
@@ -227,7 +222,7 @@
                                             </ColumnListItem>
                                         </items>
                                     </Table>
-                                </ScrollContainer>
+                                </VBox>
                             </FlexBox>
                         </VBox>
                     </VBox>
