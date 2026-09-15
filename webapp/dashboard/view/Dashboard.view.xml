@@ -193,7 +193,42 @@
                         <VBox class="chartCard">
                             <Title text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
-                            <VBox id="ownerHost"/>
+                            <FlexBox wrap="Wrap" class="ownerSplit">
+                                <VBox id="ownerHost" class="ownerChartHost"/>
+                                <ScrollContainer vertical="true" horizontal="false" height="24rem" width="100%" class="ownerStats">
+                                    <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" noDataText="{i18n>noData}" ariaLabelledBy="ownerStatsTitle">
+                                        <headerToolbar>
+                                            <OverflowToolbar design="Transparent">
+                                                <Title id="ownerStatsTitle" text="{i18n>ownerStatsTitle}" level="H4"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <columns>
+                                            <Column>
+                                                <Text text="{i18n>owner}"/>
+                                            </Column>
+                                            <Column hAlign="End" width="5.5rem">
+                                                <Text text="{i18n>ownerStatsCount}"/>
+                                            </Column>
+                                            <Column hAlign="End" width="6.5rem">
+                                                <Text text="{i18n>ownerStatsValue}"/>
+                                            </Column>
+                                            <Column hAlign="End" width="5.5rem">
+                                                <Text text="{i18n>winRate}"/>
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem type="Active" press=".onOwnerRowPress">
+                                                <cells>
+                                                    <Text text="{dashboard>label}"/>
+                                                    <Text text="{dashboard>total}"/>
+                                                    <Text text="{path:'dashboard>value',formatter:'.formatEur'}"/>
+                                                    <Text text="{path:'dashboard>winRate',formatter:'.formatRate'}"/>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </ScrollContainer>
+                            </FlexBox>
                         </VBox>
                     </VBox>
                     <VBox id="opportunityTableSection" class="dashboardTable">

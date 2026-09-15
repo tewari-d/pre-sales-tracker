@@ -116,3 +116,22 @@ test("coded proposal help shows descriptions and the CSV export carries only the
     assert.ok(!csv.includes("free text"));
     assert.ok(csv.includes('"Full-fledged proposal",""'));
 });
+test("default proposal filter is full-fledged plus unassigned; prune drops keys no loaded row carries", () => {
+    assert.deepEqual(plain(S.defaults(today).filters.proposalCode), ["FULL", "__UNASSIGNED__"]);
+    const rows = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:"CAP"}], {});
+    const options = {};
+    Object.keys(A.DIMENSIONS).forEach(d => { options[d] = A.options(rows, d); });
+    const pruned = S.prune(S.defaults(today).filters, options);
+    assert.deepEqual(plain(pruned.proposalCode), ["FULL"]);
+    assert.equal(pruned.period, S.defaults(today).filters.period);
+    assert.equal(A.filter(rows, pruned).length, 0); // both rows are outside the default quarter
+    assert.equal(A.filter(rows, Object.assign({}, pruned, { period: "all", periods: ["all"], from: "", to: "" })).length, 1);
+    // Rows without a proposal type keep the unassigned default.
+    const mixed = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:""}], {});
+    Object.keys(A.DIMENSIONS).forEach(d => { options[d] = A.options(mixed, d); });
+    assert.deepEqual(plain(S.prune(S.defaults(today).filters, options).proposalCode), ["FULL", "__UNASSIGNED__"]);
+    // Missing options never throw and leave dimension filters empty.
+    assert.deepEqual(plain(S.prune(S.defaults(today).filters, {}).proposalCode), []);
+    // Sanitize keeps an explicitly cleared proposal filter cleared.
+    assert.deepEqual(plain(S.sanitize({filters:{proposalCode:[]}}, today).filters.proposalCode), []);
+});

@@ -240,7 +240,6 @@ sap.ui.define(
           chart.attachRenderComplete(() => this._restoreScroll());
           if (ownerSplit) {
             chart.attachRenderComplete(() => this._trackOwnerClickOrigin(chart));
-            this._decorateOwnerTotals(chart);
           }
           chart.attachSelectData((event) => this._onChartSelect(name, event));
           this.byId(name + "Host").addItem(chart);
@@ -288,6 +287,12 @@ sap.ui.define(
               ),
             );
             this._setPeriods();
+            // Default/remembered filter keys that no loaded row carries (e.g.
+            // "unassigned" proposal type once all are assigned) are dropped.
+            model.setProperty(
+              "/filters",
+              ViewState.prune(model.getProperty("/filters"), model.getProperty("/options")),
+            );
             model.setProperty(
               "/updated",
               this._text(this._snapshot ? "snapshotLoadedAt" : "updatedAt", [
@@ -407,7 +412,10 @@ sap.ui.define(
           this._apply();
         },
         onReset: function () {
-          const filters = ViewState.defaults().filters;
+          const filters = ViewState.prune(
+            ViewState.defaults().filters,
+            this._viewModel.getProperty("/options"),
+          );
           this._viewModel.setProperty("/filters", filters);
           this._setRange(filters);
           this._apply();
@@ -566,8 +574,6 @@ sap.ui.define(
             item.hoverUnavailable = String(metrics.unconverted);
             if (item.ownerMetrics) {
               const ownerSummary = item.ownerMetrics.total + " · " + this.formatEur(item.ownerMetrics.value) + " · " + this.formatRate(item.ownerMetrics.winRate);
-              // Replaces the stack-total label after the bar, whatever the measure.
-              item.ownerSummary = ownerSummary;
               item.hoverTitle = item.label + " · " + item.proposalLabel;
               item.hoverExtra = [[this._text("ownerTotal"), ownerSummary]];
             }
@@ -575,50 +581,25 @@ sap.ui.define(
           this._viewModel.setProperty("/charts/" + name, data);
           if (name === "owner") {
             this._applyOwnerPalette();
-            this._reserveOwnerLabelRoom(data);
+            this._viewModel.setProperty("/charts/ownerTable", this._ownerTable(data));
           }
         },
-        // The summary label after each stack is wider than sap.viz's own total,
-        // so extend the value axis to leave room for it inside the plot.
-        _reserveOwnerLabelRoom: function (data) {
-          const totals = new Map();
-          data.forEach(item => totals.set(item.key, (totals.get(item.key) || 0) + item.value));
-          const max = Math.max(0, ...totals.values());
-          // Round the extended maximum up to a clean tick (1, 2 or 5 × 10ⁿ steps).
-          const raw = max * 1.3;
-          const step = Math.pow(10, Math.floor(Math.log10(raw || 1))) / 2;
-          const nice = Math.ceil(raw / step) * step;
-          this._charts.owner.setVizProperties({
-            plotArea: { primaryScale: max > 0 ? { fixedRange: true, minValue: 0, maxValue: nice } : { fixedRange: false } },
-          });
+        // One row per owner, in the chart's order, for the stats table beside it.
+        _ownerTable: function (data) {
+          const seen = new Set();
+          return data.filter(item => !seen.has(item.key) && seen.add(item.key)).map(item => ({
+            key: item.key,
+            label: item.label,
+            total: item.ownerMetrics.total,
+            value: item.ownerMetrics.value,
+            winRate: item.ownerMetrics.winRate,
+          }));
         },
-        // sap.viz calls dataLabel.renderer for stack totals but ignores its
-        // result, so the total text is rewritten in the DOM after each render.
-        // Total label ids are "<categoryIndex>-0"; the data is owner-major.
-        _decorateOwnerTotals: function (chart) {
-          const decorate = () => {
-            const dom = chart.getDomRef();
-            const data = this._viewModel.getProperty("/charts/owner") || [];
-            if (!dom || !data.length) { return; }
-            const seriesCount = new Set(data.map(item => item.proposalKey)).size;
-            dom.querySelectorAll(".v-datalabel-group-total .v-datalabel[data-id] text").forEach(text => {
-              const index = Number(text.parentNode.getAttribute("data-id").split("-")[0]);
-              const row = data[index * seriesCount];
-              if (row && row.ownerSummary && text.textContent !== row.ownerSummary) {
-                text.textContent = row.ownerSummary;
-              }
-            });
-          };
-          const observer = new MutationObserver(decorate);
-          chart.addEventDelegate({
-            onBeforeRendering: () => observer.disconnect(),
-            onAfterRendering: () => {
-              observer.observe(chart.getDomRef(), { childList: true, subtree: true, characterData: true });
-              decorate();
-            },
-          });
-          chart.attachRenderComplete(decorate);
-          this._ownerTotalsObserver = observer;
+        onOwnerRowPress: function (event) {
+          const row = event.getSource().getBindingContext("dashboard").getObject();
+          this._viewModel.setProperty("/filters/owner", [row.key]);
+          this._apply();
+          MessageToast.show(this._text("chartFiltered", [row.label]));
         },
         _ownerPalette: function (data) {
           const series = data.length ? [...new Set(data.map(item => item.proposalKey))] : ["FULL", "CAP", "__UNASSIGNED__"];
@@ -856,7 +837,6 @@ sap.ui.define(
           this._exited = true;
           Theming.detachApplied(this._onThemeApplied);
           this._hover?.destroy();
-          this._ownerTotalsObserver?.disconnect();
           if (this._restoreFrame !== null) {
             cancelAnimationFrame(this._restoreFrame);
           }

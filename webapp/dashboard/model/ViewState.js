@@ -6,6 +6,9 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
         const year = now.getFullYear(), quarter = Math.floor(now.getMonth() / 3) + 1;
         const filters = Object.assign({ period: `${year}-Q${quarter}`, periods: [`${year}-Q${quarter}`], disjoint: false, search: "" }, Analytics.quarterRange(year, quarter));
         Object.keys(Analytics.DIMENSIONS).forEach(key => { filters[key] = []; });
+        // Default proposal scope: full-fledged proposals plus opportunities not yet
+        // assigned a proposal type. prune() drops "unassigned" once none remain.
+        filters.proposalCode = ["FULL", Analytics.EMPTY];
         return { filters, metric: "count", breakdown: "bu", interval: "month", sort: "eur", scrollTop: 0, headerExpanded: true };
     }
     function quarters(receivedDates, now = new Date(), selected = "") {
@@ -61,6 +64,16 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
         state.headerExpanded = value.headerExpanded !== false;
         return state;
     }
+    // Drop filter keys that no loaded opportunity carries (e.g. the default
+    // "unassigned" proposal type once every opportunity has one).
+    function prune(filters, options) {
+        const result = Object.assign({}, filters);
+        Object.keys(Analytics.DIMENSIONS).forEach(key => {
+            const known = new Set((options[key] || []).map(option => option.key));
+            result[key] = (filters[key] || []).filter(value => known.has(value));
+        });
+        return result;
+    }
     function take(scope, now) {
         const key = JSON.stringify(scope), value = returns.get(key);
         returns.delete(key);
@@ -68,5 +81,5 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
     }
     function remember(scope, value) { returns.set(JSON.stringify(scope), sanitize(value)); }
     function forget(scope) { returns.delete(JSON.stringify(scope)); }
-    return { defaults, quarters, selectPeriods, sanitize, take, remember, forget };
+    return { defaults, quarters, selectPeriods, sanitize, prune, take, remember, forget };
 });

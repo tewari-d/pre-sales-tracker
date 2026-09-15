@@ -369,5 +369,6 @@ sap.ui.define([], function () {
     csv,
     BANDS,
     DIMENSIONS,
+    EMPTY,
   };
 });
