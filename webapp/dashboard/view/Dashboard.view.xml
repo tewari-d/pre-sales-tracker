@@ -194,10 +194,17 @@
                             <Title id="ownerTitle" text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
                             <ScrollContainer vertical="true" horizontal="false" height="24rem" width="100%" class="ownerScroll">
+                            <!-- Sticky legend: the sap.viz legend is hidden because it would scroll away with the bars. -->
+                            <FlexBox id="ownerLegend" class="ownerLegend" wrap="Wrap" alignItems="Center" items="{dashboard>/charts/ownerSeries}">
+                                <HBox class="ownerLegendItem" alignItems="Center">
+                                    <core:Icon src="sap-icon://color-fill" color="{dashboard>color}" size="0.9rem" class="ownerLegendSwatch"/>
+                                    <Link text="{dashboard>label}" press=".onOwnerLegendPress" class="ownerLegendLink"/>
+                                </HBox>
+                            </FlexBox>
                             <FlexBox wrap="Wrap" class="ownerSplit">
                                 <VBox id="ownerHost" class="ownerChartHost"/>
                                 <VBox id="ownerStatsBox" class="ownerStats">
-                                    <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
+                                    <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" sticky="ColumnHeaders" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
                                         <columns>
                                             <Column hAlign="End" width="5.5rem">
                                                 <Text text="{i18n>ownerStatsCount}"/>
@@ -221,6 +228,8 @@
                                     </Table>
                                 </VBox>
                             </FlexBox>
+                            <!-- Sticky value axis: filled with a clone of the chart's axis after each render. -->
+                            <core:HTML id="ownerAxis" content="&lt;div class=&quot;ownerAxis&quot;&gt;&lt;/div&gt;"/>
                             </ScrollContainer>
                         </VBox>
                     </VBox>

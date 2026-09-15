@@ -213,7 +213,8 @@ sap.ui.define(
           chart.setVizProperties({
             tooltip: { visible: false },
             title: { visible: false },
-            legend: { visible: type === "donut" || ownerSplit },
+            // The owner chart's legend is rendered as a sticky HTML strip instead.
+            legend: { visible: type === "donut" },
             // The donut keeps its legend beside the pie and trims the outer
             // padding so the pie itself fills more of the same-sized card.
             legendGroup: { layout: { position: ownerSplit ? "top" : type === "donut" ? "right" : "bottom" } },
@@ -598,7 +599,7 @@ sap.ui.define(
           // table's own re-layout after a resize or data change.
           const align = () => {
             this._alignOwnerTable(chart);
-            requestAnimationFrame(() => this._alignOwnerTable(chart));
+            requestAnimationFrame(() => { this._alignOwnerTable(chart); this._stickOwnerAxis(chart); });
           };
           chart.attachRenderComplete(align);
           table.addEventDelegate({ onAfterRendering: align });
@@ -691,9 +692,61 @@ sap.ui.define(
         },
         _applyOwnerPalette: function () {
           if (this._exited || !this._charts?.owner) { return; }
-          this._charts.owner.setVizProperties({plotArea: {
-            colorPalette: this._ownerPalette(this._viewModel.getProperty("/charts/owner") || [])
-          }});
+          const data = this._viewModel.getProperty("/charts/owner") || [];
+          const palette = this._ownerPalette(data);
+          this._charts.owner.setVizProperties({plotArea: { colorPalette: palette }});
+          // Sticky legend strip: one entry per series, in the chart's series order.
+          const seen = new Set();
+          const series = data.filter(item => !seen.has(item.proposalKey) && seen.add(item.proposalKey));
+          this._viewModel.setProperty("/charts/ownerSeries", series.map((item, index) => ({
+            key: item.proposalKey, label: item.proposalLabel, color: palette[index],
+          })));
+        },
+        onOwnerLegendPress: function (event) {
+          const series = event.getSource().getBindingContext("dashboard").getObject();
+          this._viewModel.setProperty("/filters/owner", []);
+          this._viewModel.setProperty("/filters/proposalCode", [series.key]);
+          this._apply();
+          MessageToast.show(this._text("chartFiltered", [series.label]));
+        },
+        // Copies the chart's value axis (ticks, labels, title) into the sticky
+        // bottom strip, in the chart's own coordinates, so it stays visible
+        // while the bars scroll. Styles are inlined because the sap.viz CSS is
+        // scoped to the chart's DOM.
+        _stickOwnerAxis: function (chart) {
+          const strip = this.byId("ownerAxis").getDomRef();
+          const svg = chart.getDomRef()?.querySelector("svg");
+          if (!strip || !svg) { return; }
+          const groups = [".v-m-valueAxis", ".v-m-valueAxisTitle"].map(s => svg.querySelector(s)).filter(Boolean);
+          if (!groups.length) { strip.replaceChildren(); strip.style.marginTop = ""; return; }
+          const svgRect = svg.getBoundingClientRect();
+          const stripRect = strip.getBoundingClientRect();
+          let top = Infinity, bottom = -Infinity;
+          groups.forEach(g => { const r = g.getBoundingClientRect(); top = Math.min(top, r.top); bottom = Math.max(bottom, r.bottom); });
+          const pad = 4, y = top - svgRect.top - pad, height = bottom - top + pad * 2;
+          const NS = "http://www.w3.org/2000/svg";
+          const clone = document.createElementNS(NS, "svg");
+          clone.setAttribute("width", svgRect.width);
+          clone.setAttribute("height", height);
+          clone.setAttribute("viewBox", `0 ${y} ${svgRect.width} ${height}`);
+          clone.style.marginLeft = (svgRect.left - stripRect.left) + "px";
+          const props = ["fill", "stroke", "stroke-width", "stroke-dasharray", "opacity", "font-family", "font-size", "font-weight", "text-anchor", "visibility"];
+          const copyStyles = (from, to) => {
+            const style = getComputedStyle(from);
+            props.forEach(prop => to.style.setProperty(prop, style.getPropertyValue(prop)));
+            Array.from(from.children).forEach((child, i) => to.children[i] && copyStyles(child, to.children[i]));
+          };
+          groups.forEach(g => {
+            const c = g.cloneNode(true);
+            const m = g.getCTM();
+            c.setAttribute("transform", `matrix(${m.a},${m.b},${m.c},${m.d},${m.e},${m.f})`);
+            copyStyles(g, c);
+            clone.appendChild(c);
+          });
+          strip.replaceChildren(clone);
+          // Pull the strip up over the chart's own axis so both coincide when
+          // scrolled to the end; sticky keeps it at the bottom otherwise.
+          strip.style.marginTop = -(svgRect.bottom - top + pad) + "px";
         },
         _onChartSelect: function (name, event) {
           const points = (event.getParameter("data") || []).map(p => p && p.data).filter(p => p && p.Category);
