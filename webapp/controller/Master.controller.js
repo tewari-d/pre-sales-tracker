@@ -257,26 +257,43 @@ sap.ui.define(
               }.bind(this),
             );
           } else {
-            oDialog.setBindingContext(oNewContext);
-            oDialog.setModel(oModel);
+            this._oCreateOppDialog.setBindingContext(oNewContext);
+            this._oCreateOppDialog.setModel(oModel);
             this._oCreateOppDialog.open();
           }
         },
         onCancel: function () {
+          // Cleanup happens in onCreateDialogAfterClose so that Cancel,
+          // Esc and any other close path behave the same way.
+          this._oCreateOppDialog.close();
+        },
+        onCreateDialogAfterClose: function () {
           var oModel = this.getView().getModel();
+          var oDialog = this._oCreateOppDialog;
+          if (!oDialog) {
+            return;
+          }
 
-          var oPartnerTableItems = Fragment.byId(
+          // Discard the transient header and partner entries so that no
+          // pending changes linger in the model after the dialog is closed.
+          var oPartnerTable = Fragment.byId(
             this.getView().getId(),
             "createPartnerTable",
-          ).getItems();
-          oPartnerTableItems.forEach(function (oItem) {
-            oModel.resetChanges([oItem.getBindingContextPath()]);
-          });
-          oModel.resetChanges([
-            this._oCreateOppDialog.getBindingContext().getPath(),
-          ]);
+          );
+          if (oPartnerTable) {
+            oPartnerTable.getItems().forEach(function (oItem) {
+              var sPath = oItem.getBindingContextPath();
+              if (sPath) {
+                oModel.resetChanges([sPath]);
+              }
+            });
+          }
+          var oContext = oDialog.getBindingContext();
+          if (oContext) {
+            oModel.resetChanges([oContext.getPath()]);
+          }
 
-          this._oCreateOppDialog.destroy();
+          oDialog.destroy();
           delete this._oCreateOppDialog;
         },
         onAddPartner: function (oEvent) {
@@ -363,8 +380,7 @@ sap.ui.define(
                   oModel.resetChanges();
                   oModel.refresh();
                   this._updateSegmentedCounts();
-                  this._oCreateOppDialog.destroy();
-                  delete this._oCreateOppDialog;
+                  this._oCreateOppDialog.close();
                 }.bind(this),
                 error: function (oError) {
                   sap.m.MessageBox.error(
@@ -373,8 +389,7 @@ sap.ui.define(
                   this._oCreateOppDialog.setBusy(false);
                   oModel.resetChanges();
                   oModel.refresh();
-                  this._oCreateOppDialog.destroy();
-                  delete this._oCreateOppDialog;
+                  this._oCreateOppDialog.close();
                 }.bind(this),
               });
             } else {

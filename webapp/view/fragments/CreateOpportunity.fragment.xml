@@ -7,7 +7,7 @@
     xmlns:smartField="sap.ui.comp.smartfield"
     xmlns:smartForm="sap.ui.comp.smartform"
     xmlns:wizard="sap.m">
-    <Dialog id="wizardDialog" title="Create Opportunity" stretch="true" class="sapUiContentPadding">
+    <Dialog id="wizardDialog" title="Create Opportunity" stretch="true" class="sapUiContentPadding" afterClose="onCreateDialogAfterClose">
         <content>
             <smartForm:SmartForm id="_IDGenSmartForm" app:defaultCheckBoxDisplayBehaviour="YesNo" app:defaultDropDownDisplayBehaviour="idAndDescription" title="General Data" validationMode="Async" editable="true">
                 <!-- <smartForm:layout>
