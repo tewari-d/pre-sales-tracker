@@ -1,0 +1,271 @@
+<mvc:View controllerName="com.ngr.presales.dashboard.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core" core:require="{Decimal:'sap/ui/model/odata/type/Decimal'}" displayBlock="true" height="100%">
+    <f:DynamicPage id="dashboardPage" class="presalesDashboard" toggleHeaderOnTitleClick="true" fitContent="true" headerExpanded="{dashboard>/headerExpanded}" preserveHeaderStateOnScroll="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <VBox>
+                        <!-- <Text text="{i18n>eyebrow}" class="dashboardEyebrow"/> -->
+                        <Title text="{i18n>heading}" level="H1" wrapping="true" class="dashboardHeading"/>
+                    </VBox>
+                </f:heading>
+                <f:expandedContent>
+                    <Text text="{i18n>subtitle}" class="dashboardSubtitle"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Text text="{dashboard>/scope}"/>
+                </f:snappedContent>
+                <f:actions>
+                    <!-- <Button text="{i18n>refresh}" icon="sap-icon://refresh" press=".onRefresh" enabled="{= !${dashboard>/busy} }"/> -->
+                    <!-- <Button text="{i18n>print}" icon="sap-icon://print" press=".onPrint" enabled="{= ${dashboard>/loaded} &amp;&amp; !${dashboard>/busy} }"/>
+                    <Button text="{i18n>export}" type="Emphasized" icon="sap-icon://download" press=".onExport" enabled="{= ${dashboard>/loaded} &amp;&amp; !${dashboard>/busy} &amp;&amp; ${dashboard>/rows}.length > 0 }"/> -->
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <VBox>
+                    <!-- <OverflowToolbar design="Transparent" class="sapUiTinyMarginBottom">
+                        <Title text="{i18n>filters}" level="H2"/>
+                    </OverflowToolbar> -->
+                    <FlexBox wrap="Wrap" class="dashboardFilters">
+                        <VBox class="filterField">
+                            <Label text="{i18n>period}" labelFor="periodFilter"/>
+                            <MultiComboBox id="periodFilter" width="100%" selectedKeys="{dashboard>/filters/periods}" selectionChange=".onPeriodChange" items="{dashboard>/periods}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField filterDateRange">
+                            <Label text="{i18n>dateRange}" labelFor="receivedRange"/>
+                            <DateRangeSelection id="receivedRange" width="100%" displayFormat="yyyy-MM-dd" delimiter=" – " placeholder="{= ${dashboard>/filters/disjoint} ? ${i18n>separateQuarters} : ${i18n>datePlaceholder} }" change=".onDateChange"/>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>bu}" labelFor="buFilter"/>
+                            <MultiComboBox showSelectAll="true" id="buFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/bu}" selectionFinish=".onFilterChange" items="{dashboard>/options/bu}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>country}" labelFor="countryFilter"/>
+                            <MultiComboBox showSelectAll="true" id="countryFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/country}" selectionFinish=".onFilterChange" items="{dashboard>/options/country}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>geography}" labelFor="geographyFilter"/>
+                            <MultiComboBox showSelectAll="true" id="geographyFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/geography}" selectionFinish=".onFilterChange" items="{dashboard>/options/geography}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>status}" labelFor="statusFilter"/>
+                            <MultiComboBox showSelectAll="true" id="statusFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/status}" selectionFinish=".onFilterChange" items="{dashboard>/options/status}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>owner}" labelFor="ownerFilter"/>
+                            <MultiComboBox showSelectAll="true" id="ownerFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/owner}" selectionFinish=".onFilterChange" items="{dashboard>/options/owner}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>band}" labelFor="bandFilter"/>
+                            <MultiComboBox showSelectAll="true" id="bandFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/band}" selectionFinish=".onFilterChange" items="{dashboard>/options/band}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>proposalCode}" labelFor="proposalCodeFilter"/>
+                            <MultiComboBox showSelectAll="true" id="proposalCodeFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/proposalCode}" selectionFinish=".onFilterChange" items="{dashboard>/options/proposalCode}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                    </FlexBox>
+                    <HBox justifyContent="End" class="sapUiTinyMarginTop">
+                        <Button text="{i18n>clear}" type="Transparent" tooltip="{i18n>clearTooltip}" press=".onReset"/>
+                    </HBox>
+                </VBox>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <VBox class="dashboardBody">
+                <MessageStrip text="{dashboard>/sourceNote}" type="Information" showIcon="true" visible="{= !!${dashboard>/sourceNote} }" class="sapUiSmallMarginBottom"/>
+                <MessageStrip text="{dashboard>/error}" type="Error" showIcon="true" visible="{= !!${dashboard>/error} }" class="sapUiSmallMarginBottom"/>
+                <VBox visible="{dashboard>/busy}" alignItems="Center" class="sapUiLargeMargin">
+                    <BusyIndicator text="{i18n>loading}"/>
+                    <Text text="{dashboard>/progress}"/>
+                </VBox>
+                <VBox visible="{= ${dashboard>/loaded} &amp;&amp; !${dashboard>/busy} }">
+                    <OverflowToolbar design="Transparent">
+                        <Text text="{dashboard>/scope}" class="dashboardScope"/>
+                        <ToolbarSpacer/>
+                        <ObjectStatus text="{dashboard>/updated}" icon="sap-icon://history"/>
+                    </OverflowToolbar>
+                    <MessageStrip text="{dashboard>/warning}" type="Warning" showIcon="true" visible="{= !!${dashboard>/warning} }"/>
+                    <VBox class="kpiGrid">
+                        <VBox id="opportunitiesKpi" class="kpiCard kpiPrimary kpiAction">
+                            <Title text="{i18n>totalOpportunities}" level="H3" wrapping="true"/>
+                            <Text text="{dashboard>/kpis/total}" class="kpiNumber"/>
+                            <Text text="{i18n>totalValue}" class="kpiFootnote"/>
+                            <Text text="{path:'dashboard>/kpis/value',formatter:'.formatEur'}" class="kpiFootnote"/>
+                        </VBox>
+                        <VBox class="kpiCard kpiPrimary">
+                            <Title text="{i18n>activePipeline}" level="H3" wrapping="true"/>
+                            <Text text="{path:'dashboard>/kpis/pipeline',formatter:'.formatEur'}" class="kpiNumber"/>
+                            <Text text="{i18n>activeDefinition}" class="kpiFootnote"/>
+                        </VBox>
+                        <VBox class="kpiCard kpiPositive">
+                            <Title text="{i18n>wonValue}" level="H3" wrapping="true"/>
+                            <Text text="{path:'dashboard>/kpis/wonValue',formatter:'.formatEur'}" class="kpiNumber"/>
+                            <Text text="{i18n>wonDefinition}" class="kpiFootnote"/>
+                        </VBox>
+                        <VBox class="kpiCard">
+                            <Title text="{i18n>winRate}" level="H3" wrapping="true"/>
+                            <Text text="{path:'dashboard>/kpis/winRate',formatter:'.formatRate'}" class="kpiNumber"/>
+                            <Text text="{i18n>winRateDefinition}" class="kpiFootnote"/>
+                        </VBox>
+                        <VBox class="kpiCard">
+                            <Title text="{i18n>averageSize}" level="H3" wrapping="true"/>
+                            <Text text="{path:'dashboard>/kpis/average',formatter:'.formatEur'}" class="kpiNumber"/>
+                            <Text text="{i18n>averageDefinition}" class="kpiFootnote"/>
+                        </VBox>
+                        <!-- <VBox class="kpiCard kpiWarning">
+                            <Title text="{i18n>overdue}" level="H3" wrapping="true"/>
+                            <Text text="{dashboard>/kpis/overdue}" class="kpiNumber"/>
+                            <Text text="{i18n>overdueDefinition}" class="kpiFootnote"/>
+                        </VBox> -->
+                    </VBox>
+                    <OverflowToolbar design="Transparent" class="dashboardControls">
+                        <Title text="{i18n>explore}" level="H2"/>
+                        <ToolbarSpacer/>
+                        <Label text="{i18n>metric}" labelFor="metricSelect"/>
+                        <Select id="metricSelect" selectedKey="{dashboard>/metric}" change=".onFilterChange">
+                            <core:Item key="count" text="{i18n>opportunityCount}"/>
+                            <core:Item key="eur" text="{i18n>eurValue}"/>
+                        </Select>
+                    </OverflowToolbar>
+                    <Text text="{i18n>chartHint}" class="chartSubheading dashboardControls"/>
+                    <MessageStrip text="{i18n>noData}" type="Information" showIcon="true" visible="{= ${dashboard>/rows}.length === 0 }"/>
+                    <VBox class="chartGrid" visible="{= ${dashboard>/rows}.length > 0 }">
+                        <VBox class="chartCard">
+                            <OverflowToolbar>
+                                <Title text="{i18n>trendTitle}" level="H3"/>
+                                <ToolbarSpacer/>
+                                <Select id="trendInterval" selectedKey="{dashboard>/interval}" change=".onFilterChange" tooltip="{i18n>trendTitle}">
+                                    <core:Item key="quarter" text="{i18n>quarter}"/>
+                                    <core:Item key="month" text="{i18n>month}"/>
+                                </Select>
+                            </OverflowToolbar>
+                            <Text text="{i18n>trendSubtitle}" class="chartSubheading"/>
+                            <VBox id="trendHost"/>
+                        </VBox>
+                        <VBox class="chartCard">
+                            <Title text="{i18n>statusTitle}" level="H3"/>
+                            <Text text="{i18n>statusSubtitle}" class="chartSubheading"/>
+                            <VBox id="statusHost"/>
+                        </VBox>
+                        <VBox class="chartCard">
+                            <OverflowToolbar>
+                                <Title text="{i18n>breakdownTitle}" level="H3"/>
+                                <ToolbarSpacer/>
+                                <Select id="breakdownSelect" selectedKey="{dashboard>/breakdown}" change=".onFilterChange" tooltip="{i18n>groupBy}">
+                                    <core:Item key="bu" text="{i18n>bu}"/>
+                                    <core:Item key="geography" text="{i18n>geography}"/>
+                                    <core:Item key="country" text="{i18n>country}"/>
+                                    <!-- <core:Item key="owner" text="{i18n>owner}"/> -->
+                                </Select>
+                            </OverflowToolbar>
+                            <Text text="{i18n>breakdownSubtitle}" class="chartSubheading"/>
+                                <VBox id="breakdownHost"/>
+                        </VBox>
+                        <VBox class="chartCard">
+                            <Title text="{i18n>bandTitle}" level="H3"/>
+                            <Text text="{i18n>bandSubtitle}" class="chartSubheading"/>
+                            <VBox id="bandHost"/>
+                        </VBox>
+                    </VBox>
+                    <!-- <Text text="{dashboard>/overview}" class="dashboardContext"/> -->
+                    <VBox class="chartGrid" visible="{= ${dashboard>/rows}.length > 0 }">
+                        <VBox class="chartCard">
+                            <Title text="{i18n>ownerTitle}" level="H3"/>
+                            <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
+                                <VBox id="ownerHost"/>
+                        </VBox>
+                        <VBox class="chartCard">
+                            <Title text="{i18n>proposalChartTitle}" level="H3"/>
+                            <Text text="{i18n>proposalChartSubtitle}" class="chartSubheading"/>
+                                <VBox id="proposalCodeHost"/>
+                        </VBox>
+                    </VBox>
+                    <VBox id="opportunityTableSection" class="dashboardTable">
+                        <Table updateFinished=".onTableUpdated" id="opportunities" growing="false" alternateRowColors="true" sticky="ColumnHeaders" autoPopinMode="true" ariaLabelledBy="opportunitiesTitle" noDataText="{i18n>noData}" items="{path:'dashboard>/rows', sorter:{path:'eur',descending:true}}">
+                            <headerToolbar>
+                                <OverflowToolbar id="opportunitiesToolbar" design="Transparent">
+                                    <Title id="opportunitiesTitle" text="{= ${i18n>tableTitle} + ' (' + ${dashboard>/kpis/total} + ')' }" level="H2"/>
+                                    <ToolbarSpacer/>
+                                    <SearchField id="opportunitySearch" width="20rem" placeholder="{i18n>searchPlaceholder}" value="{dashboard>/filters/search}" liveChange=".onSearch"/>
+                                    <Select id="sortSelect" selectedKey="{dashboard>/sort}" change=".onSort" tooltip="{i18n>sortBy}">
+                                        <core:Item key="eur" text="{i18n>sortValue}"/>
+                                        <core:Item key="received" text="{i18n>sortDate}"/>
+                                        <core:Item key="CustomerName" text="{i18n>sortCustomer}" />
+                                    </Select>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column width="17rem" importance="High">
+                                    <Text text="{i18n>customer}"/>
+                                </Column>
+                                <Column width="7rem">
+                                    <Text text="{i18n>received}"/>
+                                </Column>
+                                <Column width="8rem">
+                                    <Text text="{i18n>bu}"/>
+                                </Column>
+                                <Column width="8rem">
+                                    <Text text="{i18n>country}"/>
+                                </Column>
+                                <Column width="8rem">
+                                    <Text text="{i18n>geography}"/>
+                                </Column>
+                                <Column width="8rem" importance="High">
+                                    <Text text="{i18n>status}"/>
+                                </Column>
+                                <Column width="8rem">
+                                    <Text text="{i18n>owner}"/>
+                                </Column>
+                                <Column width="9rem" hAlign="End">
+                                    <Text text="{i18n>originalValue}"/>
+                                </Column>
+                                <Column width="9rem" hAlign="End" importance="High">
+                                    <Text text="{i18n>sizeEur}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onOpportunityPress">
+                                    <cells>
+                                        <VBox>
+                                            <ObjectIdentifier title="{dashboard>CustomerName}" text="{path:'dashboard>Id',formatter:'.formatId'}"/>
+                                            <Text text="{dashboard>OppDesc}" maxLines="2"/>
+                                        </VBox>
+                                        <Text text="{dashboard>received}"/>
+                                        <Text text="{= ${dashboard>BUDetailsText} || ${dashboard>BUDetails} || 'Unassigned' }"/>
+                                        <Text text="{= ${dashboard>Country_Text} || ${dashboard>Country} || 'Unassigned' }"/>
+                                        <Text text="{= ${dashboard>GeographyText} || ${dashboard>Geography} || 'Unassigned' }"/>
+                                        <ObjectStatus text="{= ${dashboard>StatusText} || ${dashboard>Status} }" state="{path:'dashboard>Status',formatter:'.statusState'}"/>
+                                        <Text text="{= ${dashboard>Owner} || 'Unassigned' }"/>
+                                        <ObjectNumber number="{path:'dashboard>OppTcv',type:'Decimal',formatOptions:{groupingEnabled:true,minFractionDigits:2,maxFractionDigits:2}}" unit="{dashboard>Currency}" emphasized="false"/>
+                                        <ObjectNumber number="{path:'dashboard>eur',formatter:'.formatAmount'}" unit="EUR" emphasized="false"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

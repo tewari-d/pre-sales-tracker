@@ -1,0 +1,30 @@
+# Isolated dashboard fixtures; existing app mock configuration is unchanged.
+specVersion: "3.1"
+metadata:
+  name: com.ngr.www.presalestracker.ngrpresalestracker
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+          version: 1.136.20
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/ngr/OD_PS_TRACKER_SRV
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./webapp/test/dashboard/data
+            generateMockData: false
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**

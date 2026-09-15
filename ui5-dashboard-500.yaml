@@ -1,0 +1,34 @@
+# Local snapshot obtained with authorized ARC-1 table access in client 500.
+# No live SAP backend is configured; real records remain in the ignored .local-data folder.
+specVersion: "3.1"
+metadata:
+  name: com.ngr.www.presalestracker.ngrpresalestracker
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+          version: 1.136.20
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/ngr/OD_PS_TRACKER_SRV
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./.local-data/ps4-500/mockdata
+            generateMockData: false
+        annotations:
+          - localPath: ./webapp/localService/mainService/NGR_OD_PS_TRACKER_ANNO_MDL.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='%2FNGR%2FOD_PS_TRACKER_ANNO_MDL',Version='0001')/$value/
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**

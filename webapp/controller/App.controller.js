@@ -1,6 +1,7 @@
 sap.ui.define([
-  "sap/ui/core/mvc/Controller"
-], (BaseController) => {
+  "sap/ui/core/mvc/Controller",
+  "sap/f/library"
+], (BaseController, library) => {
   "use strict";
 
   return BaseController.extend("com.ngr.www.presalestracker.ngrpresalestracker.controller.App", {
@@ -12,15 +13,12 @@ sap.ui.define([
     onBeforeRouteMatched: function (oEvent) {
       var oModel = this.getOwnerComponent().getModel("comp");
 
-      var sLayout = oEvent.getParameters().arguments.layout;
-
-      // If there is no layout parameter, query for the default level 0 layout (normally OneColumn)
-      if (!sLayout) {
-        var oNextUIState = this.getOwnerComponent()
-          .getHelper()
-          .getNextUIState(0);
-        sLayout = oNextUIState.layout;
-      }
+      var oArguments = oEvent.getParameters().arguments;
+      // A list route has no selected opportunity. The helper is configured with
+      // initialColumnsCount: 2, so its default would expose an empty detail pane.
+      var sLayout = oArguments.id
+        ? oArguments.layout || library.LayoutType.TwoColumnsMidExpanded
+        : library.LayoutType.OneColumn;
 
       // Update the layout of the FlexibleColumnLayout
       if (sLayout) {
@@ -31,6 +29,10 @@ sap.ui.define([
       var sRouteName = oEvent.getParameter("name"),
         oArguments = oEvent.getParameter("arguments");
 
+      // On a direct link, the initial beforeRouteMatched can fire before this
+      // view attaches its listeners. Apply the route layout once targets exist,
+      // before the helper reads the FCL's default OneColumn state.
+      this.onBeforeRouteMatched(oEvent);
       this._updateUIElements();
 
       // Save the current route name

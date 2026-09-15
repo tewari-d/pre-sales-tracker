@@ -1,4 +1,7 @@
 ## Application Details
+
+For the separate analytical dashboard, see [DASHBOARD.md](DASHBOARD.md). Run `npm run start-dashboard` against PS4 or `npm run start-dashboard-mock` with isolated sample data.
+
 |               |
 | ------------- |
 |**Generation Date and Time**<br>Thu Jun 26 2025 08:10:49 GMT+0000 (Coordinated Universal Time)|
@@ -38,5 +41,4 @@ SAP Pre Sales Tracker Application
 #### Pre-requisites:
 
 1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
-
 

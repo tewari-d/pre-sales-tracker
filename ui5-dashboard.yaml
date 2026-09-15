@@ -1,0 +1,9 @@
+# Build the independent component with its own module namespace inside the app bundle.
+specVersion: "3.1"
+metadata:
+  name: com.ngr.presales.dashboard
+type: application
+resources:
+  configuration:
+    paths:
+      webapp: webapp/dashboard

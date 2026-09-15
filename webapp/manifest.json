@@ -3,6 +3,7 @@
   "sap.app": {
     "id": "com.ngr.www.presalestracker.ngrpresalestracker",
     "type": "application",
+    "embeds": ["dashboard"],
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "0.0.1"
@@ -59,6 +60,7 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
+        "sap.ushell": {},
         "sap.ui.comp": {}
       }
     },

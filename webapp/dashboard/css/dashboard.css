@@ -1,0 +1,65 @@
+.presalesDashboard { background: var(--sapBackgroundColor); }
+.presalesDashboard .sapFDynamicPageTitle { padding-top: 1.4rem; padding-bottom: 1.2rem; }
+.presalesDashboard .dashboardEyebrow { color: var(--sapLinkColor); font-size: .7rem; letter-spacing: .14em; font-weight: 700; margin-bottom: .55rem; }
+.presalesDashboard .dashboardHeading { font-size: 1.8rem; font-weight: 700; }
+.presalesDashboard .dashboardSubtitle { color: var(--sapContent_LabelColor); margin-top: .35rem; }
+.presalesDashboard .dashboardFilters { gap: .5rem .75rem; }
+.presalesDashboard .filterField { width: 11rem; flex: 0 1 11rem; max-width: 100%; }
+.presalesDashboard .filterField .sapMLabel { font-size: .75rem; }
+.presalesDashboard .dashboardBody { width: 100%; min-width: 0; box-sizing: border-box; padding: .5rem 0 2rem; }
+.presalesDashboard .dashboardScope { color: var(--sapContent_LabelColor); font-size: .8rem; }
+.presalesDashboard .dashboardContext { color: var(--sapContent_LabelColor); font-size: .75rem; padding: .35rem 0 .75rem; }
+.presalesDashboard .kpiGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; margin: 1rem 0 1.7rem; }
+.presalesDashboard .kpiCard { background: var(--sapTile_Background); border: 1px solid var(--sapTile_BorderColor); border-radius: 1rem; padding: 1.2rem; box-sizing: border-box; min-height: 10.5rem; box-shadow: var(--sapContent_Shadow0); }
+.presalesDashboard .kpiCard .sapMTitle { font-size: .84rem; color: var(--sapContent_LabelColor); }
+.presalesDashboard .kpiNumber { font-size: 2.1rem; font-weight: 700; color: var(--sapTitleColor); margin: .65rem 0 .45rem; letter-spacing: -.04em; }
+.presalesDashboard .kpiPrimary { border-top: 3px solid var(--sapLinkColor); }
+.presalesDashboard .kpiPrimary .kpiNumber { color: var(--sapLinkColor); }
+.presalesDashboard .kpiPositive .kpiNumber { color: var(--sapPositiveTextColor); }
+.presalesDashboard .kpiWarning .kpiNumber { color: var(--sapCriticalTextColor); }
+.presalesDashboard .kpiFootnote { color: var(--sapContent_LabelColor); font-size: .73rem; line-height: 1.4; }
+.presalesDashboard .chartGrid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 1rem; margin: 1rem 0 1.5rem; }
+.presalesDashboard .chartCard { min-width: 0; background: var(--sapTile_Background); border: 1px solid var(--sapTile_BorderColor); border-radius: 1rem; padding: 1.1rem; box-shadow: var(--sapContent_Shadow0); }
+.presalesDashboard .chartCard .sapMTB { border-bottom: 0; padding: 0; }
+.presalesDashboard .chartSubheading { color: var(--sapContent_LabelColor); font-size: .75rem; margin: .2rem 0 .8rem; }
+.presalesDashboard .dashboardTable { border: 1px solid var(--sapTile_BorderColor); border-radius: 1rem; overflow: hidden; background: var(--sapTile_Background); }
+.presalesDashboard .dashboardNotes { margin-top: 1.2rem; }
+.presalesDashboard .dashboardNotesText { line-height: 1.6; color: var(--sapContent_LabelColor); }
+.presalesDashboard .dashboardFooter { margin-top: 1rem; gap: .5rem; }
+@media (max-width: 1250px) { .presalesDashboard .kpiGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 850px) { .presalesDashboard .chartGrid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 550px) {
+    .presalesDashboard .kpiGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+    .presalesDashboard .kpiCard { padding: .8rem; }
+    .presalesDashboard .kpiNumber { font-size: 1.8rem; }
+    .presalesDashboard .dashboardHeading { font-size: 1.35rem; }
+    .presalesDashboard .chartCard { padding: .6rem; }
+}
+@media print {
+    html, body, body > div { height: auto !important; overflow: visible !important; }
+    .presalesDashboard, .presalesDashboard .sapFDynamicPageContentWrapper, .presalesDashboard .sapFDynamicPageContentFitContainer { position: static !important; height: auto !important; overflow: visible !important; }
+    .presalesDashboard .sapFDynamicPageHeader, .presalesDashboard .sapFDynamicPageTitleActions, .presalesDashboard .dashboardControls, .presalesDashboard .dashboardTable { display: none !important; }
+    .presalesDashboard .kpiGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .presalesDashboard .chartGrid { display: block; }
+    .presalesDashboard .chartCard { break-inside: avoid; margin-bottom: 1rem; }
+    .presalesDashboard .sapMScrollCont, .presalesDashboard .sapMScrollContScroll { height: auto !important; overflow: visible !important; }
+    .presalesDashboard .sapFDynamicPageContent { padding: 0 !important; }
+}
+
+.presalesDashboard .filterDateRange { flex-basis: 16rem; width: 16rem; }
+/* Period list shows five rows and scrolls the rest. Popover writes its own
+   inline max-height on the content container, so !important is required. */
+[id$="periodFilter-popup-cont"] { max-height: 12.625rem !important; }
+.sapUiSizeCompact [id$="periodFilter-popup-cont"] { max-height: 10.4375rem !important; }
+.presalesDashboard .kpiAction { cursor: pointer; }
+.presalesDashboard .kpiAction:hover { border-color: var(--sapLinkColor); }
+.presalesDashboard .kpiAction:focus-visible { outline: 2px solid var(--sapContent_FocusColor); outline-offset: 2px; }
+
+.dashboardHoverCard { position: fixed; z-index: 10000; pointer-events: none; background: var(--sapGroup_ContentBackground); color: var(--sapTextColor); border: 1px solid var(--sapGroup_ContentBorderColor); border-radius: .5rem; box-shadow: var(--sapContent_Shadow2); padding: .5rem .65rem; width: 18rem; max-width: calc(100vw - 2rem); box-sizing: border-box; font: .75rem var(--sapFontFamily); }
+.dashboardHoverCard[hidden] { display: none; }
+.dashboardHoverCard { height: auto; min-height: 0; }
+.dashboardHoverCard > strong { display: block; margin-bottom: .35rem; }
+.dashboardHoverCard > div { display: flex; justify-content: space-between; gap: .5rem; line-height: 1.4; }
+.dashboardHoverCard b { white-space: nowrap; }
+/* Value labels overlay the bar; let the underlying segment receive hover/click. */
+.presalesDashboard .v-datalabel { pointer-events: none; }

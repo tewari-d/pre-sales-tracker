@@ -48,6 +48,7 @@
 
                     </smartFilterBar:SmartFilterBar>
                     <HBox id="_IDGenHBox" justifyContent="End">
+                        <!-- <Button id="presalesDashboardButton" text="SAP Presales Dashboard" icon="sap-icon://navigation-right-arrow" press="onNavigateToDashboard" type="Transparent" /> -->
                         <Button id="_IDGenButton14" text="Presales Repository" icon="sap-icon://navigation-right-arrow" press="onNavigateToCaseStudies" type="Transparent" />
                         <Button id="_IDGenButton15" text="Non Opportunities" icon="sap-icon://navigation-right-arrow" press="onNavigateToNonOpp" type="Transparent" />
                         <Button id="_IDGenButton3" text="Future Demands" icon="sap-icon://navigation-right-arrow" press="onNavigateToFutDmd" type="Transparent" />
@@ -75,7 +76,7 @@
                         </SegmentedButton>
                         <ToolbarSpacer id="_IDGenToolbarSpacer" />
                         <Button id="_IDGenOverflowToolbarButton" tooltip="Create New" text="Add New Opportunity" icon="sap-icon://add" press="onCreate" />
-                        <MenuButton id="reportsMenuButton" text="Reports" buttonMode="Regular" tooltip="View Reports">
+                        <MenuButton id="reportsMenuButton" text="Reports" buttonMode="Regular" tooltip="View Reports" visible="false">
                             <menu>
                                 <Menu itemSelected="onReportMenuItemSelected">
                                     <items>

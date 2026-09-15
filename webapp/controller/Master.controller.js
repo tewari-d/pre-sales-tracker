@@ -4,13 +4,33 @@ sap.ui.define(
     "sap/ui/core/Fragment",
     "com/ngr/www/presalestracker/ngrpresalestracker/utils/FieldValidators",
     "sap/ui/export/Spreadsheet",
+    "sap/ushell/Container",
+    "sap/m/MessageBox",
   ],
-  (Controller, Fragment, FieldValidators, Spreadsheet) => {
+  (Controller, Fragment, FieldValidators, Spreadsheet, ShellContainer, MessageBox) => {
     "use strict";
 
     return Controller.extend(
       "com.ngr.www.presalestracker.ngrpresalestracker.controller.Master",
       {
+        onNavigateToDashboard: async function () {
+          if (this.getOwnerComponent().getComponentData()?.startupParameters && ShellContainer) {
+            try {
+              const navigation = await ShellContainer.getServiceAsync("Navigation");
+              await navigation.navigate({ target: { semanticObject: "Presales", action: "analyze" } }, this.getOwnerComponent());
+            } catch (error) {
+              MessageBox.error("The presales dashboard could not be opened. Please check the Presales-analyze launchpad target mapping and your catalog access.");
+            }
+            return;
+          }
+          const dashboardUrl = new URL(sap.ui.require.toUrl("com/ngr/www/presalestracker/ngrpresalestracker/dashboard/index.html"), window.location.href);
+          const parameters = new URLSearchParams(window.location.search);
+          dashboardUrl.searchParams.set("tracker-url", window.location.href);
+          ["sap-client", "sap-language", "sap-ui-theme", "snapshot"].forEach(function (key) {
+            if (parameters.has(key)) { dashboardUrl.searchParams.set(key, parameters.get(key)); }
+          });
+          window.open(dashboardUrl.href, "_blank", "noopener,noreferrer");
+        },
         onInit() {
           this.oRouter = this.getOwnerComponent().getRouter();
           const oSmartTable = this.byId("presalesDBSmartTable");

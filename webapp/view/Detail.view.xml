@@ -14,8 +14,17 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle">
                 <expandedHeading>
-                    <ObjectPageHeader id="idObjectPageHeader" objectSubtitle="ID: {path: 'Id', formatter: '.formatId' }" objectTitle="{CustomerName}" />
+                    <m:Title id="idObjectPageTitle" text="{CustomerName}" wrapping="true" />
                 </expandedHeading>
+                <snappedHeading>
+                    <m:Title id="idObjectPageSnappedTitle" text="{CustomerName}" wrapping="true" />
+                </snappedHeading>
+                <expandedContent>
+                    <m:Text id="idObjectPageSubtitle" text="ID: {path: 'Id', formatter: '.formatId' }" />
+                </expandedContent>
+                <snappedContent>
+                    <m:Text id="idObjectPageSnappedSubtitle" text="ID: {path: 'Id', formatter: '.formatId' }" />
+                </snappedContent>
                 <navigationActions>
                     <m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="onOverflowToolbarButtonFullScreenPress" id="idEnterFullScreenOverflowToolbarButton" tooltip="Enter Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/fullScreen} !== null }" />
                     <m:OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="onOverflowToolbarButtonExitFullScreenPress" id="idExitFullScreenOverflowToolbarButton" tooltip="Exit Full Screen Mode" visible="{= ${comp>/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
@@ -110,9 +119,6 @@
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement71">
                                         <smartField:SmartField id="_IDGenSmartField72" value="{ProposalTypeOp}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
-                                    </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement62">
-                                        <smartField:SmartField id="_IDGenSmartField66" value="{ProposalType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement7">
                                         <smartField:SmartField id="_IDGenSmartField7" value="{ReceivedDate}" fieldGroupIds="generalInfoFieldGroup" />

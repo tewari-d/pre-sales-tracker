@@ -1,7 +1,7 @@
 {
   "name": "ngr-pre-sales-tracker",
   "version": "0.0.1",
-  "description": "SAP Pre Sales Tracker Application",
+  "description": "SAP Presales Tracker Application",
   "keywords": [
     "ui5",
     "openui5",
@@ -9,15 +9,20 @@
   ],
   "main": "webapp/index.html",
   "devDependencies": {
-    "@sap-ux/ui5-middleware-fe-mockserver": "^2.4.15",
-    "@sap/ux-ui5-tooling": "^1.28.0",
+    "@sap-ux/ui5-middleware-fe-mockserver": "^2.4.16",
+    "@sap/ux-ui5-tooling": "^1.32.0",
     "@ui5/cli": "^4.0.19",
     "rimraf": "^5.0.5"
   },
   "scripts": {
+    "start-dashboard": "fiori run --open \"dashboard/index.html\"",
+    "start-dashboard-500": "fiori run --config ./ui5-dashboard-500.yaml --port 8085 --open \"dashboard/index.html?snapshot=PS4-500&sap-client=500&sap-ui-xx-componentPreload=off\"",
+    "start-dashboard-mock": "fiori run --config ./ui5-dashboard-mock.yaml --open \"dashboard/index.html?sap-ui-xx-componentPreload=off\"",
+    "test-dashboard": "node --test webapp/test/dashboard/*.test.cjs",
     "start": "fiori run --open \"test/flp.html#app-preview\"",
     "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flp.html#app-preview\"",
-    "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
+    "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist && npm run build-dashboard",
+    "build-dashboard": "ui5 build --config=ui5-dashboard.yaml --dest dist/dashboard",
     "deploy": "npm run build && fiori deploy --config ui5-deploy.yaml",
     "deploy-config": "fiori add deploy-config",
     "start-noflp": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
