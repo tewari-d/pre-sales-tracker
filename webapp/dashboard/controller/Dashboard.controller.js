@@ -238,6 +238,7 @@ sap.ui.define(
             // label and a whole series from the legend; SINGLE ignores both.
             interaction: { selectability: { mode: ownerSplit ? "EXCLUSIVE" : "SINGLE" } },
           });
+          chart.attachRenderComplete(() => this._hideFractionalTicks(chart));
           chart.attachRenderComplete(() => this._restoreScroll());
           if (ownerSplit) {
             chart.attachRenderComplete(() => this._trackOwnerClickOrigin(chart));
@@ -631,20 +632,22 @@ sap.ui.define(
           const chartBounds = dom.getBoundingClientRect();
           // Stacked below the chart (narrow layout): nothing to align.
           if (box.getBoundingClientRect().top >= chartBounds.bottom - 1) { reset(); return; }
-          // One centre per bar (segments of a stack share it); keep sub-pixel
-          // values so the row pitch does not drift over a long list.
-          const centers = [];
-          Array.from(dom.querySelectorAll(".v-datapoint"))
-            .map((point) => point.getBoundingClientRect())
+          // One centre per owner, measured from the category-axis labels: each
+          // label box spans its bar's slot, and a label exists even when every
+          // segment of the stack is zero (an owner without EUR values), where
+          // sap.viz draws no bar at all. Keep sub-pixel values so the row pitch
+          // does not drift over a long list.
+          const slots = Array.from(dom.querySelectorAll(".v-m-categoryAxis .v-label"))
+            .map((label) => label.getBoundingClientRect())
             .filter((rect) => rect.height > 0)
-            .map((rect) => (rect.top + rect.bottom) / 2)
-            .sort((a, b) => a - b)
-            .forEach((center) => {
-              if (!centers.length || center - centers[centers.length - 1] > 1) { centers.push(center); }
-            });
+            .sort((a, b) => a.top - b.top);
+          const centers = slots.map((rect) => (rect.top + rect.bottom) / 2);
           if (!centers.length || centers.length !== rows.length) { reset(); return; }
-          const barHeight = dom.querySelector(".v-datapoint").getBoundingClientRect().height;
-          const pitch = centers.length > 1 ? (centers[centers.length - 1] - centers[0]) / (centers.length - 1) : barHeight * 1.6;
+          const barHeight = Array.from(dom.querySelectorAll(".v-datapoint"))
+            .map((point) => point.getBoundingClientRect().height)
+            .find((height) => height > 0);
+          const pitch = centers.length > 1 ? (centers[centers.length - 1] - centers[0]) / (centers.length - 1)
+            : barHeight ? barHeight * 1.6 : slots[0].height;
           const header = box.querySelector(".sapMListTblHeader");
           const headerHeight = header ? header.getBoundingClientRect().height : 0;
           // The chart host and the box start at the same flex line, so move
@@ -708,6 +711,34 @@ sap.ui.define(
           this._viewModel.setProperty("/filters/proposalCode", [series.key]);
           this._apply();
           MessageToast.show(this._text("chartFiltered", [series.label]));
+        },
+        // sap.viz picks value-axis steps by pixel length only, so small counts
+        // get 0.5 or 0.1 ticks and an integer formatString would print
+        // duplicates (0, 1, 1, 2). In count mode, hide every axis label that
+        // is not a whole number and the gridline drawn at its position; EUR
+        // mode shows all of them again. Runs before _stickOwnerAxis so the
+        // cloned axis inherits the visibility.
+        _hideFractionalTicks: function (chart) {
+          const svg = chart.getDomRef()?.querySelector("svg");
+          if (!svg) { return; }
+          const counts = this._viewModel.getProperty("/metric") !== "eur";
+          const horizontal = !!svg.querySelector(".v-m-valueAxis.v-m-xAxis");
+          const centre = (el) => {
+            const r = el.getBoundingClientRect();
+            return horizontal ? (r.left + r.right) / 2 : (r.top + r.bottom) / 2;
+          };
+          const kept = [];
+          svg.querySelectorAll(".v-m-valueAxis .v-label").forEach((label) => {
+            const value = Number(label.textContent.replace(/,/g, ""));
+            const hide = counts && Number.isFinite(value) && !Number.isInteger(value);
+            label.style.visibility = hide ? "hidden" : "";
+            if (!hide) { kept.push(centre(label)); }
+          });
+          svg.querySelectorAll(".v-gridline-group .v-gridline").forEach((line) => {
+            const c = centre(line);
+            const hide = counts && !kept.some((k) => Math.abs(k - c) < 3);
+            line.style.visibility = hide ? "hidden" : "";
+          });
         },
         // Copies the chart's value axis (ticks, labels, title) into the sticky
         // bottom strip, in the chart's own coordinates, so it stays visible
