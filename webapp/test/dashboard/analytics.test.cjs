@@ -16,18 +16,22 @@ const A = load("Analytics");
 test("size bands ascend from below EUR1, including unavailable EUR values", () => {
     const keys = ["below", "small", "medium", "large", "major", "strategic"];
     assert.deepEqual(Array.from(A.options([], "band"), b => b.key), keys);
-    const rows = A.normalize([1000000, 75000, 50000, 25000, 1, 0].map((amount, i) => ({Id:String(i), OppTcv:amount, Currency:"EUR"})).concat({Id:"missing", OppTcv:100, Currency:"XYZ"}), {});
+    const rows = A.normalize([1000000, 500000, 100000, 50000, 1, 0].map((amount, i) => ({Id:String(i), OppTcv:amount, Currency:"EUR"})).concat({Id:"missing", OppTcv:100, Currency:"XYZ"}), {});
     assert.deepEqual(Array.from(A.group(rows, "band", "count"), b => b.key), keys);
     assert.equal(rows[6].band, "below");
     assert.equal(rows[6].eur, null);
+    // Every band is always charted, including empty ones, so the scale never has gaps.
+    const sparse = A.group(A.normalize([{Id:"1", OppTcv:20, Currency:"EUR"}], {}), "band", "count");
+    assert.deepEqual(plain(sparse.map(b => [b.key, b.value])), [["below", 0], ["small", 1], ["medium", 0], ["large", 0], ["major", 0], ["strategic", 0]]);
+    assert.equal(A.group([], "band", "eur").length, 6);
 });
 const plain = value => JSON.parse(JSON.stringify(value));
 const row = (id, overrides = {}) => ({ Id: id, OppTcv: "10000", Currency: "EUR", Status: "WIP", ReceivedDate: "2026-07-01T00:00:00", ...overrides });
 
-test("size boundaries are exclusive at the upper end, including the confirmed €1M band", () => {
-    const values = [0, 1, 24999.99, 25000, 49999.99, 50000, 75000, 999999.99, 1000000];
+test("size boundaries are exclusive at the upper end: €1, €50K, €100K, €500K, €1000K", () => {
+    const values = [0, 1, 49999.99, 50000, 99999.99, 100000, 499999.99, 500000, 999999.99, 1000000, 5000000];
     const normalized = A.normalize(values.map((value, i) => row(String(i), { OppTcv: String(value) })), {});
-    assert.deepEqual(plain(normalized.map(r => r.band)), ["below", "small", "small", "medium", "medium", "large", "major", "major", "strategic"]);
+    assert.deepEqual(plain(normalized.map(r => r.band)), ["below", "small", "small", "medium", "medium", "large", "large", "major", "major", "strategic", "strategic"]);
 });
 
 test("convert foreign values by dividing units per EUR; missing currency or rate is not EUR", () => {
@@ -83,9 +87,20 @@ test("verified statuses define pipeline, won, win-rate denominator and overdue c
     assert.equal(kpi.active, 3);
     assert.equal(kpi.pipeline, 30000);
     assert.equal(kpi.wonValue, 20000);
-    assert.equal(kpi.winRate, 200 / 3);
+    // Win rate = (WIN + COMPLETE) / all opportunities regardless of status: 2 of 8.
+    assert.equal(kpi.winRate, 25);
     assert.equal(kpi.overdue, 1);
     assert.equal(kpi.total, 8);
+});
+
+test("win rate counts every non-deleted opportunity in the denominator, not only closed outcomes", () => {
+    const rows = A.normalize([
+        row("1", { Status: "WIN" }), row("2", { Status: "LOSS" }), row("3", { Status: "WIP" }), row("4", { Status: "HOLD" }),
+        row("5", { Status: "DELE" }), row("6", { DeletionIndicator: true, Status: "WIN" })
+    ], {});
+    assert.equal(rows.length, 4);
+    assert.equal(A.summarize(rows, "2026-09-10").winRate, 25);
+    assert.equal(A.summarize(A.normalize([row("1", { Status: "WIN" }), row("2", { Status: "COMPLETE" })], {}), "2026-09-10").winRate, 100);
 });
 
 test("submitted WIP and due today are not overdue; average excludes unavailable EUR", () => {
@@ -150,7 +165,7 @@ test("owner distribution includes unassigned and respects filtered records", () 
     assert.equal(alex.metrics.pipeline, 10000);
     assert.equal(alex.metrics.wonValue, 10000);
     assert.equal(alex.metrics.overdue, 1);
-    assert.equal(alex.metrics.winRate, 100);
+    assert.equal(alex.metrics.winRate, 50);
     assert.equal(alex.share, 50);
     assert.equal(groups.find(g => g.key === "__UNASSIGNED__").metrics.unconverted, 1);
     const filtered = A.filter(rows, { status: ["WIN"] });
@@ -277,6 +292,7 @@ test("owner stacks reconcile totals and preserve proposal keys, zero cells and s
     const cap=stacks.find(s=>s.key==="Avery"&&s.proposalKey==="CAP");
     assert.equal(cap.value,2); assert.equal(cap.metrics.value,100);assert.equal(cap.metrics.unconverted,1);
     assert.equal(cap.metrics.winRate,0);assert.equal(cap.ownerMetrics.total,3);assert.equal(cap.ownerMetrics.value,400);
+    assert.equal(cap.ownerMetrics.winRate,100/3);
     assert.equal(stacks.find(s=>s.key==="Blair"&&s.proposalKey==="CAP").value,0);
     assert.equal(stacks.find(s=>s.key==="__UNASSIGNED__"&&s.proposalKey==="__UNASSIGNED__").value,1);
     const eur=A.ownerProposalStacks(rows,"eur","2026-09-14");
@@ -285,6 +301,14 @@ test("owner stacks reconcile totals and preserve proposal keys, zero cells and s
     assert.equal(selected.length,2);
     assert.equal(A.ownerProposalStacks(selected,"count","2026-09-14")[0].value,2);
     assert.equal(A.ownerProposalStacks([],"count","2026-09-14").length,0);
+});
+
+test("owner stacks order coded proposal series FULL, CAP, FUNNEL, then unassigned", () => {
+    const rows = A.normalize([
+        row("1",{Owner:"Avery",ProposalTypeOp:""}), row("2",{Owner:"Avery",ProposalTypeOp:"FUNNEL",ProposalTypeOpText:"Funnel"}),
+        row("3",{Owner:"Avery",ProposalTypeOp:"CAP",ProposalTypeOpText:"Capability"}), row("4",{Owner:"Avery",ProposalTypeOp:"FULL",ProposalTypeOpText:"Full-fledged proposal"})
+    ],{});
+    assert.deepEqual(plain(A.ownerProposalStacks(rows,"count","2026-09-15").map(s=>s.proposalKey)),["FULL","CAP","FUNNEL","__UNASSIGNED__"]);
 });
 
 test("stacked hover IDs resolve reversed color series to the correct owner/proposal cell", () => {

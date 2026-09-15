@@ -7,7 +7,7 @@
     "i18n": { "bundleUrl": "i18n/i18n.properties", "supportedLocales": [""], "fallbackLocale": "" },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "applicationVersion": { "version": "1.0.11" },
+    "applicationVersion": { "version": "1.0.12" },
     "dataSources": {
       "mainService": {
         "uri": "/sap/opu/odata/ngr/OD_PS_TRACKER_SRV/",

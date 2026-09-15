@@ -114,6 +114,8 @@
                 <Property Name="OppType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="OppTypeText" sap:label="Opportunity Source" sap:value-list="standard"/>
                 <Property Name="OppTypeText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="OppTypeOther" Type="Edm.String" MaxLength="1000" sap:label="Opportunity Source (Other)"/>
+                <Property Name="OpportunityType" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:text="OpportunityTypeText" sap:label="Opportunity Type" sap:value-list="standard"/>
+                <Property Name="OpportunityTypeText" Type="Edm.String" MaxLength="60" sap:label="Short Description" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="ReceivedDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Received Date"/>
                 <Property Name="DueSubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Due Submission Date"/>
                 <Property Name="SubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Submission Date"/>
@@ -367,6 +369,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/DealType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
@@ -412,6 +415,32 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterConstant">
                                     <PropertyValue Property="Constant" String="/NGR/DO_BU_DETAILS"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/OpportunityType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Read Fixed Values of a Domain"/>
+                        <PropertyValue Property="DistinctValuesSupported" Bool="true"/>
+                        <PropertyValue Property="CollectionPath" String="xNGRxCDS_PS_DOMAIN_VALUES"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="OpportunityType"/>
+                                    <PropertyValue Property="ValueListProperty" String="DomainValue"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="DomainValueText"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterConstant">
+                                    <PropertyValue Property="Constant" String="/NGR/DO_PS_OPPORTUNITY_TYPE"/>
                                     <PropertyValue Property="ValueListProperty" String="DomainName"/>
                                 </Record>
                             </Collection>

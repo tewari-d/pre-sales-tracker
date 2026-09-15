@@ -122,6 +122,11 @@
                     <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
                 </Annotation>
             </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/OpportunityType">
+                <Annotation Term="Common.Text" Path="OpportunityTypeText">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+            </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/Complexity">
                 <Annotation Term="Common.Text" Path="ComplexityText">
                     <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>

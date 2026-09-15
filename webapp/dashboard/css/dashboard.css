@@ -19,6 +19,7 @@
 .presalesDashboard .kpiWarning .kpiNumber { color: var(--sapCriticalTextColor); }
 .presalesDashboard .kpiFootnote { color: var(--sapContent_LabelColor); font-size: .73rem; line-height: 1.4; }
 .presalesDashboard .chartGrid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 1rem; margin: 1rem 0 1.5rem; }
+.presalesDashboard .chartGridFull { grid-template-columns: minmax(0, 1fr); }
 .presalesDashboard .chartCard { min-width: 0; background: var(--sapTile_Background); border: 1px solid var(--sapTile_BorderColor); border-radius: 1rem; padding: 1.1rem; box-shadow: var(--sapContent_Shadow0); }
 .presalesDashboard .chartCard .sapMTB { border-bottom: 0; padding: 0; }
 .presalesDashboard .chartSubheading { color: var(--sapContent_LabelColor); font-size: .75rem; margin: .2rem 0 .8rem; }

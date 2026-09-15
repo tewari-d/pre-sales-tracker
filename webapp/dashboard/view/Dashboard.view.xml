@@ -128,11 +128,11 @@
                             <Text text="{path:'dashboard>/kpis/winRate',formatter:'.formatRate'}" class="kpiNumber"/>
                             <Text text="{i18n>winRateDefinition}" class="kpiFootnote"/>
                         </VBox>
-                        <VBox class="kpiCard">
+                        <!-- <VBox class="kpiCard">
                             <Title text="{i18n>averageSize}" level="H3" wrapping="true"/>
                             <Text text="{path:'dashboard>/kpis/average',formatter:'.formatEur'}" class="kpiNumber"/>
                             <Text text="{i18n>averageDefinition}" class="kpiFootnote"/>
-                        </VBox>
+                        </VBox> -->
                         <!-- <VBox class="kpiCard kpiWarning">
                             <Title text="{i18n>overdue}" level="H3" wrapping="true"/>
                             <Text text="{dashboard>/kpis/overdue}" class="kpiNumber"/>
@@ -180,7 +180,7 @@
                                 </Select>
                             </OverflowToolbar>
                             <Text text="{i18n>breakdownSubtitle}" class="chartSubheading"/>
-                                <VBox id="breakdownHost"/>
+                            <VBox id="breakdownHost"/>
                         </VBox>
                         <VBox class="chartCard">
                             <Title text="{i18n>bandTitle}" level="H3"/>
@@ -189,16 +189,11 @@
                         </VBox>
                     </VBox>
                     <!-- <Text text="{dashboard>/overview}" class="dashboardContext"/> -->
-                    <VBox class="chartGrid" visible="{= ${dashboard>/rows}.length > 0 }">
+                    <VBox class="chartGrid chartGridFull" visible="{= ${dashboard>/rows}.length > 0 }">
                         <VBox class="chartCard">
                             <Title text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
-                                <VBox id="ownerHost"/>
-                        </VBox>
-                        <VBox class="chartCard">
-                            <Title text="{i18n>proposalChartTitle}" level="H3"/>
-                            <Text text="{i18n>proposalChartSubtitle}" class="chartSubheading"/>
-                                <VBox id="proposalCodeHost"/>
+                            <VBox id="ownerHost"/>
                         </VBox>
                     </VBox>
                     <VBox id="opportunityTableSection" class="dashboardTable">

@@ -281,6 +281,45 @@ sap.ui.define(
 
           oView.setBusy(true);
 
+          if (!oPayload.OpportunityType) {
+            sap.m.MessageBox.error(
+              `Please specify Opportunity Type of the opportunity.`,
+              {
+                onClose: function () {
+                  this.byId("idEditOpportunityType").focus();
+                }.bind(this),
+              }
+            );
+            oView.setBusy(false);
+            return;
+          }
+
+          if (!oPayload.Country) {
+            sap.m.MessageBox.error(
+              `Please specify Country / Region of the opportunity.`,
+              {
+                onClose: function () {
+                  this.byId("_IDGenSmartField3").focus();
+                }.bind(this),
+              }
+            );
+            oView.setBusy(false);
+            return;
+          }
+
+          if (!oPayload.ProposalTypeOp) {
+            sap.m.MessageBox.error(
+              `Please specify Proposal Type of the opportunity.`,
+              {
+                onClose: function () {
+                  this.byId("_IDGenSmartField72").focus();
+                }.bind(this),
+              }
+            );
+            oView.setBusy(false);
+            return;
+          }
+
           if (!oPayload.SapSystem) {
             sap.m.MessageBox.error(
               `Please specify SAP System of the opportunity.`,

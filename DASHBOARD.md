@@ -21,9 +21,9 @@ Local development without generated preloads can use `?sap-ui-xx-componentPreloa
 - Received-date filter defaults to the current calendar quarter on first visit and Reset. Quarter choices stop at the current quarter; all dates and inclusive custom ranges remain available.
 - Opening an opportunity remembers filters, search, chart settings, filter-header state and exact page scroll in module memory. Returning inside the same launchpad document consumes that saved state. Initial loads and whole-page reloads always use the current quarter, expanded filters and scroll position zero; browser storage is not used.
 - Multi-select business unit, country/region, geography, status, owner, EUR size band and both proposal-type fields. Every dropdown has a searchable value list and a Select All checkbox; toggling it off clears selections (an empty selection means no restriction). Selections within one field are OR conditions; different fields are combined with AND.
-- Six KPI cards: opportunity count/total value, active pipeline, won value, count-based win rate, average size and overdue submissions.
-- Intake trend by quarter/month; status mix; portfolio distribution by BU/geography/country/owner; size distribution; a dedicated owner-distribution chart including unassigned opportunities.
-- All six charts switch between opportunity count and EUR value. Click a segment to filter the entire dashboard. Hover shows count, EUR value, active pipeline, won value, win rate, overdue submissions, share of the filtered view and unavailable EUR values for that segment.
+- Four visible KPI cards: opportunity count/total value, active pipeline, won value and count-based win rate (average size and overdue submissions remain computed but their cards are commented out). EUR amounts are written with a space after the symbol (`€ 5.8M`).
+- Intake trend by quarter/month; status mix; portfolio distribution by BU/geography/country; size distribution; a full-width owner-distribution chart whose axis label shows each owner's total count, EUR value and win rate, with bars split by coded proposal type (including unassigned).
+- All five charts switch between opportunity count and EUR value. Click a segment to filter the entire dashboard. Hover shows count, EUR value, active pipeline, won value, win rate, overdue submissions, share of the filtered view and unavailable EUR values for that segment.
 - Detail table with customer/description search, sorting, original currency/value, converted EUR value and navigation to the tracker detail page.
 - CSV export includes **all filtered rows**, irrespective of table paging, plus active filters, refresh time, exchange-rate date and any data-quality caveats. Spreadsheet formulas in user-entered text are escaped.
 - Print summary includes the current filter context and charts. The detail table is excluded from printing; use CSV for full details.
@@ -34,7 +34,7 @@ Local development without generated preloads can use `?sap-ui-xx-componentPreloa
 |---|---|
 | Active pipeline | Sum of EUR sizes for `WIP`, `SUBMITTED`, `HOLD` |
 | Won value | Sum of EUR sizes for `WIN`, `COMPLETE` |
-| Win rate | Count of `WIN` + `COMPLETE`, divided by count of those statuses plus `LOSS`; no closed outcomes displays 0% |
+| Win rate | Count of `WIN` + `COMPLETE`, divided by the count of **all** non-deleted opportunities in scope, whatever their status; an empty scope displays 0% (changed in 1.0.12, previously divided by won + `LOSS` only) |
 | Average size | Sum of converted EUR values divided by the number of records with a usable EUR value |
 | Overdue submissions | `WIP`, no submission date, due-submission date before today |
 | Owner | Existing service `Owner`, derived by the CDS view from partner function `OWN` |
@@ -42,7 +42,7 @@ Local development without generated preloads can use `?sap-ui-xx-componentPreloa
 
 Deleted flags and `DELE` status are excluded throughout. Undated opportunities remain in all-dates totals but cannot appear in date-restricted results or date trends. All reporting periods refer to **Received Date**, including won/lost summaries; these are received-date cohorts, not bookings by closing date.
 
-Confirmed size bands are `[€1, €25K)`, `[€25K, €50K)`, `[€50K, €75K)`, `[€75K, €1M)`, and `€1M+`. Lower bounds are included and upper bounds excluded, so boundaries never overlap. Below €1 and unavailable EUR values are separate categories.
+Size bands (since 1.0.12) are `[€1, €50K)`, `[€50K, €100K)`, `[€100K, €500K)`, `[€500K, €1M)` and `€1M+`. The size chart always draws all six bands, including empty ones. Lower bounds are included and upper bounds excluded, so boundaries never overlap. Below €1 and unavailable EUR values share the first category for counts; unavailable values stay excluded from monetary totals.
 
 ## EUR conversion
 
@@ -201,3 +201,33 @@ Frontend (not yet deployed):
 - Local mock `metadata.xml` no longer declares `ProposalType`. 43 Node tests pass; `npm run build` succeeds.
 
 Deployment note: deploy the frontend (`npm run deploy`) before or together with the next launchpad use — the served 1.0.10 bundle still requests `ProposalType` in its `$select`, which the live 110 service now rejects.
+
+## Win-rate formula, owner totals, chart layout and Opportunity Type (1.0.12) — 2026-09-15
+
+Dashboard:
+- **Win rate** is now `(WIN + COMPLETE) / all opportunities` in the filtered view, irrespective of status (deleted rows are excluded before this, as everywhere). Previously the denominator was won + `LOSS`. Applies to the KPI card, every chart hover card and the per-owner figure. Node tests updated (25% for the eight-status fixture; 45 tests pass).
+- The **Opportunities by proposal type** chart is removed (view, controller, i18n). The `proposalCode` filter and dimension stay, and the owner chart still splits by coded proposal type.
+- The **Owner distribution** chart is full width (`chartGridFull`). The axis keeps the plain owner name; the stack-total label after each bar is replaced by `count · € value · win rate` (e.g. `10 · € 3.7M · 40.0%`), computed in the controller from `ownerMetrics`, so the three figures are always visible whichever measure is selected. sap.viz calls `plotArea.dataLabel.renderer` for stack totals (`isTotalDataLabel`) but ignores its result, so `_decorateOwnerTotals` rewrites the `.v-datalabel-group-total` text nodes after each render (id `<categoryIndex>-0`, data is owner-major) and keeps them updated through a MutationObserver; `_reserveOwnerLabelRoom` sets `plotArea.primaryScale.maxValue` to ~1.3× the largest stack (rounded to a clean tick) because labels are clipped at the plot edge (`general.layout.paddingRight` does not help, and `valueAxis.scale.*` is not a valid property for `info/stacked_bar`). The hover card's owner-total line adds the win rate.
+- The `FUNNEL` proposal type (new domain value, below) is ordered `FULL`, `CAP`, `FUNNEL`, unassigned in the owner stacks and takes `sapUiChartPaletteQualitativeHue3`.
+- **Status mix** donut: legend moved to the right and `general.layout.padding` reduced to 8, which enlarges the pie inside the unchanged 19rem card (measured 190px vs 145px diameter on the mock at 1440px width).
+- `formatEur` and hover amounts write `€ ` with a space (`€ 5.8M`, `€ 3,735,000.00`).
+- **Size bands** re-cut to Below €1 · €1–50K · €50–100K · €100–500K · €500K–1M · €1M+ (was 25K/50K/75K/1M steps). Filter keys `below/small/medium/large/major/strategic` are reused. `group()` seeds every band with zero so the size chart never omits an empty band.
+- The `ownerSubtitle` text describes the after-bar totals.
+- Status donut and intake trend charts are 24rem tall (was 19rem) and the donut's outer padding is 0, so the pie is markedly larger; the size-band chart stays 19rem.
+- Version 1.0.12. Verified on the mock server with Playwright: KPI texts, removed chart, axis labels in count and EUR mode, segment click (owner + proposal), owner-name click (owner only), hover card. `npm run build` succeeds. Not yet deployed.
+
+Tracker and backend (**client 110 only**, transport `PS4K902026`, the request that already locks the CDS view and DPC_EXT):
+
+| Object | Change |
+|---|---|
+| DOMA `/NGR/DO_PS_OPPORTUNITY_TYPE` (new) | CHAR 5, fixed values `RFP` = RFP / Full Proposal, `RFI` = RFI, `CAP` = Capability / Rate Enquiry |
+| DTEL `/NGR/DE_PS_OPPORTUNITY_TYPE` (new) | Label "Opportunity Type", change-document flag set like the other master fields |
+| TABL `/NGR/T_MASTER` | Column `opportunity_type` appended at the end (no conversion; 530 rows unchanged, all blank) |
+| DDLS `/NGR/CDS_PS_MASTER` | New association `_OpportunityTypeText`, fields `OpportunityType` (`@ObjectModel.mandatory: true`, text association, `#TEXT_ONLY`) and `OpportunityTypeText`; `Country` now `@ObjectModel.mandatory: true`. The existing `OppType` remains "Opportunity Source" — the two are different fields. |
+| DDLX `/NGR/MEXT_PS_MASTER` | Domain value help for `OpportunityType` |
+| DOMA `/NGR/DO_PS_PROPOSAL_TYPE_OP` | Added fixed value `FUNNEL` = Funnel (FULL/CAP unchanged) |
+| CLAS `/NGR/CL_OD_PS_TRACKER_DPC_EXT` | `opportunity_type = opportunitytype` mapping in `create_deep_entity`; `ls_db_after-opportunity_type = ls_payload-opportunitytype` in `xngrxcds_ps_mast_update_entity` |
+
+All objects activated; the CDS view reads back the new columns. Because the service is a SADL reference-data-source exposure, `$metadata` gains `OpportunityType`/`OpportunityTypeText` with `Common.FieldControl Mandatory` and the value list without SEGW regeneration; run `/IWFND/CACHE_CLEANUP` and `/IWBEP/CACHE_CLEANUP` on 110 if the launchpad still serves the old metadata. Existing opportunities have a blank Opportunity Type, so the first edit of each record must set it before Save.
+
+Tracker frontend (not yet deployed): `OpportunityType` SmartField after Status in `CreateOpportunity.fragment.xml` (`idCreateOpportunityType`) and `Detail.view.xml` (`idEditOpportunityType`); create validation (`_validatePayload`) adds Country / Region and Opportunity Type (and relabels `OppType` as Opportunity Source); Detail `onSave` blocks on missing Opportunity Type or Country with focus on the field. Local mock `metadata.xml` and `NGR_OD_PS_TRACKER_ANNO_MDL.xml` declare the new properties, value list, mandatory annotations (including Country) and text arrangement.

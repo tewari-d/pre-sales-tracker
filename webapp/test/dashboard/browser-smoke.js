@@ -37,7 +37,7 @@ async (page) => {
     await reset();
     check((await state()).kpis.total === 48, "48 fixture opportunities loaded");
     check((await state()).kpis.overdue === 7, "missing submission dates stay null; seven overdue submissions");
-    for (const name of ["trend", "status", "breakdown", "band", "owner", "proposalCode"]) {
+    for (const name of ["trend", "status", "breakdown", "band", "owner"]) {
         await page.locator('[id$="' + name + 'Chart"] .v-datapoint').first().hover();
         await page.getByText("Share of filtered opportunities", { exact: true }).last().waitFor({ timeout: 5000 });
         results.push(name + " chart shows hover KPIs");
@@ -65,8 +65,8 @@ async (page) => {
     await choose("Status", "Win");
     check((await state()).kpis.total === 7 && (await state()).kpis.winRate === 100, "status filter and win rate");
     await reset();
-    await choose("Opportunity size · EUR", "€1M+");
-    check((await state()).kpis.total === 6, "confirmed €1M+ band");
+    await choose("Opportunity size (EUR)", "€1M+");
+    check((await state()).kpis.total === 6, "€1M+ band");
     await reset();
     const range = page.getByRole("textbox", { name: "Received date range", exact: true });
     await range.fill("2026-01-02 – 2026-01-02");

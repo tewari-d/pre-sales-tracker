@@ -147,7 +147,6 @@ sap.ui.define(
               this._makeChart("breakdown", "bar");
               this._makeChart("band", "column");
               this._makeChart("owner", "bar");
-              this._makeChart("proposalCode", "bar");
               this.onRefresh();
             }
           });
@@ -174,7 +173,9 @@ sap.ui.define(
           }
           const chart = new VizFrame(this.getView().createId(name + "Chart"), {
             width: "100%",
-            height: ["breakdown", "owner", "proposalCode"].includes(name)
+            // The status donut shares a row with the trend chart; both get the
+            // taller height so the pie has room and the row stays aligned.
+            height: ["breakdown", "owner", "status", "trend"].includes(name)
               ? "24rem"
               : "19rem",
             vizType: ownerSplit ? "stacked_bar" : type,
@@ -213,7 +214,10 @@ sap.ui.define(
             tooltip: { visible: false },
             title: { visible: false },
             legend: { visible: type === "donut" || ownerSplit },
-            legendGroup: { layout: { position: ownerSplit ? "top" : "bottom" } },
+            // The donut keeps its legend beside the pie and trims the outer
+            // padding so the pie itself fills more of the same-sized card.
+            legendGroup: { layout: { position: ownerSplit ? "top" : type === "donut" ? "right" : "bottom" } },
+            general: { layout: { padding: type === "donut" ? 0 : 24 } },
             plotArea: {
               colorPalette: ownerSplit ? this._ownerPalette([]) : [
                 "#0070f2",
@@ -236,6 +240,7 @@ sap.ui.define(
           chart.attachRenderComplete(() => this._restoreScroll());
           if (ownerSplit) {
             chart.attachRenderComplete(() => this._trackOwnerClickOrigin(chart));
+            this._decorateOwnerTotals(chart);
           }
           chart.attachSelectData((event) => this._onChartSelect(name, event));
           this.byId(name + "Host").addItem(chart);
@@ -497,8 +502,6 @@ sap.ui.define(
           );
           const owners = Analytics.group(rows, "owner", metric);
           this._setChartData("owner", rows, owners, "owner");
-          const proposals = Analytics.group(rows, "proposalCode", metric);
-          this._setChartData("proposalCode", rows, proposals, "proposalCode");
           const warnings = [];
           if (this._fx.failed) {
             warnings.push(this._text("ratesUnavailable"));
@@ -552,7 +555,7 @@ sap.ui.define(
           );
           data.forEach((item) => {
             const metrics = item.metrics;
-            const eur = (amount) => "€" + fullNumber.format(amount);
+            const eur = (amount) => "€ " + fullNumber.format(amount);
             item.hoverCount = String(metrics.total);
             item.hoverValue = eur(metrics.value);
             item.hoverPipeline = eur(metrics.pipeline);
@@ -562,14 +565,60 @@ sap.ui.define(
             item.hoverShare = item.share.toFixed(1) + "%";
             item.hoverUnavailable = String(metrics.unconverted);
             if (item.ownerMetrics) {
+              const ownerSummary = item.ownerMetrics.total + " · " + this.formatEur(item.ownerMetrics.value) + " · " + this.formatRate(item.ownerMetrics.winRate);
+              // Replaces the stack-total label after the bar, whatever the measure.
+              item.ownerSummary = ownerSummary;
               item.hoverTitle = item.label + " · " + item.proposalLabel;
-              item.hoverExtra = [[this._text("ownerTotal"), item.ownerMetrics.total + " · " + this.formatEur(item.ownerMetrics.value)]];
+              item.hoverExtra = [[this._text("ownerTotal"), ownerSummary]];
             }
           });
           this._viewModel.setProperty("/charts/" + name, data);
           if (name === "owner") {
             this._applyOwnerPalette();
+            this._reserveOwnerLabelRoom(data);
           }
+        },
+        // The summary label after each stack is wider than sap.viz's own total,
+        // so extend the value axis to leave room for it inside the plot.
+        _reserveOwnerLabelRoom: function (data) {
+          const totals = new Map();
+          data.forEach(item => totals.set(item.key, (totals.get(item.key) || 0) + item.value));
+          const max = Math.max(0, ...totals.values());
+          // Round the extended maximum up to a clean tick (1, 2 or 5 × 10ⁿ steps).
+          const raw = max * 1.3;
+          const step = Math.pow(10, Math.floor(Math.log10(raw || 1))) / 2;
+          const nice = Math.ceil(raw / step) * step;
+          this._charts.owner.setVizProperties({
+            plotArea: { primaryScale: max > 0 ? { fixedRange: true, minValue: 0, maxValue: nice } : { fixedRange: false } },
+          });
+        },
+        // sap.viz calls dataLabel.renderer for stack totals but ignores its
+        // result, so the total text is rewritten in the DOM after each render.
+        // Total label ids are "<categoryIndex>-0"; the data is owner-major.
+        _decorateOwnerTotals: function (chart) {
+          const decorate = () => {
+            const dom = chart.getDomRef();
+            const data = this._viewModel.getProperty("/charts/owner") || [];
+            if (!dom || !data.length) { return; }
+            const seriesCount = new Set(data.map(item => item.proposalKey)).size;
+            dom.querySelectorAll(".v-datalabel-group-total .v-datalabel[data-id] text").forEach(text => {
+              const index = Number(text.parentNode.getAttribute("data-id").split("-")[0]);
+              const row = data[index * seriesCount];
+              if (row && row.ownerSummary && text.textContent !== row.ownerSummary) {
+                text.textContent = row.ownerSummary;
+              }
+            });
+          };
+          const observer = new MutationObserver(decorate);
+          chart.addEventDelegate({
+            onBeforeRendering: () => observer.disconnect(),
+            onAfterRendering: () => {
+              observer.observe(chart.getDomRef(), { childList: true, subtree: true, characterData: true });
+              decorate();
+            },
+          });
+          chart.attachRenderComplete(decorate);
+          this._ownerTotalsObserver = observer;
         },
         _ownerPalette: function (data) {
           const series = data.length ? [...new Set(data.map(item => item.proposalKey))] : ["FULL", "CAP", "__UNASSIGNED__"];
@@ -580,9 +629,10 @@ sap.ui.define(
           const tokens = {
             FULL: "sapUiChartPaletteQualitativeHue1",
             CAP: "sapUiChartPaletteQualitativeHue2",
+            FUNNEL: "sapUiChartPaletteQualitativeHue3",
             __UNASSIGNED__: "sapUiChartPaletteSemanticNeutral",
           };
-          let next = 3;
+          let next = 4;
           return series.map(key => ThemeParameters.get({ name: tokens[key] || "sapUiChartPaletteQualitativeHue" + next++ }));
         },
         _applyOwnerPalette: function () {
@@ -806,6 +856,7 @@ sap.ui.define(
           this._exited = true;
           Theming.detachApplied(this._onThemeApplied);
           this._hover?.destroy();
+          this._ownerTotalsObserver?.disconnect();
           if (this._restoreFrame !== null) {
             cancelAnimationFrame(this._restoreFrame);
           }
@@ -815,7 +866,7 @@ sap.ui.define(
         formatEur: function (value) {
           return value === null || value === undefined
             ? "—"
-            : "€" + shortNumber.format(value);
+            : "€ " + shortNumber.format(value);
         },
         formatAmount: function (value) {
           return value === null || value === undefined

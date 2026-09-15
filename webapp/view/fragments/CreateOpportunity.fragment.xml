@@ -46,6 +46,9 @@
                     <smartForm:GroupElement id="_IDGenGroupElement30">
                         <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fetchValueListReadOnly="true" innerControlsCreated="onStatusControlCreated" />
                     </smartForm:GroupElement>
+                    <smartForm:GroupElement id="_IDGenGroupElement76">
+                        <smartField:SmartField id="idCreateOpportunityType" value="{OpportunityType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
+                    </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement31">
                         <smartField:SmartField id="_IDGenSmartField34" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>

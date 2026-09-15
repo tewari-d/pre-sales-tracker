@@ -102,6 +102,9 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement20">
                                         <smartField:SmartField id="_IDGenSmartField20" value="{Status}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement id="_IDGenGroupElement77">
+                                        <smartField:SmartField id="idEditOpportunityType" value="{OpportunityType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement5">
                                         <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
