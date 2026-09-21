@@ -303,12 +303,15 @@ test("owner stacks reconcile totals and preserve proposal keys, zero cells and s
     assert.equal(A.ownerProposalStacks([],"count","2026-09-14").length,0);
 });
 
-test("owner stacks order coded proposal series FULL, CAP, FUNNEL, then unassigned", () => {
+test("owner stacks order coded proposal series in domain order FUNNEL, CAP, RFI, FULL, STAFF, then unknown codes and unassigned", () => {
+    assert.deepEqual(plain(A.PROPOSAL_ORDER), ["FUNNEL","CAP","RFI","FULL","STAFF"]);
     const rows = A.normalize([
-        row("1",{Owner:"Avery",ProposalTypeOp:""}), row("2",{Owner:"Avery",ProposalTypeOp:"FUNNEL",ProposalTypeOpText:"Funnel"}),
-        row("3",{Owner:"Avery",ProposalTypeOp:"CAP",ProposalTypeOpText:"Capability"}), row("4",{Owner:"Avery",ProposalTypeOp:"FULL",ProposalTypeOpText:"Full-fledged proposal"})
+        row("1",{Owner:"Avery",ProposalTypeOp:""}), row("2",{Owner:"Avery",ProposalTypeOp:"STAFF",ProposalTypeOpText:"Staff Augmentation Proposal"}),
+        row("3",{Owner:"Avery",ProposalTypeOp:"FULL",ProposalTypeOpText:"RFP / Full-fledge Proposal"}), row("4",{Owner:"Avery",ProposalTypeOp:"RFI",ProposalTypeOpText:"RFI"}),
+        row("5",{Owner:"Avery",ProposalTypeOp:"ZZZ",ProposalTypeOpText:"Future code"}),
+        row("6",{Owner:"Avery",ProposalTypeOp:"CAP",ProposalTypeOpText:"Capability / Rate enquiry"}), row("7",{Owner:"Avery",ProposalTypeOp:"FUNNEL",ProposalTypeOpText:"Funnel"})
     ],{});
-    assert.deepEqual(plain(A.ownerProposalStacks(rows,"count","2026-09-15").map(s=>s.proposalKey)),["FULL","CAP","FUNNEL","__UNASSIGNED__"]);
+    assert.deepEqual(plain(A.ownerProposalStacks(rows,"count","2026-09-16").map(s=>s.proposalKey)),["FUNNEL","CAP","RFI","FULL","STAFF","ZZZ","__UNASSIGNED__"]);
 });
 
 test("stacked hover IDs resolve reversed color series to the correct owner/proposal cell", () => {

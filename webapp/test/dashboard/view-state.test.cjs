@@ -116,8 +116,15 @@ test("coded proposal help shows descriptions and the CSV export carries only the
     assert.ok(!csv.includes("free text"));
     assert.ok(csv.includes('"Full-fledged proposal",""'));
 });
-test("default proposal filter is full-fledged plus unassigned; prune drops keys no loaded row carries", () => {
-    assert.deepEqual(plain(S.defaults(today).filters.proposalCode), ["FULL", "__UNASSIGNED__"]);
+test("default proposal filter is RFP/full-fledged, staff augmentation plus unassigned; prune drops keys no loaded row carries", () => {
+    assert.deepEqual(plain(S.defaults(today).filters.proposalCode), ["FULL", "STAFF", "__UNASSIGNED__"]);
+    // Staff augmentation rows are kept in the default scope alongside RFP / full-fledged ones.
+    const staffed = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:"STAFF"}, {Id:"3", ProposalTypeOp:"CAP"}, {Id:"4", ProposalTypeOp:"RFI"}, {Id:"5", ProposalTypeOp:""}], {});
+    const staffedOptions = {};
+    Object.keys(A.DIMENSIONS).forEach(d => { staffedOptions[d] = A.options(staffed, d); });
+    const staffedFilters = Object.assign({}, S.prune(S.defaults(today).filters, staffedOptions), { period: "all", periods: ["all"], from: "", to: "" });
+    assert.deepEqual(plain(staffedFilters.proposalCode), ["FULL", "STAFF", "__UNASSIGNED__"]);
+    assert.deepEqual(plain(A.filter(staffed, staffedFilters).map(r => r.Id)), ["1", "2", "5"]);
     const rows = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:"CAP"}], {});
     const options = {};
     Object.keys(A.DIMENSIONS).forEach(d => { options[d] = A.options(rows, d); });

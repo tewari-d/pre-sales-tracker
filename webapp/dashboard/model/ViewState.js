@@ -6,9 +6,10 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
         const year = now.getFullYear(), quarter = Math.floor(now.getMonth() / 3) + 1;
         const filters = Object.assign({ period: `${year}-Q${quarter}`, periods: [`${year}-Q${quarter}`], disjoint: false, search: "" }, Analytics.quarterRange(year, quarter));
         Object.keys(Analytics.DIMENSIONS).forEach(key => { filters[key] = []; });
-        // Default proposal scope: full-fledged proposals plus opportunities not yet
-        // assigned a proposal type. prune() drops "unassigned" once none remain.
-        filters.proposalCode = ["FULL", Analytics.EMPTY];
+        // Default proposal scope: RFP / full-fledged and staff augmentation
+        // proposals plus opportunities not yet assigned a proposal type.
+        // prune() drops any of these keys once no loaded opportunity carries it.
+        filters.proposalCode = ["FULL", "STAFF", Analytics.EMPTY];
         return { filters, metric: "count", breakdown: "bu", interval: "month", sort: "eur", scrollTop: 0, headerExpanded: true };
     }
     function quarters(receivedDates, now = new Date(), selected = "") {

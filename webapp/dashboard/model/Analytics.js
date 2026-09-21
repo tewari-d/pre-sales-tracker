@@ -2,6 +2,7 @@ sap.ui.define([], function () {
   "use strict";
 
   const EMPTY = "__UNASSIGNED__";
+  const PROPOSAL_ORDER = ["FUNNEL", "CAP", "RFI", "FULL", "STAFF"];
   const ACTIVE = ["WIP", "SUBMITTED", "HOLD"];
   const WON = ["WIN", "COMPLETE"];
   // Lower bound included, upper bound excluded. "below" also holds unavailable EUR values.
@@ -275,10 +276,12 @@ sap.ui.define([], function () {
   }
   function ownerProposalStacks(rows, metric, today) {
     const owners = group(rows, "owner", metric);
-    const order = ["FULL", "CAP", "FUNNEL", EMPTY];
+    // Series order follows the fixed values of domain /NGR/DO_PS_PROPOSAL_TYPE_OP;
+    // codes not listed there sort after them and unassigned is always last.
     const proposals = group(rows, "proposalCode", "count").sort((a, b) => {
       const rank = (key) =>
-        order.includes(key) ? order.indexOf(key) : order.length;
+        key === EMPTY ? PROPOSAL_ORDER.length + 1
+          : PROPOSAL_ORDER.includes(key) ? PROPOSAL_ORDER.indexOf(key) : PROPOSAL_ORDER.length;
       return rank(a.key) - rank(b.key) || a.label.localeCompare(b.label);
     });
     // Include zero cells so every owner's stack uses the same series order.
@@ -370,5 +373,6 @@ sap.ui.define([], function () {
     BANDS,
     DIMENSIONS,
     EMPTY,
+    PROPOSAL_ORDER,
   };
 });

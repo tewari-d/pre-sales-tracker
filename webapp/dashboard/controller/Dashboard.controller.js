@@ -679,18 +679,22 @@ sap.ui.define(
           MessageToast.show(this._text("chartFiltered", [row.label]));
         },
         _ownerPalette: function (data) {
-          const series = data.length ? [...new Set(data.map(item => item.proposalKey))] : ["FULL", "CAP", "__UNASSIGNED__"];
+          const series = data.length ? [...new Set(data.map(item => item.proposalKey))] : Analytics.PROPOSAL_ORDER.concat(Analytics.EMPTY);
           // SAP Fiori chart palette guidance: real categories take the theme's
-          // qualitative hues in order; "unassigned" is not a category and takes
-          // the semantic neutral. Theme-independent parameter names, so the
-          // colours follow whichever theme the launchpad applies.
+          // qualitative hues; "unassigned" is not a category and takes the
+          // semantic neutral. Each proposal code keeps its hue whichever
+          // codes are present, so a colour always means the same type.
+          // Theme-independent parameter names, so the colours follow whichever
+          // theme the launchpad applies.
           const tokens = {
             FULL: "sapUiChartPaletteQualitativeHue1",
             CAP: "sapUiChartPaletteQualitativeHue2",
             FUNNEL: "sapUiChartPaletteQualitativeHue3",
+            RFI: "sapUiChartPaletteQualitativeHue4",
+            STAFF: "sapUiChartPaletteQualitativeHue5",
             __UNASSIGNED__: "sapUiChartPaletteSemanticNeutral",
           };
-          let next = 4;
+          let next = 6;
           return series.map(key => ThemeParameters.get({ name: tokens[key] || "sapUiChartPaletteQualitativeHue" + next++ }));
         },
         _applyOwnerPalette: function () {

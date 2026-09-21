@@ -14,11 +14,22 @@ async (page) => {
         return controller && !controller._viewModel.getProperty("/busy");
     });
     const reset = async () => {
-        await page.getByRole("button", { name: "Reset filters", exact: true }).click();
+        await page.getByRole("button", { name: "Clear", exact: true }).click();
         const expected = new Date().getFullYear() + "-Q" + (Math.floor(new Date().getMonth() / 3) + 1);
-        check((await state()).filters.period === expected, "Reset restores current quarter");
+        const filters = (await state()).filters;
+        check(filters.period === expected, "Reset restores current quarter");
+        check(filters.proposalCode.join() === "FULL,STAFF,__UNASSIGNED__", "Reset restores the three default proposal types");
         await page.getByRole("combobox", { name: "Received date period", exact: true }).click();
         await page.getByRole("option", { name: "All received dates", exact: true }).click();
+        // The fixtures cycle through all five proposal codes plus unassigned;
+        // the counts below cover every fixture row, so lift the proposal scope.
+        await page.evaluate(() => {
+            const Component = sap.ui.require("sap/ui/core/Component");
+            const controller = Component.getComponentById("dashboard-container-presales-dashboard").getRootControl().getController();
+            controller._viewModel.setProperty("/filters/proposalCode", []);
+            controller._apply();
+        });
+        await settled();
     };
     const choose = async (name, option) => {
         const combo = page.getByRole("combobox", { name, exact: true });
