@@ -281,19 +281,6 @@ sap.ui.define(
 
           oView.setBusy(true);
 
-          if (!oPayload.OpportunityType) {
-            sap.m.MessageBox.error(
-              `Please specify Opportunity Type of the opportunity.`,
-              {
-                onClose: function () {
-                  this.byId("idEditOpportunityType").focus();
-                }.bind(this),
-              }
-            );
-            oView.setBusy(false);
-            return;
-          }
-
           if (!oPayload.Country) {
             sap.m.MessageBox.error(
               `Please specify Country / Region of the opportunity.`,

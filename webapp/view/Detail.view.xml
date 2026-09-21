@@ -102,9 +102,6 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement20">
                                         <smartField:SmartField id="_IDGenSmartField20" value="{Status}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement77">
-                                        <smartField:SmartField id="idEditOpportunityType" value="{OpportunityType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
-                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement5">
                                         <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
@@ -121,7 +118,12 @@
                                         <smartField:SmartField id="_IDGenSmartField73" value="{Complexity}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement71">
-                                        <smartField:SmartField id="_IDGenSmartField72" value="{ProposalTypeOp}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <!-- Dropdown so the five proposal types list in their domain order (value-help dialogs sort by code) -->
+                                        <smartField:SmartField id="_IDGenSmartField72" value="{ProposalTypeOp}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated">
+                                            <smartField:configuration>
+                                                <smartField:Configuration id="_IDGenSmartFieldConfiguration72" controlType="dropDownList" />
+                                            </smartField:configuration>
+                                        </smartField:SmartField>
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement7">
                                         <smartField:SmartField id="_IDGenSmartField7" value="{ReceivedDate}" fieldGroupIds="generalInfoFieldGroup" />

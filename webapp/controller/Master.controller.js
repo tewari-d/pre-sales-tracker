@@ -71,6 +71,16 @@ sap.ui.define(
           };
           oSmartFilterBar.setFilterData(oFilterData);
         },
+        // Standard filter-bar Clear button: the SmartFilterBar has already
+        // emptied every field, so put the default selection back (Status
+        // WIP/SUBMITTED/HOLD/WIN), return the status segments to "Default"
+        // and refresh the list.
+        onFilterBarClear: function () {
+          const oSmartFilterBar = this.byId("presalesDBsmartFilterBar");
+          this._setDefaultFilters();
+          this.byId("statusSegmented")?.setSelectedKey("DEFAULT");
+          oSmartFilterBar.search();
+        },
         onSelectionChange: function (oEvent) {
           const oSelectedItem = oEvent.getParameter("listItem");
           const sNextId = oSelectedItem.getBindingContext().getObject().Id;
@@ -439,7 +449,6 @@ sap.ui.define(
             Country: "Country / Region",
             DealType: "Deal Type",
             Status: "Status",
-            OpportunityType: "Opportunity Type",
             OppType: "Opportunity Source",
             SapSystem: "SAP System",
             BUDetails: "BU Details",

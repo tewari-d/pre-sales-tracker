@@ -1,0 +1,3930 @@
+[
+  {
+    "DomainName": "/NGR/DO_ALLOCATION_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Percentage",
+    "DomainValue": "1"
+  },
+  {
+    "DomainName": "/NGR/DO_ALLOCATION_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Shared",
+    "DomainValue": "2"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "AI in Change",
+    "DomainValue": "AIC"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "AI in Run",
+    "DomainValue": "AIR"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "AMS",
+    "DomainValue": "AMS"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "AQT",
+    "DomainValue": "AQT"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Automotive",
+    "DomainValue": "AUTO"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "BET-C",
+    "DomainValue": "BETC"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "BFSI",
+    "DomainValue": "BFSI"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Big Data & AI",
+    "DomainValue": "AI"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "CBI",
+    "DomainValue": "CBI"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0010",
+    "Version": "0000",
+    "DomainValueText": "Consumer",
+    "DomainValue": "CONS"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0011",
+    "Version": "0000",
+    "DomainValueText": "Corporate",
+    "DomainValue": "CORP"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0012",
+    "Version": "0000",
+    "DomainValueText": "DE Public Sector",
+    "DomainValue": "DEPS"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0013",
+    "Version": "0000",
+    "DomainValueText": "Digital and Gaming",
+    "DomainValue": "GAME"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0014",
+    "Version": "0000",
+    "DomainValueText": "Enterprise Products",
+    "DomainValue": "ERPR"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0015",
+    "Version": "0000",
+    "DomainValueText": "Financial Services",
+    "DomainValue": "FINS"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0016",
+    "Version": "0000",
+    "DomainValueText": "SAP",
+    "DomainValue": "ERPSAP"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0017",
+    "Version": "0000",
+    "DomainValueText": "Hidden Champions",
+    "DomainValue": "CHAMP"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0018",
+    "Version": "0000",
+    "DomainValueText": "Industrial",
+    "DomainValue": "INDUST"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0019",
+    "Version": "0000",
+    "DomainValueText": "LifeSci & Healthcare",
+    "DomainValue": "HEALTH"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0020",
+    "Version": "0000",
+    "DomainValueText": "MIB & Zen",
+    "DomainValue": "MIBZEN"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0021",
+    "Version": "0000",
+    "DomainValueText": "PSH",
+    "DomainValue": "PSH"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0022",
+    "Version": "0000",
+    "DomainValueText": "RC Heritage",
+    "DomainValue": "RCH"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0023",
+    "Version": "0000",
+    "DomainValueText": "Retail & CPG",
+    "DomainValue": "RETAIL"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0024",
+    "Version": "0000",
+    "DomainValueText": "Siemens",
+    "DomainValue": "SIEMENS"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0025",
+    "Version": "0000",
+    "DomainValueText": "Sigma",
+    "DomainValue": "SIGMA"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0026",
+    "Version": "0000",
+    "DomainValueText": "Telecom",
+    "DomainValue": "TELE"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0027",
+    "Version": "0000",
+    "DomainValueText": "Travel & Logistics",
+    "DomainValue": "TRAVEL"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0028",
+    "Version": "0000",
+    "DomainValueText": "TTL",
+    "DomainValue": "TTL"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0029",
+    "Version": "0000",
+    "DomainValueText": "US Public Sector",
+    "DomainValue": "USPS"
+  },
+  {
+    "DomainName": "/NGR/DO_BU_DETAILS",
+    "Language": "EN",
+    "ValueKey": "0030",
+    "Version": "0000",
+    "DomainValueText": "Ventures & Studios",
+    "DomainValue": "VNS"
+  },
+  {
+    "DomainName": "/NGR/DO_CATEGORY",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Managed Services",
+    "DomainValue": "MGS"
+  },
+  {
+    "DomainName": "/NGR/DO_CATEGORY",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Project Services",
+    "DomainValue": "PJS"
+  },
+  {
+    "DomainName": "/NGR/DO_CATEGORY",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Staffing",
+    "DomainValue": "STF"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "CBI",
+    "DomainValue": "CBI"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Consumer",
+    "DomainValue": "CONS"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Financial Services",
+    "DomainValue": "FINS"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Industrial",
+    "DomainValue": "INDUST"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "PSH",
+    "DomainValue": "PSH"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "SAP",
+    "DomainValue": "ERPSAP"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "TTL",
+    "DomainValue": "TTL"
+  },
+  {
+    "DomainName": "/NGR/DO_CLIENT_BU",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Ventures & Studios",
+    "DomainValue": "VNS"
+  },
+  {
+    "DomainName": "/NGR/DO_COMMERCIAL_MODE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "T&M",
+    "DomainValue": "TM"
+  },
+  {
+    "DomainName": "/NGR/DO_COMMERCIAL_MODE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Fixed + T&Mâ€ƒ",
+    "DomainValue": "FTM"
+  },
+  {
+    "DomainName": "/NGR/DO_COMMERCIAL_MODE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Fixed",
+    "DomainValue": "FX"
+  },
+  {
+    "DomainName": "/NGR/DO_COMMERCIAL_MODE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Free",
+    "DomainValue": "FRE"
+  },
+  {
+    "DomainName": "/NGR/DO_FULF_STAT",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Profile Shared",
+    "DomainValue": "1"
+  },
+  {
+    "DomainName": "/NGR/DO_FULF_STAT",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Fulfilled",
+    "DomainValue": "2"
+  },
+  {
+    "DomainName": "/NGR/DO_FULF_STAT",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Demand Opened",
+    "DomainValue": "3"
+  },
+  {
+    "DomainName": "/NGR/DO_FULF_STAT",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Loss",
+    "DomainValue": "4"
+  },
+  {
+    "DomainName": "/NGR/DO_FULF_STAT",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Searching",
+    "DomainValue": "5"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_DEMAND_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Confirmed",
+    "DomainValue": "CNF"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_DEMAND_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Tentative",
+    "DomainValue": "TNTV"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_DURATION_UOM",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Days",
+    "DomainValue": "DAY"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_DURATION_UOM",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Weeks",
+    "DomainValue": "WEEK"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_DURATION_UOM",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Months",
+    "DomainValue": "MON"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_DURATION_UOM",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Years",
+    "DomainValue": "YEAR"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Application Management System",
+    "DomainValue": "AMS"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Implementation",
+    "DomainValue": "IMPL"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Enhancement",
+    "DomainValue": "ENHC"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Roll Out",
+    "DomainValue": "ROLO"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Upgrade",
+    "DomainValue": "UPG"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Migration",
+    "DomainValue": "MIG"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_PROJECT_TYPE",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Support",
+    "DomainValue": "SUP"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Open",
+    "DomainValue": "OPEN"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Completed",
+    "DomainValue": "COMP"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Closed",
+    "DomainValue": "CLSD"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_WORK_MODEL",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Remote",
+    "DomainValue": "RMT"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_WORK_MODEL",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Onsite",
+    "DomainValue": "ONS"
+  },
+  {
+    "DomainName": "/NGR/DO_FUT_DMD_WORK_MODEL",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Hybrid",
+    "DomainValue": "HYB"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "MM",
+    "DomainValue": "1"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "WM",
+    "DomainValue": "2"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "EWM",
+    "DomainValue": "3"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "MM/ WM",
+    "DomainValue": "4"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "FI",
+    "DomainValue": "5"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "CO",
+    "DomainValue": "6"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "FICO",
+    "DomainValue": "7"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "PP",
+    "DomainValue": "8"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "QM",
+    "DomainValue": "9"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0010",
+    "Version": "0000",
+    "DomainValueText": "PP/QM",
+    "DomainValue": "10"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0011",
+    "Version": "0000",
+    "DomainValueText": "PP/DS",
+    "DomainValue": "11"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0012",
+    "Version": "0000",
+    "DomainValueText": "SD",
+    "DomainValue": "12"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0013",
+    "Version": "0000",
+    "DomainValueText": "SD/CS",
+    "DomainValue": "13"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0014",
+    "Version": "0000",
+    "DomainValueText": "SD/GTS",
+    "DomainValue": "14"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0015",
+    "Version": "0000",
+    "DomainValueText": "CS",
+    "DomainValue": "15"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0016",
+    "Version": "0000",
+    "DomainValueText": "VIM",
+    "DomainValue": "16"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0017",
+    "Version": "0000",
+    "DomainValueText": "SD Retail",
+    "DomainValue": "17"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0018",
+    "Version": "0000",
+    "DomainValueText": "CAR",
+    "DomainValue": "18"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0019",
+    "Version": "0000",
+    "DomainValueText": "ABAP",
+    "DomainValue": "19"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0020",
+    "Version": "0000",
+    "DomainValueText": "ABAP HR",
+    "DomainValue": "20"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0021",
+    "Version": "0000",
+    "DomainValueText": "Fiori",
+    "DomainValue": "21"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0022",
+    "Version": "0000",
+    "DomainValueText": "BTP RAP",
+    "DomainValue": "22"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0023",
+    "Version": "0000",
+    "DomainValueText": "BTP CAP",
+    "DomainValue": "23"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0024",
+    "Version": "0000",
+    "DomainValueText": "CPI",
+    "DomainValue": "24"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0025",
+    "Version": "0000",
+    "DomainValueText": "BI",
+    "DomainValue": "25"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0026",
+    "Version": "0000",
+    "DomainValueText": "BO",
+    "DomainValue": "26"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0027",
+    "Version": "0000",
+    "DomainValueText": "BW",
+    "DomainValue": "27"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0028",
+    "Version": "0000",
+    "DomainValueText": "BODS",
+    "DomainValue": "28"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0029",
+    "Version": "0000",
+    "DomainValueText": "Datasphere",
+    "DomainValue": "29"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0030",
+    "Version": "0000",
+    "DomainValueText": "Basis",
+    "DomainValue": "30"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0031",
+    "Version": "0000",
+    "DomainValueText": "Security",
+    "DomainValue": "31"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0032",
+    "Version": "0000",
+    "DomainValueText": "HCM",
+    "DomainValue": "32"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0033",
+    "Version": "0000",
+    "DomainValueText": "SuccessFactors",
+    "DomainValue": "33"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0034",
+    "Version": "0000",
+    "DomainValueText": "Ariba",
+    "DomainValue": "34"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0035",
+    "Version": "0000",
+    "DomainValueText": "PM",
+    "DomainValue": "35"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0036",
+    "Version": "0000",
+    "DomainValueText": "Sales",
+    "DomainValue": "36"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0037",
+    "Version": "0000",
+    "DomainValueText": "Pre-sales",
+    "DomainValue": "37"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0038",
+    "Version": "0000",
+    "DomainValueText": "Project Manager",
+    "DomainValue": "38"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0039",
+    "Version": "0000",
+    "DomainValueText": "EHS",
+    "DomainValue": "39"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0040",
+    "Version": "0000",
+    "DomainValueText": "DM",
+    "DomainValue": "40"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0041",
+    "Version": "0000",
+    "DomainValueText": "MDM",
+    "DomainValue": "41"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0042",
+    "Version": "0000",
+    "DomainValueText": "BTP",
+    "DomainValue": "42"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0043",
+    "Version": "0000",
+    "DomainValueText": "Enable Now",
+    "DomainValue": "43"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0044",
+    "Version": "0000",
+    "DomainValueText": "Refx",
+    "DomainValue": "44"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0045",
+    "Version": "0000",
+    "DomainValueText": "MS Intune",
+    "DomainValue": "45"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0046",
+    "Version": "0000",
+    "DomainValueText": "DevOps",
+    "DomainValue": "46"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0047",
+    "Version": "0000",
+    "DomainValueText": "IBP",
+    "DomainValue": "47"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0048",
+    "Version": "0000",
+    "DomainValueText": "PS",
+    "DomainValue": "48"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0049",
+    "Version": "0000",
+    "DomainValueText": "Analytics",
+    "DomainValue": "49"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0050",
+    "Version": "0000",
+    "DomainValueText": "Delivery",
+    "DomainValue": "50"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0051",
+    "Version": "0000",
+    "DomainValueText": "Concur",
+    "DomainValue": "51"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0052",
+    "Version": "0000",
+    "DomainValueText": "Treasury",
+    "DomainValue": "52"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0053",
+    "Version": "0000",
+    "DomainValueText": "Other",
+    "DomainValue": "0"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0054",
+    "Version": "0000",
+    "DomainValueText": "Trainee",
+    "DomainValue": "53"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0055",
+    "Version": "0000",
+    "DomainValueText": "QA",
+    "DomainValue": "54"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_MODULE",
+    "Language": "EN",
+    "ValueKey": "0056",
+    "Version": "0000",
+    "DomainValueText": "PPM",
+    "DomainValue": "55"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Hiring In Progress",
+    "DomainValue": "HIRING"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Offer To Be Released",
+    "DomainValue": "OFFERNREL"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Offer Released",
+    "DomainValue": "OFFERREL"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Fulfilled",
+    "DomainValue": "FULLFILLED"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Hold",
+    "DomainValue": "HOLD"
+  },
+  {
+    "DomainName": "/NGR/DO_OD_STATUS",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Deleted",
+    "DomainValue": "DELETED"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "",
+    "DomainValue": "0"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Business France",
+    "DomainValue": "1"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "MS Consulting",
+    "DomainValue": "2"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "SAP Automotive",
+    "DomainValue": "3"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "SAP Banking & Insurance",
+    "DomainValue": "4"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "SAP Cloud Services",
+    "DomainValue": "5"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "SAP Compliance Now",
+    "DomainValue": "6"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "SAP Global Delivery Services",
+    "DomainValue": "7"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "SAP Intelligent Technologies",
+    "DomainValue": "8"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0010",
+    "Version": "0000",
+    "DomainValueText": "SAP Managed Business Services",
+    "DomainValue": "9"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0011",
+    "Version": "0000",
+    "DomainValueText": "SAP Managed Services",
+    "DomainValue": "10"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0012",
+    "Version": "0000",
+    "DomainValueText": "SAP Manufacturing & Selected Accounts",
+    "DomainValue": "11"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0013",
+    "Version": "0000",
+    "DomainValueText": "SAP Mill IndustryÂ ",
+    "DomainValue": "12"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0014",
+    "Version": "0000",
+    "DomainValueText": "SAP Process Industry",
+    "DomainValue": "13"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0015",
+    "Version": "0000",
+    "DomainValueText": "SAP Project Services",
+    "DomainValue": "14"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0016",
+    "Version": "0000",
+    "DomainValueText": "SAP Public Sector",
+    "DomainValue": "15"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0017",
+    "Version": "0000",
+    "DomainValueText": "SAP Retail&Media",
+    "DomainValue": "16"
+  },
+  {
+    "DomainName": "/NGR/DO_PLOB",
+    "Language": "EN",
+    "ValueKey": "0018",
+    "Version": "0000",
+    "DomainValueText": "SAP TransformationÂ ",
+    "DomainValue": "17"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJ_STAT",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Active",
+    "DomainValue": "1"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJ_STAT",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Hold",
+    "DomainValue": "2"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJ_STAT",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Completed",
+    "DomainValue": "3"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJ_STAT",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Proposed",
+    "DomainValue": "4"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJ_STAT",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Others",
+    "DomainValue": "5"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJTYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Implementation",
+    "DomainValue": "IMP"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJTYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Support",
+    "DomainValue": "SUP"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJTYPE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Monitoring",
+    "DomainValue": "MON"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJTYPE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Enhancement",
+    "DomainValue": "ENH"
+  },
+  {
+    "DomainName": "/NGR/DO_PROJTYPE",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Others",
+    "DomainValue": "OTH"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_BOOLE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "No",
+    "DomainValue": "N"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_BOOLE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Yes",
+    "DomainValue": "Y"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_BOOLE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Not Specified",
+    "DomainValue": ""
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Fixed Price",
+    "DomainValue": "FIXED"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Time and Material (T&M)",
+    "DomainValue": "TM"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Subscription-Based",
+    "DomainValue": "SUBS"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Hybrid (Fixed + T&M)",
+    "DomainValue": "HYBRID"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Usage-Based (Pay-per-use)",
+    "DomainValue": "USAGE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Perpetual License",
+    "DomainValue": "LICENSE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Recurring Revenue Model",
+    "DomainValue": "RECURRING"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMM_MDL",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Free / No Cost (POC, Internal)",
+    "DomainValue": "FREE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMPLEXITY",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Low",
+    "DomainValue": "Low"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMPLEXITY",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Medium",
+    "DomainValue": "Medium"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_COMPLEXITY",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "High",
+    "DomainValue": "High"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_DEAL_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "New Name",
+    "DomainValue": "NN"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_DEAL_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Existing Name",
+    "DomainValue": "EN"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Asia-Pacific",
+    "DomainValue": "APAC"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Europe",
+    "DomainValue": "EUROPE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Middle East and North Africa",
+    "DomainValue": "MENA"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "North America",
+    "DomainValue": "NA"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Australia and New Zealand",
+    "DomainValue": "AUS"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "United Kingdom",
+    "DomainValue": "UK"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_GEOGRAPHY",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Sub-Saharan Africa",
+    "DomainValue": "AFRICA"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Aerospace Industry",
+    "DomainValue": "AERO"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Food and Beverage",
+    "DomainValue": "FOAB"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "IT Services & Consulting",
+    "DomainValue": "ITSC"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Textile",
+    "DomainValue": "TXTL"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Electronics",
+    "DomainValue": "ELEC"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Software Development",
+    "DomainValue": "SFDT"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Sports",
+    "DomainValue": "SPRT"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Automotive",
+    "DomainValue": "AUTO"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "Manufacturing",
+    "DomainValue": "MANU"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0010",
+    "Version": "0000",
+    "DomainValueText": "BFSI",
+    "DomainValue": "BFSI"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0011",
+    "Version": "0000",
+    "DomainValueText": "Retail",
+    "DomainValue": "RETL"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0012",
+    "Version": "0000",
+    "DomainValueText": "Wholesale distribution",
+    "DomainValue": "WHLD"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0013",
+    "Version": "0000",
+    "DomainValueText": "Public Sector",
+    "DomainValue": "PBST"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0014",
+    "Version": "0000",
+    "DomainValueText": "Oil & Gas, Mining",
+    "DomainValue": "ONGM"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0015",
+    "Version": "0000",
+    "DomainValueText": "Civil Engineering",
+    "DomainValue": "CLEG"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0016",
+    "Version": "0000",
+    "DomainValueText": "Chemical Manufacturing",
+    "DomainValue": "CHMG"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0017",
+    "Version": "0000",
+    "DomainValueText": "Consumer Services",
+    "DomainValue": "CNSE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0018",
+    "Version": "0000",
+    "DomainValueText": "Research and development",
+    "DomainValue": "RSDE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0019",
+    "Version": "0000",
+    "DomainValueText": "Environmental and Agricultural Solutions",
+    "DomainValue": "ENAS"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0020",
+    "Version": "0000",
+    "DomainValueText": "Building Material Manufacturer",
+    "DomainValue": "BMMF"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0021",
+    "Version": "0000",
+    "DomainValueText": "Business Consulting and Services",
+    "DomainValue": "BCAS"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0022",
+    "Version": "0000",
+    "DomainValueText": "Social Welfare",
+    "DomainValue": "SOWF"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0023",
+    "Version": "0000",
+    "DomainValueText": "Life Science & Pharmaceutical",
+    "DomainValue": "LFSP"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0024",
+    "Version": "0000",
+    "DomainValueText": "Renewable Energy / Utilities",
+    "DomainValue": "RENU"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_LOB",
+    "Language": "EN",
+    "ValueKey": "0025",
+    "Version": "0000",
+    "DomainValueText": "Others",
+    "DomainValue": "OTHR"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "In Progress",
+    "DomainValue": "WIP"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "On Hold",
+    "DomainValue": "HOLD"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Closed",
+    "DomainValue": "CLSD"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Submitted",
+    "DomainValue": "SUBMITTED"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Win",
+    "DomainValue": "WIN"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Loss",
+    "DomainValue": "LOSS"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Win and Completed",
+    "DomainValue": "COMPLETE"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_STAT",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "No-Go and Closed",
+    "DomainValue": "NOGO"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Direct Sales/ relationship driven",
+    "DomainValue": "DSR"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Website Enquiry",
+    "DomainValue": "ENQ"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "External Partner Led",
+    "DomainValue": "EXT"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Client reference Led",
+    "DomainValue": "CNT"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Others",
+    "DomainValue": "OTR"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "BU Led",
+    "DomainValue": "BUL"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "BU Contact Person",
+    "DomainValue": "BUCON"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Owner",
+    "DomainValue": "OWN"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Functional / Technical",
+    "DomainValue": "KEY"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Sub Owner",
+    "DomainValue": "SUB"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Customer Contact Person",
+    "DomainValue": "CUSTCON"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Project Manager SAP",
+    "DomainValue": "PMCON"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PART_FN",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Sales Contact Person",
+    "DomainValue": "SALES"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PROPOSAL_TYPE_OP",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Funnel",
+    "DomainValue": "FUNNEL"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PROPOSAL_TYPE_OP",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Capability / Rate enquiry",
+    "DomainValue": "CAP"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PROPOSAL_TYPE_OP",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "RFI",
+    "DomainValue": "RFI"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PROPOSAL_TYPE_OP",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "RFP / Full-fledge Proposal",
+    "DomainValue": "FULL"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_PROPOSAL_TYPE_OP",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Staff Augmentation Proposal",
+    "DomainValue": "STAFF"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_RES_FUT_D",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Yes",
+    "DomainValue": "Y"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_RES_FUT_D",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "No",
+    "DomainValue": "N"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_TASK_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "SAP India",
+    "DomainValue": "SAPI"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_TASK_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "SAP Global",
+    "DomainValue": "SAPG"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_TASK_TYPE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Other BU",
+    "DomainValue": "OTHR"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_TASK_TYPE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Client specific",
+    "DomainValue": "CLNT"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_WIN_CHANCE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Low",
+    "DomainValue": "Low"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_WIN_CHANCE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Medium",
+    "DomainValue": "Medium"
+  },
+  {
+    "DomainName": "/NGR/DO_PS_WIN_CHANCE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "High",
+    "DomainValue": "High"
+  },
+  {
+    "DomainName": "/NGR/DO_REV_TYPE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Revenue",
+    "DomainValue": "R"
+  },
+  {
+    "DomainName": "/NGR/DO_REV_TYPE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Margin",
+    "DomainValue": "M"
+  },
+  {
+    "DomainName": "/NGR/DO_REV_TYPE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Utilization",
+    "DomainValue": "U"
+  },
+  {
+    "DomainName": "/NGR/DO_REV_TYPE",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Cost",
+    "DomainValue": "C"
+  },
+  {
+    "DomainName": "/NGR/DO_SAP_SYS",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "ECC",
+    "DomainValue": "ECC"
+  },
+  {
+    "DomainName": "/NGR/DO_SAP_SYS",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Private Cloud",
+    "DomainValue": "CPVT"
+  },
+  {
+    "DomainName": "/NGR/DO_SAP_SYS",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Public Cloud",
+    "DomainValue": "CPUB"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Associate Director",
+    "DomainValue": "01"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Associate Distinguished Engineer",
+    "DomainValue": "02"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Associate Engineer",
+    "DomainValue": "03"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Associate Principal Engineer",
+    "DomainValue": "04"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Associate Staff Engineer",
+    "DomainValue": "05"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Chief Technology Officer",
+    "DomainValue": "06"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Director",
+    "DomainValue": "07"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Distinguished Engineer",
+    "DomainValue": "08"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "Engineer",
+    "DomainValue": "09"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0010",
+    "Version": "0000",
+    "DomainValueText": "Managing Director",
+    "DomainValue": "10"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0011",
+    "Version": "0000",
+    "DomainValueText": "Principal Engineer",
+    "DomainValue": "11"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0012",
+    "Version": "0000",
+    "DomainValueText": "Senior Engineer",
+    "DomainValue": "12"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0013",
+    "Version": "0000",
+    "DomainValueText": "Senior Staff Engineer",
+    "DomainValue": "13"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0014",
+    "Version": "0000",
+    "DomainValueText": "Staff Engineer",
+    "DomainValue": "14"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_DESIGNATION",
+    "Language": "EN",
+    "ValueKey": "0015",
+    "Version": "0000",
+    "DomainValueText": "Trainee",
+    "DomainValue": "15"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Afghanistan",
+    "DomainValue": "+93"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Albania",
+    "DomainValue": "+355"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Algeria",
+    "DomainValue": "+213"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Andorra",
+    "DomainValue": "+376"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Angola",
+    "DomainValue": "+244"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Argentina",
+    "DomainValue": "+54"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "Armenia",
+    "DomainValue": "+374"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0008",
+    "Version": "0000",
+    "DomainValueText": "Aruba",
+    "DomainValue": "+297"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0009",
+    "Version": "0000",
+    "DomainValueText": "Australia",
+    "DomainValue": "+61"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0010",
+    "Version": "0000",
+    "DomainValueText": "Austria",
+    "DomainValue": "+43"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0011",
+    "Version": "0000",
+    "DomainValueText": "Azerbaijan",
+    "DomainValue": "+994"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0012",
+    "Version": "0000",
+    "DomainValueText": "Bahrain",
+    "DomainValue": "+973"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0013",
+    "Version": "0000",
+    "DomainValueText": "Bangladesh",
+    "DomainValue": "+880"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0014",
+    "Version": "0000",
+    "DomainValueText": "Belarus",
+    "DomainValue": "+375"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0015",
+    "Version": "0000",
+    "DomainValueText": "Belgium",
+    "DomainValue": "+32"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0016",
+    "Version": "0000",
+    "DomainValueText": "Belize",
+    "DomainValue": "+501"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0017",
+    "Version": "0000",
+    "DomainValueText": "Benin",
+    "DomainValue": "+229"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0018",
+    "Version": "0000",
+    "DomainValueText": "Bhutan",
+    "DomainValue": "+975"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0019",
+    "Version": "0000",
+    "DomainValueText": "Bolivia",
+    "DomainValue": "+591"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0020",
+    "Version": "0000",
+    "DomainValueText": "Bosnia and Herzegovina",
+    "DomainValue": "+387"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0021",
+    "Version": "0000",
+    "DomainValueText": "Botswana",
+    "DomainValue": "+267"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0022",
+    "Version": "0000",
+    "DomainValueText": "Brazil",
+    "DomainValue": "+55"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0023",
+    "Version": "0000",
+    "DomainValueText": "British Indian Ocean Territory",
+    "DomainValue": "+246"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0024",
+    "Version": "0000",
+    "DomainValueText": "Brunei",
+    "DomainValue": "+673"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0025",
+    "Version": "0000",
+    "DomainValueText": "Bulgaria",
+    "DomainValue": "+359"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0026",
+    "Version": "0000",
+    "DomainValueText": "Burkina Faso",
+    "DomainValue": "+226"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0027",
+    "Version": "0000",
+    "DomainValueText": "Burundi",
+    "DomainValue": "+257"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0028",
+    "Version": "0000",
+    "DomainValueText": "Cambodia",
+    "DomainValue": "+855"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0029",
+    "Version": "0000",
+    "DomainValueText": "Cameroon",
+    "DomainValue": "+237"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0030",
+    "Version": "0000",
+    "DomainValueText": "Cape Verde",
+    "DomainValue": "+238"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0031",
+    "Version": "0000",
+    "DomainValueText": "Central African Republic",
+    "DomainValue": "+236"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0032",
+    "Version": "0000",
+    "DomainValueText": "Chad",
+    "DomainValue": "+235"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0033",
+    "Version": "0000",
+    "DomainValueText": "Chile",
+    "DomainValue": "+56"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0034",
+    "Version": "0000",
+    "DomainValueText": "China",
+    "DomainValue": "+86"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0035",
+    "Version": "0000",
+    "DomainValueText": "Colombia",
+    "DomainValue": "+57"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0036",
+    "Version": "0000",
+    "DomainValueText": "Comoros",
+    "DomainValue": "+269"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0037",
+    "Version": "0000",
+    "DomainValueText": "Congo (Brazzaville)",
+    "DomainValue": "+242"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0038",
+    "Version": "0000",
+    "DomainValueText": "Congo (Kinshasa)",
+    "DomainValue": "+243"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0039",
+    "Version": "0000",
+    "DomainValueText": "Cook Islands",
+    "DomainValue": "+682"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0040",
+    "Version": "0000",
+    "DomainValueText": "Costa Rica",
+    "DomainValue": "+506"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0041",
+    "Version": "0000",
+    "DomainValueText": "Croatia",
+    "DomainValue": "+385"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0042",
+    "Version": "0000",
+    "DomainValueText": "Cuba",
+    "DomainValue": "+53"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0043",
+    "Version": "0000",
+    "DomainValueText": "Curacao / Caribbean Netherlands",
+    "DomainValue": "+599"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0044",
+    "Version": "0000",
+    "DomainValueText": "Cyprus",
+    "DomainValue": "+357"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0045",
+    "Version": "0000",
+    "DomainValueText": "Czechia",
+    "DomainValue": "+420"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0046",
+    "Version": "0000",
+    "DomainValueText": "Denmark",
+    "DomainValue": "+45"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0047",
+    "Version": "0000",
+    "DomainValueText": "Djibouti",
+    "DomainValue": "+253"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0048",
+    "Version": "0000",
+    "DomainValueText": "Ecuador",
+    "DomainValue": "+593"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0049",
+    "Version": "0000",
+    "DomainValueText": "Egypt",
+    "DomainValue": "+20"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0050",
+    "Version": "0000",
+    "DomainValueText": "El Salvador",
+    "DomainValue": "+503"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0051",
+    "Version": "0000",
+    "DomainValueText": "Equatorial Guinea",
+    "DomainValue": "+240"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0052",
+    "Version": "0000",
+    "DomainValueText": "Eritrea",
+    "DomainValue": "+291"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0053",
+    "Version": "0000",
+    "DomainValueText": "Estonia",
+    "DomainValue": "+372"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0054",
+    "Version": "0000",
+    "DomainValueText": "Eswatini",
+    "DomainValue": "+268"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0055",
+    "Version": "0000",
+    "DomainValueText": "Ethiopia",
+    "DomainValue": "+251"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0056",
+    "Version": "0000",
+    "DomainValueText": "Falkland Islands",
+    "DomainValue": "+500"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0057",
+    "Version": "0000",
+    "DomainValueText": "Faroe Islands",
+    "DomainValue": "+298"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0058",
+    "Version": "0000",
+    "DomainValueText": "Fiji",
+    "DomainValue": "+679"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0059",
+    "Version": "0000",
+    "DomainValueText": "Finland",
+    "DomainValue": "+358"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0060",
+    "Version": "0000",
+    "DomainValueText": "France",
+    "DomainValue": "+33"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0061",
+    "Version": "0000",
+    "DomainValueText": "French Guiana",
+    "DomainValue": "+594"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0062",
+    "Version": "0000",
+    "DomainValueText": "French Polynesia",
+    "DomainValue": "+689"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0063",
+    "Version": "0000",
+    "DomainValueText": "Gabon",
+    "DomainValue": "+241"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0064",
+    "Version": "0000",
+    "DomainValueText": "Gambia",
+    "DomainValue": "+220"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0065",
+    "Version": "0000",
+    "DomainValueText": "Georgia",
+    "DomainValue": "+995"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0066",
+    "Version": "0000",
+    "DomainValueText": "Germany",
+    "DomainValue": "+49"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0067",
+    "Version": "0000",
+    "DomainValueText": "Ghana",
+    "DomainValue": "+233"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0068",
+    "Version": "0000",
+    "DomainValueText": "Gibraltar",
+    "DomainValue": "+350"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0069",
+    "Version": "0000",
+    "DomainValueText": "Greece",
+    "DomainValue": "+30"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0070",
+    "Version": "0000",
+    "DomainValueText": "Greenland",
+    "DomainValue": "+299"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0071",
+    "Version": "0000",
+    "DomainValueText": "Guadeloupe / Saint Martin",
+    "DomainValue": "+590"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0072",
+    "Version": "0000",
+    "DomainValueText": "Guatemala",
+    "DomainValue": "+502"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0073",
+    "Version": "0000",
+    "DomainValueText": "Guinea",
+    "DomainValue": "+224"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0074",
+    "Version": "0000",
+    "DomainValueText": "Guinea-Bissau",
+    "DomainValue": "+245"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0075",
+    "Version": "0000",
+    "DomainValueText": "Guyana",
+    "DomainValue": "+592"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0076",
+    "Version": "0000",
+    "DomainValueText": "Haiti",
+    "DomainValue": "+509"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0077",
+    "Version": "0000",
+    "DomainValueText": "Honduras",
+    "DomainValue": "+504"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0078",
+    "Version": "0000",
+    "DomainValueText": "Hong Kong",
+    "DomainValue": "+852"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0079",
+    "Version": "0000",
+    "DomainValueText": "Hungary",
+    "DomainValue": "+36"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0080",
+    "Version": "0000",
+    "DomainValueText": "Iceland",
+    "DomainValue": "+354"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0081",
+    "Version": "0000",
+    "DomainValueText": "India",
+    "DomainValue": "+91"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0082",
+    "Version": "0000",
+    "DomainValueText": "Indonesia",
+    "DomainValue": "+62"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0083",
+    "Version": "0000",
+    "DomainValueText": "Iran",
+    "DomainValue": "+98"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0084",
+    "Version": "0000",
+    "DomainValueText": "Iraq",
+    "DomainValue": "+964"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0085",
+    "Version": "0000",
+    "DomainValueText": "Ireland",
+    "DomainValue": "+353"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0086",
+    "Version": "0000",
+    "DomainValueText": "Israel",
+    "DomainValue": "+972"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0087",
+    "Version": "0000",
+    "DomainValueText": "Italy",
+    "DomainValue": "+39"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0088",
+    "Version": "0000",
+    "DomainValueText": "Ivory Coast",
+    "DomainValue": "+225"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0089",
+    "Version": "0000",
+    "DomainValueText": "Japan",
+    "DomainValue": "+81"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0090",
+    "Version": "0000",
+    "DomainValueText": "Jordan",
+    "DomainValue": "+962"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0091",
+    "Version": "0000",
+    "DomainValueText": "Kenya",
+    "DomainValue": "+254"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0092",
+    "Version": "0000",
+    "DomainValueText": "Kiribati",
+    "DomainValue": "+686"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0093",
+    "Version": "0000",
+    "DomainValueText": "Kosovo",
+    "DomainValue": "+383"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0094",
+    "Version": "0000",
+    "DomainValueText": "Kuwait",
+    "DomainValue": "+965"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0095",
+    "Version": "0000",
+    "DomainValueText": "Kyrgyzstan",
+    "DomainValue": "+996"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0096",
+    "Version": "0000",
+    "DomainValueText": "Laos",
+    "DomainValue": "+856"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0097",
+    "Version": "0000",
+    "DomainValueText": "Latvia",
+    "DomainValue": "+371"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0098",
+    "Version": "0000",
+    "DomainValueText": "Lebanon",
+    "DomainValue": "+961"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0099",
+    "Version": "0000",
+    "DomainValueText": "Lesotho",
+    "DomainValue": "+266"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0100",
+    "Version": "0000",
+    "DomainValueText": "Liberia",
+    "DomainValue": "+231"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0101",
+    "Version": "0000",
+    "DomainValueText": "Libya",
+    "DomainValue": "+218"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0102",
+    "Version": "0000",
+    "DomainValueText": "Liechtenstein",
+    "DomainValue": "+423"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0103",
+    "Version": "0000",
+    "DomainValueText": "Lithuania",
+    "DomainValue": "+370"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0104",
+    "Version": "0000",
+    "DomainValueText": "Luxembourg",
+    "DomainValue": "+352"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0105",
+    "Version": "0000",
+    "DomainValueText": "Macao",
+    "DomainValue": "+853"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0106",
+    "Version": "0000",
+    "DomainValueText": "Madagascar",
+    "DomainValue": "+261"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0107",
+    "Version": "0000",
+    "DomainValueText": "Malawi",
+    "DomainValue": "+265"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0108",
+    "Version": "0000",
+    "DomainValueText": "Malaysia",
+    "DomainValue": "+60"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0109",
+    "Version": "0000",
+    "DomainValueText": "Maldives",
+    "DomainValue": "+960"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0110",
+    "Version": "0000",
+    "DomainValueText": "Mali",
+    "DomainValue": "+223"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0111",
+    "Version": "0000",
+    "DomainValueText": "Malta",
+    "DomainValue": "+356"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0112",
+    "Version": "0000",
+    "DomainValueText": "Marshall Islands",
+    "DomainValue": "+692"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0113",
+    "Version": "0000",
+    "DomainValueText": "Martinique",
+    "DomainValue": "+596"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0114",
+    "Version": "0000",
+    "DomainValueText": "Mauritania",
+    "DomainValue": "+222"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0115",
+    "Version": "0000",
+    "DomainValueText": "Mauritius",
+    "DomainValue": "+230"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0116",
+    "Version": "0000",
+    "DomainValueText": "Mexico",
+    "DomainValue": "+52"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0117",
+    "Version": "0000",
+    "DomainValueText": "Micronesia",
+    "DomainValue": "+691"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0118",
+    "Version": "0000",
+    "DomainValueText": "Moldova",
+    "DomainValue": "+373"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0119",
+    "Version": "0000",
+    "DomainValueText": "Monaco",
+    "DomainValue": "+377"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0120",
+    "Version": "0000",
+    "DomainValueText": "Mongolia",
+    "DomainValue": "+976"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0121",
+    "Version": "0000",
+    "DomainValueText": "Montenegro",
+    "DomainValue": "+382"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0122",
+    "Version": "0000",
+    "DomainValueText": "Morocco",
+    "DomainValue": "+212"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0123",
+    "Version": "0000",
+    "DomainValueText": "Mozambique",
+    "DomainValue": "+258"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0124",
+    "Version": "0000",
+    "DomainValueText": "Myanmar",
+    "DomainValue": "+95"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0125",
+    "Version": "0000",
+    "DomainValueText": "Namibia",
+    "DomainValue": "+264"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0126",
+    "Version": "0000",
+    "DomainValueText": "Nauru",
+    "DomainValue": "+674"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0127",
+    "Version": "0000",
+    "DomainValueText": "Nepal",
+    "DomainValue": "+977"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0128",
+    "Version": "0000",
+    "DomainValueText": "Netherlands",
+    "DomainValue": "+31"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0129",
+    "Version": "0000",
+    "DomainValueText": "New Caledonia",
+    "DomainValue": "+687"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0130",
+    "Version": "0000",
+    "DomainValueText": "New Zealand",
+    "DomainValue": "+64"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0131",
+    "Version": "0000",
+    "DomainValueText": "Nicaragua",
+    "DomainValue": "+505"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0132",
+    "Version": "0000",
+    "DomainValueText": "Niger",
+    "DomainValue": "+227"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0133",
+    "Version": "0000",
+    "DomainValueText": "Nigeria",
+    "DomainValue": "+234"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0134",
+    "Version": "0000",
+    "DomainValueText": "Niue",
+    "DomainValue": "+683"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0135",
+    "Version": "0000",
+    "DomainValueText": "Norfolk Island",
+    "DomainValue": "+672"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0136",
+    "Version": "0000",
+    "DomainValueText": "North Korea",
+    "DomainValue": "+850"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0137",
+    "Version": "0000",
+    "DomainValueText": "North Macedonia",
+    "DomainValue": "+389"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0138",
+    "Version": "0000",
+    "DomainValueText": "Norway",
+    "DomainValue": "+47"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0139",
+    "Version": "0000",
+    "DomainValueText": "Oman",
+    "DomainValue": "+968"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0140",
+    "Version": "0000",
+    "DomainValueText": "Pakistan",
+    "DomainValue": "+92"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0141",
+    "Version": "0000",
+    "DomainValueText": "Palau",
+    "DomainValue": "+680"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0142",
+    "Version": "0000",
+    "DomainValueText": "Palestine",
+    "DomainValue": "+970"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0143",
+    "Version": "0000",
+    "DomainValueText": "Panama",
+    "DomainValue": "+507"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0144",
+    "Version": "0000",
+    "DomainValueText": "Papua New Guinea",
+    "DomainValue": "+675"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0145",
+    "Version": "0000",
+    "DomainValueText": "Paraguay",
+    "DomainValue": "+595"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0146",
+    "Version": "0000",
+    "DomainValueText": "Peru",
+    "DomainValue": "+51"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0147",
+    "Version": "0000",
+    "DomainValueText": "Philippines",
+    "DomainValue": "+63"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0148",
+    "Version": "0000",
+    "DomainValueText": "Poland",
+    "DomainValue": "+48"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0149",
+    "Version": "0000",
+    "DomainValueText": "Portugal",
+    "DomainValue": "+351"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0150",
+    "Version": "0000",
+    "DomainValueText": "Qatar",
+    "DomainValue": "+974"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0151",
+    "Version": "0000",
+    "DomainValueText": "Reunion / Mayotte",
+    "DomainValue": "+262"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0152",
+    "Version": "0000",
+    "DomainValueText": "Romania",
+    "DomainValue": "+40"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0153",
+    "Version": "0000",
+    "DomainValueText": "Russia / Kazakhstan",
+    "DomainValue": "+7"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0154",
+    "Version": "0000",
+    "DomainValueText": "Rwanda",
+    "DomainValue": "+250"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0155",
+    "Version": "0000",
+    "DomainValueText": "Saint Helena",
+    "DomainValue": "+290"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0156",
+    "Version": "0000",
+    "DomainValueText": "Saint Pierre and Miquelon",
+    "DomainValue": "+508"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0157",
+    "Version": "0000",
+    "DomainValueText": "Samoa",
+    "DomainValue": "+685"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0158",
+    "Version": "0000",
+    "DomainValueText": "San Marino",
+    "DomainValue": "+378"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0159",
+    "Version": "0000",
+    "DomainValueText": "Sao Tome and Principe",
+    "DomainValue": "+239"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0160",
+    "Version": "0000",
+    "DomainValueText": "Saudi Arabia",
+    "DomainValue": "+966"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0161",
+    "Version": "0000",
+    "DomainValueText": "Senegal",
+    "DomainValue": "+221"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0162",
+    "Version": "0000",
+    "DomainValueText": "Serbia",
+    "DomainValue": "+381"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0163",
+    "Version": "0000",
+    "DomainValueText": "Seychelles",
+    "DomainValue": "+248"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0164",
+    "Version": "0000",
+    "DomainValueText": "Sierra Leone",
+    "DomainValue": "+232"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0165",
+    "Version": "0000",
+    "DomainValueText": "Singapore",
+    "DomainValue": "+65"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0166",
+    "Version": "0000",
+    "DomainValueText": "Slovakia",
+    "DomainValue": "+421"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0167",
+    "Version": "0000",
+    "DomainValueText": "Slovenia",
+    "DomainValue": "+386"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0168",
+    "Version": "0000",
+    "DomainValueText": "Solomon Islands",
+    "DomainValue": "+677"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0169",
+    "Version": "0000",
+    "DomainValueText": "Somalia",
+    "DomainValue": "+252"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0170",
+    "Version": "0000",
+    "DomainValueText": "South Africa",
+    "DomainValue": "+27"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0171",
+    "Version": "0000",
+    "DomainValueText": "South Korea",
+    "DomainValue": "+82"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0172",
+    "Version": "0000",
+    "DomainValueText": "South Sudan",
+    "DomainValue": "+211"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0173",
+    "Version": "0000",
+    "DomainValueText": "Spain",
+    "DomainValue": "+34"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0174",
+    "Version": "0000",
+    "DomainValueText": "Sri Lanka",
+    "DomainValue": "+94"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0175",
+    "Version": "0000",
+    "DomainValueText": "Sudan",
+    "DomainValue": "+249"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0176",
+    "Version": "0000",
+    "DomainValueText": "Suriname",
+    "DomainValue": "+597"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0177",
+    "Version": "0000",
+    "DomainValueText": "Sweden",
+    "DomainValue": "+46"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0178",
+    "Version": "0000",
+    "DomainValueText": "Switzerland",
+    "DomainValue": "+41"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0179",
+    "Version": "0000",
+    "DomainValueText": "Syria",
+    "DomainValue": "+963"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0180",
+    "Version": "0000",
+    "DomainValueText": "Taiwan",
+    "DomainValue": "+886"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0181",
+    "Version": "0000",
+    "DomainValueText": "Tajikistan",
+    "DomainValue": "+992"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0182",
+    "Version": "0000",
+    "DomainValueText": "Tanzania",
+    "DomainValue": "+255"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0183",
+    "Version": "0000",
+    "DomainValueText": "Thailand",
+    "DomainValue": "+66"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0184",
+    "Version": "0000",
+    "DomainValueText": "Timor-Leste",
+    "DomainValue": "+670"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0185",
+    "Version": "0000",
+    "DomainValueText": "Togo",
+    "DomainValue": "+228"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0186",
+    "Version": "0000",
+    "DomainValueText": "Tokelau",
+    "DomainValue": "+690"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0187",
+    "Version": "0000",
+    "DomainValueText": "Tonga",
+    "DomainValue": "+676"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0188",
+    "Version": "0000",
+    "DomainValueText": "Tunisia",
+    "DomainValue": "+216"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0189",
+    "Version": "0000",
+    "DomainValueText": "Turkey",
+    "DomainValue": "+90"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0190",
+    "Version": "0000",
+    "DomainValueText": "Turkmenistan",
+    "DomainValue": "+993"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0191",
+    "Version": "0000",
+    "DomainValueText": "Tuvalu",
+    "DomainValue": "+688"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0192",
+    "Version": "0000",
+    "DomainValueText": "Uganda",
+    "DomainValue": "+256"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0193",
+    "Version": "0000",
+    "DomainValueText": "Ukraine",
+    "DomainValue": "+380"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0194",
+    "Version": "0000",
+    "DomainValueText": "United Arab Emirates",
+    "DomainValue": "+971"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0195",
+    "Version": "0000",
+    "DomainValueText": "United Kingdom",
+    "DomainValue": "+44"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0196",
+    "Version": "0000",
+    "DomainValueText": "United States / Canada (NANP)",
+    "DomainValue": "+1"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0197",
+    "Version": "0000",
+    "DomainValueText": "Uruguay",
+    "DomainValue": "+598"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0198",
+    "Version": "0000",
+    "DomainValueText": "Uzbekistan",
+    "DomainValue": "+998"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0199",
+    "Version": "0000",
+    "DomainValueText": "Vanuatu",
+    "DomainValue": "+678"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0200",
+    "Version": "0000",
+    "DomainValueText": "Vatican City",
+    "DomainValue": "+379"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0201",
+    "Version": "0000",
+    "DomainValueText": "Venezuela",
+    "DomainValue": "+58"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0202",
+    "Version": "0000",
+    "DomainValueText": "Vietnam",
+    "DomainValue": "+84"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0203",
+    "Version": "0000",
+    "DomainValueText": "Wallis and Futuna",
+    "DomainValue": "+681"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0204",
+    "Version": "0000",
+    "DomainValueText": "Yemen",
+    "DomainValue": "+967"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0205",
+    "Version": "0000",
+    "DomainValueText": "Zambia",
+    "DomainValue": "+260"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_MOBILE_CC",
+    "Language": "EN",
+    "ValueKey": "0206",
+    "Version": "0000",
+    "DomainValueText": "Zimbabwe",
+    "DomainValue": "+263"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_PERCENTAGE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "",
+    "DomainValue": "0"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_ROLE",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Technical",
+    "DomainValue": "01"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_ROLE",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Functional",
+    "DomainValue": "02"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_ROLE",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Practice",
+    "DomainValue": "03"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_STATUS",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Active",
+    "DomainValue": "10"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_STATUS",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Resigned",
+    "DomainValue": "20"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_STATUS",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Left",
+    "DomainValue": "30"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_STATUS",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Sabbatical",
+    "DomainValue": "40"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_STATUS",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Maternity",
+    "DomainValue": "50"
+  },
+  {
+    "DomainName": "/NGR/DO_SP_STATUS",
+    "Language": "EN",
+    "ValueKey": "0006",
+    "Version": "0000",
+    "DomainValueText": "Expat",
+    "DomainValue": "60"
+  },
+  {
+    "DomainName": "/NGR/DO_STATUS",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Waiting for approval",
+    "DomainValue": "1"
+  },
+  {
+    "DomainName": "/NGR/DO_STATUS",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Under discussion",
+    "DomainValue": "2"
+  },
+  {
+    "DomainName": "/NGR/DO_STATUS",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Under implementation",
+    "DomainValue": "3"
+  },
+  {
+    "DomainName": "/NGR/DO_STATUS",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Under Testing",
+    "DomainValue": "4"
+  },
+  {
+    "DomainName": "/NGR/DO_STATUS",
+    "Language": "EN",
+    "ValueKey": "0005",
+    "Version": "0000",
+    "DomainValueText": "Completed",
+    "DomainValue": "5"
+  },
+  {
+    "DomainName": "/NGR/DO_TASK_STAT",
+    "Language": "EN",
+    "ValueKey": "0001",
+    "Version": "0000",
+    "DomainValueText": "Work In Progress",
+    "DomainValue": "WIP"
+  },
+  {
+    "DomainName": "/NGR/DO_TASK_STAT",
+    "Language": "EN",
+    "ValueKey": "0002",
+    "Version": "0000",
+    "DomainValueText": "Completed",
+    "DomainValue": "COMPLETE"
+  },
+  {
+    "DomainName": "/NGR/DO_TASK_STAT",
+    "Language": "EN",
+    "ValueKey": "0003",
+    "Version": "0000",
+    "DomainValueText": "Hold",
+    "DomainValue": "HOLD"
+  },
+  {
+    "DomainName": "/NGR/DO_TASK_STAT",
+    "Language": "EN",
+    "ValueKey": "0004",
+    "Version": "0000",
+    "DomainValueText": "Closed",
+    "DomainValue": "CLSD"
+  }
+]

@@ -21,7 +21,7 @@
 
                 <VBox id="_IDGenVBox3">
 
-                    <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters" useDateRangeType="false" liveMode="true">
+                    <smartFilterBar:SmartFilterBar id="presalesDBsmartFilterBar" entitySet="xNGRxCDS_PS_MASTER" persistencyKey="_presalesfiori_dashboard_filters" useDateRangeType="false" liveMode="true" showClearOnFB="true" clear=".onFilterBarClear">
                         <!-- layout data used to make the table growing but the filter bar fixed -->
                         <smartFilterBar:layoutData>
                             <FlexItemData id="_IDGenFlexItemData" shrinkFactor="0" />
