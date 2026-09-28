@@ -6,15 +6,13 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
         const year = now.getFullYear(), quarter = Math.floor(now.getMonth() / 3) + 1;
         const filters = Object.assign({ period: `${year}-Q${quarter}`, periods: [`${year}-Q${quarter}`], disjoint: false, search: "" }, Analytics.quarterRange(year, quarter));
         Object.keys(Analytics.DIMENSIONS).forEach(key => { filters[key] = []; });
-        // Default proposal scope: RFP / full-fledged and staff augmentation
-        // proposals plus opportunities not yet assigned a proposal type.
-        // prune() drops any of these keys once no loaded opportunity carries it.
-        filters.proposalCode = ["FULL", "STAFF", Analytics.EMPTY];
-        return { filters, metric: "count", breakdown: "bu", interval: "month", sort: "eur", scrollTop: 0, headerExpanded: true };
+        // Include every proposal type in the default "all opportunities" view.
+        filters.proposalCode = [];
+        return { filters, metric: "count", breakdown: "bu", interval: "month", sort: "statusPriority", scrollTop: 0, headerExpanded: true };
     }
-    function quarters(receivedDates, now = new Date(), selected = "") {
+    function quarters(reportingDates, now = new Date(), selected = "") {
         const year = now.getFullYear(), quarter = Math.floor(now.getMonth() / 3) + 1;
-        const years = receivedDates.concat(selected).map(date => Number(date.slice(0, 4))).filter(y => y > 0 && y <= year);
+        const years = reportingDates.concat(selected).map(date => Number(date.slice(0, 4))).filter(y => y > 0 && y <= year);
         const minimum = Math.max(year - 100, Math.min(year - 1, ...years));
         const result = [];
         for (let y = year; y >= minimum; y--) {
@@ -59,7 +57,7 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
             Number.isFinite(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date) && filters.from <= filters.to) {
             Object.assign(state.filters, { period: "custom", periods: ["custom"], disjoint: false, from: filters.from, to: filters.to });
         }
-        const allowed = { metric: ["count", "eur"], breakdown: Object.keys(Analytics.DIMENSIONS), interval: ["quarter", "month"], sort: ["eur", "received", "CustomerName"] };
+        const allowed = { metric: ["count", "eur"], breakdown: Object.keys(Analytics.DIMENSIONS), interval: ["quarter", "month"], sort: ["statusPriority", "eur", "received", "CustomerName"] };
         Object.keys(allowed).forEach(key => { if (allowed[key].includes(value[key])) { state[key] = value[key]; } });
         state.scrollTop = Number.isFinite(value.scrollTop) ? Math.max(0, value.scrollTop) : 0;
         state.headerExpanded = value.headerExpanded !== false;

@@ -24,7 +24,7 @@ Local development without generated preloads can use `?sap-ui-xx-componentPreloa
 - Four visible KPI cards: opportunity count/total value, active pipeline, won value and count-based win rate (average size and overdue submissions remain computed but their cards are commented out). EUR amounts are written with a space after the symbol (`€ 5.8M`).
 - Intake trend by quarter/month; status mix; portfolio distribution by BU/geography/country; size distribution; a full-width owner-distribution chart whose axis label shows each owner's total count, EUR value and win rate, with bars split by coded proposal type (including unassigned).
 - All five charts switch between opportunity count and EUR value. Click a segment to filter the entire dashboard. Hover shows count, EUR value, active pipeline, won value, win rate, overdue submissions, share of the filtered view and unavailable EUR values for that segment.
-- Detail table with customer/description search, sorting, original currency/value, converted EUR value and navigation to the tracker detail page.
+- Detail table with customer/description search, sorting, Win/Loss date, Win date for won opportunities, converted EUR value and navigation to the tracker detail page. Opportunity Type and SAP System Category remain available as filters and chart groupings.
 - CSV export includes **all filtered rows**, irrespective of table paging, plus active filters, refresh time, exchange-rate date and any data-quality caveats. Spreadsheet formulas in user-entered text are escaped.
 - Print summary includes the current filter context and charts. The detail table is excluded from printing; use CSV for full details.
 
@@ -288,3 +288,35 @@ Tracker frontend: removed the `OpportunityType` SmartFields from `CreateOpportun
 
 **Open — needs a manual step:** dropping the column from `/NGR/T_MASTER` (and then deleting DTEL `/NGR/DE_PS_OPPORTUNITY_TYPE` and DOMA `/NGR/DO_PS_OPPORTUNITY_TYPE`, which the column still references) was blocked by the session's permission policy because the column carries data in every client of PS4 — including the 43 production rows in client 500. Until the column is gone the table still has it, but nothing reads or writes it any more. To finish: SE11 `/NGR/T_MASTER` → delete field `OPPORTUNITY_TYPE` → activate (SE14 "Activate and adjust database" if a conversion is requested), then delete the DTEL and DOMA in transport `PS4K902026`.
 
+
+
+## Reporting-date and data-quality update - 2026-09-28
+
+- The dashboard reporting period uses `CloseDate` (Win/Loss Date) for `WIN` and `COMPLETE`; other statuses use `ReceivedDate`. The trend follows the same reporting date. Won records without `CloseDate` remain in All reporting dates but not in a dated quarter. The table and CSV show both dates.
+- Win rate divides wins by all opportunities matching the non-status filters. Choosing Win in the Status filter therefore does not force 100%, including in the owner stats. The default proposal filter is now All, so Capability and RFI count in the default win-rate denominator. The Won Value tile filters to `WIN` and `COMPLETE` and scrolls to their list.
+
+### Client-110 dashboard refinements (September 2026)
+
+- The opportunity list defaults to Status priority: Win and Completed, Win, Submitted, In Progress, On Hold, Loss, then other statuses. EUR value, received date and customer sorts remain available.
+- The Win rate tile uses the Won Value tile's navigation: it selects Win and Win and Completed, then scrolls to the filtered list.
+- Owner distribution uses a 60% chart and 40% stats table on desktop. Six aligned owners appear per page; previous and next controls expose the rest without an inner vertical scrollbar. It stacks below 800px.
+- Opportunity size now has the same chart height and bottom axis position as Portfolio distribution. Filter and chart metric changes display a processing indicator while the dashboard recalculates.
+- Tracker create and edit require positive Opp. Size and currency for Submitted, Win, and Win and Completed; USD and EUR amounts must exceed 1. A Win/Loss Date is required on new Win and Win and Completed saves.
+- The dashboard and active SAP domain now show the requested geography labels for the seven existing codes. The tracker value help returns the same labels. Client 500 geography assignments require separate business review before correction.
+- Owner stats use a 19rem column with larger values beside a flexible chart at 1024px. Below 800px they stack. CSS-only Chromium viewport checks covered 1024x768, 1440x900, 1920x1080, 768x768, and 480x800 without horizontal overflow. The full UI5 mock could not load because its UI5 CDN proxy is blocked in this environment.
+- The requested service and cloud breakdown needs coded master fields and historical classification before the dashboard can report trustworthy counts.
+
+## Opportunity Type and SAP System Category - 2026-09-28
+
+- Added separate coded `OpportunityType` (AMS, Public Cloud Implementation, Private Cloud Implementation, Rollout, Upgrade, Others) and `SapSystemCategory` (ECC, S/4HANA On Premise, S/4HANA Private Cloud, S/4HANA Public Cloud, Others) SmartFields to tracker create and edit. The original `SapSystem` free text and dormant old `opportunity_type` table column remain intact.
+- Dashboard filters, portfolio breakdown selector and CSV export include both fields. The opportunity table omits the category columns while keeping the filters. Historical blanks appear as Unassigned; no automatic classification is used in the live dashboard.
+- A local client 500 review workbook contains live source data, flagged geography rows and conservative proposed category mappings. The productive opportunity data was not changed. Production extracts and review workbooks stay outside Git.
+- The SAP backend source and Dictionary specifications are in `sap-drafts/README.md`. The backend objects were subsequently activated in client 110 under transport `PS4K902086`, together with the tracker and dashboard deployment.
+- Node tests: 51 passed. `npm run build` passed. The workbook has no formulas and was checked structurally and by previewing representative rows.
+
+## Client 110 activation and intake chart labels - 2026-09-28
+
+- Transport `PS4K902086` contains the two new category domains/data elements, geography domain text changes, two appended `/NGR/T_MASTER` columns, CDS/DDLX exposure and both DPC_EXT method changes. All are active. Existing table fields were preserved; 46 became 48. The two DPC_EXT methods enforce opportunity size and won-date checks, and create now retains the Win/Loss Date for `COMPLETE`.
+- Client 110 `OD_PS_TRACKER_SRV/$metadata` returns the new `OpportunityType` and `SapSystemCategory` properties. The tracker/dashboard bundle was deployed to `/NGR/BSP_PS_TRACKER` in client 110 under the same transport. SAP reported an application-index descriptor-ID warning for the embedded dashboard but completed the upload.
+- Opportunity activity bars now carry two persistent lines: opportunity count and compact EUR value, in both the count and EUR modes. The selected mode still controls bar height. A minimum chart width keeps labels legible when many periods are shown, with horizontal scrolling when needed. Live 110 browser checks covered 1024×768, 1440×900 and 480×800; at 480px all three Q3 monthly bars fit without horizontal page overflow.
+- Client 500 opportunity data was not edited or backfilled. Dictionary/CDS workbench definitions are shared across clients of PS4; only the app deployment and live browser verification targeted client 110.

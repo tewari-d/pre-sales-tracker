@@ -281,6 +281,13 @@ sap.ui.define(
 
           oView.setBusy(true);
 
+          const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency);
+          if (sizeError) {
+            sap.m.MessageBox.error(sizeError, { onClose: () => this.byId("_IDGenSmartField9").focus() });
+            oView.setBusy(false);
+            return;
+          }
+
           if (!oPayload.Country) {
             sap.m.MessageBox.error(
               `Please specify Country / Region of the opportunity.`,
@@ -393,11 +400,6 @@ sap.ui.define(
                 sFirstMissingFieldId || "_IDGenSmartField26";
             }
 
-            if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
-              aMissingFields.push("• Opportunity Value");
-              sFirstMissingFieldId =
-                sFirstMissingFieldId || "_IDGenSmartField9";
-            }
 
             if (aMissingFields.length > 0) {
               sap.m.MessageBox.error(
@@ -492,7 +494,7 @@ sap.ui.define(
             }
           }
 
-          if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
+          if (["WIN", "COMPLETE", "LOSS"].includes(oPayload.Status)) {
             if (!oPayload.CloseDate) {
               sap.m.MessageBox.error(
                 `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`,

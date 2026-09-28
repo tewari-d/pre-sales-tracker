@@ -1,6 +1,6 @@
 sap.ui.define([], function () {
     "use strict";
-    const SELECT = "Id,CustomerName,OppDesc,ReceivedDate,DueSubmissionDate,SubmissionDate,BUDetails,BUDetailsText,Country,Country_Text,Geography,GeographyText,Status,StatusText,Owner,ProposalTypeOp,ProposalTypeOpText,OppTcv,Currency,DeletionIndicator";
+    const SELECT = "Id,CustomerName,OppDesc,ReceivedDate,CloseDate,DueSubmissionDate,SubmissionDate,BUDetails,BUDetailsText,Country,Country_Text,Geography,GeographyText,Status,StatusText,Owner,ProposalTypeOp,ProposalTypeOpText,OpportunityType,OpportunityTypeText,SapSystemCategory,SapSystemCategoryText,OppTcv,Currency,DeletionIndicator";
 
     async function readAll(model, progress, cancelled) {
         let rows = [], query = { "$select": SELECT, "$orderby": "Id asc", "$top": "500", "$skip": "0", "$inlinecount": "allpages" };

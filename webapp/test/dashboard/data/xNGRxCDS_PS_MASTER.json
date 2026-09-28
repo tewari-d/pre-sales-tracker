@@ -14,6 +14,10 @@
     "Owner": "Alex Morgan",
     "ProposalTypeOp": "FUNNEL",
     "ProposalTypeOpText": "Funnel",
+    "OpportunityType": "UPGRADE",
+    "OpportunityTypeText": "Upgrade",
+    "SapSystemCategory": "S4_ONPREM",
+    "SapSystemCategoryText": "S/4HANA On Premise",
     "Currency": "USD",
     "OppTcv": "18000",
     "ReceivedDate": "/Date(1767312000000)/",
@@ -36,9 +40,14 @@
     "Owner": "Jamie Chen",
     "ProposalTypeOp": "CAP",
     "ProposalTypeOpText": "Capability / Rate enquiry",
+    "OpportunityType": "PUB_IMPL",
+    "OpportunityTypeText": "Public Cloud Implementation",
+    "SapSystemCategory": "S4_PUBLIC",
+    "SapSystemCategoryText": "S/4HANA Public Cloud",
     "Currency": "EUR",
     "OppTcv": "32000",
     "ReceivedDate": "/Date(1767398400000)/",
+    "CloseDate": "/Date(1767398400000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -105,6 +114,7 @@
     "Currency": "EUR",
     "OppTcv": "250000",
     "ReceivedDate": "/Date(1767657600000)/",
+    "CloseDate": "/Date(1767657600000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -193,6 +203,7 @@
     "Currency": "USD",
     "OppTcv": "18000",
     "ReceivedDate": "/Date(1770681600000)/",
+    "CloseDate": "/Date(1770681600000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -259,6 +270,7 @@
     "Currency": "EUR",
     "OppTcv": "92000",
     "ReceivedDate": "/Date(1770940800000)/",
+    "CloseDate": "/Date(1770940800000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -347,6 +359,7 @@
     "Currency": "EUR",
     "OppTcv": "0",
     "ReceivedDate": "/Date(1773705600000)/",
+    "CloseDate": "/Date(1773705600000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -413,6 +426,7 @@
     "Currency": "EUR",
     "OppTcv": "64000",
     "ReceivedDate": "/Date(1776643200000)/",
+    "CloseDate": "/Date(1776643200000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -501,6 +515,7 @@
     "Currency": "EUR",
     "OppTcv": "1250000",
     "ReceivedDate": "/Date(1776988800000)/",
+    "CloseDate": "/Date(1776988800000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -567,6 +582,7 @@
     "Currency": "EUR",
     "OppTcv": "32000",
     "ReceivedDate": "/Date(1777680000000)/",
+    "CloseDate": "/Date(1777680000000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -655,6 +671,7 @@
     "Currency": "EUR",
     "OppTcv": "750000",
     "ReceivedDate": "/Date(1778025600000)/",
+    "CloseDate": "/Date(1778025600000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -721,6 +738,7 @@
     "Currency": "USD",
     "OppTcv": "18000",
     "ReceivedDate": "/Date(1780963200000)/",
+    "CloseDate": "/Date(1780963200000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -809,6 +827,7 @@
     "Currency": "EUR",
     "OppTcv": "250000",
     "ReceivedDate": "/Date(1783900800000)/",
+    "CloseDate": "/Date(1783900800000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -875,6 +894,7 @@
     "Currency": "EUR",
     "OppTcv": "0",
     "ReceivedDate": "/Date(1784160000000)/",
+    "CloseDate": "/Date(1784160000000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -963,6 +983,7 @@
     "Currency": "EUR",
     "OppTcv": "92000",
     "ReceivedDate": "/Date(1787184000000)/",
+    "CloseDate": "/Date(1787184000000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false
@@ -1029,6 +1050,7 @@
     "Currency": "EUR",
     "OppTcv": "1250000",
     "ReceivedDate": "/Date(1787443200000)/",
+    "CloseDate": "/Date(1787443200000)/",
     "DueSubmissionDate": "/Date(1788048000000)/",
     "SubmissionDate": "/Date(1787184000000)/",
     "DeletionIndicator": false

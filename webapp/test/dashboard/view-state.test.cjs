@@ -45,8 +45,15 @@ test("first visit defaults to the current calendar quarter, including year bound
     ]) {
         const state = S.defaults(date), filters = state.filters;
         assert.equal(state.interval, "month");
+        assert.equal(state.sort, "statusPriority");
         assert.equal(filters.period, period); assert.equal(filters.from, from); assert.equal(filters.to, to);
     }
+});
+test("status priority follows won, submitted, active and lost stages", () => {
+    const statuses = ["LOSS", "HOLD", "WIP", "SUBMITTED", "WIN", "COMPLETE", "NOGO"];
+    const rows = A.normalize(statuses.map((Status, index) => ({ Id: String(index), Status })), {});
+    assert.deepEqual(plain(rows.sort((a, b) => a.statusRank - b.statusRank).map(row => row.Status)),
+        ["COMPLETE", "WIN", "SUBMITTED", "WIP", "HOLD", "LOSS", "NOGO"]);
 });
 test("future data cannot introduce future quarters; a retained older quarter stays available", () => {
     const periods = S.quarters(["2025-01-01", "2030-01-01"], today, "2023-Q2");
@@ -112,31 +119,29 @@ test("coded proposal help shows descriptions and the CSV export carries only the
     assert.deepEqual(plain(A.options(rows,"proposalCode").map(o=>o.text)), ["Capability presentation","Full-fledged proposal","Unassigned"]);
     assert.deepEqual(plain(A.filter(rows,{proposalCode:["FULL"]}).map(r=>r.Id)), ["1"]);
     const csv = A.csv(rows, "");
-    assert.ok(csv.includes('"EUR band","Proposal type","Report context"'));
+    assert.ok(csv.includes('"EUR band","Proposal type","Opportunity type","SAP system category","Report context"'));
     assert.ok(!csv.includes("free text"));
-    assert.ok(csv.includes('"Full-fledged proposal",""'));
+    assert.ok(csv.includes('"Full-fledged proposal","","",""'));
 });
-test("default proposal filter is RFP/full-fledged, staff augmentation plus unassigned; prune drops keys no loaded row carries", () => {
-    assert.deepEqual(plain(S.defaults(today).filters.proposalCode), ["FULL", "STAFF", "__UNASSIGNED__"]);
-    // Staff augmentation rows are kept in the default scope alongside RFP / full-fledged ones.
+test("default proposal scope includes every type, including Capability and RFI", () => {
+    assert.deepEqual(plain(S.defaults(today).filters.proposalCode), []);
     const staffed = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:"STAFF"}, {Id:"3", ProposalTypeOp:"CAP"}, {Id:"4", ProposalTypeOp:"RFI"}, {Id:"5", ProposalTypeOp:""}], {});
     const staffedOptions = {};
     Object.keys(A.DIMENSIONS).forEach(d => { staffedOptions[d] = A.options(staffed, d); });
     const staffedFilters = Object.assign({}, S.prune(S.defaults(today).filters, staffedOptions), { period: "all", periods: ["all"], from: "", to: "" });
-    assert.deepEqual(plain(staffedFilters.proposalCode), ["FULL", "STAFF", "__UNASSIGNED__"]);
-    assert.deepEqual(plain(A.filter(staffed, staffedFilters).map(r => r.Id)), ["1", "2", "5"]);
+    assert.deepEqual(plain(staffedFilters.proposalCode), []);
+    assert.deepEqual(plain(A.filter(staffed, staffedFilters).map(r => r.Id)), ["1", "2", "3", "4", "5"]);
     const rows = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:"CAP"}], {});
     const options = {};
     Object.keys(A.DIMENSIONS).forEach(d => { options[d] = A.options(rows, d); });
     const pruned = S.prune(S.defaults(today).filters, options);
-    assert.deepEqual(plain(pruned.proposalCode), ["FULL"]);
+    assert.deepEqual(plain(pruned.proposalCode), []);
     assert.equal(pruned.period, S.defaults(today).filters.period);
     assert.equal(A.filter(rows, pruned).length, 0); // both rows are outside the default quarter
-    assert.equal(A.filter(rows, Object.assign({}, pruned, { period: "all", periods: ["all"], from: "", to: "" })).length, 1);
-    // Rows without a proposal type keep the unassigned default.
+    assert.equal(A.filter(rows, Object.assign({}, pruned, { period: "all", periods: ["all"], from: "", to: "" })).length, 2);
     const mixed = A.normalize([{Id:"1", ProposalTypeOp:"FULL"}, {Id:"2", ProposalTypeOp:""}], {});
     Object.keys(A.DIMENSIONS).forEach(d => { options[d] = A.options(mixed, d); });
-    assert.deepEqual(plain(S.prune(S.defaults(today).filters, options).proposalCode), ["FULL", "__UNASSIGNED__"]);
+    assert.deepEqual(plain(S.prune(S.defaults(today).filters, options).proposalCode), []);
     // Missing options never throw and leave dimension filters empty.
     assert.deepEqual(plain(S.prune(S.defaults(today).filters, {}).proposalCode), []);
     // Sanitize keeps an explicitly cleared proposal filter cleared.

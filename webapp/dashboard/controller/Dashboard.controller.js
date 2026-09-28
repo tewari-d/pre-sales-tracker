@@ -78,6 +78,7 @@ sap.ui.define(
           this._restoreFrame = null;
           this._viewModel = new JSONModel({
             busy: true,
+            processing: false,
             loaded: false,
             error: "",
             warning: "",
@@ -94,6 +95,9 @@ sap.ui.define(
             breakdown: state.breakdown,
             interval: state.interval,
             sort: state.sort,
+            ownerPage: 0,
+            ownerPageCount: 1,
+            ownerPageRange: "",
             kpis: {},
             rows: [],
             charts: {},
@@ -126,6 +130,28 @@ sap.ui.define(
                   this._text("jumpToOpportunities"),
                 );
               }
+            },
+          });
+          this.byId("wonValueKpi").addEventDelegate({
+            onclick: () => this.onWonValuePress(),
+            onsapenter: (event) => { event.preventDefault(); this.onWonValuePress(); },
+            onsapspace: (event) => { event.preventDefault(); this.onWonValuePress(); },
+            onAfterRendering: () => {
+              const element = this.byId("wonValueKpi").getDomRef();
+              element.setAttribute("role", "button");
+              element.setAttribute("tabindex", "0");
+              element.setAttribute("aria-label", this._bundle ? this._text("jumpToWon") : "Show won opportunities in the table");
+            },
+          });
+          this.byId("winRateKpi").addEventDelegate({
+            onclick: () => this.onWonValuePress(),
+            onsapenter: (event) => { event.preventDefault(); this.onWonValuePress(); },
+            onsapspace: (event) => { event.preventDefault(); this.onWonValuePress(); },
+            onAfterRendering: () => {
+              const element = this.byId("winRateKpi").getDomRef();
+              element.setAttribute("role", "button");
+              element.setAttribute("tabindex", "0");
+              element.setAttribute("aria-label", this._bundle ? this._text("jumpToWon") : "Show won opportunities in the table");
             },
           });
           Promise.resolve(
@@ -175,7 +201,7 @@ sap.ui.define(
             width: "100%",
             // The status donut shares a row with the trend chart; both get the
             // taller height so the pie has room and the row stays aligned.
-            height: ["breakdown", "owner", "status", "trend"].includes(name)
+            height: ["breakdown", "band", "owner", "status", "trend"].includes(name)
               ? "24rem"
               : "19rem",
             vizType: ownerSplit ? "stacked_bar" : type,
@@ -239,6 +265,9 @@ sap.ui.define(
             interaction: { selectability: { mode: ownerSplit ? "EXCLUSIVE" : "SINGLE" } },
           });
           chart.attachRenderComplete(() => this._hideFractionalTicks(chart));
+          if (name === "trend") {
+            chart.attachRenderComplete(() => this._decorateTrendBars(chart));
+          }
           chart.attachRenderComplete(() => this._restoreScroll());
           if (ownerSplit) {
             chart.attachRenderComplete(() => this._trackOwnerClickOrigin(chart));
@@ -254,6 +283,7 @@ sap.ui.define(
           this._charts[name] = chart;
         },
         onRefresh: async function () {
+          this._cancelScheduledApply();
           const generation = ++this._generation;
           const model = this._viewModel;
           model.setProperty("/busy", true);
@@ -335,7 +365,7 @@ sap.ui.define(
           this._viewModel.setProperty(
             "/periods",
             ViewState.quarters(
-                this._rows.map((r) => r.received),
+                this._rows.map((r) => r.periodDate),
                 new Date(),
                 this._viewModel.getProperty("/filters/periods"),
               ).concat(periods),
@@ -356,7 +386,7 @@ sap.ui.define(
           }
           this._viewModel.setProperty("/filters", Object.assign({}, filters, range));
           this._setRange(range);
-          this._apply();
+          this._scheduleApply();
           if (range.period === "custom") {
             event.getSource().close();
             this.byId("receivedRange").focus();
@@ -402,17 +432,17 @@ sap.ui.define(
             "/filters/to",
             Analytics.dateKey(to, true),
           );
-          this._apply();
+          this._scheduleApply();
         },
         onFilterChange: function () {
-          this._apply();
+          this._scheduleApply();
         },
         onSearch: function (event) {
           this._viewModel.setProperty(
             "/filters/search",
             event.getParameter("newValue") || "",
           );
-          this._apply();
+          this._scheduleApply(180);
         },
         onReset: function () {
           const filters = ViewState.prune(
@@ -421,7 +451,32 @@ sap.ui.define(
           );
           this._viewModel.setProperty("/filters", filters);
           this._setRange(filters);
-          this._apply();
+          this._scheduleApply();
+        },
+        _cancelScheduledApply: function () {
+          clearTimeout(this._applyTimer);
+          clearTimeout(this._processingTimer);
+          this._applyTimer = null;
+          this._processingTimer = null;
+          this._viewModel?.setProperty("/processing", false);
+        },
+        _scheduleApply: function (delay = 60, afterApply) {
+          if (!this._viewModel.getProperty("/loaded")) { return; }
+          clearTimeout(this._applyTimer);
+          clearTimeout(this._processingTimer);
+          this._viewModel.setProperty("/processing", true);
+          this._applyTimer = setTimeout(() => {
+            this._applyTimer = null;
+            try {
+              this._apply();
+              if (afterApply) { afterApply(); }
+            } finally {
+              this._processingTimer = setTimeout(() => {
+                this._processingTimer = null;
+                if (!this._exited) { this._viewModel.setProperty("/processing", false); }
+              }, 150);
+            }
+          }, delay);
         },
         _apply: function () {
           if (!this._viewModel.getProperty("/loaded")) {
@@ -431,10 +486,12 @@ sap.ui.define(
           this._hover.hide();
           const filters = model.getProperty("/filters");
           const rows = Analytics.filter(this._rows, filters);
+          this._rateBase = Analytics.filter(this._rows, Object.assign({}, filters, { status: [] }));
           const metric = model.getProperty("/metric");
           const summary = Analytics.summarize(
             rows,
             Analytics.dateKey(new Date(), true),
+            this._rateBase.length,
           );
           const count =
             Object.keys(Analytics.DIMENSIONS).reduce(
@@ -526,6 +583,9 @@ sap.ui.define(
           if (summary.undated) {
             warnings.push(this._text("missingDate", [summary.undated]));
           }
+          if (summary.undatedWins) {
+            warnings.push(this._text("missingWinDate", [summary.undatedWins]));
+          }
           model.setProperty("/warning", warnings.join(" "));
           model.setProperty(
             "/overview",
@@ -557,12 +617,13 @@ sap.ui.define(
           });
         },
         _setChartData: function (name, rows, groups, dimension) {
-          const data = name === "owner" ? Analytics.ownerProposalStacks(rows, this._viewModel.getProperty("/metric"), Analytics.dateKey(new Date(), true)) : Analytics.chartMetrics(
+          const data = name === "owner" ? Analytics.ownerProposalStacks(rows, this._viewModel.getProperty("/metric"), Analytics.dateKey(new Date(), true), this._rateBase) : Analytics.chartMetrics(
             rows,
             groups,
             dimension,
             this._viewModel.getProperty("/interval"),
             Analytics.dateKey(new Date(), true),
+            this._rateBase,
           );
           data.forEach((item) => {
             const metrics = item.metrics;
@@ -582,14 +643,67 @@ sap.ui.define(
             }
           });
           this._viewModel.setProperty("/charts/" + name, data);
-          if (name === "owner") {
-            this._applyOwnerPalette();
-            const table = this._ownerTable(data);
-            this._viewModel.setProperty("/charts/ownerTable", table);
-            // Tall enough for every owner, so neither the chart nor the table
-            // scrolls on its own and the rows can sit exactly on the bars.
-            this._charts.owner.setHeight(Math.max(22, table.length * 2.75 + 6) + "rem");
+          if (name === "trend") {
+            const host = this.byId("trendHost").getDomRef();
+            if (host) {
+              host.style.setProperty("--trend-min-width", Math.max(390, data.length * 130) + "px");
+            }
           }
+          if (name === "owner") {
+            const table = this._ownerTable(data);
+            this._ownerAllData = data;
+            this._ownerAllTable = table;
+            this._showOwnerPage();
+          }
+        },
+        _showOwnerPage: function () {
+          const table = this._ownerAllTable || [];
+          const pages = Math.max(1, Math.ceil(table.length / 6));
+          const page = Math.min(this._viewModel.getProperty("/ownerPage") || 0, pages - 1);
+          const visible = table.slice(page * 6, page * 6 + 6);
+          const keys = new Set(visible.map(item => item.key));
+          this._viewModel.setProperty("/ownerPage", page);
+          this._viewModel.setProperty("/ownerPageCount", pages);
+          this._viewModel.setProperty("/ownerPageRange", table.length ? `${page * 6 + 1}–${page * 6 + visible.length} / ${table.length}` : "");
+          this._viewModel.setProperty("/charts/owner", (this._ownerAllData || []).filter(item => keys.has(item.key)));
+          this._viewModel.setProperty("/charts/ownerTable", visible);
+          this._charts.owner.setHeight("24rem");
+          this._applyOwnerPalette();
+        },
+        onOwnerPrevious: function () {
+          this._viewModel.setProperty("/ownerPage", Math.max(0, this._viewModel.getProperty("/ownerPage") - 1));
+          this._showOwnerPage();
+        },
+        onOwnerNext: function () {
+          this._viewModel.setProperty("/ownerPage", Math.min(this._viewModel.getProperty("/ownerPageCount") - 1, this._viewModel.getProperty("/ownerPage") + 1));
+          this._showOwnerPage();
+        },
+        _decorateTrendBars: function (chart) {
+          const root = chart.getDomRef();
+          const rows = this._viewModel.getProperty("/charts/trend") || [];
+          if (!root) { return; }
+          const svgNs = "http://www.w3.org/2000/svg";
+          root.querySelectorAll(".v-datapoint[data-id]").forEach((bar) => {
+            const item = rows[Number(bar.getAttribute("data-id"))];
+            const rect = bar.querySelector("rect");
+            if (!item || !rect) { return; }
+            bar.querySelectorAll(".trendDualLabel").forEach((label) => label.remove());
+            const width = Number(rect.getAttribute("width"));
+            const height = Number(rect.getAttribute("height"));
+            const inside = height >= 38;
+            const group = document.createElementNS(svgNs, "g");
+            group.setAttribute("class", "trendDualLabel" + (inside ? "" : " outside"));
+            group.setAttribute("aria-hidden", "true");
+            [Number(item.metrics.total).toLocaleString() + " opps", this.formatEur(item.metrics.value)].forEach((value, index) => {
+              const text = document.createElementNS(svgNs, "text");
+              text.setAttribute("x", String(width / 2));
+              text.setAttribute("y", String(inside ? 16 + index * 15 : -17 + index * 15));
+              text.textContent = value;
+              group.appendChild(text);
+            });
+            bar.appendChild(group);
+            bar.setAttribute("aria-label", item.label + ": " + item.metrics.total + " opportunities, " + this.formatEur(item.metrics.value));
+          });
         },
         // Keep the stats table and the chart one object: rows aligned to the
         // measured bar positions, and a hovered bar highlights its row.
@@ -600,7 +714,7 @@ sap.ui.define(
           // table's own re-layout after a resize or data change.
           const align = () => {
             this._alignOwnerTable(chart);
-            requestAnimationFrame(() => { this._alignOwnerTable(chart); this._stickOwnerAxis(chart); });
+            requestAnimationFrame(() => this._alignOwnerTable(chart));
           };
           chart.attachRenderComplete(align);
           table.addEventDelegate({ onAfterRendering: align });
@@ -675,7 +789,7 @@ sap.ui.define(
         onOwnerRowPress: function (event) {
           const row = event.getSource().getBindingContext("dashboard").getObject();
           this._viewModel.setProperty("/filters/owner", [row.key]);
-          this._apply();
+          this._scheduleApply();
           MessageToast.show(this._text("chartFiltered", [row.label]));
         },
         _ownerPalette: function (data) {
@@ -699,7 +813,7 @@ sap.ui.define(
         },
         _applyOwnerPalette: function () {
           if (this._exited || !this._charts?.owner) { return; }
-          const data = this._viewModel.getProperty("/charts/owner") || [];
+          const data = this._ownerAllData || [];
           const palette = this._ownerPalette(data);
           this._charts.owner.setVizProperties({plotArea: { colorPalette: palette }});
           // Sticky legend strip: one entry per series, in the chart's series order.
@@ -713,15 +827,14 @@ sap.ui.define(
           const series = event.getSource().getBindingContext("dashboard").getObject();
           this._viewModel.setProperty("/filters/owner", []);
           this._viewModel.setProperty("/filters/proposalCode", [series.key]);
-          this._apply();
+          this._scheduleApply();
           MessageToast.show(this._text("chartFiltered", [series.label]));
         },
         // sap.viz picks value-axis steps by pixel length only, so small counts
         // get 0.5 or 0.1 ticks and an integer formatString would print
         // duplicates (0, 1, 1, 2). In count mode, hide every axis label that
         // is not a whole number and the gridline drawn at its position; EUR
-        // mode shows all of them again. Runs before _stickOwnerAxis so the
-        // cloned axis inherits the visibility.
+        // mode shows all of them again.
         _hideFractionalTicks: function (chart) {
           const svg = chart.getDomRef()?.querySelector("svg");
           if (!svg) { return; }
@@ -743,45 +856,6 @@ sap.ui.define(
             const hide = counts && !kept.some((k) => Math.abs(k - c) < 3);
             line.style.visibility = hide ? "hidden" : "";
           });
-        },
-        // Copies the chart's value axis (ticks, labels, title) into the sticky
-        // bottom strip, in the chart's own coordinates, so it stays visible
-        // while the bars scroll. Styles are inlined because the sap.viz CSS is
-        // scoped to the chart's DOM.
-        _stickOwnerAxis: function (chart) {
-          const strip = this.byId("ownerAxis").getDomRef();
-          const svg = chart.getDomRef()?.querySelector("svg");
-          if (!strip || !svg) { return; }
-          const groups = [".v-m-valueAxis", ".v-m-valueAxisTitle"].map(s => svg.querySelector(s)).filter(Boolean);
-          if (!groups.length) { strip.replaceChildren(); strip.style.marginTop = ""; return; }
-          const svgRect = svg.getBoundingClientRect();
-          const stripRect = strip.getBoundingClientRect();
-          let top = Infinity, bottom = -Infinity;
-          groups.forEach(g => { const r = g.getBoundingClientRect(); top = Math.min(top, r.top); bottom = Math.max(bottom, r.bottom); });
-          const pad = 4, y = top - svgRect.top - pad, height = bottom - top + pad * 2;
-          const NS = "http://www.w3.org/2000/svg";
-          const clone = document.createElementNS(NS, "svg");
-          clone.setAttribute("width", svgRect.width);
-          clone.setAttribute("height", height);
-          clone.setAttribute("viewBox", `0 ${y} ${svgRect.width} ${height}`);
-          clone.style.marginLeft = (svgRect.left - stripRect.left) + "px";
-          const props = ["fill", "stroke", "stroke-width", "stroke-dasharray", "opacity", "font-family", "font-size", "font-weight", "text-anchor", "visibility"];
-          const copyStyles = (from, to) => {
-            const style = getComputedStyle(from);
-            props.forEach(prop => to.style.setProperty(prop, style.getPropertyValue(prop)));
-            Array.from(from.children).forEach((child, i) => to.children[i] && copyStyles(child, to.children[i]));
-          };
-          groups.forEach(g => {
-            const c = g.cloneNode(true);
-            const m = g.getCTM();
-            c.setAttribute("transform", `matrix(${m.a},${m.b},${m.c},${m.d},${m.e},${m.f})`);
-            copyStyles(g, c);
-            clone.appendChild(c);
-          });
-          strip.replaceChildren(clone);
-          // Pull the strip up over the chart's own axis so both coincide when
-          // scrolled to the end; sticky keeps it at the bottom otherwise.
-          strip.style.marginTop = -(svgRect.bottom - top + pad) + "px";
         },
         _onChartSelect: function (name, event) {
           const points = (event.getParameter("data") || []).map(p => p && p.data).filter(p => p && p.Category);
@@ -826,7 +900,7 @@ sap.ui.define(
             }
             this._viewModel.setProperty("/filters/" + dimension, [group.key]);
           }
-          this._apply();
+          this._scheduleApply();
           MessageToast.show(this._text("chartFiltered", [label]));
         },
         // sap.viz reports the selected cells but not what was clicked, so the
@@ -867,7 +941,9 @@ sap.ui.define(
           const key = this._viewModel.getProperty("/sort");
           this.byId("opportunities")
             .getBinding("items")
-            .sort(new Sorter(key, key !== "CustomerName"));
+            .sort(key === "statusPriority"
+              ? [new Sorter("statusRank", false), new Sorter("Status", false), new Sorter("eur", true)]
+              : new Sorter(key, key !== "CustomerName"));
         },
         onAfterRendering: function () {
           this._restoreScroll();
@@ -928,6 +1004,10 @@ sap.ui.define(
             section.getBoundingClientRect().top -
             visibleTop;
           delegate.scrollTo(0, Math.max(0, top - 12), 300);
+        },
+        onWonValuePress: function () {
+          this._viewModel.setProperty("/filters/status", ["WIN", "COMPLETE"]);
+          this._scheduleApply(60, () => this.onJumpToTable());
         },
         _rememberReturn: function () {
           const page = this.byId("dashboardPage");
@@ -996,6 +1076,7 @@ sap.ui.define(
         },
         onExit: function () {
           this._exited = true;
+          this._cancelScheduledApply();
           Theming.detachApplied(this._onThemeApplied);
           this._hover?.destroy();
           if (this._restoreFrame !== null) {

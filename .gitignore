@@ -1,5 +1,10 @@
 node_modules/
 .local-data/
+outputs/
+GEOGRAPHY-500-REVIEW.md
+scripts/build-client500-mapping.py
+scripts/update-client500-opportunity-mapping.py
+scripts/enrich-opportunity-mapping-1.py
 .playwright-mcp/
 dist/
 .scp/

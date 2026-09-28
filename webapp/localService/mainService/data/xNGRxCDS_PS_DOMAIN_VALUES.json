@@ -1420,7 +1420,7 @@
     "Language": "EN",
     "ValueKey": "0001",
     "Version": "0000",
-    "DomainValueText": "Asia-Pacific",
+    "DomainValueText": "APAC",
     "DomainValue": "APAC"
   },
   {
@@ -1436,7 +1436,7 @@
     "Language": "EN",
     "ValueKey": "0003",
     "Version": "0000",
-    "DomainValueText": "Middle East and North Africa",
+    "DomainValueText": "MENA",
     "DomainValue": "MENA"
   },
   {
@@ -1452,7 +1452,7 @@
     "Language": "EN",
     "ValueKey": "0005",
     "Version": "0000",
-    "DomainValueText": "Australia and New Zealand",
+    "DomainValueText": "Australia & NZ",
     "DomainValue": "AUS"
   },
   {
@@ -1460,7 +1460,7 @@
     "Language": "EN",
     "ValueKey": "0006",
     "Version": "0000",
-    "DomainValueText": "United Kingdom",
+    "DomainValueText": "UK",
     "DomainValue": "UK"
   },
   {
@@ -1468,7 +1468,7 @@
     "Language": "EN",
     "ValueKey": "0007",
     "Version": "0000",
-    "DomainValueText": "Sub-Saharan Africa",
+    "DomainValueText": "Africa",
     "DomainValue": "AFRICA"
   },
   {
@@ -3926,5 +3926,16 @@
     "Version": "0000",
     "DomainValueText": "Closed",
     "DomainValue": "CLSD"
-  }
+  },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0001", "Version": "0000", "DomainValueText": "AMS", "DomainValue": "AMS" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0002", "Version": "0000", "DomainValueText": "Public Cloud Implementation", "DomainValue": "PUB_IMPL" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0003", "Version": "0000", "DomainValueText": "Private Cloud Implementation", "DomainValue": "PVT_IMPL" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0004", "Version": "0000", "DomainValueText": "Rollout", "DomainValue": "ROLLOUT" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0005", "Version": "0000", "DomainValueText": "Upgrade", "DomainValue": "UPGRADE" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0006", "Version": "0000", "DomainValueText": "Others", "DomainValue": "OTHER" },
+  { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0001", "Version": "0000", "DomainValueText": "ECC", "DomainValue": "ECC" },
+  { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0002", "Version": "0000", "DomainValueText": "S/4HANA On Premise", "DomainValue": "S4_ONPREM" },
+  { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0003", "Version": "0000", "DomainValueText": "S/4HANA Private Cloud", "DomainValue": "S4_PRIVATE" },
+  { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0004", "Version": "0000", "DomainValueText": "S/4HANA Public Cloud", "DomainValue": "S4_PUBLIC" },
+  { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0005", "Version": "0000", "DomainValueText": "Others", "DomainValue": "OTHER" }
 ]

@@ -1,0 +1,250 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Pre Sales Master View'
+@Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@ObjectModel.updateEnabled: true
+@ObjectModel.createEnabled: true
+@Search.searchable: true
+define view entity /NGR/CDS_PS_MASTER
+  as select from /ngr/t_master as PreSalesMaster
+  association [1..*] to /NGR/CDS_PS_PARTNER       as Parters               on  Parters.Id = PreSalesMaster.id
+  association [1..*] to /NGR/CDS_PS_REMARKS       as Remarks               on  Remarks.Id = PreSalesMaster.id
+
+  association [1..1] to I_CountryText             as _CountryText          on  _CountryText.Country  = PreSalesMaster.country
+                                                                           and _CountryText.Language = $session.system_language
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _StatusText           on  _StatusText.DomainName  = '/NGR/DO_PS_OPP_STAT'
+                                                                           and _StatusText.DomainValue = PreSalesMaster.status
+                                                                           and _StatusText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _GeoText              on  _GeoText.DomainName  = '/NGR/DO_PS_GEOGRAPHY'
+                                                                           and _GeoText.DomainValue = PreSalesMaster.geography
+                                                                           and _GeoText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _LOBText              on  _LOBText.DomainName  = '/NGR/DO_PS_LOB'
+                                                                           and _LOBText.DomainValue = PreSalesMaster.line_of_business
+                                                                           and _LOBText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _OppTypeText          on  _OppTypeText.DomainName  = '/NGR/DO_PS_OPP_TYPE'
+                                                                           and _OppTypeText.DomainValue = PreSalesMaster.opp_type
+                                                                           and _OppTypeText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _DealTypeText         on  _DealTypeText.DomainName  = '/NGR/DO_PS_DEAL_TYPE'
+                                                                           and _DealTypeText.DomainValue = PreSalesMaster.deal_type
+                                                                           and _DealTypeText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _CommModelText        on  _CommModelText.DomainName  = '/NGR/DO_PS_COMM_MDL'
+                                                                           and _CommModelText.DomainValue = PreSalesMaster.comm_model
+                                                                           and _CommModelText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_BOOLE_VALUES  as _ResourceForecastText on  _ResourceForecastText.DomainValue = PreSalesMaster.resource_fut_dmd
+                                                                           and _ResourceForecastText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _BUDetailsText        on  _BUDetailsText.DomainName  = '/NGR/DO_BU_DETAILS'
+                                                                           and _BUDetailsText.DomainValue = PreSalesMaster.bu_details
+                                                                           and _BUDetailsText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _ComplexityText       on  _ComplexityText.DomainName  = '/NGR/DO_PS_COMPLEXITY'
+                                                                           and _ComplexityText.DomainValue = PreSalesMaster.complexity
+                                                                           and _ComplexityText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _WinChanceText        on  _WinChanceText.DomainName  = '/NGR/DO_PS_WIN_CHANCE'
+                                                                           and _WinChanceText.DomainValue = PreSalesMaster.win_chance
+                                                                           and _WinChanceText.Language    = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _OpportunityTypeText on _OpportunityTypeText.DomainName = '/NGR/DO_PS_OPP_CATEGORY'
+                                                                             and _OpportunityTypeText.DomainValue = PreSalesMaster.opp_category
+                                                                             and _OpportunityTypeText.Language = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _SapSystemCategoryText on _SapSystemCategoryText.DomainName = '/NGR/DO_PS_SAP_SYS_CAT'
+                                                                               and _SapSystemCategoryText.DomainValue = PreSalesMaster.sap_system_category
+                                                                               and _SapSystemCategoryText.Language = $session.system_language
+
+  association [1..1] to /NGR/CDS_PS_DOMAIN_VALUES as _ProposalTypeOpText   on  _ProposalTypeOpText.DomainName  = '/NGR/DO_PS_PROPOSAL_TYPE_OP'
+                                                                           and _ProposalTypeOpText.DomainValue = PreSalesMaster.proposal_type_op
+                                                                           and _ProposalTypeOpText.Language    = $session.system_language
+
+{
+  key PreSalesMaster.id                              as Id,
+      @Search.defaultSearchElement: true
+      PreSalesMaster.customer_name                   as CustomerName,
+      @UI.multiLineText: true
+      PreSalesMaster.customer_desc                   as CustomerDesc,
+      @UI.multiLineText: true
+      PreSalesMaster.opp_desc                        as OppDesc,
+      @ObjectModel.text.association: '_GeoText'
+      @ObjectModel.text.element: ['GeographyText']
+      @ObjectModel.mandatory: true
+      PreSalesMaster.geography                       as Geography,
+      @UI.hidden: true
+      _GeoText.DomainValueText                       as GeographyText,
+      @ObjectModel.text.association: '_LOBText'
+      @ObjectModel.text.element: ['LineOfBusinessText']
+      @ObjectModel.mandatory: true
+      PreSalesMaster.line_of_business                as LineOfBusiness,
+      @UI.hidden: true
+      _LOBText.DomainValueText                       as LineOfBusinessText,
+      PreSalesMaster.line_of_business_ot             as LineOfBusinessOther,
+      @UI.multiLineText: true
+      PreSalesMaster.solution_area                   as SolutionArea,
+      @ObjectModel.text.association: '_CountryText'
+      @ObjectModel.mandatory: true
+      PreSalesMaster.country                         as Country,
+      @ObjectModel.text.association: '_DealTypeText'
+      @ObjectModel.text.element: ['DealTypeText']
+      @ObjectModel.mandatory: true
+      PreSalesMaster.deal_type                       as DealType,
+      @UI.hidden: true
+      _DealTypeText.DomainValueText                  as DealTypeText,
+      @ObjectModel.text.association: '_BUDetailsText'
+      @ObjectModel.text.element: ['BUDetailsText']
+      @ObjectModel.mandatory: true
+      PreSalesMaster.bu_details                      as BUDetails,
+      @UI.hidden: true
+      _BUDetailsText.DomainValueText                 as BUDetailsText,
+      @ObjectModel.text.association: '_OppTypeText'
+      @ObjectModel.text.element: ['OppTypeText']
+      @ObjectModel.mandatory: true
+      PreSalesMaster.opp_type                        as OppType,
+      @UI.hidden: true
+      _OppTypeText.DomainValueText                   as OppTypeText,
+      PreSalesMaster.opp_type_ot                     as OppTypeOther,
+      PreSalesMaster.received_date                   as ReceivedDate,
+      PreSalesMaster.due_submission_date             as DueSubmissionDate, //Submission date requested by client
+      PreSalesMaster.submission_date                 as SubmissionDate, //Actual date when proposal was submitted to customer
+      @ObjectModel.text.association: '_StatusText'
+      @ObjectModel.text.element: ['StatusText']
+      @UI.textArrangement: #TEXT_FIRST
+      @ObjectModel.mandatory: true
+      PreSalesMaster.status                          as Status,
+      @UI.hidden: true
+      _StatusText.DomainValueText                    as StatusText,
+      @Semantics.amount.currencyCode: 'Currency'
+      @EndUserText.label: 'Opp. Size'
+      PreSalesMaster.opp_tcv                         as OppTcv,
+      PreSalesMaster.currency                        as Currency,
+      @EndUserText.label: 'SAP System'
+      @ObjectModel.mandatory: true
+      PreSalesMaster.sap_system                      as SapSystem,
+      @ObjectModel.text.association: '_SapSystemCategoryText'
+      @ObjectModel.text.element: ['SapSystemCategoryText']
+      @UI.textArrangement: #TEXT_FIRST
+      @EndUserText.label: 'SAP System Category'
+      PreSalesMaster.sap_system_category             as SapSystemCategory,
+      @UI.hidden: true
+      _SapSystemCategoryText.DomainValueText          as SapSystemCategoryText,
+      @ObjectModel.text.association: '_CommModelText'
+      @ObjectModel.text.element: ['CommModelText']
+      @UI.textArrangement: #TEXT_FIRST
+      PreSalesMaster.comm_model                      as CommModel,
+      @UI.hidden: true
+      _CommModelText.DomainValueText                 as CommModelText,
+      PreSalesMaster.close_date                      as CloseDate,
+      PreSalesMaster.probability                     as Probability,
+      PreSalesMaster.doc_url                         as DocUrl,
+      PreSalesMaster.commercial_url                  as CommercialUrl,
+      PreSalesMaster.planned_subm_date               as PlannedSubmissionDate, //Internal planned submission date of the proposal to customer
+      PreSalesMaster.created_by                      as CreatedBy,
+      PreSalesMaster.created_on                      as CreatedOn,
+      PreSalesMaster.created_at                      as CreatedAt,
+      PreSalesMaster.updated_by                      as UpdatedBy,
+      PreSalesMaster.updated_on                      as UpdatedOn,
+      PreSalesMaster.updated_at                      as UpdatedAt,
+      Parters[ PartnerFunction = 'OWN' ].PartnerName as Owner,
+      @UI.fieldGroup: [{importance: #HIGH}]
+      reviewed_by_pr                                 as PracticeReviewwer,
+      reviewed_by_ps                                 as PreSalesReviewwer,
+      @ObjectModel.text.association: '_ResourceForecastText'
+      @ObjectModel.text.element: ['ResourceForecastText']
+      @UI.textArrangement: #TEXT_ONLY
+      resource_fut_dmd                               as ResourceFutureDemandUpdated,
+      @UI.hidden: true
+      _ResourceForecastText.DomainValueText          as ResourceForecastText,
+      next_followup_date                             as NextFollowUpDate,
+      reason                                         as Reason,
+      close_remaks                                   as CloseRemarks,
+      delete_ind                                     as DeletionIndicator,
+      delivery_handover                              as DeliveryHandover,
+      @ObjectModel.text.association: '_ComplexityText'
+      @ObjectModel.text.element: ['ComplexityText']
+      @UI.textArrangement: #TEXT_ONLY
+      @ObjectModel.mandatory: true
+      complexity                                     as Complexity,
+      @UI.hidden: true
+      _ComplexityText.DomainValueText                as ComplexityText,
+      @UI.hidden: true
+      PreSalesMaster.win_chance                      as WinChanceSource,
+
+      // WinChance: computed from Probability (Low <50, Medium 50-79, High 80-100). Fallback is blank.
+      @EndUserText.label: 'Win Chance'
+      @UI.textArrangement: #TEXT_ONLY
+      @ObjectModel.mandatory: true
+      cast(
+        (
+          case
+            when cast( PreSalesMaster.probability as abap.int2 ) < 50 then 'LOW'
+            when cast( PreSalesMaster.probability as abap.int2 ) >= 50 and cast( PreSalesMaster.probability as abap.int2 ) < 80 then 'MEDIUM'
+            when cast( PreSalesMaster.probability as abap.int2 ) >= 80 and cast( PreSalesMaster.probability as abap.int2 ) <= 100 then 'HIGH'
+            else ''
+          end
+        )
+        as abap.char(6)
+      )                                              as WinChance,
+      @UI.hidden: true
+      -- WinChanceText kept for display; same computed value as WinChance
+      cast(
+        (
+          case
+            when cast( PreSalesMaster.probability as abap.int2 ) < 50 then 'Low'
+            when cast( PreSalesMaster.probability as abap.int2 ) >= 50 and cast( PreSalesMaster.probability as abap.int2 ) < 80 then 'Medium'
+            when cast( PreSalesMaster.probability as abap.int2 ) >= 80 and cast( PreSalesMaster.probability as abap.int2 ) <= 100 then 'High'
+            else ''
+          end
+        )
+        as abap.char(6)
+      )                                              as WinChanceText,
+      @ObjectModel.text.association: '_ProposalTypeOpText'
+      @ObjectModel.text.element: ['ProposalTypeOpText']
+      @UI.textArrangement: #TEXT_FIRST
+      @ObjectModel.mandatory: true
+      proposal_type_op                               as ProposalTypeOp,
+      _ProposalTypeOpText.DomainValueText            as ProposalTypeOpText,
+      @ObjectModel.text.association: '_OpportunityTypeText'
+      @ObjectModel.text.element: ['OpportunityTypeText']
+      @UI.textArrangement: #TEXT_FIRST
+      @EndUserText.label: 'Opportunity Type'
+      PreSalesMaster.opp_category                     as OpportunityType,
+      @UI.hidden: true
+      _OpportunityTypeText.DomainValueText            as OpportunityTypeText,
+
+      // Field-Controls
+      @UI.hidden: true
+      3                                              as CustomerName_fc,
+      @UI.hidden:true
+      3                                              as Delete_fc,
+      @UI.hidden:true
+      3                                              as Edit_fc,
+
+      // Associations
+      Parters,
+      Remarks,
+      _CountryText,
+      _StatusText,
+      _GeoText,
+      _LOBText,
+      _OppTypeText,
+      _DealTypeText,
+      _CommModelText,
+      _ResourceForecastText,
+      _BUDetailsText,
+      _ComplexityText,
+      _WinChanceText,
+      _ProposalTypeOpText,
+      _OpportunityTypeText,
+      _SapSystemCategoryText
+}

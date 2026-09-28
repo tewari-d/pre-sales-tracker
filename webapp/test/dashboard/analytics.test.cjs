@@ -59,6 +59,31 @@ test("date range includes both endpoints and excludes missing received dates", (
     assert.equal(A.filter(rows, {}).length, 4);
 });
 
+test("wins use Win/Loss Date for the reporting quarter and missing close dates stay out of dated periods", () => {
+    const rows = A.normalize([
+        row("won", { Status: "WIN", ReceivedDate: "2026-03-01", CloseDate: "2026-07-15" }),
+        row("completed", { Status: "COMPLETE", ReceivedDate: "2026-03-01", CloseDate: "2026-08-15" }),
+        row("open", { ReceivedDate: "2026-07-01" }),
+        row("legacy", { Status: "WIN", ReceivedDate: "2026-07-01" })
+    ], {});
+    assert.deepEqual(plain(A.filter(rows, { period: "2026-Q3", from: "2026-07-01", to: "2026-09-30" }).map(r => r.Id)), ["won", "completed", "open"]);
+    assert.deepEqual(plain(A.filter(rows, { period: "2026-Q1", from: "2026-01-01", to: "2026-03-31" }).map(r => r.Id)), []);
+    assert.equal(A.summarize(rows, "2026-09-10").undatedWins, 1);
+});
+
+test("win rate under a Win status filter keeps all proposal types in the denominator", () => {
+    const rows = A.normalize([
+        row("full", { Status: "WIN", CloseDate: "2026-08-01", ProposalTypeOp: "FULL", Owner: "Alex" }),
+        row("cap", { Status: "WIP", ProposalTypeOp: "CAP", Owner: "Alex" }),
+        row("rfi", { Status: "SUBMITTED", ProposalTypeOp: "RFI", Owner: "Alex" })
+    ], {});
+    const filters = { status: ["WIN"], from: "2026-07-01", to: "2026-09-30" };
+    const selected = A.filter(rows, filters);
+    const base = A.filter(rows, { ...filters, status: [] });
+    assert.equal(A.summarize(selected, "2026-09-10", base.length).winRate, 100 / 3);
+    assert.equal(A.ownerProposalStacks(selected, "count", "2026-09-10", base)[0].ownerMetrics.winRate, 100 / 3);
+});
+
 test("OData UTC dates and local date picker calendar dates keep their intended day", () => {
     assert.equal(A.dateKey(new Date("2026-09-30T00:00:00Z")), "2026-09-30");
     assert.equal(A.dateKey("/Date(1790726400000)/"), "2026-09-30");
@@ -79,6 +104,28 @@ test("multi-select OR within a dimension, AND across dimensions, with search and
     ], {});
     assert.equal(A.filter(rows, { bu: ["A", "B"], country: ["DE"] }).length, 2);
     assert.deepEqual(plain(A.filter(rows, { bu: ["A", "B"], country: ["DE"], owner: ["__UNASSIGNED__"], search: "STAR" }).map(r => r.Id)), ["1"]);
+});
+
+test("geography filter uses the requested labels and order without changing stored codes", () => {
+    const codes = ["AFRICA", "NA", "UK", "MENA", "APAC", "AUS", "EUROPE"];
+    const rows = A.normalize(codes.map((code, i) => row(String(i), { Geography: code, GeographyText: "Old label" })), {});
+    assert.deepEqual(plain(A.options(rows, "geography").map(item => [item.key, item.text])), [
+        ["MENA", "MENA"], ["APAC", "APAC"], ["EUROPE", "Europe"], ["UK", "UK"],
+        ["NA", "North America"], ["AUS", "Australia & NZ"], ["AFRICA", "Africa"]
+    ]);
+});
+
+test("coded opportunity and SAP system categories filter and group independently of legacy SAP System text", () => {
+    const rows = A.normalize([
+        row("1", { OpportunityType: "AMS", SapSystemCategory: "S4_PRIVATE", SapSystem: "old free text" }),
+        row("2", { OpportunityType: "PUB_IMPL", SapSystemCategory: "S4_PUBLIC", SapSystem: "other free text" }),
+        row("3", { OpportunityType: "", SapSystemCategory: "", SapSystem: "SAP ECC" })
+    ], {});
+    assert.deepEqual(plain(A.options(rows, "opportunityType").slice(0, 3).map(x => x.text)), ["AMS", "Public Cloud Implementation", "Private Cloud Implementation"]);
+    assert.deepEqual(plain(A.options(rows, "sapSystemCategory").slice(0, 3).map(x => x.text)), ["ECC", "S/4HANA On Premise", "S/4HANA Private Cloud"]);
+    assert.deepEqual(plain(A.filter(rows, { opportunityType: ["AMS"], sapSystemCategory: ["S4_PRIVATE"] }).map(x => x.Id)), ["1"]);
+    assert.equal(A.group(rows, "opportunityType", "count").find(x => x.key === "__UNASSIGNED__").count, 1);
+    assert.equal(rows[0].SapSystem, "old free text");
 });
 
 test("verified statuses define pipeline, won, win-rate denominator and overdue correctly", () => {
@@ -172,8 +219,8 @@ test("owner distribution includes unassigned and respects filtered records", () 
     assert.equal(A.chartMetrics(filtered, A.group(filtered, "owner", "count"), "owner", "quarter", "2026-09-10")[0].share, 100);
 });
 
-test("trend hover metrics are scoped to the hovered received-date period", () => {
-    const rows = A.normalize([row("1", { Status: "WIN", ReceivedDate: "2026-01-01" }), row("2", { ReceivedDate: "2026-04-01" })], {});
+test("trend hover metrics are scoped to the reporting period", () => {
+    const rows = A.normalize([row("1", { Status: "WIN", ReceivedDate: "2025-01-01", CloseDate: "2026-01-01" }), row("2", { ReceivedDate: "2026-04-01" })], {});
     const groups = A.chartMetrics(rows, A.trend(rows, "quarter", "count", {}), "trend", "quarter", "2026-09-10");
     assert.equal(groups[0].metrics.total, 1);
     assert.equal(groups[0].metrics.wonValue, 10000);
@@ -220,6 +267,7 @@ test("load all pages using the service continuation token and original projectio
     assert.equal(result.length, 2);
     assert.equal(model.calls[1].query.$skiptoken, "abc+123");
     assert.equal(model.calls[1].query.$select, model.calls[0].query.$select);
+    assert.ok(model.calls[0].query.$select.split(",").includes("CloseDate"));
     assert.equal(model.calls[1].entity, "/xNGRxCDS_PS_MASTER");
 });
 

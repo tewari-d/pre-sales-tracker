@@ -18,17 +18,9 @@ async (page) => {
         const expected = new Date().getFullYear() + "-Q" + (Math.floor(new Date().getMonth() / 3) + 1);
         const filters = (await state()).filters;
         check(filters.period === expected, "Reset restores current quarter");
-        check(filters.proposalCode.join() === "FULL,STAFF,__UNASSIGNED__", "Reset restores the three default proposal types");
-        await page.getByRole("combobox", { name: "Received date period", exact: true }).click();
-        await page.getByRole("option", { name: "All received dates", exact: true }).click();
-        // The fixtures cycle through all five proposal codes plus unassigned;
-        // the counts below cover every fixture row, so lift the proposal scope.
-        await page.evaluate(() => {
-            const Component = sap.ui.require("sap/ui/core/Component");
-            const controller = Component.getComponentById("dashboard-container-presales-dashboard").getRootControl().getController();
-            controller._viewModel.setProperty("/filters/proposalCode", []);
-            controller._apply();
-        });
+        check(filters.proposalCode.length === 0, "Reset includes all proposal types");
+        await page.getByRole("combobox", { name: "Reporting period", exact: true }).click();
+        await page.getByRole("option", { name: "All reporting dates", exact: true }).click();
         await settled();
     };
     const choose = async (name, option) => {
@@ -47,6 +39,8 @@ async (page) => {
     await settled();
     await reset();
     check((await state()).kpis.total === 48, "48 fixture opportunities loaded");
+    await page.locator('[id$="trendChart"] .trendDualLabel').first().waitFor();
+    check((await page.locator('[id$="trendChart"] .trendDualLabel').allTextContents()).every(text => /\d+ opps.*€/s.test(text)), "intake bars show count and EUR value in count mode");
     check((await state()).kpis.overdue === 7, "missing submission dates stay null; seven overdue submissions");
     for (const name of ["trend", "status", "breakdown", "band", "owner"]) {
         await page.locator('[id$="' + name + 'Chart"] .v-datapoint').first().hover();
@@ -67,19 +61,22 @@ async (page) => {
     await choose("Country / Region", "Germany");
     check((await state()).kpis.total === 4, "combined BU and country filter");
     await reset();
-    await choose("Geography", "Asia Pacific");
+    await choose("Geography", "APAC");
     check((await state()).kpis.total === 16, "geography filter");
     await reset();
     await choose("Owner", "Alex Morgan");
     check((await state()).kpis.total === 10, "owner filter");
     await reset();
     await choose("Status", "Win");
-    check((await state()).kpis.total === 7 && (await state()).kpis.winRate === 100, "status filter and win rate");
+    check((await state()).kpis.total === 7 && Math.abs((await state()).kpis.winRate - 700/48) < 0.001, "status filter keeps all statuses in win-rate denominator");
+    await reset();
+    await page.locator('[id$="wonValueKpi"]').click();
+    check((await state()).filters.status.join() === "WIN,COMPLETE" && (await state()).kpis.total === 14, "Won Value opens the won opportunities table");
     await reset();
     await choose("Opportunity size (EUR)", "€1M+");
     check((await state()).kpis.total === 6, "€1M+ band");
     await reset();
-    const range = page.getByRole("textbox", { name: "Received date range", exact: true });
+    const range = page.getByRole("textbox", { name: "Reporting date range", exact: true });
     await range.fill("2026-01-02 – 2026-01-02");
     await range.press("Enter");
     check((await state()).kpis.total === 1, "custom range includes both endpoints");
@@ -94,6 +91,8 @@ async (page) => {
     await page.locator('[id$="metricSelect"]').click();
     await page.getByRole("option", { name: "Opportunity value (EUR)", exact: true }).click();
     check((await state()).kpis.value === 14718000, "EUR measure reconciles to fixture totals");
+    await page.locator('[id$="trendChart"] .trendDualLabel').first().waitFor();
+    check((await page.locator('[id$="trendChart"] .trendDualLabel').allTextContents()).every(text => /\d+ opps.*€/s.test(text)), "intake bars show count and EUR value in EUR mode");
     const search = page.getByRole("searchbox", { name: "Search customer, opportunity, ID or owner", exact: true });
     await search.fill("no-matching-customer");
     check((await state()).kpis.total === 0, "empty filter result");

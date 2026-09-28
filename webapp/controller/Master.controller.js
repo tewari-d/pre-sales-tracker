@@ -479,9 +479,6 @@ sap.ui.define(
               submissionErrors.push("Practice Reviewer");
             }
 
-            if (!oPayload.OppTcv || Number(oPayload.OppTcv) === 0) {
-              submissionErrors.push("Opportunity Value");
-            }
             if (submissionErrors.length > 0) {
               aErrors.push(
                 "If the status is SUBMITTED, the following fields are mandatory:",
@@ -490,7 +487,10 @@ sap.ui.define(
             }
           }
 
-          if (oPayload.Status === "WIN" || oPayload.Status === "LOSS") {
+          const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency);
+          if (sizeError) aErrors.push(sizeError);
+
+          if (["WIN", "COMPLETE", "LOSS"].includes(oPayload.Status)) {
             if (!oPayload.CloseDate) {
               aErrors.push(
                 `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`,

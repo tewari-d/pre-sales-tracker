@@ -5,6 +5,17 @@ sap.ui.define([], function () {
   const PROPOSAL_ORDER = ["FUNNEL", "CAP", "RFI", "FULL", "STAFF"];
   const ACTIVE = ["WIP", "SUBMITTED", "HOLD"];
   const WON = ["WIN", "COMPLETE"];
+  const STATUS_PRIORITY = ["COMPLETE", "WIN", "SUBMITTED", "WIP", "HOLD", "LOSS"];
+  const GEOGRAPHY_LABELS = { MENA: "MENA", APAC: "APAC", EUROPE: "Europe", UK: "UK", NA: "North America", AUS: "Australia & NZ", AFRICA: "Africa" };
+  const GEOGRAPHY_ORDER = ["MENA", "APAC", "EUROPE", "UK", "NA", "AUS", "AFRICA"];
+  const OPPORTUNITY_TYPES = {
+    AMS: "AMS", PUB_IMPL: "Public Cloud Implementation", PVT_IMPL: "Private Cloud Implementation",
+    ROLLOUT: "Rollout", UPGRADE: "Upgrade", OTHER: "Others",
+  };
+  const SAP_SYSTEM_CATEGORIES = {
+    ECC: "ECC", S4_ONPREM: "S/4HANA On Premise", S4_PRIVATE: "S/4HANA Private Cloud",
+    S4_PUBLIC: "S/4HANA Public Cloud", OTHER: "Others",
+  };
   // Lower bound included, upper bound excluded. "below" also holds unavailable EUR values.
   const BANDS = [
     { key: "below", text: "Below €1", min: -Infinity, max: 1 },
@@ -21,6 +32,8 @@ sap.ui.define([], function () {
     status: { field: "Status", text: "StatusText" },
     owner: { field: "Owner", text: "Owner" },
     proposalCode: { field: "ProposalTypeOp", text: "ProposalTypeOpText" },
+    opportunityType: { field: "OpportunityType", text: "OpportunityTypeText" },
+    sapSystemCategory: { field: "SapSystemCategory", text: "SapSystemCategoryText" },
     band: { field: "band", text: "bandText" },
   };
 
@@ -79,29 +92,38 @@ sap.ui.define([], function () {
           eur === null
             ? BANDS.find((b) => b.key === "below")
             : BANDS.find((b) => eur >= b.min && eur < b.max);
+        const won = WON.includes(row.Status);
+        const received = dateKey(row.ReceivedDate);
+        const closed = dateKey(row.CloseDate);
         return Object.assign({}, row, {
+          GeographyText: GEOGRAPHY_LABELS[row.Geography] || row.GeographyText,
+          OpportunityTypeText: OPPORTUNITY_TYPES[row.OpportunityType] || row.OpportunityTypeText,
+          SapSystemCategoryText: SAP_SYSTEM_CATEGORIES[row.SapSystemCategory] || row.SapSystemCategoryText,
           eur: eur,
+          statusRank: STATUS_PRIORITY.indexOf(row.Status) < 0 ? STATUS_PRIORITY.length : STATUS_PRIORITY.indexOf(row.Status),
           band: band.key,
           bandText: band.text,
-          received: dateKey(row.ReceivedDate),
+          received,
+          closed,
+          periodDate: won ? closed : received,
           due: dateKey(row.DueSubmissionDate),
           submitted: dateKey(row.SubmissionDate),
           active: ACTIVE.includes(row.Status),
-          won: WON.includes(row.Status),
+          won,
         });
       });
   }
   function filter(rows, filters) {
     return rows.filter(function (row) {
-      if (!inSelectedQuarters(row.received, filters)) {
+      if (!inSelectedQuarters(row.periodDate, filters)) {
         return false;
       }
-      if ((filters.from || filters.to) && !row.received) {
+      if ((filters.from || filters.to) && !row.periodDate) {
         return false;
       }
       if (
-        (filters.from && row.received < filters.from) ||
-        (filters.to && row.received > filters.to)
+        (filters.from && row.periodDate < filters.from) ||
+        (filters.to && row.periodDate > filters.to)
       ) {
         return false;
       }
@@ -129,6 +151,9 @@ sap.ui.define([], function () {
     }
     const definition = DIMENSIONS[dimension];
     const map = new Map();
+    const fixed = dimension === "opportunityType" ? OPPORTUNITY_TYPES
+      : dimension === "sapSystemCategory" ? SAP_SYSTEM_CATEGORIES : null;
+    if (fixed) Object.entries(fixed).forEach(([key, text]) => map.set(key, { key, text }));
     rows.forEach(function (row) {
       const key = row[definition.field] || EMPTY;
       map.set(key, {
@@ -137,7 +162,12 @@ sap.ui.define([], function () {
       });
     });
     return Array.from(map.values()).sort((a, b) =>
-      a.text.localeCompare(b.text),
+      fixed ? (Object.keys(fixed).indexOf(a.key) < 0 ? Object.keys(fixed).length : Object.keys(fixed).indexOf(a.key)) -
+        (Object.keys(fixed).indexOf(b.key) < 0 ? Object.keys(fixed).length : Object.keys(fixed).indexOf(b.key)) || a.text.localeCompare(b.text) :
+      dimension === "geography"
+        ? (GEOGRAPHY_ORDER.indexOf(a.key) < 0 ? GEOGRAPHY_ORDER.length : GEOGRAPHY_ORDER.indexOf(a.key)) -
+          (GEOGRAPHY_ORDER.indexOf(b.key) < 0 ? GEOGRAPHY_ORDER.length : GEOGRAPHY_ORDER.indexOf(b.key)) || a.text.localeCompare(b.text)
+        : a.text.localeCompare(b.text),
     );
   }
   function group(rows, dimension, metric) {
@@ -200,7 +230,7 @@ sap.ui.define([], function () {
   function trend(rows, interval, metric, filters) {
     const map = new Map();
     const dates = rows
-      .map((r) => r.received)
+      .map((r) => r.periodDate)
       .filter(Boolean)
       .sort();
     const start = filters.from || dates[0];
@@ -218,10 +248,10 @@ sap.ui.define([], function () {
       }
     }
     rows.forEach(function (row) {
-      if (!row.received || !inSelectedQuarters(row.received, filters)) {
+      if (!row.periodDate || !inSelectedQuarters(row.periodDate, filters)) {
         return;
       }
-      const key = periodKey(row.received, interval);
+      const key = periodKey(row.periodDate, interval);
       if (!map.has(key)) {
         map.set(key, { label: key, value: 0 });
       }
@@ -231,7 +261,7 @@ sap.ui.define([], function () {
       a.label.localeCompare(b.label),
     );
   }
-  function summarize(rows, today) {
+  function summarize(rows, today, denominator = rows.length) {
     const sum = (a) => a.reduce((total, row) => total + (row.eur || 0), 0);
     const active = rows.filter((r) => r.active);
     const won = rows.filter((r) => r.won);
@@ -246,13 +276,14 @@ sap.ui.define([], function () {
       won: won.length,
       lost: lost.length,
       // Win rate: WIN + COMPLETE over every non-deleted opportunity in scope, whatever its status.
-      winRate: rows.length ? (won.length * 100) / rows.length : 0,
+      winRate: denominator ? (won.length * 100) / denominator : 0,
       average: converted.length ? sum(converted) / converted.length : null,
       overdue: rows.filter(
         (r) => r.Status === "WIP" && !r.submitted && r.due && r.due < today,
       ).length,
       unconverted: rows.length - converted.length,
-      undated: rows.filter((r) => !r.received).length,
+      undated: rows.filter((r) => !r.periodDate).length,
+      undatedWins: rows.filter((r) => r.won && !r.closed).length,
     };
   }
   function quarterRange(year, quarter) {
@@ -261,20 +292,25 @@ sap.ui.define([], function () {
       to: dateKey(new Date(Date.UTC(year, quarter * 3, 0))),
     };
   }
-  function chartMetrics(rows, groups, dimension, interval, today) {
+  function chartMetrics(rows, groups, dimension, interval, today, rateBase = rows) {
     return groups.map(function (item) {
       const members = rows.filter(function (row) {
         return dimension === "trend"
-          ? row.received && periodKey(row.received, interval) === item.label
+          ? row.periodDate && periodKey(row.periodDate, interval) === item.label
           : (row[DIMENSIONS[dimension].field] || EMPTY) === item.key;
       });
+      const denominator = dimension === "status" ? rateBase.length : rateBase.filter(function (row) {
+        return dimension === "trend"
+          ? row.periodDate && periodKey(row.periodDate, interval) === item.label
+          : (row[DIMENSIONS[dimension].field] || EMPTY) === item.key;
+      }).length;
       return Object.assign({}, item, {
-        metrics: summarize(members, today),
+        metrics: summarize(members, today, denominator),
         share: rows.length ? (members.length * 100) / rows.length : 0,
       });
     });
   }
-  function ownerProposalStacks(rows, metric, today) {
+  function ownerProposalStacks(rows, metric, today, rateBase = rows) {
     const owners = group(rows, "owner", metric);
     // Series order follows the fixed values of domain /NGR/DO_PS_PROPOSAL_TYPE_OP;
     // codes not listed there sort after them and unassigned is always last.
@@ -287,12 +323,13 @@ sap.ui.define([], function () {
     // Include zero cells so every owner's stack uses the same series order.
     return owners.flatMap((owner) => {
       const members = rows.filter((row) => (row.Owner || EMPTY) === owner.key);
-      const ownerMetrics = summarize(members, today);
+      const ownerBase = rateBase.filter((row) => (row.Owner || EMPTY) === owner.key);
+      const ownerMetrics = summarize(members, today, ownerBase.length);
       return proposals.map((proposal) => {
         const segment = members.filter(
           (row) => (row.ProposalTypeOp || EMPTY) === proposal.key,
         );
-        const metrics = summarize(segment, today);
+        const metrics = summarize(segment, today, ownerBase.filter((row) => (row.ProposalTypeOp || EMPTY) === proposal.key).length);
         return {
           key: owner.key,
           label: owner.label,
@@ -320,6 +357,7 @@ sap.ui.define([], function () {
       "Customer",
       "Opportunity",
       "Received date",
+      "Win/Loss date",
       "Business unit",
       "Country / Region",
       "Geography",
@@ -330,6 +368,8 @@ sap.ui.define([], function () {
       "Size EUR",
       "EUR band",
       "Proposal type",
+      "Opportunity type",
+      "SAP system category",
       "Report context",
     ];
     return (
@@ -341,6 +381,7 @@ sap.ui.define([], function () {
             r.CustomerName,
             r.OppDesc,
             r.received,
+            r.closed,
             r.BUDetailsText || r.BUDetails,
             r.Country_Text || r.Country,
             r.GeographyText || r.Geography,
@@ -351,6 +392,8 @@ sap.ui.define([], function () {
             r.eur === null ? "" : r.eur.toFixed(2),
             r.bandText,
             r.ProposalTypeOpText || r.ProposalTypeOp,
+            r.OpportunityTypeText || r.OpportunityType,
+            r.SapSystemCategoryText || r.SapSystemCategory,
             context,
           ]),
         )

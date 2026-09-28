@@ -1,0 +1,58 @@
+@EndUserText.label : 'Pre-Sales Master Table'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table /ngr/t_master {
+
+  key mandt           : mandt not null;
+  key id              : /ngr/de_ps_id not null;
+  customer_name       : /ngr/de_ps_cust_name;
+  customer_desc       : /ngr/de_ps_cust_desc;
+  opp_desc            : /ngr/de_ps_opp_desc;
+  geography           : /ngr/de_ps_geography;
+  line_of_business    : /ngr/de_ps_lob;
+  line_of_business_ot : /ngr/de_ps_lob_ot;
+  solution_area       : /ngr/de_ps_sol_area;
+  country             : land1;
+  deal_type           : /ngr/de_ps_deal_type;
+  bu_details          : /ngr/de_bu_details;
+  opp_type            : /ngr/de_ps_opp_type;
+  proposal_type       : /ngr/de_proposal_type;
+  opp_type_ot         : /ngr/de_ps_opp_type_ot;
+  received_date       : /ngr/de_ps_recv_dat;
+  due_submission_date : /ngr/de_ps_due_subm_dat;
+  submission_date     : /ngr/de_ps_subm_dat;
+  status              : /ngr/de_ps_opp_stat;
+  @Semantics.amount.currencyCode : '/ngr/t_master.currency'
+  opp_tcv             : /ngr/de_ps_opp_tcv;
+  currency            : waers;
+  sap_system          : /ngr/de_sap_sys;
+  sap_system_category : /ngr/de_ps_sap_sys_cat;
+  opp_category        : /ngr/de_ps_opp_category;
+  comm_model          : /ngr/de_ps_comm_mdl;
+  close_date          : /ngr/de_ps_close_dat;
+  probability         : /ngr/de_ps_prblty;
+  doc_url             : /ngr/de_ps_doc_url;
+  commercial_url      : /ngr/de_ps_comm_url;
+  planned_subm_date   : /ngr/de_ps_plsubm_dat;
+  reviewed_by_ps      : /ngr/de_ps_rev_ps;
+  reviewed_by_pr      : /ngr/de_ps_rev_pr;
+  resource_fut_dmd    : /ngr/de_ps_res_fut_d;
+  next_followup_date  : /ngr/de_ps_nf_date;
+  delete_ind          : /ngr/de_deletion_ind;
+  delivery_handover   : /ngr/de_dlv_hand;
+  reason              : /ngr/de_ps_reason;
+  close_remaks        : /ngr/de_ps_close_rem;
+  complexity          : /ngr/de_ps_complexity;
+  win_chance          : /ngr/de_ps_win_chance;
+  proposal_type_op    : /ngr/de_ps_proposal_type_op;
+  created_by          : /ngr/de_ps_crt_by;
+  created_on          : /ngr/de_ps_crt_on;
+  created_at          : /ngr/de_ps_crt_at;
+  updated_by          : /ngr/de_ps_upd_by;
+  updated_on          : /ngr/de_ps_upd_on;
+  updated_at          : /ngr/de_ps_upd_at;
+  opportunity_type    : /ngr/de_ps_opportunity_type;
+
+}

@@ -1,0 +1,92 @@
+@Metadata.layer: #CUSTOMER
+annotate entity /NGR/CDS_PS_MASTER with
+{
+  @UI.lineItem: [{ position: 10 }]
+  Id;
+  @UI.selectionField: [{ position: 10 }]
+  @UI.lineItem: [{ position: 20 }]
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_CUSTOMER_NAME_VH' , element: 'CustomerName' },
+                                             additionalBinding: [{ element: 'CustomerName', localElement: 'CustomerName', usage: #FILTER },
+                                                                 { element: 'CustomerName', usage: #RESULT }],
+                                              distinctValues: true }]
+  CustomerName;
+  @UI.selectionField: [{ position: 20 }]
+  @UI.lineItem: [{ position: 30 }]
+  @EndUserText.label: 'Owner'
+  // Distinct partner names with function OWN, so the filter bar offers a value help and type-ahead
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_OWNER_VH' , element: 'Owner' }, distinctValues: true }]
+  Owner;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_GEOGRAPHY', usage: #FILTER }],
+                                          distinctValues: true }]
+  Geography;
+  @Consumption.valueHelpDefinition: [{ entity: {name: 'I_CountryText' , element: 'Country' },
+                                      additionalBinding: [{ element: 'Language', localConstant: 'E', usage: #FILTER }],
+                                      distinctValues: true }]
+  Country;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_LOB', usage: #FILTER },
+                                                             { element: 'DomainValueText', usage: #RESULT }],
+                                          distinctValues: true }]
+  LineOfBusiness;
+  @Consumption.valueHelpDefinition: [{ entity: {name: 'I_Currency' , element: 'Currency' }, distinctValues: true }]
+  Currency;
+  @UI.lineItem: [{ position: 50 }]
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_OPP_TYPE', usage: #FILTER }],
+                                          distinctValues: true }]
+  OppType;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_DEAL_TYPE', usage: #FILTER }],
+                                          distinctValues: true }]
+  DealType;
+  @UI.lineItem: [{ position: 40 }]
+  @UI.selectionField: [{ position: 30 }]
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_OPP_STAT', usage: #FILTER }],
+                                          distinctValues: true }]
+  Status;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_COMM_MDL', usage: #FILTER }],
+                                          distinctValues: true }]
+
+  CommModel;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_BOOLE_VALUES' , element: 'DomainValue' } }]
+  ResourceFutureDemandUpdated;
+
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_BU_DETAILS', usage: #FILTER }],
+                                          distinctValues: true }]
+  BUDetails;
+
+  @UI.lineItem: [{ position: 60 }]
+  ReceivedDate;
+  @UI.lineItem: [{ position: 70 }]
+  SubmissionDate;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_COMPLEXITY', usage: #FILTER }],
+                                          distinctValues: true }]
+  Complexity;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_WIN_CHANCE', usage: #FILTER }],
+                                          distinctValues: true }]
+  WinChance;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES' , element: 'DomainValue' },
+                                         additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_PROPOSAL_TYPE_OP', usage: #FILTER }],
+                                          distinctValues: true }]
+  ProposalTypeOp;
+
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES', element: 'DomainValue'},
+    additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_OPP_CATEGORY', usage: #FILTER }], distinctValues: true }]
+  OpportunityType;
+  @Consumption.valueHelpDefinition: [{ entity: {name: '/NGR/CDS_PS_DOMAIN_VALUES', element: 'DomainValue'},
+    additionalBinding: [{ element: 'DomainName', localConstant: '/NGR/DO_PS_SAP_SYS_CAT', usage: #FILTER }], distinctValues: true }]
+  SapSystemCategory;
+
+  /* Associations */
+  @Consumption.filter.hidden: true
+  Parters;
+  @Consumption.filter.hidden: true
+  Remarks;
+
+}

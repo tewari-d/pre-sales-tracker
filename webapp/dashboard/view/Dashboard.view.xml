@@ -84,6 +84,18 @@
                                 <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
                             </MultiComboBox>
                         </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>opportunityType}" labelFor="opportunityTypeFilter"/>
+                            <MultiComboBox showSelectAll="true" id="opportunityTypeFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/opportunityType}" selectionFinish=".onFilterChange" items="{dashboard>/options/opportunityType}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
+                            <Label text="{i18n>sapSystemCategory}" labelFor="sapSystemCategoryFilter"/>
+                            <MultiComboBox showSelectAll="true" id="sapSystemCategoryFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/sapSystemCategory}" selectionFinish=".onFilterChange" items="{dashboard>/options/sapSystemCategory}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
                     </FlexBox>
                     <HBox justifyContent="End" class="sapUiTinyMarginTop">
                         <Button text="{i18n>clear}" type="Transparent" tooltip="{i18n>clearTooltip}" press=".onReset"/>
@@ -100,6 +112,10 @@
                     <Text text="{dashboard>/progress}"/>
                 </VBox>
                 <VBox visible="{= ${dashboard>/loaded} &amp;&amp; !${dashboard>/busy} }">
+                    <HBox visible="{dashboard>/processing}" alignItems="Center" class="dashboardProcessing">
+                        <BusyIndicator size="1rem"/>
+                        <Text text="{i18n>updatingView}"/>
+                    </HBox>
                     <OverflowToolbar design="Transparent">
                         <Text text="{dashboard>/scope}" class="dashboardScope"/>
                         <ToolbarSpacer/>
@@ -118,12 +134,12 @@
                             <Text text="{path:'dashboard>/kpis/pipeline',formatter:'.formatEur'}" class="kpiNumber"/>
                             <Text text="{i18n>activeDefinition}" class="kpiFootnote"/>
                         </VBox>
-                        <VBox class="kpiCard kpiPositive">
+                        <VBox id="wonValueKpi" class="kpiCard kpiPositive kpiAction">
                             <Title text="{i18n>wonValue}" level="H3" wrapping="true"/>
                             <Text text="{path:'dashboard>/kpis/wonValue',formatter:'.formatEur'}" class="kpiNumber"/>
                             <Text text="{i18n>wonDefinition}" class="kpiFootnote"/>
                         </VBox>
-                        <VBox class="kpiCard">
+                        <VBox id="winRateKpi" class="kpiCard kpiAction">
                             <Title text="{i18n>winRate}" level="H3" wrapping="true"/>
                             <Text text="{path:'dashboard>/kpis/winRate',formatter:'.formatRate'}" class="kpiNumber"/>
                             <Text text="{i18n>winRateDefinition}" class="kpiFootnote"/>
@@ -150,7 +166,7 @@
                     </OverflowToolbar>
                     <Text text="{i18n>chartHint}" class="chartSubheading dashboardControls"/>
                     <MessageStrip text="{i18n>noData}" type="Information" showIcon="true" visible="{= ${dashboard>/rows}.length === 0 }"/>
-                    <VBox class="chartGrid" visible="{= ${dashboard>/rows}.length > 0 }">
+                    <VBox class="chartGrid" busy="{dashboard>/processing}" busyIndicatorDelay="0" visible="{= ${dashboard>/rows}.length > 0 }">
                         <VBox class="chartCard">
                             <OverflowToolbar>
                                 <Title text="{i18n>trendTitle}" level="H3"/>
@@ -161,7 +177,7 @@
                                 </Select>
                             </OverflowToolbar>
                             <Text text="{i18n>trendSubtitle}" class="chartSubheading"/>
-                            <VBox id="trendHost"/>
+                            <VBox id="trendHost" class="trendChartHost"/>
                         </VBox>
                         <VBox class="chartCard">
                             <Title text="{i18n>statusTitle}" level="H3"/>
@@ -176,6 +192,8 @@
                                     <core:Item key="bu" text="{i18n>bu}"/>
                                     <core:Item key="geography" text="{i18n>geography}"/>
                                     <core:Item key="country" text="{i18n>country}"/>
+                                    <core:Item key="opportunityType" text="{i18n>opportunityType}"/>
+                                    <core:Item key="sapSystemCategory" text="{i18n>sapSystemCategory}"/>
                                     <!-- <core:Item key="owner" text="{i18n>owner}"/> -->
                                 </Select>
                             </OverflowToolbar>
@@ -185,16 +203,15 @@
                         <VBox class="chartCard">
                             <Title text="{i18n>bandTitle}" level="H3"/>
                             <Text text="{i18n>bandSubtitle}" class="chartSubheading"/>
-                            <VBox id="bandHost"/>
+                            <VBox id="bandHost" class="bandChartHost"/>
                         </VBox>
                     </VBox>
                     <!-- <Text text="{dashboard>/overview}" class="dashboardContext"/> -->
-                    <VBox class="chartGrid chartGridFull" visible="{= ${dashboard>/rows}.length > 0 }">
+                    <VBox class="chartGrid chartGridFull" busy="{dashboard>/processing}" busyIndicatorDelay="0" visible="{= ${dashboard>/rows}.length > 0 }">
                         <VBox class="chartCard">
                             <Title id="ownerTitle" text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
-                            <ScrollContainer vertical="true" horizontal="false" height="24rem" width="100%" class="ownerScroll">
-                            <!-- Sticky legend: the sap.viz legend is hidden because it would scroll away with the bars. -->
+                            <!-- The legend and six owner rows stay visible together. -->
                             <FlexBox id="ownerLegend" class="ownerLegend" wrap="Wrap" alignItems="Center" items="{dashboard>/charts/ownerSeries}">
                                 <HBox class="ownerLegendItem" alignItems="Center">
                                     <core:Icon src="sap-icon://color-fill" color="{dashboard>color}" size="0.9rem" class="ownerLegendSwatch"/>
@@ -228,19 +245,22 @@
                                     </Table>
                                 </VBox>
                             </FlexBox>
-                            <!-- Sticky value axis: filled with a clone of the chart's axis after each render. -->
-                            <core:HTML id="ownerAxis" content="&lt;div class=&quot;ownerAxis&quot;&gt;&lt;/div&gt;"/>
-                            </ScrollContainer>
+                            <HBox alignItems="Center" justifyContent="End" class="ownerPager">
+                                <Text text="{dashboard>/ownerPageRange}"/>
+                                <Button icon="sap-icon://navigation-left-arrow" type="Transparent" tooltip="{i18n>previousOwners}" enabled="{= ${dashboard>/ownerPage} > 0 }" press=".onOwnerPrevious"/>
+                                <Button icon="sap-icon://navigation-right-arrow" type="Transparent" tooltip="{i18n>nextOwners}" enabled="{= ${dashboard>/ownerPage} + 1 &lt; ${dashboard>/ownerPageCount} }" press=".onOwnerNext"/>
+                            </HBox>
                         </VBox>
                     </VBox>
-                    <VBox id="opportunityTableSection" class="dashboardTable">
-                        <Table updateFinished=".onTableUpdated" id="opportunities" growing="false" alternateRowColors="true" sticky="ColumnHeaders" autoPopinMode="true" ariaLabelledBy="opportunitiesTitle" noDataText="{i18n>noData}" items="{path:'dashboard>/rows', sorter:{path:'eur',descending:true}}">
+                    <VBox id="opportunityTableSection" class="dashboardTable" busy="{dashboard>/processing}" busyIndicatorDelay="0">
+                        <Table updateFinished=".onTableUpdated" id="opportunities" growing="false" alternateRowColors="true" sticky="ColumnHeaders" autoPopinMode="true" ariaLabelledBy="opportunitiesTitle" noDataText="{i18n>noData}" items="{path:'dashboard>/rows', sorter:{path:'statusRank',descending:false}}">
                             <headerToolbar>
                                 <OverflowToolbar id="opportunitiesToolbar" design="Transparent">
                                     <Title id="opportunitiesTitle" text="{= ${i18n>tableTitle} + ' (' + ${dashboard>/kpis/total} + ')' }" level="H2"/>
                                     <ToolbarSpacer/>
                                     <SearchField id="opportunitySearch" width="20rem" placeholder="{i18n>searchPlaceholder}" value="{dashboard>/filters/search}" liveChange=".onSearch"/>
                                     <Select id="sortSelect" selectedKey="{dashboard>/sort}" change=".onSort" tooltip="{i18n>sortBy}">
+                                        <core:Item key="statusPriority" text="{i18n>sortStatusPriority}"/>
                                         <core:Item key="eur" text="{i18n>sortValue}"/>
                                         <core:Item key="received" text="{i18n>sortDate}"/>
                                         <core:Item key="CustomerName" text="{i18n>sortCustomer}" />
@@ -253,6 +273,9 @@
                                 </Column>
                                 <Column width="7rem">
                                     <Text text="{i18n>received}"/>
+                                </Column>
+                                <Column width="7rem">
+                                    <Text text="{i18n>winLossDate}"/>
                                 </Column>
                                 <Column width="8rem">
                                     <Text text="{i18n>bu}"/>
@@ -269,8 +292,8 @@
                                 <Column width="8rem">
                                     <Text text="{i18n>owner}"/>
                                 </Column>
-                                <Column width="9rem" hAlign="End">
-                                    <Text text="{i18n>originalValue}"/>
+                                <Column width="7rem">
+                                    <Text text="{i18n>winDate}"/>
                                 </Column>
                                 <Column width="9rem" hAlign="End" importance="High">
                                     <Text text="{i18n>sizeEur}"/>
@@ -284,12 +307,13 @@
                                             <Text text="{dashboard>OppDesc}" maxLines="2"/>
                                         </VBox>
                                         <Text text="{dashboard>received}"/>
+                                        <Text text="{dashboard>closed}"/>
                                         <Text text="{= ${dashboard>BUDetailsText} || ${dashboard>BUDetails} || 'Unassigned' }"/>
                                         <Text text="{= ${dashboard>Country_Text} || ${dashboard>Country} || 'Unassigned' }"/>
                                         <Text text="{= ${dashboard>GeographyText} || ${dashboard>Geography} || 'Unassigned' }"/>
                                         <ObjectStatus text="{= ${dashboard>StatusText} || ${dashboard>Status} }" state="{path:'dashboard>Status',formatter:'.statusState'}"/>
                                         <Text text="{= ${dashboard>Owner} || 'Unassigned' }"/>
-                                        <ObjectNumber number="{path:'dashboard>OppTcv',type:'Decimal',formatOptions:{groupingEnabled:true,minFractionDigits:2,maxFractionDigits:2}}" unit="{dashboard>Currency}" emphasized="false"/>
+                                        <Text text="{= ${dashboard>won} ? ${dashboard>closed} : '' }"/>
                                         <ObjectNumber number="{path:'dashboard>eur',formatter:'.formatAmount'}" unit="EUR" emphasized="false"/>
                                     </cells>
                                 </ColumnListItem>

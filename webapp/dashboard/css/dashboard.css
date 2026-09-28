@@ -23,6 +23,13 @@
 .presalesDashboard .chartCard { min-width: 0; background: var(--sapTile_Background); border: 1px solid var(--sapTile_BorderColor); border-radius: 1rem; padding: 1.1rem; box-shadow: var(--sapContent_Shadow0); }
 .presalesDashboard .chartCard .sapMTB { border-bottom: 0; padding: 0; }
 .presalesDashboard .chartSubheading { color: var(--sapContent_LabelColor); font-size: .75rem; margin: .2rem 0 .8rem; }
+.presalesDashboard .trendChartHost { width: 100%; min-width: 0; overflow-x: auto; }
+.presalesDashboard .trendChartHost .sapVizFrame { min-width: var(--trend-min-width, 390px); }
+.presalesDashboard .bandChartHost { margin-top: .625rem; }
+.presalesDashboard .trendDualLabel { pointer-events: none; }
+.presalesDashboard .trendDualLabel text { fill: #fff; font: 700 11px var(--sapFontFamily); text-anchor: middle; }
+.presalesDashboard .trendDualLabel.outside text { fill: var(--sapTextColor); }
+.presalesDashboard .trendChartHost .v-datalabel { display: none; }
 .presalesDashboard .dashboardTable { border: 1px solid var(--sapTile_BorderColor); border-radius: 1rem; overflow: hidden; background: var(--sapTile_Background); }
 .presalesDashboard .dashboardNotes { margin-top: 1.2rem; }
 .presalesDashboard .dashboardNotesText { line-height: 1.6; color: var(--sapContent_LabelColor); }
@@ -55,6 +62,7 @@
 .presalesDashboard .kpiAction { cursor: pointer; }
 .presalesDashboard .kpiAction:hover { border-color: var(--sapLinkColor); }
 .presalesDashboard .kpiAction:focus-visible { outline: 2px solid var(--sapContent_FocusColor); outline-offset: 2px; }
+.presalesDashboard .dashboardProcessing { position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 1000; gap: .65rem; padding: .55rem .8rem; border: 1px solid var(--sapGroup_ContentBorderColor); border-radius: .5rem; background: var(--sapGroup_ContentBackground); box-shadow: var(--sapContent_Shadow2); }
 
 .dashboardHoverCard { position: fixed; z-index: 10000; pointer-events: none; background: var(--sapGroup_ContentBackground); color: var(--sapTextColor); border: 1px solid var(--sapGroup_ContentBorderColor); border-radius: .5rem; box-shadow: var(--sapContent_Shadow2); padding: .5rem .65rem; width: 18rem; max-width: calc(100vw - 2rem); box-sizing: border-box; font: .75rem var(--sapFontFamily); }
 .dashboardHoverCard[hidden] { display: none; }
@@ -65,20 +73,17 @@
 /* Value labels overlay the bar; let the underlying segment receive hover/click. */
 .presalesDashboard .v-datalabel { pointer-events: none; }
 /* Owner card: chart on the left, per-owner stats table on the right. */
-.presalesDashboard .ownerSplit { gap: 1rem; align-items: flex-start; }
-.presalesDashboard .ownerChartHost { flex: 1 1 30rem; min-width: 0; }
-.presalesDashboard .ownerStats { flex: 0 0 auto; max-width: 100%; width: auto; box-sizing: border-box; }
-.presalesDashboard .ownerScroll { width: 100%; }
+.presalesDashboard .ownerSplit { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1rem; align-items: flex-start; }
+.presalesDashboard .ownerChartHost, .presalesDashboard .ownerStats { min-width: 0; width: 100%; }
 .presalesDashboard .ownerStats .sapMListTbl { table-layout: auto; width: 100%; }
+.presalesDashboard .ownerStats .sapMListTblCell .sapMText { font-size: 1rem; }
 /* Rows take the bar pitch measured from the chart so each row sits on its bar. */
 .presalesDashboard .ownerStats .sapMListTblRow { height: var(--ownerPitch, auto); }
 .presalesDashboard .ownerStats .sapMListTblRow .sapMListTblCell { padding-top: 0; padding-bottom: 0; vertical-align: middle; }
 .presalesDashboard .ownerStats .ownerRowActive { background: var(--sapList_Hover_Background); }
-@media (max-width: 1100px) { .presalesDashboard .ownerStats { flex-basis: 100%; min-width: 0; } }
-/* Sticky bands inside the owner card's scroll container; only bars and rows scroll. */
-.presalesDashboard .ownerLegend { position: sticky; top: 0; z-index: 3; background: var(--sapTile_Background); gap: .25rem 1.25rem; min-height: 2rem; padding: .1rem 0 .3rem; }
+@media (max-width: 800px) { .presalesDashboard .ownerSplit { grid-template-columns: minmax(0, 1fr); } }
+.presalesDashboard .ownerPager { gap: .35rem; min-height: 2rem; }
+.presalesDashboard .ownerLegend { gap: .25rem 1.25rem; min-height: 2rem; padding: .1rem 0 .3rem; }
 .presalesDashboard .ownerLegendItem { gap: .35rem; }
 .presalesDashboard .ownerLegendLink { color: var(--sapTextColor); font-size: .75rem; }
 .presalesDashboard .ownerStats .sapMListTblHeader { z-index: 4; }
-.presalesDashboard .ownerAxis { position: sticky; bottom: 0; z-index: 3; background: var(--sapTile_Background); }
-.presalesDashboard .ownerAxis svg { display: block; overflow: visible; }

@@ -1,0 +1,39 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Read Fixed Values of a Domain'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+// Value helps list the fixed values in their domain position order (as in
+// SAP GUI) instead of alphabetically by code; sap.ui.comp value lists apply
+// the sort order of the presentation variant on the value-help entity.
+@UI.presentationVariant: [{ qualifier: 'ByPosition', sortOrder: [{ by: 'ValueKey', direction: #ASC }] }]
+define view entity /NGR/CDS_PS_DOMAIN_VALUES
+  as select from dd07t
+
+{
+      @UI.hidden: true
+  key domname    as DomainName,
+      @UI.hidden: true
+      @Semantics.language: true
+  key ddlanguage as Language,
+      @UI.hidden: true
+  key valpos     as ValueKey,
+      @UI.hidden: true
+  key as4vers    as Version,
+      @EndUserText.label: 'Description'
+      case
+        when domname = '/NGR/DO_PS_GEOGRAPHY' and domvalue_l = 'AUS'
+          then 'Australia & NZ'
+        else ddtext
+      end as DomainValueText,
+      @EndUserText.label: 'Key'
+      // Text element so dropdown value lists show the description next to the code
+      @ObjectModel.text.element: ['DomainValueText']
+      domvalue_l as DomainValue
+}
+where
+  as4local = 'A'

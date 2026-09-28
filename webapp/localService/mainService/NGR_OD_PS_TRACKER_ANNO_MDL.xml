@@ -71,6 +71,12 @@
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/OppTypeText">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/OpportunityTypeText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/SapSystemCategoryText">
+                <Annotation Term="UI.Hidden"/>
+            </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/StatusText">
                 <Annotation Term="UI.Hidden"/>
             </Annotations>

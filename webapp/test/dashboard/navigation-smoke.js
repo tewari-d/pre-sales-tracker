@@ -21,8 +21,8 @@ async (page) => {
     };
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("http://localhost:8085/dashboard/index.html?snapshot=PS4-500&sap-client=500&sap-ui-xx-componentPreload=off");
-    await page.getByRole("combobox", { name: "Received date period", exact: true }).click();
-    await page.getByRole("option", { name: "All received dates", exact: true }).click();
+    await page.getByRole("combobox", { name: "Reporting period", exact: true }).click();
+    await page.getByRole("option", { name: "All reporting dates", exact: true }).click();
     const rows = page.locator('[id$="opportunities"] .sapMLIBTypeNavigation');
     await rows.first().waitFor();
     for (const index of [0, 1]) {

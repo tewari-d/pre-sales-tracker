@@ -108,11 +108,21 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement60">
                                         <smartField:SmartField id="_IDGenSmartField62" value="{SapSystem}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField id="editSapSystemCategory" value="{SapSystemCategory}" fieldGroupIds="generalInfoFieldGroup">
+                                            <smartField:configuration><smartField:Configuration controlType="dropDownList" /></smartField:configuration>
+                                        </smartField:SmartField>
+                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
                                         <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement48" visible="{= ${OppType} === 'OTR' ? true : false }">
                                         <smartField:SmartField id="_IDGenSmartField48" value="{OppTypeOther}" fieldGroupIds="generalInfoFieldGroup" />
+                                    </smartForm:GroupElement>
+                                    <smartForm:GroupElement>
+                                        <smartField:SmartField id="editOpportunityType" value="{OpportunityType}" fieldGroupIds="generalInfoFieldGroup">
+                                            <smartField:configuration><smartField:Configuration controlType="dropDownList" /></smartField:configuration>
+                                        </smartField:SmartField>
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement72">
                                         <smartField:SmartField id="_IDGenSmartField73" value="{Complexity}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
@@ -139,13 +149,13 @@
                                         <smartField:SmartField id="_IDGenSmartField8" value="{SubmissionDate}" editable="{= ${Status} === 'WIP' ? false : true }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement9">
-                                        <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" required="{= ${Status} === 'SUBMITTED' || ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement10">
                                         <smartField:SmartField id="_IDGenSmartField10" value="{CommModel}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement11">
-                                        <smartField:SmartField id="_IDGenSmartField11" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' }" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField11" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement12">
                                         <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
