@@ -15,16 +15,16 @@
                 </smartForm:layout> -->
                 <smartForm:Group id="_IDGenGroup3" title="Customer Details">
                     <smartForm:GroupElement id="_IDGenGroupElement24">
-                        <smartField:SmartField id="_IDGenSmartField27" value="{CustomerName}" required="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField27" value="{CustomerName}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement67">
                         <smartField:SmartField id="_IDGenSmartField65" value="{CustomerDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement25">
-                        <smartField:SmartField id="_IDGenSmartField28" value="{Geography}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField28" value="{Geography}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement26">
-                        <smartField:SmartField id="_IDGenSmartField29" value="{LineOfBusiness}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField29" value="{LineOfBusiness}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement47" visible="{= ${LineOfBusiness} === 'OTHR' ? true : false }">
                         <smartField:SmartField id="_IDGenSmartField52" value="{LineOfBusinessOther}" fieldGroupIds="createHeaderFields" />
@@ -33,54 +33,54 @@
                         <smartField:SmartField id="_IDGenSmartField30" value="{SolutionArea}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement28">
-                        <smartField:SmartField id="_IDGenSmartField31" value="{Country}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" validateFieldGroup="checkCreateSmartform" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField31" value="{Country}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" validateFieldGroup="checkCreateSmartform" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement29">
-                        <smartField:SmartField id="_IDGenSmartField32" value="{DealType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField32" value="{DealType}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement63">
-                        <smartField:SmartField id="_IDGenSmartField58" value="{BUDetails}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField58" value="{BUDetails}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fixedValueListValidationEnabled="true" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                 </smartForm:Group>
                 <smartForm:Group id="_IDGenGroup5" title="Opportunity Details">
                     <smartForm:GroupElement id="_IDGenGroupElement30">
-                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fetchValueListReadOnly="true" innerControlsCreated="onStatusControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField33" value="{Status}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" fetchValueListReadOnly="true" innerControlsCreated="onStatusControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement31">
                         <smartField:SmartField id="_IDGenSmartField34" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement59">
-                        <smartField:SmartField id="_IDGenSmartField61" value="{SapSystem}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField61" value="{SapSystem}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement>
-                        <smartField:SmartField id="createSapSystemCategory" value="{SapSystemCategory}" required="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields">
+                        <smartField:SmartField id="createSapSystemCategory" value="{SapSystemCategory}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields">
                             <smartField:configuration><smartField:Configuration controlType="dropDownList" /></smartField:configuration>
                         </smartField:SmartField>
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement32">
-                        <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField35" value="{OppType}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement50" visible="{= ${OppType} === 'OTR' ? true : false }">
                         <smartField:SmartField id="_IDGenSmartField51" value="{OppTypeOther}" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement>
-                        <smartField:SmartField id="createOpportunityType" value="{OpportunityType}" required="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields">
+                        <smartField:SmartField id="createOpportunityType" value="{OpportunityType}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields">
                             <smartField:configuration><smartField:Configuration controlType="dropDownList" /></smartField:configuration>
                         </smartField:SmartField>
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement74">
-                        <smartField:SmartField id="_IDGenSmartField75" value="{Complexity}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
+                        <smartField:SmartField id="_IDGenSmartField75" value="{Complexity}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement73">
                         <!-- Dropdown so the five proposal types list in their domain order (value-help dialogs sort by code) -->
-                        <smartField:SmartField id="_IDGenSmartField74" value="{ProposalTypeOp}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated">
+                        <smartField:SmartField id="_IDGenSmartField74" value="{ProposalTypeOp}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated">
                             <smartField:configuration>
                                 <smartField:Configuration id="_IDGenSmartFieldConfiguration74" controlType="dropDownList" />
                             </smartField:configuration>
                         </smartField:SmartField>
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement33">
-                        <smartField:SmartField id="_IDGenSmartField36" value="{ReceivedDate}" required="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField36" value="{ReceivedDate}" mandatory="true" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement34">
                         <smartField:SmartField id="_IDGenSmartField37" value="{PlannedSubmissionDate}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
@@ -92,13 +92,13 @@
                         <smartField:SmartField id="_IDGenSmartField38" value="{SubmissionDate}" visible="{= ${Status} === 'WIP' ? false : true }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement43">
-                        <smartField:SmartField id="_IDGenSmartField39" value="{OppTcv}" required="{= ${Status} === 'SUBMITTED' || ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField39" value="{OppTcv}" mandatory="{= ${Status} === 'SUBMITTED' || ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement36">
                         <smartField:SmartField id="_IDGenSmartField40" value="{CommModel}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" innerControlsCreated="onControlCreated" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement37">
-                        <smartField:SmartField id="_IDGenSmartField41" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" required="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
+                        <smartField:SmartField id="_IDGenSmartField41" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" mandatory="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
                     </smartForm:GroupElement>
                     <smartForm:GroupElement id="_IDGenGroupElement38">
                         <smartField:SmartField id="idCreateProbability" value="{Probability}" entitySet="xNGRxCDS_PS_MASTER" fieldGroupIds="createHeaderFields" />
