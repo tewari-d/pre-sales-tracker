@@ -440,10 +440,12 @@ sap.ui.define(
 
         _validatePayload(oPayload) {
           var aErrors = [];
+          FieldValidators.missingOpportunityFields(oPayload).forEach(function (field) {
+            aErrors.push(field.label + " is required.");
+          });
 
           //Check mandatory fields in header
           var mMandatoryFields = {
-            CustomerName: "Customer",
             LineOfBusiness: "Line of Business",
             Geography: "Geography",
             Country: "Country / Region",
@@ -460,7 +462,7 @@ sap.ui.define(
           // Loop through and validate each field
           Object.keys(mMandatoryFields).forEach(function (sField) {
             const value = oPayload[sField];
-            if (!value || value.trim() === "") {
+            if (value === null || value === undefined || (typeof value === "string" && !value.trim())) {
               aErrors.push(mMandatoryFields[sField] + " is required.");
             }
           });
@@ -489,14 +491,6 @@ sap.ui.define(
 
           const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency);
           if (sizeError) aErrors.push(sizeError);
-
-          if (["WIN", "COMPLETE", "LOSS"].includes(oPayload.Status)) {
-            if (!oPayload.CloseDate) {
-              aErrors.push(
-                `If the Opportunity is ${oPayload.Status}, please fill the Win/Loss Date.`,
-              );
-            }
-          }
 
           if (oPayload.Status === "WIP") {
             // if (oPayload.PlannedSubmissionDate) {

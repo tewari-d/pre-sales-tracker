@@ -23,3 +23,17 @@ test('creation or transition to submitted and won statuses requires a usable opp
   assert.equal(validators.opportunitySizeError('HOLD', '0', 'EUR', 'WIN'), '');
   assert.equal(validators.opportunitySizeError('SUBMITTED', 1, 'GBP'), '');
 });
+
+test('required opportunity fields cover every status and terminal Win/Loss Date', () => {
+  const base = {
+    CustomerName: 'Customer', OpportunityType: 'AMS', SapSystemCategory: 'S4_PUBLIC',
+    ReceivedDate: new Date('2026-09-01'), CloseDate: new Date('2026-09-10')
+  };
+  assert.deepEqual(Array.from(validators.missingOpportunityFields({ ...base, Status: 'WIP' }), item => item.field), []);
+  assert.deepEqual(Array.from(validators.missingOpportunityFields({ ...base, CustomerName: ' ', OpportunityType: '', SapSystemCategory: null, ReceivedDate: null, Status: 'WIP' }), item => item.field),
+    ['CustomerName', 'OpportunityType', 'SapSystemCategory', 'ReceivedDate']);
+  for (const status of ['WIN', 'COMPLETE', 'LOSS']) {
+    assert.deepEqual(Array.from(validators.missingOpportunityFields({ ...base, Status: status, CloseDate: '' }), item => item.field), ['CloseDate']);
+  }
+  assert.deepEqual(Array.from(validators.missingOpportunityFields({ ...base, Status: 'WIN', ReceivedDate: new Date('invalid') }), item => item.field), ['ReceivedDate']);
+});

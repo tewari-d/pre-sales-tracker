@@ -283,6 +283,23 @@ sap.ui.define(
 
           oView.setBusy(true);
 
+          const missingFields = FieldValidators.missingOpportunityFields(oPayload);
+          if (missingFields.length) {
+            const fieldIds = {
+              CustomerName: "_IDGenSmartField19",
+              OpportunityType: "editOpportunityType",
+              SapSystemCategory: "editSapSystemCategory",
+              ReceivedDate: "_IDGenSmartField7",
+              CloseDate: "_IDGenSmartField11",
+            };
+            sap.m.MessageBox.error(
+              "Please fill the following required field(s):\n" + missingFields.map((field) => "• " + field.label).join("\n"),
+              { onClose: () => this.byId(fieldIds[missingFields[0].field]).focus() }
+            );
+            oView.setBusy(false);
+            return;
+          }
+
           const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency, this._oInitialStatus);
           if (sizeError) {
             sap.m.MessageBox.error(sizeError, { onClose: () => this.byId("_IDGenSmartField9").focus() });

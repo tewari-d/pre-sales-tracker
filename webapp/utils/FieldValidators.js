@@ -2,6 +2,23 @@ sap.ui.define([], function () {
     "use strict";
   
     return {
+      missingOpportunityFields: function (payload) {
+        const required = [
+          { field: "CustomerName", label: "Customer" },
+          { field: "OpportunityType", label: "Opportunity Type" },
+          { field: "SapSystemCategory", label: "SAP System Category" },
+          { field: "ReceivedDate", label: "Received Date" },
+        ];
+        if (["WIN", "COMPLETE", "LOSS"].includes(payload.Status)) {
+          required.push({ field: "CloseDate", label: "Win/Loss Date" });
+        }
+        return required.filter(({ field }) => {
+          const value = payload[field];
+          return value === null || value === undefined ||
+            (typeof value === "string" && !value.trim()) ||
+            (Object.prototype.toString.call(value) === "[object Date]" && !Number.isFinite(value.getTime()));
+        });
+      },
       opportunitySizeError: function (status, value, currency, previousStatus) {
         const enteringRequiredStatus = ["SUBMITTED", "WIN", "COMPLETE"].includes(status) &&
           (previousStatus === undefined || previousStatus !== status);
