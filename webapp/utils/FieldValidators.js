@@ -2,14 +2,16 @@ sap.ui.define([], function () {
     "use strict";
   
     return {
-      opportunitySizeError: function (status, value, currency) {
-        const required = ["SUBMITTED", "WIN", "COMPLETE"].includes(status);
+      opportunitySizeError: function (status, value, currency, previousStatus) {
+        const enteringRequiredStatus = ["SUBMITTED", "WIN", "COMPLETE"].includes(status) &&
+          (previousStatus === undefined || previousStatus !== status);
+        if (!enteringRequiredStatus) return "";
         if (value === null || value === undefined || String(value).trim() === "") {
-          return required ? "Opp. Size is required and must be greater than zero." : "";
+          return "Opp. Size is required and must be greater than zero.";
         }
         const amount = Number(value);
         if (!Number.isFinite(amount) || amount <= 0) return "Opp. Size is required and must be greater than zero.";
-        if (!currency && required) return "Currency is required when Opp. Size is mandatory.";
+        if (!currency) return "Currency is required when Opp. Size is mandatory.";
         if (["USD", "EUR"].includes(String(currency).trim().toUpperCase()) && amount <= 1) {
           return "Opp. Size must be greater than 1 USD or 1 EUR.";
         }

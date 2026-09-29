@@ -37,6 +37,7 @@ sap.ui.define(
           var oEditModel = new sap.ui.model.json.JSONModel({
             editMode: false,
             showSave: false,
+            originalStatus: "",
           });
           this.getView().setModel(oEditModel, "viewEditableModel");
 
@@ -139,6 +140,7 @@ sap.ui.define(
                   const oData = oCtx.getObject();
                   this._oInitialSubmissionDate = oData.SubmissionDate;
                   this._oInitialStatus = oData.Status;
+                  oViewModel.setProperty("/originalStatus", oData.Status);
 
                   const oSmartField = oView.byId("_IDGenSmartField20");
                   if (!oSmartField) return;
@@ -281,7 +283,7 @@ sap.ui.define(
 
           oView.setBusy(true);
 
-          const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency);
+          const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency, this._oInitialStatus);
           if (sizeError) {
             sap.m.MessageBox.error(sizeError, { onClose: () => this.byId("_IDGenSmartField9").focus() });
             oView.setBusy(false);
@@ -563,6 +565,8 @@ sap.ui.define(
             method: "PUT",
             success: () => {
               sap.m.MessageToast.show("Saved successfully.");
+              this._oInitialStatus = oPayload.Status;
+              oVM.setProperty("/originalStatus", oPayload.Status);
               oVM.setProperty("/editMode", false);
               oVM.setProperty("/showSave", false);
               oRemarksList.getBinding("items").refresh(); // Refresh remarks list

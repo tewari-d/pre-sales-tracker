@@ -6,7 +6,7 @@ let validators;
 vm.runInNewContext(fs.readFileSync('webapp/utils/FieldValidators.js', 'utf8'), {
   sap: { ui: { define: (_, factory) => { validators = factory(); } } }
 });
-test('submitted and won statuses require a usable opportunity size', () => {
+test('creation or transition to submitted and won statuses requires a usable opportunity size', () => {
   for (const status of ['SUBMITTED', 'WIN', 'COMPLETE']) {
     assert.match(validators.opportunitySizeError(status, '', 'EUR'), /required/);
     assert.match(validators.opportunitySizeError(status, '0', 'EUR'), /greater than zero/);
@@ -14,8 +14,12 @@ test('submitted and won statuses require a usable opportunity size', () => {
     assert.match(validators.opportunitySizeError(status, 1, 'USD'), /greater than 1/);
     assert.equal(validators.opportunitySizeError(status, '1.001', 'EUR'), '');
     assert.equal(validators.opportunitySizeError(status, '2', 'USD'), '');
+    assert.match(validators.opportunitySizeError(status, '0', 'EUR', 'WIP'), /greater than zero/);
+    assert.equal(validators.opportunitySizeError(status, '0', 'EUR', status), '');
   }
   assert.equal(validators.opportunitySizeError('WIP', '', ''), '');
-  assert.match(validators.opportunitySizeError('WIP', 1, 'USD'), /greater than 1/);
+  assert.equal(validators.opportunitySizeError('WIP', '0', 'EUR'), '');
+  assert.equal(validators.opportunitySizeError('WIP', 1, 'USD'), '');
+  assert.equal(validators.opportunitySizeError('HOLD', '0', 'EUR', 'WIN'), '');
   assert.equal(validators.opportunitySizeError('SUBMITTED', 1, 'GBP'), '');
 });

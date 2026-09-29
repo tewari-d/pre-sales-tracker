@@ -8,14 +8,6 @@
     " 1. Read incoming payload
     io_data_provider->read_entry_data( IMPORTING es_data = ls_payload ).
 
-    IF ls_payload-status = 'SUBMITTED' OR ls_payload-status = 'WIN' OR ls_payload-status = 'COMPLETE'.
-      IF ls_payload-opptcv <= 0 OR ls_payload-currency IS INITIAL
-         OR ( ( ls_payload-currency = 'USD' OR ls_payload-currency = 'EUR' )
-              AND ls_payload-opptcv <= 1 ).
-        RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
-          EXPORTING message = 'Opp. Size and currency are required; USD/EUR size must exceed 1'.
-      ENDIF.
-    ENDIF.
     IF ( ls_payload-status = 'WIN' OR ls_payload-status = 'COMPLETE' )
        AND ls_payload-closedate IS INITIAL.
       RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
@@ -48,6 +40,18 @@
       RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
         EXPORTING
           message = |Opportunity with ID { lv_id } not found|.
+    ENDIF.
+
+    " Require a valid size only when the status enters the submitted/won stages.
+    IF ls_payload-status <> ls_db_before-status
+       AND ( ls_payload-status = 'SUBMITTED' OR ls_payload-status = 'WIN'
+             OR ls_payload-status = 'COMPLETE' ).
+      IF ls_payload-opptcv <= 0 OR ls_payload-currency IS INITIAL
+         OR ( ( ls_payload-currency = 'USD' OR ls_payload-currency = 'EUR' )
+              AND ls_payload-opptcv <= 1 ).
+        RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
+          EXPORTING message = 'Opp. Size and currency are required; USD/EUR size must exceed 1'.
+      ENDIF.
     ENDIF.
 
     " 4. Prepare new version for update

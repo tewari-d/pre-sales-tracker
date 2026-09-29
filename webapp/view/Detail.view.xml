@@ -149,7 +149,7 @@
                                         <smartField:SmartField id="_IDGenSmartField8" value="{SubmissionDate}" editable="{= ${Status} === 'WIP' ? false : true }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement9">
-                                        <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" required="{= ${Status} === 'SUBMITTED' || ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" required="{= (${Status} === 'SUBMITTED' || ${Status} === 'WIN' || ${Status} === 'COMPLETE') &amp;&amp; ${Status} !== ${viewEditableModel>/originalStatus} }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement10">
                                         <smartField:SmartField id="_IDGenSmartField10" value="{CommModel}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />

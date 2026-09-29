@@ -2,6 +2,8 @@
 
 These files record the source applied to PS4 with workbench transport `PS4K902086` (task `PS4K902087`). The objects are active, and the tracker/dashboard bundle was deployed to client 110. No existing `/NGR/T_MASTER` field was deleted; its field count increased from 46 to 48. No opportunity rows in clients 110 or 500 were backfilled or corrected.
 
+The 29 September update to [`update_entity.abap`](update_entity.abap) was applied and activated in client 110 under `PS4K902086`. It limits the opportunity-size check to status transitions into Submitted, Win or Win and Completed. The tracker UI was redeployed with the matching rule; the other source files reflect the activated 28 September version.
+
 ABAP Dictionary, CDS, domain and class definitions are workbench objects shared across clients of PS4. The app deployment and OData verification used client 110; client 500 data was not changed.
 
 ## Dictionary objects to create
