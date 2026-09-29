@@ -82,7 +82,7 @@
 .presalesDashboard .ownerStats .sapMListTblRow .sapMListTblCell { padding-top: 0; padding-bottom: 0; vertical-align: middle; }
 .presalesDashboard .ownerStats .ownerRowActive { background: var(--sapList_Hover_Background); }
 @media (max-width: 800px) { .presalesDashboard .ownerSplit { grid-template-columns: minmax(0, 1fr); } }
-.presalesDashboard .ownerPager { gap: .35rem; min-height: 2rem; }
+.presalesDashboard .ownerScroll { width: 100%; }
 .presalesDashboard .ownerLegend { gap: .25rem 1.25rem; min-height: 2rem; padding: .1rem 0 .3rem; }
 .presalesDashboard .ownerLegendItem { gap: .35rem; }
 .presalesDashboard .ownerLegendLink { color: var(--sapTextColor); font-size: .75rem; }

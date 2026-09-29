@@ -106,6 +106,17 @@ test("multi-select OR within a dimension, AND across dimensions, with search and
     assert.deepEqual(plain(A.filter(rows, { bu: ["A", "B"], country: ["DE"], owner: ["__UNASSIGNED__"], search: "STAR" }).map(r => r.Id)), ["1"]);
 });
 
+test("owner choices reflect other filters while ignoring the current owner selection", () => {
+    const rows = A.normalize([
+        row("1", { Owner: "Alex", Country: "DE", ReceivedDate: "2026-07-01" }),
+        row("2", { Owner: "Blair", Country: "IN", ReceivedDate: "2026-07-01" }),
+        row("3", { Owner: "Casey", Country: "DE", ReceivedDate: "2026-01-01" })
+    ], {});
+    const filters = { country: ["DE"], owner: ["Blair"], from: "2026-07-01", to: "2026-09-30" };
+    assert.deepEqual(plain(A.contextualOptions(rows, filters, "owner").map(option => option.key)), ["Alex"]);
+    assert.deepEqual(plain(A.contextualOptions(rows, { ...filters, country: [] }, "owner").map(option => option.key)), ["Alex", "Blair"]);
+});
+
 test("geography filter uses the requested labels and order without changing stored codes", () => {
     const codes = ["AFRICA", "NA", "UK", "MENA", "APAC", "AUS", "EUROPE"];
     const rows = A.normalize(codes.map((code, i) => row(String(i), { Geography: code, GeographyText: "Old label" })), {});

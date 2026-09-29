@@ -170,6 +170,9 @@ sap.ui.define([], function () {
         : a.text.localeCompare(b.text),
     );
   }
+  function contextualOptions(rows, filters, dimension) {
+    return options(filter(rows, Object.assign({}, filters, { [dimension]: [] })), dimension);
+  }
   function group(rows, dimension, metric) {
     const definition = DIMENSIONS[dimension];
     const map = new Map();
@@ -406,6 +409,7 @@ sap.ui.define([], function () {
     normalize,
     filter,
     options,
+    contextualOptions,
     group,
     trend,
     summarize,

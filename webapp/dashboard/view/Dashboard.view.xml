@@ -211,45 +211,42 @@
                         <VBox class="chartCard">
                             <Title id="ownerTitle" text="{i18n>ownerTitle}" level="H3"/>
                             <Text text="{i18n>ownerSubtitle}" class="chartSubheading"/>
-                            <!-- The legend and six owner rows stay visible together. -->
+                            <!-- Keep the chart and owner rows aligned while scrolling them together. -->
                             <FlexBox id="ownerLegend" class="ownerLegend" wrap="Wrap" alignItems="Center" items="{dashboard>/charts/ownerSeries}">
                                 <HBox class="ownerLegendItem" alignItems="Center">
                                     <core:Icon src="sap-icon://color-fill" color="{dashboard>color}" size="0.9rem" class="ownerLegendSwatch"/>
                                     <Link text="{dashboard>label}" press=".onOwnerLegendPress" class="ownerLegendLink"/>
                                 </HBox>
                             </FlexBox>
-                            <FlexBox wrap="Wrap" class="ownerSplit">
-                                <VBox id="ownerHost" class="ownerChartHost"/>
-                                <VBox id="ownerStatsBox" class="ownerStats">
-                                    <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" sticky="ColumnHeaders" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
-                                        <columns>
-                                            <Column hAlign="End" width="5.5rem">
-                                                <Text text="{i18n>ownerStatsCount}"/>
-                                            </Column>
-                                            <Column hAlign="End" width="6.5rem">
-                                                <Text text="{i18n>ownerStatsValue}"/>
-                                            </Column>
-                                            <Column hAlign="End" width="5.5rem">
-                                                <Text text="{i18n>winRate}"/>
-                                            </Column>
-                                        </columns>
-                                        <items>
-                                            <ColumnListItem type="Active" press=".onOwnerRowPress">
-                                                <cells>
-                                                    <Text text="{dashboard>total}"/>
-                                                    <Text text="{path:'dashboard>value',formatter:'.formatEur'}"/>
-                                                    <Text text="{path:'dashboard>winRate',formatter:'.formatRate'}"/>
-                                                </cells>
-                                            </ColumnListItem>
-                                        </items>
-                                    </Table>
-                                </VBox>
-                            </FlexBox>
-                            <HBox alignItems="Center" justifyContent="End" class="ownerPager">
-                                <Text text="{dashboard>/ownerPageRange}"/>
-                                <Button icon="sap-icon://navigation-left-arrow" type="Transparent" tooltip="{i18n>previousOwners}" enabled="{= ${dashboard>/ownerPage} > 0 }" press=".onOwnerPrevious"/>
-                                <Button icon="sap-icon://navigation-right-arrow" type="Transparent" tooltip="{i18n>nextOwners}" enabled="{= ${dashboard>/ownerPage} + 1 &lt; ${dashboard>/ownerPageCount} }" press=".onOwnerNext"/>
-                            </HBox>
+                            <ScrollContainer class="ownerScroll" width="100%" height="24rem" vertical="true" horizontal="false">
+                                <FlexBox wrap="Wrap" class="ownerSplit">
+                                    <VBox id="ownerHost" class="ownerChartHost"/>
+                                    <VBox id="ownerStatsBox" class="ownerStats">
+                                        <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" sticky="ColumnHeaders" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
+                                            <columns>
+                                                <Column hAlign="End" width="5.5rem">
+                                                    <Text text="{i18n>ownerStatsCount}"/>
+                                                </Column>
+                                                <Column hAlign="End" width="6.5rem">
+                                                    <Text text="{i18n>ownerStatsValue}"/>
+                                                </Column>
+                                                <Column hAlign="End" width="5.5rem">
+                                                    <Text text="{i18n>winRate}"/>
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem type="Active" press=".onOwnerRowPress">
+                                                    <cells>
+                                                        <Text text="{dashboard>total}"/>
+                                                        <Text text="{path:'dashboard>value',formatter:'.formatEur'}"/>
+                                                        <Text text="{path:'dashboard>winRate',formatter:'.formatRate'}"/>
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </VBox>
+                                </FlexBox>
+                            </ScrollContainer>
                         </VBox>
                     </VBox>
                     <VBox id="opportunityTableSection" class="dashboardTable" busy="{dashboard>/processing}" busyIndicatorDelay="0">
@@ -292,8 +289,8 @@
                                 <Column width="8rem">
                                     <Text text="{i18n>owner}"/>
                                 </Column>
-                                <Column width="7rem">
-                                    <Text text="{i18n>winDate}"/>
+                                <Column width="11rem">
+                                    <Text text="{i18n>opportunityType}"/>
                                 </Column>
                                 <Column width="9rem" hAlign="End" importance="High">
                                     <Text text="{i18n>sizeEur}"/>
@@ -313,7 +310,7 @@
                                         <Text text="{= ${dashboard>GeographyText} || ${dashboard>Geography} || 'Unassigned' }"/>
                                         <ObjectStatus text="{= ${dashboard>StatusText} || ${dashboard>Status} }" state="{path:'dashboard>Status',formatter:'.statusState'}"/>
                                         <Text text="{= ${dashboard>Owner} || 'Unassigned' }"/>
-                                        <Text text="{= ${dashboard>won} ? ${dashboard>closed} : '' }"/>
+                                        <Text text="{= ${dashboard>OpportunityTypeText} || ${dashboard>OpportunityType} || 'Unassigned' }"/>
                                         <ObjectNumber number="{path:'dashboard>eur',formatter:'.formatAmount'}" unit="EUR" emphasized="false"/>
                                     </cells>
                                 </ColumnListItem>

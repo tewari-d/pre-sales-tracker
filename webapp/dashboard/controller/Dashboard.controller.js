@@ -95,9 +95,6 @@ sap.ui.define(
             breakdown: state.breakdown,
             interval: state.interval,
             sort: state.sort,
-            ownerPage: 0,
-            ownerPageCount: 1,
-            ownerPageRange: "",
             kpis: {},
             rows: [],
             charts: {},
@@ -485,6 +482,13 @@ sap.ui.define(
           const model = this._viewModel;
           this._hover.hide();
           const filters = model.getProperty("/filters");
+          const ownerOptions = Analytics.contextualOptions(this._rows, filters, "owner");
+          model.setProperty("/options/owner", ownerOptions);
+          const availableOwners = new Set(ownerOptions.map((option) => option.key));
+          const selectedOwners = filters.owner.filter((key) => availableOwners.has(key));
+          if (selectedOwners.length !== filters.owner.length) {
+            model.setProperty("/filters/owner", selectedOwners);
+          }
           const rows = Analytics.filter(this._rows, filters);
           this._rateBase = Analytics.filter(this._rows, Object.assign({}, filters, { status: [] }));
           const metric = model.getProperty("/metric");
@@ -652,31 +656,10 @@ sap.ui.define(
           if (name === "owner") {
             const table = this._ownerTable(data);
             this._ownerAllData = data;
-            this._ownerAllTable = table;
-            this._showOwnerPage();
+            this._viewModel.setProperty("/charts/ownerTable", table);
+            this._charts.owner.setHeight(Math.max(24, table.length * 3.5 + 3) + "rem");
+            this._applyOwnerPalette();
           }
-        },
-        _showOwnerPage: function () {
-          const table = this._ownerAllTable || [];
-          const pages = Math.max(1, Math.ceil(table.length / 6));
-          const page = Math.min(this._viewModel.getProperty("/ownerPage") || 0, pages - 1);
-          const visible = table.slice(page * 6, page * 6 + 6);
-          const keys = new Set(visible.map(item => item.key));
-          this._viewModel.setProperty("/ownerPage", page);
-          this._viewModel.setProperty("/ownerPageCount", pages);
-          this._viewModel.setProperty("/ownerPageRange", table.length ? `${page * 6 + 1}–${page * 6 + visible.length} / ${table.length}` : "");
-          this._viewModel.setProperty("/charts/owner", (this._ownerAllData || []).filter(item => keys.has(item.key)));
-          this._viewModel.setProperty("/charts/ownerTable", visible);
-          this._charts.owner.setHeight("24rem");
-          this._applyOwnerPalette();
-        },
-        onOwnerPrevious: function () {
-          this._viewModel.setProperty("/ownerPage", Math.max(0, this._viewModel.getProperty("/ownerPage") - 1));
-          this._showOwnerPage();
-        },
-        onOwnerNext: function () {
-          this._viewModel.setProperty("/ownerPage", Math.min(this._viewModel.getProperty("/ownerPageCount") - 1, this._viewModel.getProperty("/ownerPage") + 1));
-          this._showOwnerPage();
         },
         _decorateTrendBars: function (chart) {
           const root = chart.getDomRef();
