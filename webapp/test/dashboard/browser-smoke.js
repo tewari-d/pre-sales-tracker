@@ -15,9 +15,10 @@ async (page) => {
     });
     const reset = async () => {
         await page.getByRole("button", { name: "Clear", exact: true }).click();
-        const expected = new Date().getFullYear() + "-Q" + (Math.floor(new Date().getMonth() / 3) + 1);
+        const now = new Date(), year = now.getFullYear(), quarter = Math.floor(now.getMonth() / 3) + 1;
+        const expected = [year + "-Q" + quarter, (quarter === 1 ? year - 1 : year) + "-Q" + (quarter === 1 ? 4 : quarter - 1)];
         const filters = (await state()).filters;
-        check(filters.period === expected, "Reset restores current quarter");
+        check(filters.period === "quarters" && filters.periods.join() === expected.join(), "Reset restores current and previous quarters");
         check(filters.proposalCode.length === 0, "Reset includes all proposal types");
         await page.getByRole("combobox", { name: "Reporting period", exact: true }).click();
         await page.getByRole("option", { name: "All reporting dates", exact: true }).click();

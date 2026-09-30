@@ -4,7 +4,16 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
     const returns = new Map();
     function defaults(now = new Date()) {
         const year = now.getFullYear(), quarter = Math.floor(now.getMonth() / 3) + 1;
-        const filters = Object.assign({ period: `${year}-Q${quarter}`, periods: [`${year}-Q${quarter}`], disjoint: false, search: "" }, Analytics.quarterRange(year, quarter));
+        const previousYear = quarter === 1 ? year - 1 : year;
+        const previousQuarter = quarter === 1 ? 4 : quarter - 1;
+        const filters = {
+            period: "quarters",
+            periods: [`${year}-Q${quarter}`, `${previousYear}-Q${previousQuarter}`],
+            from: Analytics.quarterRange(previousYear, previousQuarter).from,
+            to: Analytics.quarterRange(year, quarter).to,
+            disjoint: false,
+            search: ""
+        };
         Object.keys(Analytics.DIMENSIONS).forEach(key => { filters[key] = []; });
         // Include every proposal type in the default "all opportunities" view.
         filters.proposalCode = [];
@@ -26,9 +35,9 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
         if (selected && ["all", "custom"].includes(changedKey)) {
             return { period: changedKey, periods: [changedKey], from: "", to: "", disjoint: false };
         }
-        const current = defaults(now).filters.period;
+        const current = defaults(now).filters.periods[0];
         const periods = [...new Set(keys.filter(key => /^\d{4}-Q[1-4]$/.test(key) && key >= "1900-Q1" && key <= current))].sort().reverse();
-        if (!periods.length) { periods.push(current); }
+        if (!periods.length) { periods.push(...defaults(now).filters.periods); }
         const range = key => Analytics.quarterRange(Number(key.slice(0, 4)), Number(key.slice(-1)));
         const ordinal = key => Number(key.slice(0, 4)) * 4 + Number(key.slice(-1));
         return {
@@ -50,7 +59,7 @@ sap.ui.define(["com/ngr/presales/dashboard/model/Analytics"], function (Analytic
             Object.assign(state.filters, selectPeriods([], "all", true, now));
         } else if (filters.period === "quarters" && Array.isArray(filters.periods)) {
             Object.assign(state.filters, selectPeriods(filters.periods, null, false, now));
-        } else if (match && filters.period <= state.filters.period) {
+        } else if (match && filters.period <= state.filters.periods[0]) {
             Object.assign(state.filters, selectPeriods([filters.period], null, false, now));
         } else if (filters.period === "custom" && [filters.from, filters.to].every(date =>
             typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) &&

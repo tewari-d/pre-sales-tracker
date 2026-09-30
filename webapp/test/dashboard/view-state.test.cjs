@@ -28,26 +28,33 @@ test("multiple quarters form an exact union, including gaps and year boundaries"
     assert.deepEqual(plain(restored.filters.periods), plain(selection.periods));
     assert.equal(restored.scrollTop, 1234);
 });
-test("special periods are exclusive and clearing the last quarter restores current quarter", () => {
+test("special periods are exclusive and clearing the last quarter restores both default quarters", () => {
     for (const key of ["all", "custom"]) {
         const special = S.selectPeriods(["2026-Q3", key], key, true, today);
         assert.deepEqual(plain(special.periods), [key]);
         assert.equal(special.period, key);
         assert.equal(special.disjoint, false);
     }
-    assert.deepEqual(plain(S.selectPeriods([], null, false, today).periods), ["2026-Q3"]);
+    assert.deepEqual(plain(S.selectPeriods([], null, false, today).periods), ["2026-Q3", "2026-Q2"]);
 });
-test("first visit defaults to the current calendar quarter, including year boundaries", () => {
-    for (const [date, period, from, to] of [
-        [today, "2026-Q3", "2026-07-01", "2026-09-30"],
-        [new Date(2027, 0, 1), "2027-Q1", "2027-01-01", "2027-03-31"],
-        [new Date(2026, 11, 31), "2026-Q4", "2026-10-01", "2026-12-31"]
+test("first visit includes the current and previous calendar quarters across year boundaries", () => {
+    for (const [date, periods, from, to] of [
+        [today, ["2026-Q3", "2026-Q2"], "2026-04-01", "2026-09-30"],
+        [new Date(2026, 9, 1), ["2026-Q4", "2026-Q3"], "2026-07-01", "2026-12-31"],
+        [new Date(2027, 0, 1), ["2027-Q1", "2026-Q4"], "2026-10-01", "2027-03-31"],
+        [new Date(2026, 11, 31), ["2026-Q4", "2026-Q3"], "2026-07-01", "2026-12-31"]
     ]) {
         const state = S.defaults(date), filters = state.filters;
         assert.equal(state.interval, "month");
         assert.equal(state.sort, "statusPriority");
-        assert.equal(filters.period, period); assert.equal(filters.from, from); assert.equal(filters.to, to);
+        assert.equal(filters.period, "quarters");
+        assert.deepEqual(plain(filters.periods), periods);
+        assert.equal(filters.from, from); assert.equal(filters.to, to);
+        assert.equal(filters.disjoint, false);
     }
+    const october = new Date(2026, 9, 1);
+    const rows = A.normalize(["2026-06-30", "2026-09-30", "2026-10-01"].map((date, i) => ({ Id: String(i), ReceivedDate: date })), {});
+    assert.deepEqual(plain(A.filter(rows, S.defaults(october).filters).map(row => row.Id)), ["1", "2"]);
 });
 test("status priority follows won, submitted, active and lost stages", () => {
     const statuses = ["LOSS", "HOLD", "WIP", "SUBMITTED", "WIN", "COMPLETE", "NOGO"];
@@ -75,7 +82,7 @@ test("a document reload creates fresh module memory even if an opportunity retur
     const state = S.defaults(today); state.filters.period = "all"; state.filters.owner = ["Alex"];
     S.remember(scope, state);
     const reloaded = load("ViewState", [A]);
-    assert.equal(reloaded.take(scope, today).filters.period, "2026-Q3");
+    assert.deepEqual(plain(reloaded.take(scope, today).filters.periods), ["2026-Q3", "2026-Q2"]);
     assert.equal(reloaded.take(scope, today).interval, "month");
     assert.equal(reloaded.take(scope, today).returning, false);
     assert.equal(S.take(scope, today).filters.period, "all");
@@ -89,14 +96,16 @@ test("return state is isolated by user, client and source and cleared on failed 
     S.forget(scope);
     assert.equal(S.take(scope, today).returning, false);
     const state = S.sanitize({filters:{period:"2028-Q1",bu:"bad",owner:["A","A",null]},scrollTop:-30},today);
-    assert.equal(state.filters.period,"2026-Q3");
+    assert.equal(state.filters.period,"quarters");
+    assert.deepEqual(plain(state.filters.periods), ["2026-Q3", "2026-Q2"]);
+    assert.deepEqual(plain(S.sanitize({filters:{period:"2026-Q3"}}, today).filters.periods), ["2026-Q3"]);
     assert.deepEqual(plain(state.filters.bu),[]);
     assert.deepEqual(plain(state.filters.owner),["A"]);
     assert.equal(state.scrollTop,0);
 });
 test("all dates remains explicit; malformed custom dates are not restored", () => {
     assert.equal(S.sanitize({filters:{period:"all"}}, today).filters.from, "");
-    assert.equal(S.sanitize({filters:{period:"custom",from:"2026-02-30",to:"2026-03-01"}}, today).filters.period, "2026-Q3");
+    assert.equal(S.sanitize({filters:{period:"custom",from:"2026-02-30",to:"2026-03-01"}}, today).filters.period, "quarters");
 });
 test("the retired free-text proposal field is not a dimension and is ignored as a filter or breakdown", () => {
     assert.equal(A.DIMENSIONS.proposal, undefined);
