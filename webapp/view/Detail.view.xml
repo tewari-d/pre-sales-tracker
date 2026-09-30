@@ -68,7 +68,7 @@
                 <subSections>
                     <ObjectPageSubSection id="_IDGenObjectPageSubSection">
                         <blocks>
-                            <smartForm:SmartForm validateFieldGroup="onFieldGroupChange" id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="YesNo" app:defaultDropDownDisplayBehaviour="idAndDescription" title="{Name}" validationMode="Async" editable="{viewEditableModel>/editMode}" editToggled="handleEditToggled">
+                            <smartForm:SmartForm validateFieldGroup="onFieldGroupChange" id="smartFormColumn" app:defaultCheckBoxDisplayBehaviour="YesNo" app:defaultDropDownDisplayBehaviour="descriptionOnly" title="{Name}" validationMode="Async" editable="{viewEditableModel>/editMode}" editToggled="handleEditToggled">
                                 <smartForm:Group id="_IDGenGroup" title="Customer Details">
                                     <smartForm:GroupElement id="_IDGenGroupElement19">
                                         <smartField:SmartField id="_IDGenSmartField19" value="{CustomerName}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" />
@@ -77,10 +77,10 @@
                                         <smartField:SmartField id="_IDGenSmartField68" value="{CustomerDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement17">
-                                        <smartField:SmartField id="_IDGenSmartField" value="{Geography}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField" value="{Geography}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement1">
-                                        <smartField:SmartField id="_IDGenSmartField1" value="{LineOfBusiness}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField1" value="{LineOfBusiness}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement46" visible="{= ${LineOfBusiness} === 'OTHR' ? true : false }">
                                         <smartField:SmartField id="_IDGenSmartField50" value="{LineOfBusinessOther}" fieldGroupIds="generalInfoFieldGroup" />
@@ -89,18 +89,18 @@
                                         <smartField:SmartField id="_IDGenSmartField2" value="{SolutionArea}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement3">
-                                        <smartField:SmartField id="_IDGenSmartField3" value="{Country}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField3" value="{Country}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement4">
-                                        <smartField:SmartField id="_IDGenSmartField4" value="{DealType}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField4" value="{DealType}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement64">
-                                        <smartField:SmartField id="_IDGenSmartField64" value="{BUDetails}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField64" value="{BUDetails}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                 </smartForm:Group>
                                 <smartForm:Group id="_IDGenGroup1" title="Opportunity Details">
                                     <smartForm:GroupElement id="_IDGenGroupElement20">
-                                        <smartField:SmartField id="_IDGenSmartField20" value="{Status}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField20" value="{Status}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement5">
                                         <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
@@ -109,29 +109,29 @@
                                         <smartField:SmartField id="_IDGenSmartField62" value="{SapSystem}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement>
-                                        <smartField:SmartField id="editSapSystemCategory" value="{SapSystemCategory}" mandatory="true" fieldGroupIds="generalInfoFieldGroup">
-                                            <smartField:configuration><smartField:Configuration controlType="dropDownList" /></smartField:configuration>
+                                        <smartField:SmartField id="editSapSystemCategory" value="{SapSystemCategory}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" textInEditModeSource="ValueListNoValidation">
+                                            <smartField:configuration><smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly" /></smartField:configuration>
                                         </smartField:SmartField>
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement6">
-                                        <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField6" value="{OppType}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement48" visible="{= ${OppType} === 'OTR' ? true : false }">
                                         <smartField:SmartField id="_IDGenSmartField48" value="{OppTypeOther}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement>
-                                        <smartField:SmartField id="editOpportunityType" value="{OpportunityType}" mandatory="true" fieldGroupIds="generalInfoFieldGroup">
-                                            <smartField:configuration><smartField:Configuration controlType="dropDownList" /></smartField:configuration>
+                                        <smartField:SmartField id="editOpportunityType" value="{OpportunityType}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" textInEditModeSource="ValueListNoValidation">
+                                            <smartField:configuration><smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly" /></smartField:configuration>
                                         </smartField:SmartField>
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement72">
-                                        <smartField:SmartField id="_IDGenSmartField73" value="{Complexity}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField73" value="{Complexity}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement71">
                                         <!-- Dropdown so the five proposal types list in their domain order (value-help dialogs sort by code) -->
-                                        <smartField:SmartField id="_IDGenSmartField72" value="{ProposalTypeOp}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated">
+                                        <smartField:SmartField id="_IDGenSmartField72" value="{ProposalTypeOp}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation">
                                             <smartField:configuration>
-                                                <smartField:Configuration id="_IDGenSmartFieldConfiguration72" controlType="dropDownList" />
+                                                <smartField:Configuration id="_IDGenSmartFieldConfiguration72" controlType="dropDownList" displayBehaviour="descriptionOnly" />
                                             </smartField:configuration>
                                         </smartField:SmartField>
                                     </smartForm:GroupElement>
@@ -152,7 +152,7 @@
                                         <smartField:SmartField id="_IDGenSmartField9" value="{OppTcv}" mandatory="{= (${Status} === 'SUBMITTED' || ${Status} === 'WIN' || ${Status} === 'COMPLETE') &amp;&amp; ${Status} !== ${viewEditableModel>/originalStatus} }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement10">
-                                        <smartField:SmartField id="_IDGenSmartField10" value="{CommModel}" mandatory="{= ${Status} === 'WIN' }" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" />
+                                        <smartField:SmartField id="_IDGenSmartField10" value="{CommModel}" mandatory="{= ${Status} === 'WIN' }" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement11">
                                         <smartField:SmartField id="_IDGenSmartField11" value="{CloseDate}" visible="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" mandatory="{= ${Status} === 'WIN' || ${Status} === 'LOSS' || ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />
@@ -187,7 +187,7 @@
                                         <smartField:SmartField id="_IDGenSmartField25" value="{PreSalesReviewwer}" mandatory="{= ${Status} === 'SUBMITTED' }" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement23">
-                                        <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" mandatory="{= ${Status} === 'SUBMITTED' }" innerControlsCreated="onControlCreated" fieldGroupIds="generalInfoFieldGroup" />
+                                        <smartField:SmartField id="_IDGenSmartField26" value="{ResourceFutureDemandUpdated}" mandatory="{= ${Status} === 'SUBMITTED' }" innerControlsCreated="onControlCreated" fieldGroupIds="generalInfoFieldGroup" textInEditModeSource="ValueListNoValidation" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement58">
                                         <smartField:SmartField id="_IDGenSmartField60" value="{DeliveryHandover}" visible="{= ${Status} === 'WIN' || ${Status} === 'COMPLETE' }" mandatory="{= ${Status} === 'COMPLETE' }" fieldGroupIds="generalInfoFieldGroup" />

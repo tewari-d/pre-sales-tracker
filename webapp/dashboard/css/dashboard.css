@@ -83,6 +83,11 @@
 .presalesDashboard .ownerStats .ownerRowActive { background: var(--sapList_Hover_Background); }
 @media (max-width: 800px) { .presalesDashboard .ownerSplit { grid-template-columns: minmax(0, 1fr); } }
 .presalesDashboard .ownerScroll { width: 100%; }
+.presalesDashboard .ownerAxisFooter { height: 3rem; overflow: hidden; }
+.presalesDashboard .ownerAxisScale { position: relative; height: 1.35rem; border-top: 1px solid var(--sapGroup_ContentBorderColor); box-sizing: border-box; }
+.presalesDashboard .ownerAxisTick { position: absolute; top: .25rem; transform: translateX(-50%); color: var(--sapContent_LabelColor); font-size: .75rem; white-space: nowrap; }
+.presalesDashboard .ownerAxisTitle { text-align: center; font-size: .75rem; color: var(--sapTextColor); }
+.presalesDashboard .ownerChartHost .v-m-valueAxis { visibility: hidden; }
 .presalesDashboard .ownerLegend { gap: .25rem 1.25rem; min-height: 2rem; padding: .1rem 0 .3rem; }
 .presalesDashboard .ownerLegendItem { gap: .35rem; }
 .presalesDashboard .ownerLegendLink { color: var(--sapTextColor); font-size: .75rem; }

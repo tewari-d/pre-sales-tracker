@@ -267,6 +267,7 @@ sap.ui.define(
           }
           chart.attachRenderComplete(() => this._restoreScroll());
           if (ownerSplit) {
+            chart.attachRenderComplete(() => this._syncOwnerAxis(chart));
             chart.attachRenderComplete(() => this._trackOwnerClickOrigin(chart));
             this._linkOwnerTable(chart);
           }
@@ -839,6 +840,33 @@ sap.ui.define(
             const hide = counts && !kept.some((k) => Math.abs(k - c) < 3);
             line.style.visibility = hide ? "hidden" : "";
           });
+        },
+        _syncOwnerAxis: function (chart) {
+          const footer = this.byId("ownerAxisFooter").getDomRef();
+          const host = this.byId("ownerHost").getDomRef();
+          const svg = chart.getDomRef()?.querySelector("svg");
+          if (!footer || !host || !svg) { return; }
+          const hostBounds = host.getBoundingClientRect();
+          const footerBounds = footer.getBoundingClientRect();
+          const scale = document.createElement("div");
+          scale.className = "ownerAxisScale";
+          scale.style.width = hostBounds.width + "px";
+          scale.style.marginLeft = (hostBounds.left - footerBounds.left) + "px";
+          svg.querySelectorAll(".v-m-valueAxis .v-label").forEach((label) => {
+            if (label.style.visibility === "hidden") { return; }
+            const bounds = label.getBoundingClientRect();
+            const tick = document.createElement("span");
+            tick.className = "ownerAxisTick";
+            tick.style.left = ((bounds.left + bounds.right) / 2 - hostBounds.left) + "px";
+            tick.textContent = label.textContent;
+            scale.appendChild(tick);
+          });
+          const title = document.createElement("div");
+          title.className = "ownerAxisTitle";
+          title.style.width = hostBounds.width + "px";
+          title.style.marginLeft = scale.style.marginLeft;
+          title.textContent = this._text(this._viewModel.getProperty("/metric") === "eur" ? "eurValue" : "opportunityCount");
+          footer.replaceChildren(scale, title);
         },
         _onChartSelect: function (name, event) {
           const points = (event.getParameter("data") || []).map(p => p && p.data).filter(p => p && p.Category);

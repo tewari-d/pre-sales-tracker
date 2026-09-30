@@ -247,6 +247,7 @@
                                     </VBox>
                                 </FlexBox>
                             </ScrollContainer>
+                            <VBox id="ownerAxisFooter" class="ownerAxisFooter"/>
                         </VBox>
                     </VBox>
                     <VBox id="opportunityTableSection" class="dashboardTable" busy="{dashboard>/processing}" busyIndicatorDelay="0">

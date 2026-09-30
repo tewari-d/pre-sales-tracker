@@ -17,6 +17,11 @@
       "toolsId": "fa465bf5-2659-4882-b211-a28ecc74dc72"
     },
     "dataSources": {
+      "textOnlyAnnotations": {
+        "uri": "annotations/text-only.xml",
+        "type": "ODataAnnotation",
+        "settings": { "localUri": "annotations/text-only.xml" }
+      },
       "NGR_OD_PS_TRACKER_ANNO_MDL": {
         "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='%2FNGR%2FOD_PS_TRACKER_ANNO_MDL',Version='0001')/$value/",
         "type": "ODataAnnotation",
@@ -29,7 +34,8 @@
         "type": "OData",
         "settings": {
           "annotations": [
-            "NGR_OD_PS_TRACKER_ANNO_MDL"
+            "NGR_OD_PS_TRACKER_ANNO_MDL",
+            "textOnlyAnnotations"
           ],
           "localUri": "localService/mainService/metadata.xml",
           "odataVersion": "2.0"
