@@ -68,9 +68,11 @@ This preview has no live SAP backend configured. Detail navigation opens the exi
 
 The navigation button works with the dashboard packaged below the tracker BSP. The dashboard standalone bootstrap uses the local resources proxy during development and `/sap/public/bc/ui5_ui5/resources/sap-ui-core.js` on ABAP.
 
-PS4 client 110 has a SAPUI5 Fiori App target mapping in the existing `ZNAG_SAP_PRC` catalog: semantic object `Presales`, action `analyze`, title `Presales Dashboard`, component ID `com.ngr.presales.dashboard`, URL `/sap/bc/ui5_ui5/ngr/bsp_ps_tracker/dashboard`. Desktop, tablet and phone are enabled; additional parameters are allowed. Mapping instance ID: `1ZHH6UF6T47TEWFR3CVNTA9QJ`. It uses the same catalog as the existing `ZPS_TRACKER-manage` target. No additional tile or role assignment was created.
+PS4 client 110 has a SAPUI5 Fiori App target mapping in the existing `ZNAG_SAP_PRC` catalog: semantic object `Presales`, action `analyze`, title `Presales Dashboard`, component ID `com.ngr.presales.dashboard`, URL `/sap/bc/ui5_ui5/ngr/bsp_ps_tracker/dashboard`. Desktop, tablet and phone are enabled; additional parameters are allowed. Mapping instance ID: `1ZHH6UF6T47TEWFR3CVNTA9QJ`. It uses the same catalog as the existing `ZPS_TRACKER-manage` target. A static `SAP Presales Dashboard` tile with the `sap-icon://bar-chart` icon and `Presales-analyze` intent was added to that catalog in client 110 on 2026-09-30; tile instance ID: `1ZHH6UF6T47TEYLZVC67IH9L7`. No role assignment was changed. The tile is in the catalog, but it is not assigned to the SAP Practice launchpad page; Manage Launchpad Pages and Manage Launchpad Spaces showed no editable entries in this client.
 
 The navigation changes were deployed to `/NGR/BSP_PS_TRACKER` in PS4 client 110 on 2026-09-10 using Workbench request `PS4K902012`. The launchpad mapping is recorded in new Customizing request `PS4K902016`, task `PS4K902017` (system-default target `PS4.100`). The requests remain modifiable; no release or import was performed. Other clients require the mapping to be transported or configured there as well.
+
+On 2026-09-30, the dashboard button was enabled on the tracker main page and deployed with the dashboard bundle to `/NGR/BSP_PS_TRACKER` in client 110 using Workbench request `PS4K902086`. Browser verification confirmed the button opens `#Presales-analyze` and loads the dashboard. The catalog tile was saved separately in launchpad designer in client 110.
 
 ## Validation
 
