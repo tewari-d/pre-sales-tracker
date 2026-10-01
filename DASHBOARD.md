@@ -1,5 +1,13 @@
 # Presales dashboard
 
+## Update on 2026-10-01
+
+- Opportunity Type now includes Ariba, SuccessFactors (`SUCCESSFAC` in the 10-character SAP field), and IBP. The tracker gets these choices from the active SAP domain; the dashboard labels and local mock domain data were updated too.
+- Opportunity Source now includes `SIS` (SAP India Sales). The dashboard has an Opportunity Source filter and the owner table shows the number of SIS opportunities between total count and EUR value. The owner legend follows the visible left-to-right stack order.
+- In client 500, the Opportunity Source was changed to SIS on 26 active opportunities assigned to Jamalur Rahman as owner. The one deleted Jamalur-owned opportunity was left unchanged. A guarded ABAP dry run and full-row comparison verified that unrelated fields and client 110 opportunity rows did not change.
+- On create, Opp. Size is mandatory when status is Submitted, Win, or Win and Completed. On edit, the size check applies when status changes **to** one of those three values. The amount must exceed zero, and must exceed 1 in USD or EUR. Both the UI and SAP backend implement this rule.
+- Built and deployed the tracker/dashboard bundle to client 110 on transport `PS4K902086`. The deployment dry run and upload succeeded; the live launchpad showed the Opportunity Source filter, SIS owner column, updated subtitle, and reversed legend order. The two SAP domains and the client 500 data change were verified, and SAP reported no inactive objects.
+
 The dashboard is a separate SAPUI5/Fiori component (`com.ngr.presales.dashboard`) in `webapp/dashboard`. It reads the existing OData V2 service in PS4 client 110. Tracker changes are limited to the **Presales Dashboard** button, its navigation handler, shell library dependency, and a direct-link layout fix: the route layout is applied after targets load so a newly opened tracker displays the selected detail. SAP changes comprise the UI5 bundle deployment and launchpad mapping documented below; business data and the OData service were not modified.
 
 ## Run

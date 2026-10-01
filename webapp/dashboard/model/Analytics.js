@@ -11,6 +11,7 @@ sap.ui.define([], function () {
   const OPPORTUNITY_TYPES = {
     AMS: "AMS", PUB_IMPL: "Public Cloud Implementation", PVT_IMPL: "Private Cloud Implementation",
     ROLLOUT: "Rollout", UPGRADE: "Upgrade", OTHER: "Others",
+    ARIBA: "Ariba", SUCCESSFAC: "SuccessFactors", IBP: "IBP",
   };
   const SAP_SYSTEM_CATEGORIES = {
     ECC: "ECC", S4_ONPREM: "S/4HANA On Premise", S4_PRIVATE: "S/4HANA Private Cloud",
@@ -32,6 +33,7 @@ sap.ui.define([], function () {
     status: { field: "Status", text: "StatusText" },
     owner: { field: "Owner", text: "Owner" },
     proposalCode: { field: "ProposalTypeOp", text: "ProposalTypeOpText" },
+    opportunitySource: { field: "OppType", text: "OppTypeText" },
     opportunityType: { field: "OpportunityType", text: "OpportunityTypeText" },
     sapSystemCategory: { field: "SapSystemCategory", text: "SapSystemCategoryText" },
     band: { field: "band", text: "bandText" },
@@ -327,7 +329,9 @@ sap.ui.define([], function () {
     return owners.flatMap((owner) => {
       const members = rows.filter((row) => (row.Owner || EMPTY) === owner.key);
       const ownerBase = rateBase.filter((row) => (row.Owner || EMPTY) === owner.key);
-      const ownerMetrics = summarize(members, today, ownerBase.length);
+      const ownerMetrics = Object.assign(summarize(members, today, ownerBase.length), {
+        sis: members.filter((row) => row.OppType === "SIS").length,
+      });
       return proposals.map((proposal) => {
         const segment = members.filter(
           (row) => (row.ProposalTypeOp || EMPTY) === proposal.key,

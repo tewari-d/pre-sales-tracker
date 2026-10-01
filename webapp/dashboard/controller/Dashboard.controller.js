@@ -766,6 +766,7 @@ sap.ui.define(
             key: item.key,
             label: item.label,
             total: item.ownerMetrics.total,
+            sis: item.ownerMetrics.sis,
             value: item.ownerMetrics.value,
             winRate: item.ownerMetrics.winRate,
           }));
@@ -800,12 +801,12 @@ sap.ui.define(
           const data = this._ownerAllData || [];
           const palette = this._ownerPalette(data);
           this._charts.owner.setVizProperties({plotArea: { colorPalette: palette }});
-          // Sticky legend strip: one entry per series, in the chart's series order.
+          // sap.viz renders horizontal stacks in reverse series order (left to right).
           const seen = new Set();
           const series = data.filter(item => !seen.has(item.proposalKey) && seen.add(item.proposalKey));
           this._viewModel.setProperty("/charts/ownerSeries", series.map((item, index) => ({
             key: item.proposalKey, label: item.proposalLabel, color: palette[index],
-          })));
+          })).reverse());
         },
         onOwnerLegendPress: function (event) {
           const series = event.getSource().getBindingContext("dashboard").getObject();

@@ -85,6 +85,12 @@
                             </MultiComboBox>
                         </VBox>
                         <VBox class="filterField">
+                            <Label text="{i18n>opportunitySource}" labelFor="opportunitySourceFilter"/>
+                            <MultiComboBox showSelectAll="true" id="opportunitySourceFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/opportunitySource}" selectionFinish=".onFilterChange" items="{dashboard>/options/opportunitySource}">
+                                <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
+                            </MultiComboBox>
+                        </VBox>
+                        <VBox class="filterField">
                             <Label text="{i18n>opportunityType}" labelFor="opportunityTypeFilter"/>
                             <MultiComboBox showSelectAll="true" id="opportunityTypeFilter" width="100%" placeholder="{i18n>allValues}" selectedKeys="{dashboard>/filters/opportunityType}" selectionFinish=".onFilterChange" items="{dashboard>/options/opportunityType}">
                                 <core:Item key="{dashboard>key}" text="{dashboard>text}"/>
@@ -224,13 +230,16 @@
                                     <VBox id="ownerStatsBox" class="ownerStats">
                                         <Table id="ownerStatsTable" items="{dashboard>/charts/ownerTable}" fixedLayout="false" sticky="ColumnHeaders" noDataText="{i18n>noData}" ariaLabelledBy="ownerTitle">
                                             <columns>
-                                                <Column hAlign="End" width="5.5rem">
+                                                <Column hAlign="End" width="4.5rem">
                                                     <Text text="{i18n>ownerStatsCount}"/>
                                                 </Column>
-                                                <Column hAlign="End" width="6.5rem">
+                                                <Column hAlign="End" width="4rem">
+                                                    <Text text="{i18n>ownerStatsSis}" tooltip="SAP India Sales opportunities"/>
+                                                </Column>
+                                                <Column hAlign="End" width="6rem">
                                                     <Text text="{i18n>ownerStatsValue}"/>
                                                 </Column>
-                                                <Column hAlign="End" width="5.5rem">
+                                                <Column hAlign="End" width="5rem">
                                                     <Text text="{i18n>winRate}"/>
                                                 </Column>
                                             </columns>
@@ -238,6 +247,7 @@
                                                 <ColumnListItem type="Active" press=".onOwnerRowPress">
                                                     <cells>
                                                         <Text text="{dashboard>total}"/>
+                                                        <Text text="{dashboard>sis}"/>
                                                         <Text text="{path:'dashboard>value',formatter:'.formatEur'}"/>
                                                         <Text text="{path:'dashboard>winRate',formatter:'.formatRate'}"/>
                                                     </cells>

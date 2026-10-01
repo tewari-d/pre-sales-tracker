@@ -1784,6 +1784,14 @@
     "DomainValue": "BUL"
   },
   {
+    "DomainName": "/NGR/DO_PS_OPP_TYPE",
+    "Language": "EN",
+    "ValueKey": "0007",
+    "Version": "0000",
+    "DomainValueText": "SAP India Sales",
+    "DomainValue": "SIS"
+  },
+  {
     "DomainName": "/NGR/DO_PS_PART_FN",
     "Language": "EN",
     "ValueKey": "0001",
@@ -3933,6 +3941,9 @@
   { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0004", "Version": "0000", "DomainValueText": "Rollout", "DomainValue": "ROLLOUT" },
   { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0005", "Version": "0000", "DomainValueText": "Upgrade", "DomainValue": "UPGRADE" },
   { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0006", "Version": "0000", "DomainValueText": "Others", "DomainValue": "OTHER" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0007", "Version": "0000", "DomainValueText": "Ariba", "DomainValue": "ARIBA" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0008", "Version": "0000", "DomainValueText": "SuccessFactors", "DomainValue": "SUCCESSFAC" },
+  { "DomainName": "/NGR/DO_PS_OPP_CATEGORY", "Language": "EN", "ValueKey": "0009", "Version": "0000", "DomainValueText": "IBP", "DomainValue": "IBP" },
   { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0001", "Version": "0000", "DomainValueText": "ECC", "DomainValue": "ECC" },
   { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0002", "Version": "0000", "DomainValueText": "S/4HANA On Premise", "DomainValue": "S4_ONPREM" },
   { "DomainName": "/NGR/DO_PS_SAP_SYS_CAT", "Language": "EN", "ValueKey": "0003", "Version": "0000", "DomainValueText": "S/4HANA Private Cloud", "DomainValue": "S4_PRIVATE" },

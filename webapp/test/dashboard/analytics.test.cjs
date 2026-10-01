@@ -137,6 +137,23 @@ test("coded opportunity and SAP system categories filter and group independently
     assert.deepEqual(plain(A.filter(rows, { opportunityType: ["AMS"], sapSystemCategory: ["S4_PRIVATE"] }).map(x => x.Id)), ["1"]);
     assert.equal(A.group(rows, "opportunityType", "count").find(x => x.key === "__UNASSIGNED__").count, 1);
     assert.equal(rows[0].SapSystem, "old free text");
+    assert.deepEqual(plain(A.options(rows, "opportunityType").filter(x => ["ARIBA", "SUCCESSFAC", "IBP"].includes(x.key)).map(x => [x.key, x.text])), [
+        ["ARIBA", "Ariba"], ["SUCCESSFAC", "SuccessFactors"], ["IBP", "IBP"]
+    ]);
+});
+
+test("opportunity source filters records and owner totals count only SIS opportunities", () => {
+    const rows = A.normalize([
+        row("1", { Owner: "Jamalur Rahman", OppType: "SIS", OppTypeText: "SAP India Sales", ProposalTypeOp: "FULL" }),
+        row("2", { Owner: "Jamalur Rahman", OppType: "DSR", OppTypeText: "Direct Sales", ProposalTypeOp: "CAP" }),
+        row("3", { Owner: "Alex", OppType: "SIS", OppTypeText: "SAP India Sales", ProposalTypeOp: "FULL" }),
+    ], {});
+    assert.deepEqual(plain(A.options(rows, "opportunitySource").map(x => [x.key, x.text])), [["DSR", "Direct Sales"], ["SIS", "SAP India Sales"]]);
+    assert.deepEqual(plain(A.filter(rows, { opportunitySource: ["SIS"] }).map(x => x.Id)), ["1", "3"]);
+    const ownerStacks = A.ownerProposalStacks(rows, "count", "2026-10-01");
+    assert.equal(ownerStacks.find(x => x.key === "Jamalur Rahman").ownerMetrics.sis, 1);
+    assert.equal(ownerStacks.find(x => x.key === "Alex").ownerMetrics.sis, 1);
+    assert.equal(A.ownerProposalStacks(A.filter(rows, { opportunitySource: ["DSR"] }), "count", "2026-10-01")[0].ownerMetrics.sis, 0);
 });
 
 test("verified statuses define pipeline, won, win-rate denominator and overdue correctly", () => {
@@ -279,6 +296,8 @@ test("load all pages using the service continuation token and original projectio
     assert.equal(model.calls[1].query.$skiptoken, "abc+123");
     assert.equal(model.calls[1].query.$select, model.calls[0].query.$select);
     assert.ok(model.calls[0].query.$select.split(",").includes("CloseDate"));
+    assert.ok(model.calls[0].query.$select.split(",").includes("OppType"));
+    assert.ok(model.calls[0].query.$select.split(",").includes("OppTypeText"));
     assert.equal(model.calls[1].entity, "/xNGRxCDS_PS_MASTER");
 });
 
