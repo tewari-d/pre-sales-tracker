@@ -233,7 +233,7 @@
                                                 <Column hAlign="End" width="4.5rem">
                                                     <Text text="{i18n>ownerStatsCount}"/>
                                                 </Column>
-                                                <Column hAlign="End" width="4rem">
+                                                <Column hAlign="End" width="7rem">
                                                     <Text text="{i18n>ownerStatsSis}" tooltip="SAP India Sales opportunities"/>
                                                 </Column>
                                                 <Column hAlign="End" width="6rem">
@@ -276,34 +276,34 @@
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
-                                <Column width="17rem" importance="High">
+                                <Column width="18%" importance="High">
                                     <Text text="{i18n>customer}"/>
                                 </Column>
-                                <Column width="7rem">
+                                <Column width="9%">
                                     <Text text="{i18n>received}"/>
                                 </Column>
-                                <Column width="7rem">
+                                <Column width="9%">
                                     <Text text="{i18n>winLossDate}"/>
                                 </Column>
-                                <Column width="8rem">
+                                <Column width="7%">
                                     <Text text="{i18n>bu}"/>
                                 </Column>
-                                <Column width="8rem">
+                                <Column width="8%">
                                     <Text text="{i18n>country}"/>
                                 </Column>
-                                <Column width="8rem">
+                                <Column width="7%">
                                     <Text text="{i18n>geography}"/>
                                 </Column>
-                                <Column width="8rem" importance="High">
+                                <Column width="8%" importance="High">
                                     <Text text="{i18n>status}"/>
                                 </Column>
-                                <Column width="8rem">
+                                <Column width="8%">
                                     <Text text="{i18n>owner}"/>
                                 </Column>
-                                <Column width="11rem">
+                                <Column width="10%">
                                     <Text text="{i18n>opportunityType}"/>
                                 </Column>
-                                <Column width="9rem" hAlign="End" importance="High">
+                                <Column width="11%" hAlign="End" importance="High">
                                     <Text text="{i18n>sizeEur}"/>
                                 </Column>
                             </columns>
