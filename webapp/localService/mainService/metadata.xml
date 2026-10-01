@@ -796,9 +796,6 @@
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.NGR_OD_PS_TRACKER_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
             </Annotations>
-            <Annotations Target="NGR.OD_PS_TRACKER_SRV.xNGRxCDS_PS_MASTERType/SapSystem" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
             <Annotations Target="NGR.OD_PS_TRACKER_SRV.NGR_OD_PS_TRACKER_SRV_Entities/xNGRxCDS_PS_REMARKS" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Capabilities.FilterRestrictions">
                     <Record>

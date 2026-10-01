@@ -1,5 +1,11 @@
 # SAP backend change applied in client 110 (28 September 2026)
 
+## Superseding update on 1 October 2026
+
+`/NGR/T_MASTER-SAP_SYSTEM` was removed after exporting every nonblank legacy value from clients 500 and 110 to `outputs/sap-system-legacy-export-20261001/`. The source files in this directory reflect the active table/CDS/DPC definitions: the tracker uses `SAP_SYSTEM_CATEGORY`; `SapSystem` remains a hidden blank CDS projection solely to keep the generated OData property compatible. The DPC extension no longer maps the legacy field.
+
+The opportunity-size rule now runs on every create/edit save whose current status is Submitted, Win, or Win and Completed, including edits with unchanged status. The earlier transition-only statement below describes the 29 September state and has been superseded.
+
 These files record the source applied to PS4 with workbench transport `PS4K902086` (task `PS4K902087`). The objects are active, and the tracker/dashboard bundle was deployed to client 110. No existing `/NGR/T_MASTER` field was deleted; its field count increased from 46 to 48. No opportunity rows in clients 110 or 500 were backfilled or corrected.
 
 The 29 September update to [`update_entity.abap`](update_entity.abap) was applied and activated in client 110 under `PS4K902086`. It limits the opportunity-size check to status transitions into Submitted, Win or Win and Completed. The tracker UI was redeployed with the matching rule; the other source files reflect the activated 28 September version.

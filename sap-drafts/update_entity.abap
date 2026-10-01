@@ -42,10 +42,9 @@
           message = |Opportunity with ID { lv_id } not found|.
     ENDIF.
 
-    " Require a valid size only when the status enters the submitted/won stages.
-    IF ls_payload-status <> ls_db_before-status
-       AND ( ls_payload-status = 'SUBMITTED' OR ls_payload-status = 'WIN'
-             OR ls_payload-status = 'COMPLETE' ).
+    " Require a valid size on every save in the submitted/won stages.
+    IF ls_payload-status = 'SUBMITTED' OR ls_payload-status = 'WIN'
+       OR ls_payload-status = 'COMPLETE'.
       IF ls_payload-opptcv <= 0 OR ls_payload-currency IS INITIAL
          OR ( ( ls_payload-currency = 'USD' OR ls_payload-currency = 'EUR' )
               AND ls_payload-opptcv <= 1 ).
@@ -82,7 +81,6 @@
     ls_db_after-reviewed_by_pr        = ls_payload-practicereviewwer.
     ls_db_after-reviewed_by_ps        = ls_payload-presalesreviewwer.
     ls_db_after-resource_fut_dmd      = ls_payload-resourcefuturedemandupdated.
-    ls_db_after-sap_system            = ls_payload-sapsystem.
     ls_db_after-sap_system_category   = ls_payload-sapsystemcategory.
     ls_db_after-opp_category          = ls_payload-opportunitytype.
     ls_db_after-delivery_handover     = ls_payload-deliveryhandover.

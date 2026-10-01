@@ -18,7 +18,7 @@ function smartField(source, field) {
 test('all always-required opportunity fields have SmartField mandatory markers', () => {
   const fields = [
     'CustomerName', 'Geography', 'LineOfBusiness', 'Country', 'DealType',
-    'BUDetails', 'Status', 'SapSystem', 'SapSystemCategory', 'OppType',
+    'BUDetails', 'Status', 'SapSystemCategory', 'OppType',
     'OpportunityType', 'Complexity', 'ProposalTypeOp', 'ReceivedDate'
   ];
 

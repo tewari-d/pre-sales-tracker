@@ -452,7 +452,6 @@ sap.ui.define(
             DealType: "Deal Type",
             Status: "Status",
             OppType: "Opportunity Source",
-            SapSystem: "SAP System",
             BUDetails: "BU Details",
             Complexity: "Complexity",
             ProposalTypeOp: "Proposal Type",

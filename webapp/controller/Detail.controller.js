@@ -300,7 +300,7 @@ sap.ui.define(
             return;
           }
 
-          const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency, this._oInitialStatus);
+          const sizeError = FieldValidators.opportunitySizeError(oPayload.Status, oPayload.OppTcv, oPayload.Currency);
           if (sizeError) {
             sap.m.MessageBox.error(sizeError, { onClose: () => this.byId("_IDGenSmartField9").focus() });
             oView.setBusy(false);
@@ -326,19 +326,6 @@ sap.ui.define(
               {
                 onClose: function () {
                   this.byId("_IDGenSmartField72").focus();
-                }.bind(this),
-              }
-            );
-            oView.setBusy(false);
-            return;
-          }
-
-          if (!oPayload.SapSystem) {
-            sap.m.MessageBox.error(
-              `Please specify SAP System of the opportunity.`,
-              {
-                onClose: function () {
-                  this.byId("_IDGenSmartField62").focus();
                 }.bind(this),
               }
             );

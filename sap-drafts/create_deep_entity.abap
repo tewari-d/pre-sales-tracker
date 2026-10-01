@@ -78,7 +78,6 @@
        currency            = currency
        comm_model          = commmodel
        close_date          = closedate
-       sap_system          = sapsystem
        sap_system_category = sapsystemcategory
        opp_category        = opportunitytype
        probability         = probability

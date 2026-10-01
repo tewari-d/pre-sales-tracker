@@ -19,10 +19,8 @@ sap.ui.define([], function () {
             (Object.prototype.toString.call(value) === "[object Date]" && !Number.isFinite(value.getTime()));
         });
       },
-      opportunitySizeError: function (status, value, currency, previousStatus) {
-        const enteringRequiredStatus = ["SUBMITTED", "WIN", "COMPLETE"].includes(status) &&
-          (previousStatus === undefined || previousStatus !== status);
-        if (!enteringRequiredStatus) return "";
+      opportunitySizeError: function (status, value, currency) {
+        if (!["SUBMITTED", "WIN", "COMPLETE"].includes(status)) return "";
         if (value === null || value === undefined || String(value).trim() === "") {
           return "Opp. Size is required and must be greater than zero.";
         }

@@ -89,7 +89,7 @@ function plan() {
                 CustomerDesc:'Synthetic development scenario. Company names are illustrative; no actual engagement is represented.',
                 OppDesc:pick(topics) + ' - ' + marker + '-' + String(i+1).padStart(3,'0'),
                 Geography:geo,Country:country,BUDetails:i%43===0?'':bu[i%bu.length],LineOfBusiness:pick(values('LOB')),
-                DealType:pick(values('DEAL_TYPE')),OppType:pick(values('OPP_TYPE')),SapSystem:'SAP S/4HANA; SAP BTP',
+                DealType:pick(values('DEAL_TYPE')),OppType:pick(values('OPP_TYPE')),
                 SolutionArea:pick(topics),ProposalType:pick(['Implementation','Advisory','Migration','Managed services','Proof of concept','Integration']),ProposalTypeOp:proposal,
                 ReceivedDate:date(received),DueSubmissionDate:date(due),PlannedSubmissionDate:date(due),
                 SubmissionDate:['WIP','HOLD','NOGO'].includes(status)?null:date(submitted),

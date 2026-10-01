@@ -1,14 +1,22 @@
 # Presales dashboard
 
+## Update on 2026-10-01: size validation and SAP System retirement
+
+- The client 500 Win/Loss Date (`CLOSE_DATE`) for opportunity `0000001241` was cleared with a guarded, single-field update. The record remains Submitted; all other fields and client 110 rows were verified unchanged.
+- Opp. Size and currency are now checked on **every create and edit save** when the current status is Submitted, Win, or Win and Completed. The amount must be greater than zero, and greater than 1 in USD or EUR. The UI and active SAP DPC extension use the same rule.
+- Before removing the legacy free-text `SAP_SYSTEM` table column, all 757 nonblank values were exported by ID and client under `outputs/sap-system-legacy-export-20261001/` (331 in client 500; 426 in client 110). In client 500, 118 active rows had a nonblank legacy value and no category. They remain unmapped; the export preserves their old text for review.
+- `/NGR/T_MASTER` no longer has `SAP_SYSTEM`. Tracker create/edit forms and validations use `SapSystemCategory` only. The CDS keeps a hidden, blank `SapSystem` projection for compatibility with generated OData metadata; the DPC extension no longer writes the old field. The demo analytical cube and ALP no longer project the legacy field. The table, dependent CDS views, metadata extensions, service definition and DPC extension are active. Client 110 and 500 OData reads returned HTTP 200 after activation.
+- The updated tracker bundle was deployed to client 110 on `PS4K902086`. Live create, display and edit screens showed SAP System Category without the retired free-text field. The UI5 build, 57 dashboard/validation tests and deployment dry run passed. SAP reported zero inactive objects; DD03L no longer lists `SAP_SYSTEM` on `/NGR/T_MASTER`.
+
 ## Update on 2026-10-01
 
 - Opportunity Type now includes Ariba, SuccessFactors (`SUCCESSFAC` in the 10-character SAP field), and IBP. The tracker gets these choices from the active SAP domain; the dashboard labels and local mock domain data were updated too.
 - Opportunity Source now includes `SIS` (SAP India Sales). The dashboard has an Opportunity Source filter and the owner table shows the number of SIS opportunities between total count and EUR value. The owner legend follows the visible left-to-right stack order.
 - In client 500, the Opportunity Source was changed to SIS on 26 active opportunities assigned to Jamalur Rahman as owner. The one deleted Jamalur-owned opportunity was left unchanged. A guarded ABAP dry run and full-row comparison verified that unrelated fields and client 110 opportunity rows did not change.
-- On create, Opp. Size is mandatory when status is Submitted, Win, or Win and Completed. On edit, the size check applies when status changes **to** one of those three values. The amount must exceed zero, and must exceed 1 in USD or EUR. Both the UI and SAP backend implement this rule.
+- The original October 1 size rule checked edits only when status changed to Submitted, Win, or Win and Completed. The update above supersedes it for edits that remain in those statuses.
 - Built and deployed the tracker/dashboard bundle to client 110 on transport `PS4K902086`. The deployment dry run and upload succeeded; the live launchpad showed the Opportunity Source filter, SIS owner column, updated subtitle, and reversed legend order. The two SAP domains and the client 500 data change were verified, and SAP reported no inactive objects.
 
-The dashboard is a separate SAPUI5/Fiori component (`com.ngr.presales.dashboard`) in `webapp/dashboard`. It reads the existing OData V2 service in PS4 client 110. Tracker changes are limited to the **Presales Dashboard** button, its navigation handler, shell library dependency, and a direct-link layout fix: the route layout is applied after targets load so a newly opened tracker displays the selected detail. SAP changes comprise the UI5 bundle deployment and launchpad mapping documented below; business data and the OData service were not modified.
+The dashboard is a separate SAPUI5/Fiori component (`com.ngr.presales.dashboard`) in `webapp/dashboard`. It reads the existing OData V2 service in PS4 client 110. The earlier deployment history below records the initial launchpad integration; the October 1 sections above record later SAP data and schema changes.
 
 ## Run
 

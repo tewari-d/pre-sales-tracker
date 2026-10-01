@@ -128,9 +128,8 @@ define view entity /NGR/CDS_PS_MASTER
       @EndUserText.label: 'Opp. Size'
       PreSalesMaster.opp_tcv                         as OppTcv,
       PreSalesMaster.currency                        as Currency,
-      @EndUserText.label: 'SAP System'
-      @ObjectModel.mandatory: true
-      PreSalesMaster.sap_system                      as SapSystem,
+      @UI.hidden: true
+      cast( '' as abap.char(500) )                  as SapSystem,
       @ObjectModel.text.association: '_SapSystemCategoryText'
       @ObjectModel.text.element: ['SapSystemCategoryText']
       @UI.textArrangement: #TEXT_FIRST

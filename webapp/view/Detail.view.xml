@@ -105,9 +105,6 @@
                                     <smartForm:GroupElement id="_IDGenGroupElement5">
                                         <smartField:SmartField id="_IDGenSmartField5" value="{OppDesc}" app:multiLineSettings="{cols: 50, rows: 2}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
-                                    <smartForm:GroupElement id="_IDGenGroupElement60">
-                                        <smartField:SmartField id="_IDGenSmartField62" value="{SapSystem}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" />
-                                    </smartForm:GroupElement>
                                     <smartForm:GroupElement>
                                         <smartField:SmartField id="editSapSystemCategory" value="{SapSystemCategory}" mandatory="true" fieldGroupIds="generalInfoFieldGroup" textInEditModeSource="ValueListNoValidation">
                                             <smartField:configuration><smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly" /></smartField:configuration>

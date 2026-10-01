@@ -126,17 +126,16 @@ test("geography filter uses the requested labels and order without changing stor
     ]);
 });
 
-test("coded opportunity and SAP system categories filter and group independently of legacy SAP System text", () => {
+test("coded opportunity and SAP system categories filter and group independently", () => {
     const rows = A.normalize([
-        row("1", { OpportunityType: "AMS", SapSystemCategory: "S4_PRIVATE", SapSystem: "old free text" }),
-        row("2", { OpportunityType: "PUB_IMPL", SapSystemCategory: "S4_PUBLIC", SapSystem: "other free text" }),
-        row("3", { OpportunityType: "", SapSystemCategory: "", SapSystem: "SAP ECC" })
+        row("1", { OpportunityType: "AMS", SapSystemCategory: "S4_PRIVATE" }),
+        row("2", { OpportunityType: "PUB_IMPL", SapSystemCategory: "S4_PUBLIC" }),
+        row("3", { OpportunityType: "", SapSystemCategory: "" })
     ], {});
     assert.deepEqual(plain(A.options(rows, "opportunityType").slice(0, 3).map(x => x.text)), ["AMS", "Public Cloud Implementation", "Private Cloud Implementation"]);
     assert.deepEqual(plain(A.options(rows, "sapSystemCategory").slice(0, 3).map(x => x.text)), ["ECC", "S/4HANA On Premise", "S/4HANA Private Cloud"]);
     assert.deepEqual(plain(A.filter(rows, { opportunityType: ["AMS"], sapSystemCategory: ["S4_PRIVATE"] }).map(x => x.Id)), ["1"]);
     assert.equal(A.group(rows, "opportunityType", "count").find(x => x.key === "__UNASSIGNED__").count, 1);
-    assert.equal(rows[0].SapSystem, "old free text");
     assert.deepEqual(plain(A.options(rows, "opportunityType").filter(x => ["ARIBA", "SUCCESSFAC", "IBP"].includes(x.key)).map(x => [x.key, x.text])), [
         ["ARIBA", "Ariba"], ["SUCCESSFAC", "SuccessFactors"], ["IBP", "IBP"]
     ]);

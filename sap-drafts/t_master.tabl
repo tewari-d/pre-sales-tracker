@@ -27,7 +27,6 @@ define table /ngr/t_master {
   @Semantics.amount.currencyCode : '/ngr/t_master.currency'
   opp_tcv             : /ngr/de_ps_opp_tcv;
   currency            : waers;
-  sap_system          : /ngr/de_sap_sys;
   sap_system_category : /ngr/de_ps_sap_sys_cat;
   opp_category        : /ngr/de_ps_opp_category;
   comm_model          : /ngr/de_ps_comm_mdl;
