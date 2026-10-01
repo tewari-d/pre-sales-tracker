@@ -276,34 +276,37 @@
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
-                                <Column width="18%" importance="High">
+                                <Column width="17%" importance="High">
                                     <Text text="{i18n>customer}"/>
                                 </Column>
-                                <Column width="9%">
+                                <Column width="8%">
                                     <Text text="{i18n>received}"/>
                                 </Column>
-                                <Column width="9%">
+                                <Column width="8%">
                                     <Text text="{i18n>winLossDate}"/>
                                 </Column>
-                                <Column width="7%">
+                                <Column width="6%">
                                     <Text text="{i18n>bu}"/>
                                 </Column>
-                                <Column width="8%">
+                                <Column width="7%">
                                     <Text text="{i18n>country}"/>
                                 </Column>
-                                <Column width="7%">
+                                <Column width="6%">
                                     <Text text="{i18n>geography}"/>
                                 </Column>
                                 <Column width="8%" importance="High">
                                     <Text text="{i18n>status}"/>
                                 </Column>
-                                <Column width="8%">
+                                <Column width="7%">
                                     <Text text="{i18n>owner}"/>
                                 </Column>
-                                <Column width="10%">
+                                <Column width="9%">
                                     <Text text="{i18n>opportunityType}"/>
                                 </Column>
-                                <Column width="11%" hAlign="End" importance="High">
+                                <Column width="9%">
+                                    <Text text="{i18n>sapSystemCategory}"/>
+                                </Column>
+                                <Column width="10%" hAlign="End" importance="High">
                                     <Text text="{i18n>sizeEur}"/>
                                 </Column>
                             </columns>
@@ -322,6 +325,7 @@
                                         <ObjectStatus text="{= ${dashboard>StatusText} || ${dashboard>Status} }" state="{path:'dashboard>Status',formatter:'.statusState'}"/>
                                         <Text text="{= ${dashboard>Owner} || 'Unassigned' }"/>
                                         <Text text="{= ${dashboard>OpportunityTypeText} || ${dashboard>OpportunityType} || 'Unassigned' }"/>
+                                        <Text text="{= ${dashboard>SapSystemCategoryText} || ${dashboard>SapSystemCategory} || 'Unassigned' }"/>
                                         <ObjectNumber number="{path:'dashboard>eur',formatter:'.formatAmount'}" unit="EUR" emphasized="false"/>
                                     </cells>
                                 </ColumnListItem>
