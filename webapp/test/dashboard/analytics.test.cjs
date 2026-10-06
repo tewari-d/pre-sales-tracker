@@ -130,15 +130,19 @@ test("coded opportunity and SAP system categories filter and group independently
     const rows = A.normalize([
         row("1", { OpportunityType: "AMS", SapSystemCategory: "S4_PRIVATE" }),
         row("2", { OpportunityType: "PUB_IMPL", SapSystemCategory: "S4_PUBLIC" }),
+        row("4", { OpportunityType: "INTEG", SapSystemCategory: "S4_ONPREM" }),
         row("3", { OpportunityType: "", SapSystemCategory: "" })
     ], {});
     assert.deepEqual(plain(A.options(rows, "opportunityType").slice(0, 3).map(x => x.text)), ["AMS", "Public Cloud Implementation", "Private Cloud Implementation"]);
     assert.deepEqual(plain(A.options(rows, "sapSystemCategory").slice(0, 3).map(x => x.text)), ["ECC", "S/4HANA On Premise", "S/4HANA Private Cloud"]);
     assert.deepEqual(plain(A.filter(rows, { opportunityType: ["AMS"], sapSystemCategory: ["S4_PRIVATE"] }).map(x => x.Id)), ["1"]);
     assert.equal(A.group(rows, "opportunityType", "count").find(x => x.key === "__UNASSIGNED__").count, 1);
-    assert.deepEqual(plain(A.options(rows, "opportunityType").filter(x => ["ARIBA", "SUCCESSFAC", "IBP"].includes(x.key)).map(x => [x.key, x.text])), [
-        ["ARIBA", "Ariba"], ["SUCCESSFAC", "SuccessFactors"], ["IBP", "IBP"]
+    assert.deepEqual(plain(A.options(rows, "opportunityType").filter(x => ["ARIBA", "SUCCESSFAC", "IBP", "INTEG"].includes(x.key)).map(x => [x.key, x.text])), [
+        ["ARIBA", "Ariba"], ["SUCCESSFAC", "SuccessFactors"], ["IBP", "IBP"], ["INTEG", "Integration"]
     ]);
+    assert.equal(A.options(rows, "opportunityType").at(-1).key, "OTHER");
+    assert.deepEqual(plain(A.filter(rows, { opportunityType: ["INTEG"] }).map(x => x.Id)), ["4"]);
+    assert.equal(A.group(rows, "opportunityType", "count").find(x => x.key === "INTEG").count, 1);
 });
 
 test("opportunity source filters records and owner totals count only SIS opportunities", () => {

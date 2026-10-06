@@ -1,0 +1,19 @@
+{
+  "name": "/NGR/DO_PS_OPP_CATEGORY",
+  "description": "Opportunity Type",
+  "dataType": "CHAR",
+  "length": 10,
+  "outputLength": 10,
+  "fixedValues": [
+    { "low": "AMS", "description": "AMS" },
+    { "low": "PUB_IMPL", "description": "Public Cloud Implementation" },
+    { "low": "PVT_IMPL", "description": "Private Cloud Implementation" },
+    { "low": "ROLLOUT", "description": "Rollout" },
+    { "low": "UPGRADE", "description": "Upgrade" },
+    { "low": "ARIBA", "description": "Ariba" },
+    { "low": "SUCCESSFAC", "description": "SuccessFactors" },
+    { "low": "IBP", "description": "IBP" },
+    { "low": "INTEG", "description": "Integration" },
+    { "low": "OTHER", "description": "Others" }
+  ]
+}

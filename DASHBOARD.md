@@ -1,5 +1,9 @@
 # Presales dashboard
 
+## Update on 2026-10-06: Integration opportunity type
+
+Integration (`INTEG`) is an Opportunity Type in the tracker and dashboard. Others is last in the SAP domain value help and dashboard filter, including when Unassigned is present. Existing opportunity-type codes are retained. The SAP domain is shared across clients; the application bundle is deployed through client 110. The BU consolidation inventory and proposal files are separate review artifacts under `outputs/bu-review-20261006/`; no BU data or allowed BU choices were changed during planning.
+
 ## Update on 2026-10-01: size validation and SAP System retirement
 
 - The client 500 Win/Loss Date (`CLOSE_DATE`) for opportunity `0000001241` was cleared with a guarded, single-field update. The record remains Submitted; all other fields and client 110 rows were verified unchanged.

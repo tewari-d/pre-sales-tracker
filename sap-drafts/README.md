@@ -1,5 +1,9 @@
 # SAP backend change applied in client 110 (28 September 2026)
 
+## Opportunity Type update on 6 October 2026
+
+`/NGR/DO_PS_OPP_CATEGORY` now includes `INTEG` (Integration). Its fixed values were reordered so Others is last, retaining all existing codes. The domain is shared across clients of PS4; tracker value help in clients 110 and 500 uses the same list. The dashboard choices and local mock values use the matching order. This change does not update opportunity records or BU values. The requested BU consolidation remains a review plan under `outputs/bu-review-20261006/`.
+
 ## Superseding update on 1 October 2026
 
 `/NGR/T_MASTER-SAP_SYSTEM` was removed after exporting every nonblank legacy value from clients 500 and 110 to `outputs/sap-system-legacy-export-20261001/`. The source files in this directory reflect the active table/CDS/DPC definitions: the tracker uses `SAP_SYSTEM_CATEGORY`; `SapSystem` remains a hidden blank CDS projection solely to keep the generated OData property compatible. The DPC extension no longer maps the legacy field.
@@ -28,6 +32,10 @@ ABAP Dictionary, CDS, domain and class definitions are workbench objects shared 
 | `PVT_IMPL` | Private Cloud Implementation |
 | `ROLLOUT` | Rollout |
 | `UPGRADE` | Upgrade |
+| `ARIBA` | Ariba |
+| `SUCCESSFAC` | SuccessFactors |
+| `IBP` | IBP |
+| `INTEG` | Integration |
 | `OTHER` | Others |
 
 | SAP System Category code | Description |

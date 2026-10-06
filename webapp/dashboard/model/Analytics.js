@@ -10,8 +10,9 @@ sap.ui.define([], function () {
   const GEOGRAPHY_ORDER = ["MENA", "APAC", "EUROPE", "UK", "NA", "AUS", "AFRICA"];
   const OPPORTUNITY_TYPES = {
     AMS: "AMS", PUB_IMPL: "Public Cloud Implementation", PVT_IMPL: "Private Cloud Implementation",
-    ROLLOUT: "Rollout", UPGRADE: "Upgrade", OTHER: "Others",
+    ROLLOUT: "Rollout", UPGRADE: "Upgrade",
     ARIBA: "Ariba", SUCCESSFAC: "SuccessFactors", IBP: "IBP",
+    INTEG: "Integration", OTHER: "Others",
   };
   const SAP_SYSTEM_CATEGORIES = {
     ECC: "ECC", S4_ONPREM: "S/4HANA On Premise", S4_PRIVATE: "S/4HANA Private Cloud",
@@ -164,7 +165,8 @@ sap.ui.define([], function () {
       });
     });
     return Array.from(map.values()).sort((a, b) =>
-      fixed ? (Object.keys(fixed).indexOf(a.key) < 0 ? Object.keys(fixed).length : Object.keys(fixed).indexOf(a.key)) -
+      fixed ? (dimension === "opportunityType" ? Number(a.key === "OTHER") - Number(b.key === "OTHER") : 0) ||
+        (Object.keys(fixed).indexOf(a.key) < 0 ? Object.keys(fixed).length : Object.keys(fixed).indexOf(a.key)) -
         (Object.keys(fixed).indexOf(b.key) < 0 ? Object.keys(fixed).length : Object.keys(fixed).indexOf(b.key)) || a.text.localeCompare(b.text) :
       dimension === "geography"
         ? (GEOGRAPHY_ORDER.indexOf(a.key) < 0 ? GEOGRAPHY_ORDER.length : GEOGRAPHY_ORDER.indexOf(a.key)) -
