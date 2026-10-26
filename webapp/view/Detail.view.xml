@@ -10,6 +10,16 @@
     xmlns:smartField="sap.ui.comp.smartfield" core:require="{DateType: 'sap/ui/model/type/Date'}"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns:form="sap.ui.layout.form">
+    <mvc:dependents>
+        <m:ResponsivePopover id="winChanceInfoPopover" title="{i18n>winChanceLabel}" contentWidth="20rem" placement="HorizontalPreferredRight" class="sapUiContentPadding">
+            <m:content>
+                <m:Text text="{i18n>winChanceInfoText}" />
+            </m:content>
+            <m:endButton>
+                <m:Button text="{i18n>winChanceInfoClose}" press=".onCloseWinChanceInfo" />
+            </m:endButton>
+        </m:ResponsivePopover>
+    </mvc:dependents>
     <ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="true" headerContentPinnable="true" isChildPage="true" toggleHeaderOnTitleClick="false" upperCaseAnchorBar="false">
         <headerTitle>
             <ObjectPageDynamicHeaderTitle id="_IDGenObjectPageDynamicHeaderTitle">
@@ -158,7 +168,13 @@
                                         <smartField:SmartField id="idEditProbability" value="{Probability}" fieldGroupIds="generalInfoFieldGroup" />
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement70">
-                                        <smartField:SmartField id="_IDGenSmartField71" value="{WinChance}" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" editable="false" />
+                                        <smartForm:label>
+                                            <m:Label text="{i18n>winChanceLabel}" labelFor="_IDGenSmartField71" />
+                                        </smartForm:label>
+                                        <m:HBox alignItems="Center">
+                                            <smartField:SmartField id="_IDGenSmartField71" value="{WinChance}" width="auto" fieldGroupIds="generalInfoFieldGroup" innerControlsCreated="onControlCreated" editable="false" />
+                                            <core:Icon id="winChanceInfoButton" src="sap-icon://hint" size="1rem" color="Default" decorative="false" alt="{i18n>winChanceInfoTooltip}" tooltip="{i18n>winChanceInfoTooltip}" press=".onWinChanceInfoPress" class="sapUiTinyMarginBegin" />
+                                        </m:HBox>
                                     </smartForm:GroupElement>
                                     <smartForm:GroupElement id="_IDGenGroupElement">
                                         <smartField:SmartField id="_IDGenSmartField23" value="{DocUrl}" visible="{viewEditableModel>/editMode}" url="{DocUrl}" fieldGroupIds="generalInfoFieldGroup" />

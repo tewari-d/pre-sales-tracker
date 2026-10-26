@@ -47,6 +47,12 @@ sap.ui.define(
           }
           this._waitAndAttachShellBackHandler();
         },
+        onWinChanceInfoPress: function (oEvent) {
+          this.byId("winChanceInfoPopover").openBy(oEvent.getSource());
+        },
+        onCloseWinChanceInfo: function () {
+          this.byId("winChanceInfoPopover").close();
+        },
         onUpdateNewRemarks: function (oEvent) {
           var oView = this.getView();
           var oFeedInput = oView.byId("_IDGenFeedInput1");
